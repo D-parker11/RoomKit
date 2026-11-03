@@ -96,8 +96,9 @@ Never commit signing keys, passwords, real tenant databases or backups.
 ## Verification Status
 
 - Existing working-folder debug build: successful.
-- JVM test task command: completed successfully; test count pending review.
-- Clean-clone build and launch: pending.
+- JVM tests: 1 test in ExampleUnitTest passed, with no failures or errors.
+- Clean-clone build and emulator launch: passed on 3 November 2026.
+- Developer reported that the features worked in the cloned app.
 - Full lifecycle and integration testing: pending.
 - School README template compliance: pending template availability.
 
