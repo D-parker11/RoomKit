@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="iv_action">Void Invoice</string>
+    <string name="iv_title">Void this invoice?</string>
+    <string name="iv_explanation">This cancels the bill and removes its outstanding balance. The original invoice remains in history. Invoices with active payments cannot be voided.</string>
+    <string name="iv_reason_hint">Reason (required)</string>
+    <string name="iv_reason_required">Enter a reason for voiding this invoice.</string>
+    <string name="iv_keep">Keep Invoice</string>
+    <string name="iv_success">Invoice voided. History preserved.</string>
+    <string name="iv_failed">Unable to void invoice. Please try again.</string>
+</resources>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.RoomKit.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/roomkit_spacing_md"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/roomkit_card_padding">
+
+        <!-- Top Header: Room Number, Chevron, and Occupied Badge -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvRoomNumber"
+                style="@style/TextAppearance.RoomKit.SectionTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="ROOM 01" />
+
+            <TextView
+                style="@style/TextAppearance.RoomKit.Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_black_rounded"
+                android:backgroundTint="@color/roomkit_primary"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="Occupied"
+                android:textColor="@color/roomkit_on_primary" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="Open details"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="@color/roomkit_text_muted" />
+        </LinearLayout>
+
+        <!-- Tenant Name & Monthly Rent -->
+        <TextView
+            android:id="@+id/tvTenantName"
+            style="@style/TextAppearance.RoomKit.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/roomkit_text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Davith Sok" />
+
+        <TextView
+            android:id="@+id/tvMonthlyRent"
+            style="@style/TextAppearance.RoomKit.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/roomkit_text_secondary"
+            tools:text="400,000 ៛" />
+
+        <!-- Utility Readings Container (Structured 2 Columns) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/roomkit_spacing_md"
+            android:background="#F8FAFC"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/roomkit_spacing_md"
+            android:paddingVertical="10dp">
+
+            <!-- Electricity -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="Electricity"
+                    android:src="@drawable/ic_bolt"
+                    app:tint="@color/roomkit_text_muted" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Electricity"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvElectricityUsage"
+                        style="@style/TextAppearance.RoomKit.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        tools:text="140 kWh" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/roomkit_divider" />
+
+            <!-- Water -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="Water"
+                    android:src="@drawable/ic_water"
+                    app:tint="@color/roomkit_text_muted" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Water"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvWaterUsage"
+                        style="@style/TextAppearance.RoomKit.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        tools:text="12 m³" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Footer Divider & Payment / Due Day Status -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/roomkit_divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvDueDay"
+                style="@style/TextAppearance.RoomKit.Caption"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/roomkit_text_secondary"
+                tools:text="Due on day 5" />
+
+            <TextView
+                android:id="@+id/tvInvoiceStatusBadge"
+                style="@style/TextAppearance.RoomKit.Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="3dp"
+                tools:background="@drawable/bg_badge_unpaid_pill"
+                tools:text="Unpaid"
+                tools:textColor="@color/roomkit_warning_dark" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

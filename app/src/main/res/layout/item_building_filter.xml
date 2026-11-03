@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardFilter"
+    android:layout_width="wrap_content"
+    android:layout_height="38dp"
+    android:layout_marginEnd="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="19dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp">
+
+    <TextView
+        android:id="@+id/tvFilterName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        tools:text="All Buildings" />
+</com.google.android.material.card.MaterialCardView>

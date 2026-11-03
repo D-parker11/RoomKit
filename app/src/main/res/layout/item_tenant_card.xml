@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.RoomKit.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/roomkit_border"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp">
+
+        <!-- Top Row: Tenant Name & Status Badge -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/fullName"
+                style="@style/TextAppearance.RoomKit.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/tvTenantStatusBadge"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Davith Sok" />
+
+            <TextView
+                android:id="@+id/tvTenantStatusBadge"
+                style="@style/TextAppearance.RoomKit.Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                tools:background="@drawable/bg_badge_paid_pill"
+                tools:text="Active"
+                tools:textColor="@color/roomkit_success_dark" />
+        </RelativeLayout>
+
+        <!-- Phone Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:contentDescription="Phone"
+                android:src="@drawable/ic_phone"
+                app:tint="@color/roomkit_text_muted" />
+
+            <TextView
+                android:id="@+id/tvTenantPhone"
+                style="@style/TextAppearance.RoomKit.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="13sp"
+                tools:text="+855 12 345 678" />
+        </LinearLayout>
+
+        <!-- Room / Property Info Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:contentDescription="Room"
+                android:src="@drawable/ic_home"
+                app:tint="@color/roomkit_primary" />
+
+            <TextView
+                android:id="@+id/tvRoomAndBuilding"
+                style="@style/TextAppearance.RoomKit.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Room 01 · Barce Residence" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="14dp"
+            android:background="@color/roomkit_divider" />
+
+        <!-- Bottom Grid: Deposit & Move-In Date -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextAppearance.RoomKit.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deposit"
+                    android:textColor="@color/roomkit_text_muted"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvDepositValue"
+                    style="@style/TextAppearance.RoomKit.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="400,000 ៛" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextAppearance.RoomKit.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moved in"
+                    android:textColor="@color/roomkit_text_muted"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvMoveInDateValue"
+                    style="@style/TextAppearance.RoomKit.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/roomkit_text_secondary"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="Aug 21" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Bottom Action Row -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp">
+
+            <TextView
+                android:id="@+id/btnViewRoomAction"
+                style="@style/TextAppearance.RoomKit.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="View Room >"
+                android:textColor="@color/roomkit_primary"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,1018 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/roomkit_background"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollInvoiceDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:paddingBottom="@dimen/roomkit_bottom_safe_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="20dp">
+
+            <!-- Compact Header -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Back"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="@color/roomkit_primary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_toStartOf="@id/invoiceStatusBadges"
+                    android:layout_toEndOf="@id/btnBack"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvInvoiceHeaderTitle"
+                        style="@style/TextAppearance.RoomKit.ScreenTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/invoice_screen_title"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:visibility="visible"
+                        tools:text="@string/invoice_screen_title" />
+
+                    <TextView
+                        android:id="@+id/tvHeaderBillingPeriod"
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="13sp"
+                        tools:text="Oct 2026" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/invoiceStatusBadges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvInvoiceStatusBadge"
+                        style="@style/TextAppearance.RoomKit.Status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="4dp"
+                        tools:background="@drawable/bg_badge_paid_pill"
+                        tools:text="Paid"
+                        tools:textColor="@color/roomkit_success_dark" />
+
+                    <TextView
+                        android:id="@+id/tvInvoiceOverdueBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/bg_badge_overdue_pill"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        android:text="@string/invoice_status_overdue"
+                        android:textColor="@color/roomkit_error_dark"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvInvoicePeriodDates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
+            <!-- CARD 1: Tenant & Property Summary -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tvInvoiceNumber"
+                            style="@style/TextAppearance.RoomKit.SectionTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/roomkit_primary"
+                            android:textSize="15sp"
+                            tools:text="Invoice #0001" />
+
+                        <TextView
+                            android:id="@+id/tvInvoiceDueDateHeader"
+                            style="@style/TextAppearance.RoomKit.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_text_secondary"
+                            tools:text="Due Nov 5, 2026" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="12dp"
+                        android:background="@color/roomkit_divider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <!-- Tenant Info -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TENANT"
+                                android:textColor="@color/roomkit_text_muted"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/tvTenantName"
+                                style="@style/TextAppearance.RoomKit.Body"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                tools:text="Davith Sok" />
+
+                            <TextView
+                                android:id="@+id/tvTenantPhone"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="12sp"
+                                tools:text="+855 12 345 678" />
+                        </LinearLayout>
+
+                        <!-- Property Info -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PROPERTY"
+                                android:textColor="@color/roomkit_text_muted"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/tvRoomNumber"
+                                style="@style/TextAppearance.RoomKit.Body"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                tools:text="Room 01" />
+
+                            <TextView
+                                android:id="@+id/tvBuildingName"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="12sp"
+                                tools:text="Barce Residence" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- CARD: Void History Details -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardInvoiceVoidHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/ivh_surface"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/ivh_border"
+                app:strokeWidth="1dp"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/invoice_void_history_title"
+                        android:textColor="@color/ivh_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:labelFor="@id/tvInvoiceVoidReason"
+                        android:text="@string/invoice_void_history_reason_label"
+                        android:textColor="@color/ivh_muted"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvInvoiceVoidReason"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/ivh_text"
+                        android:textSize="15sp"
+                        android:textIsSelectable="true"
+                        tools:text="Incorrect electricity charge" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:labelFor="@id/tvInvoiceVoidedAt"
+                        android:text="@string/invoice_void_history_date_label"
+                        android:textColor="@color/ivh_muted"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvInvoiceVoidedAt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/ivh_text"
+                        android:textSize="15sp"
+                        tools:text="Oct 28, 2026 · 11:50 AM" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/invoice_void_history_note"
+                        android:textColor="@color/ivh_muted"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- CARD 2: Billing Line-Items -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp">
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.CardLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DESCRIPTION" />
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.CardLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="AMOUNT" />
+                    </RelativeLayout>
+
+                    <!-- Rent Row -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="6dp">
+
+                        <TextView
+                            android:id="@+id/tvRentLabel"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Monthly Rent"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvRentAmount"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="14sp"
+                            tools:text="400,000 ៛" />
+                    </RelativeLayout>
+
+                    <!-- Electricity Row -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="6dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvElectricityLabel"
+                                style="@style/TextAppearance.RoomKit.Body"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Electricity"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/tvElectricitySubtext"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/roomkit_text_muted"
+                                android:textSize="12sp"
+                                tools:text="20 kWh × 1,000 ៛" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvElectricityAmount"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="14sp"
+                            tools:text="20,000 ៛" />
+                    </RelativeLayout>
+
+                    <!-- Water Row -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="6dp">
+
+                        <TextView
+                            android:id="@+id/tvWaterLabel"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="14sp"
+                            tools:text="Water — Fixed Monthly" />
+
+                        <TextView
+                            android:id="@+id/tvWaterAmount"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="14sp"
+                            tools:text="20,000 ៛" />
+                    </RelativeLayout>
+
+                    <!-- Rubbish Row -->
+                    <RelativeLayout
+                        android:id="@+id/rowRubbish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="6dp">
+
+                        <TextView
+                            android:id="@+id/tvRubbishLabel"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rubbish / Waste"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvRubbishAmount"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="14sp"
+                            tools:text="10,000 ៛" />
+                    </RelativeLayout>
+
+                    <!-- Other Charges Row -->
+                    <LinearLayout
+                        android:id="@+id/rowOtherCharges"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tvOtherChargesLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/bd_other_label"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvOtherChargesAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <!-- Utility Conversion Box -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_btn_icon_neutral"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Utility Subtotal"
+                                android:textColor="@color/roomkit_text_secondary" />
+
+                            <TextView
+                                android:id="@+id/tvUtilitySubtotalKhr"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textStyle="bold"
+                                tools:text="50,000 ៛" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="14dp"
+                        android:background="@color/roomkit_divider" />
+
+                    <!-- Discount Row -->
+                    <LinearLayout
+                        android:id="@+id/rowDiscount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tvDiscountLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/bd_discount_label"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvDiscountAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <!-- Invoice Total -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Invoice Total"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvInvoiceTotalKhr"
+                            style="@style/TextAppearance.RoomKit.StatValue.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            tools:text="400,000 ៛" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tvInvoiceCurrency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tvInvoiceDiscountReason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
+            <!-- CARD 3: Payment Summary -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.SectionTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payment Summary"
+                        android:textSize="16sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp">
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Invoice Total"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvSummaryInvoiceTotal"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:text="400,000 ៛" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Paid"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvSummaryTotalPaid"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_success_dark"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:text="400,000 ៛" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="10dp"
+                        android:background="@color/roomkit_divider" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ab_current_invoice_balance"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvSummaryRemainingBalance"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:text="400,000 ៛"
+                            tools:textColor="@color/roomkit_text_secondary" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- CARD: Account Balance Breakdown -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.SectionTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ab_title"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="top"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"
+                            android:layout_weight="1"
+                            android:text="@string/ab_previous_unpaid_balance"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvPreviousUnpaidBalance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:text="400,000 ៛" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="top"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"
+                            android:layout_weight="1"
+                            android:text="@string/ab_current_invoice_balance"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvAccountCurrentBalance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:text="400,000 ៛" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutLaterUnpaidBalance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="top"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"
+                            android:layout_weight="1"
+                            android:text="@string/ab_later_unpaid_balance"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvLaterUnpaidBalance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:text="400,000 ៛" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="14dp"
+                        android:background="@color/roomkit_divider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="top"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"
+                            android:layout_weight="1"
+                            android:text="@string/ab_total_account_balance"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvTotalAccountBalance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            tools:text="400,000 ៛" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/ab_explanation"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- CARD 4: Payment History -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.SectionTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payment History"
+                        android:textSize="16sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvPaymentHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never" />
+
+                    <TextView
+                        android:id="@+id/tvEmptyPaymentHistory"
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="No payments recorded yet."
+                        android:textColor="@color/roomkit_text_muted"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Action Buttons Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/containerPayableActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRecordPayment"
+                        style="@style/InvoiceActionPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ia_record"
+                        app:icon="@drawable/ic_billing" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnGenerateKhqr"
+                        style="@style/InvoiceActionSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/ia_qr"
+                        app:icon="@drawable/ic_barcode" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnReplacementAction"
+                    style="@style/InvoiceActionPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ia_replacement"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnExportPdf"
+                        style="@style/InvoiceActionSecondary"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/ia_pdf"
+                        app:icon="@drawable/ic_billing" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSendTelegram"
+                        style="@style/InvoiceActionSecondary"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/ia_telegram"
+                        app:icon="@drawable/ic_send" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnOriginalInvoice"
+                    style="@style/InvoiceActionLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/ia_original"
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_link" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnVoidInvoice"
+                    style="@style/InvoiceActionDanger"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/ia_void"
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_void" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

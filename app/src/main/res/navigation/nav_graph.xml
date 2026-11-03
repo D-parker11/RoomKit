@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <!-- Dashboard Fragment -->
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.roomkit.Date.Ui.Dashboard.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard">
+
+        <action
+            android:id="@+id/action_dashboardFragment_to_invoiceDetailFragment"
+            app:destination="@id/invoiceDetailFragment" />
+
+        <action
+            android:id="@+id/action_dashboardFragment_to_meterReadingFragment"
+            app:destination="@id/meterReadingFragment" />
+
+        <action
+            android:id="@+id/action_dashboardFragment_to_recordPaymentBottomSheet"
+            app:destination="@id/recordPaymentBottomSheet" />
+    </fragment>
+
+    <!-- Buildings Fragment -->
+    <fragment
+        android:id="@+id/buildingsFragment"
+        android:name="com.roomkit.ui.buildings.BuildingsFragment"
+        android:label="Buildings">
+
+        <action
+            android:id="@+id/action_buildingsFragment_to_roomsFragment"
+            app:destination="@id/roomsFragment" />
+    </fragment>
+
+    <!-- Rooms Fragment -->
+    <fragment
+        android:id="@+id/roomsFragment"
+        android:name="com.example.roomkit.Date.Ui.Room.RoomsFragment"
+        android:label="Rooms"
+        tools:layout="@layout/fragment_rooms">
+        <argument
+            android:name="buildingId"
+            app:argType="long" />
+
+        <action
+            android:id="@+id/action_roomsFragment_to_addRoomFragment"
+            app:destination="@id/addRoomFragment" />
+
+        <action
+            android:id="@+id/action_roomsFragment_to_moveInFragment"
+            app:destination="@id/moveInFragment" />
+
+        <action
+            android:id="@+id/action_roomsFragment_to_roomDetailFragment"
+            app:destination="@id/roomDetailFragment" />
+    </fragment>
+
+    <!-- Add Room Destination -->
+    <fragment
+        android:id="@+id/addRoomFragment"
+        android:name="com.example.roomkit.Date.Ui.Room.AddRoomFragment"
+        android:label="Add Room">
+
+        <argument
+            android:name="buildingId"
+            app:argType="long" />
+    </fragment>
+
+    <!-- More Fragment -->
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.example.roomkit.Date.Ui.More.MoreFragment"
+        android:label="More">
+
+        <action
+            android:id="@+id/action_moreFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
+
+        <action
+            android:id="@+id/action_moreFragment_to_tenantListFragment"
+            app:destination="@id/tenantListFragment" />
+    </fragment>
+
+    <!-- Tenant List Fragment -->
+    <fragment
+        android:id="@+id/tenantListFragment"
+        android:name="com.example.roomkit.Date.Ui.Tenant.TenantListFragment"
+        android:label="Tenants">
+
+        <action
+            android:id="@+id/action_tenantListFragment_to_addTenantFragment"
+            app:destination="@id/addTenantFragment" />
+
+        <action
+            android:id="@+id/action_tenantListFragment_to_tenantDetailsFragment"
+            app:destination="@id/tenantDetailsFragment" />
+    </fragment>
+
+    <!-- Add Tenant Fragment -->
+    <fragment
+        android:id="@+id/addTenantFragment"
+        android:name="com.example.roomkit.Date.Ui.Tenant.AddTenantFragment"
+        android:label="Add Tenant" />
+
+    <!-- Tenant Details Fragment -->
+    <fragment
+        android:id="@+id/tenantDetailsFragment"
+        android:name="com.example.roomkit.Date.Ui.Tenant.TenantDetailsFragment"
+        android:label="Tenant Details">
+
+        <argument
+            android:name="tenantId"
+            app:argType="long" />
+
+        <action
+            android:id="@+id/action_tenantDetailsFragment_to_moveInFragment"
+            app:destination="@id/moveInFragment" />
+    </fragment>
+
+    <!-- Move In Tenant Fragment -->
+    <fragment
+        android:id="@+id/moveInFragment"
+        android:name="com.example.roomkit.Date.Ui.Tenancy.MoveInFragment"
+        android:label="Move In Tenant">
+
+        <argument
+            android:name="presetBuildingId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+
+        <argument
+            android:name="presetRoomId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+
+        <argument
+            android:name="presetTenantId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <!-- Room Detail Fragment (View Room) -->
+    <fragment
+        android:id="@+id/roomDetailFragment"
+        android:name="com.example.roomkit.Date.Ui.Room.RoomDetailFragment"
+        android:label="Room Detail">
+
+        <argument
+            android:name="roomId"
+            app:argType="long" />
+
+        <action
+            android:id="@+id/action_roomDetailFragment_to_moveInFragment"
+            app:destination="@id/moveInFragment" />
+
+        <action
+            android:id="@+id/action_roomDetailFragment_to_meterReadingFragment"
+            app:destination="@id/meterReadingFragment" />
+
+        <action
+            android:id="@+id/action_roomDetailFragment_to_invoicePreviewFragment"
+            app:destination="@id/invoicePreviewFragment" />
+
+        <action
+            android:id="@+id/action_roomDetailFragment_to_invoiceDetailFragment"
+            app:destination="@id/invoiceDetailFragment" />
+    </fragment>
+
+    <!-- Meter Reading Fragment -->
+    <fragment
+        android:id="@+id/meterReadingFragment"
+        android:name="com.example.roomkit.Date.Ui.Meter.MeterReadingFragment"
+        android:label="Meter Reading">
+
+        <argument
+            android:name="roomId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+
+        <argument
+            android:name="preselectedBuildingId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <!-- Invoice Detail Fragment -->
+    <fragment
+        android:id="@+id/invoiceDetailFragment"
+        android:name="com.example.roomkit.Date.Ui.Billing.InvoiceDetailFragment"
+        android:label="Invoice Detail"
+        tools:layout="@layout/fragment_invoice_detail">
+
+        <argument
+            android:name="invoiceId"
+            app:argType="long" />
+
+        <action
+            android:id="@+id/action_invoiceDetailFragment_to_paymentQrFragment"
+            app:destination="@id/paymentQrFragment" />
+
+        <action
+            android:id="@+id/action_invoiceDetailFragment_to_recordPaymentBottomSheet"
+            app:destination="@id/recordPaymentBottomSheet" />
+    </fragment>
+
+    <!-- Edit Room Fragment -->
+    <fragment
+        android:id="@+id/editRoomFragment"
+        android:name="com.example.roomkit.Date.Ui.Room.EditRoomFragment"
+        android:label="Edit Room">
+
+        <argument
+            android:name="roomId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
+
+    <!-- Invoice Preview Fragment -->
+    <fragment
+        android:id="@+id/invoicePreviewFragment"
+        android:name="com.example.roomkit.Date.Ui.Billing.InvoicePreviewFragment"
+        android:label="Preview Invoice"
+        tools:layout="@layout/fragment_invoice_preview">
+
+        <argument
+            android:name="roomId"
+            app:argType="long" />
+
+        <action
+            android:id="@+id/action_invoicePreviewFragment_to_invoiceDetailFragment"
+            app:destination="@id/invoiceDetailFragment"
+            app:popUpTo="@id/invoicePreviewFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Payment QR Fragment -->
+    <fragment
+        android:id="@+id/paymentQrFragment"
+        android:name="com.example.roomkit.Date.Ui.Billing.PaymentQrFragment"
+        android:label="Payment QR">
+
+        <argument
+            android:name="invoiceId"
+            app:argType="long" />
+    </fragment>
+
+    <!-- Record Payment Bottom Sheet -->
+    <dialog
+        android:id="@+id/recordPaymentBottomSheet"
+        android:name="com.example.roomkit.Date.Ui.Billing.RecordPaymentBottomSheet"
+        android:label="Record Payment">
+
+        <argument
+            android:name="invoiceId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </dialog>
+    <!-- Billing Fragment -->
+    <fragment
+        android:id="@+id/billingFragment"
+        android:name="com.example.roomkit.Date.Ui.Billing.BillingFragment"
+        android:label="Billing"
+        tools:layout="@layout/fragment_billing">
+
+        <action
+            android:id="@+id/action_billingFragment_to_invoiceDetailFragment"
+            app:destination="@id/invoiceDetailFragment" />
+    </fragment>
+    <!-- Payments Fragment -->
+    <fragment
+        android:id="@+id/paymentsFragment"
+        android:name="com.example.roomkit.Date.Ui.Payment.PaymentsFragment"
+        android:label="Payments"
+        tools:layout="@layout/fragment_payments">
+
+        <action
+            android:id="@+id/action_paymentsFragment_to_invoiceDetailFragment"
+            app:destination="@id/invoiceDetailFragment" />
+
+        <action
+            android:id="@+id/action_paymentsFragment_to_recordPaymentBottomSheet"
+            app:destination="@id/recordPaymentBottomSheet" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/replacementInvoiceFragment"
+        android:name="com.example.roomkit.Date.Ui.Billing.ReplacementInvoiceFragment"
+        android:label="Replacement invoice">
+        <argument android:name="originalInvoiceId" app:argType="long" android:defaultValue="0L" />
+        <argument android:name="draftInvoiceId" app:argType="long" android:defaultValue="0L" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/moveOutFragment"
+        android:name="com.example.roomkit.Date.Ui.MoveOut.MoveOutFragment"
+        android:label="Move-Out"
+        tools:layout="@layout/fragment_move_out">
+        <argument android:name="tenancyId" app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/remindersFragment"
+        android:name="com.example.roomkit.Date.Ui.Reminders.RemindersFragment"
+        android:label="Reminders"
+        tools:layout="@layout/fragment_reminder">
+        <action
+            android:id="@+id/action_remindersFragment_to_invoiceDetailFragment"
+            app:destination="@id/invoiceDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/roomkitSettingsFragment"
+        android:name="com.example.roomkit.Date.Settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_setting" />
+
+    <fragment
+        android:id="@+id/roomkitReportsFragment"
+        android:name="com.example.roomkit.Date.Reports.ReportsFragment"
+        android:label="Reports"
+        tools:layout="@layout/fragment_reports" />
+</navigation>
+

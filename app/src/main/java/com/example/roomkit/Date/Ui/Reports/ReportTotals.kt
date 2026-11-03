@@ -1,0 +1,31 @@
+package com.example.roomkit.Date.Reports
+
+data class ReportTotals(
+    val billed: Long = 0,
+    val remaining: Long = 0,
+    val invoiceCount: Long = 0,
+    val paidCount: Long = 0,
+    val partialCount: Long = 0,
+    val overdueCount: Long = 0,
+    val overdueAmount: Long = 0,
+    val allOutstanding: Long = 0,
+    val allOverdue: Long = 0,
+    val received: Long = 0,
+    val depositApplied: Long = 0,
+    val cash: Long = 0,
+    val bank: Long = 0,
+    val khqr: Long = 0,
+    val otherPayments: Long = 0,
+    val rent: Long = 0,
+    val electricity: Long = 0,
+    val water: Long = 0,
+    val rubbish: Long = 0,
+    val otherCharges: Long = 0,
+    val discount: Long = 0,
+    val rooms: Long = 0,
+    val occupied: Long = 0,
+    val pendingRefund: Long = 0,
+    val pendingRefundCount: Long = 0,
+    val electricityUsage: Long = 0,
+    val waterUsage: Long = 0
+)

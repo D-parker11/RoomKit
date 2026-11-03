@@ -1,0 +1,45 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Build output and local tools
+**/build/
+.kotlin/
+**/.cxx/
+**/.externalNativeBuild/
+captures/
+
+# Signing keys and environment secrets
+*.jks
+*.keystore
+.env
+.env.*
+!.env.example
+keystore.properties
+
+# Private databases and backups
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+backups/
+
+# Generated invoice files
+generated-invoices/
+
+# Local Android Studio settings
+.idea/

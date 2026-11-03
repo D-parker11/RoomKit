@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/roomkit_background"
+    android:orientation="vertical">
+
+    <!-- Header -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="12dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/mu_roomkit_back"
+            android:padding="8dp"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/roomkit_primary" />
+
+        <TextView
+            style="@style/TextAppearance.RoomKit.ScreenTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@id/btnBack"
+            android:text="@string/mu_move_out_title"
+            android:textColor="@color/roomkit_text_primary"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:paddingBottom="@dimen/roomkit_bottom_safe_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <!-- Dynamic Messages / Alerts -->
+            <TextView
+                android:id="@+id/tvExistingInvoices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvSavedSettlement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnReloadMoveOut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="@string/mu_reload"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvMoveOutMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:visibility="gone" />
+
+            <!-- Rental Summary Section -->
+            <TextView
+                style="@style/TextAppearance.RoomKit.CardLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/mu_section_rental_summary" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:id="@+id/tvSummaryTenantName"
+                        style="@style/TextAppearance.RoomKit.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Davith Sok" />
+
+                    <TextView
+                        android:id="@+id/tvSummaryRoomBuilding"
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="14sp"
+                        tools:text="Room 01 · Barce Residence" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="12dp"
+                        android:background="@color/roomkit_divider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/mu_label_deposit_held"
+                                android:textColor="@color/roomkit_text_muted"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tvSummaryDeposit"
+                                style="@style/TextAppearance.RoomKit.Body"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                tools:text="800,000៛" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/mu_label_unpaid_balance"
+                                android:textColor="@color/roomkit_text_muted"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tvSummaryUnpaidBalance"
+                                style="@style/TextAppearance.RoomKit.Body"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="@color/roomkit_error_dark"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                tools:text="0៛" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Move-Out Date Section -->
+            <TextView
+                style="@style/TextAppearance.RoomKit.CardLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/mu_section_move_out_date" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilMoveOutDate"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/mu_hint_move_out_date"
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:endIconMode="none">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etMoveOutDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:inputType="date"
+                            android:minHeight="56dp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Final Meters Section -->
+            <TextView
+                style="@style/TextAppearance.RoomKit.CardLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/mu_section_final_meters" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <!-- Electricity -->
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mu_label_electricity_meter"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvElecBilledBaseline"
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="13sp"
+                        tools:text="Last billed reading: 1,200 kWh" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilFinalElectricity"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:hint="@string/mu_hint_final_electricity_reading"
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:suffixText="kWh">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etFinalElectricity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:minHeight="56dp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="16dp"
+                        android:background="@color/roomkit_divider" />
+
+                    <!-- Water -->
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mu_label_water_meter"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvWaterBilledBaseline"
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="13sp"
+                        tools:text="Last billed reading: 60 m³" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilFinalWater"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:hint="@string/mu_hint_final_water_reading"
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:suffixText="m³">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etFinalWater"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:minHeight="56dp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tvWaterFixedNote"
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="13sp"
+                        android:visibility="gone"
+                        tools:text="Water is billed at fixed monthly rate (40,000៛ / mo)."
+                        tools:visibility="visible" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Additional Charges Section -->
+            <TextView
+                style="@style/TextAppearance.RoomKit.CardLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/mu_section_additional_charges" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="@string/mu_helper_additional_charges"
+                        android:textColor="@color/roomkit_text_muted"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilAdditionalRent"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            android:hint="@string/mu_hint_additional_rent"
+                            app:boxCornerRadiusBottomEnd="14dp"
+                            app:boxCornerRadiusBottomStart="14dp"
+                            app:boxCornerRadiusTopEnd="14dp"
+                            app:boxCornerRadiusTopStart="14dp"
+                            app:boxStrokeColor="@color/roomkit_primary"
+                            app:prefixText="៛ ">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etAdditionalRent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:minHeight="56dp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilOtherFees"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:hint="@string/mu_hint_other_fees"
+                            app:boxCornerRadiusBottomEnd="14dp"
+                            app:boxCornerRadiusBottomStart="14dp"
+                            app:boxCornerRadiusTopEnd="14dp"
+                            app:boxCornerRadiusTopStart="14dp"
+                            app:boxStrokeColor="@color/roomkit_primary"
+                            app:prefixText="៛ ">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etOtherFees"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:minHeight="56dp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilChargeExplanation"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:hint="@string/mu_hint_charge_explanation"
+                        android:visibility="gone"
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        tools:visibility="visible">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etChargeExplanation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:minHeight="56dp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Deposit Settlement Section -->
+            <TextView
+                style="@style/TextAppearance.RoomKit.CardLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/mu_section_deposit_settlement" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="@string/mu_helper_deposit_allocation"
+                        android:textColor="@color/roomkit_text_muted"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDepositApplied"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:hint="@string/mu_apply_deposit"
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:prefixText="៛ ">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etDepositApplied"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:minHeight="56dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDeductions"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/mu_hint_deposit_deductions"
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:prefixText="៛ ">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etDeductions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:minHeight="56dp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDeductionReason"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:hint="@string/mu_hint_deduction_reason"
+                        android:visibility="gone"
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        tools:visibility="visible">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etDeductionReason"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:minHeight="56dp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Refund Paid Container -->
+            <LinearLayout
+                android:id="@+id/layoutRefundPaidContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <CheckBox
+                    android:id="@+id/cbRefundPaid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mu_label_refund_paid_checkbox"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Review Summary Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardReviewSummary"
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/roomkit_surface_subtle"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_primary"
+                app:strokeWidth="1.5dp"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.ScreenTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mu_title_settlement_review"
+                        android:textColor="@color/roomkit_primary"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="12dp"
+                        android:background="@color/roomkit_divider" />
+
+                    <include
+                        android:id="@+id/rowFinalInvoice"
+                        layout="@layout/item_summary_row" />
+
+                    <include
+                        android:id="@+id/rowExistingDebt"
+                        layout="@layout/item_summary_row" />
+
+                    <include
+                        android:id="@+id/rowDepositApplied"
+                        layout="@layout/item_summary_row" />
+
+                    <include
+                        android:id="@+id/rowDeductions"
+                        layout="@layout/item_summary_row" />
+
+                    <include
+                        android:id="@+id/rowRefundDue"
+                        layout="@layout/item_summary_row" />
+
+                    <include
+                        android:id="@+id/rowDebtRemaining"
+                        layout="@layout/item_summary_row" />
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/mu_helper_remaining_debt_acknowledgement"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="12sp" />
+
+                    <CheckBox
+                        android:id="@+id/cbAcknowledge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:text="@string/mu_ack" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Action Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/roomkit_surface"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="20dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPrimaryAction"
+            style="@style/Widget.RoomKit.PrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/mu_action_review_settlement"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="#0F172A"
+            app:cornerRadius="18dp" />
+    </LinearLayout>
+
+</LinearLayout>

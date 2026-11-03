@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp"
+    app:cardBackgroundColor="@color/ph_background" app:cardCornerRadius="16dp" app:cardElevation="0dp"
+    app:strokeColor="@color/ph_border" app:strokeWidth="1dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="16dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical" android:baselineAligned="false">
+            <TextView android:id="@+id/tvPaymentDate" android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content" android:layout_marginEnd="12dp"
+                android:textColor="@color/ph_text" android:textSize="14sp" android:textStyle="bold" />
+            <TextView android:id="@+id/tvPaymentStatus" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="@color/ph_void_text" android:textSize="11sp" android:textStyle="bold" />
+        </LinearLayout>
+        <TextView android:id="@+id/tvPaymentMethodAndNote" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="5dp" android:textColor="@color/ph_secondary" android:textSize="13sp" />
+        <TextView android:id="@+id/tvPaymentAmount" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:textColor="@color/ph_success" android:textSize="22sp" android:textStyle="bold" />
+        <TextView android:id="@+id/tvPaymentReference" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="6dp" android:textColor="@color/ph_secondary" android:textSize="13sp"
+            android:textIsSelectable="true" android:visibility="gone" />
+        <TextView android:id="@+id/tvPaymentNote" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="6dp" android:lineSpacingExtra="2dp" android:textColor="@color/ph_secondary"
+            android:textSize="13sp" android:visibility="gone" />
+        <com.google.android.material.card.MaterialCardView android:id="@+id/cardVoidDetails"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp"
+            android:visibility="gone" app:cardBackgroundColor="@color/ph_void_background" app:cardCornerRadius="10dp"
+            app:cardElevation="0dp" app:strokeWidth="0dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="12dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/ph_void_reason" android:textColor="@color/ph_void_text" android:textSize="12sp" android:textStyle="bold" />
+                <TextView android:id="@+id/tvVoidReason" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp" android:lineSpacingExtra="3dp" android:textColor="@color/ph_text" android:textSize="14sp" />
+                <TextView android:id="@+id/tvVoidedAt" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" android:textColor="@color/ph_secondary" android:textSize="12sp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" android:text="@string/ph_excluded" android:textColor="@color/ph_secondary" android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

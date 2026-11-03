@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/roomkit_background"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollBuildings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:paddingBottom="@dimen/roomkit_bottom_safe_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal"
+            android:paddingTop="@dimen/roomkit_screen_padding_top">
+
+            <!-- Header Row: Title & Circular Add Button -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    style="@style/TextAppearance.RoomKit.ScreenTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Property" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAddBuilding"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="Set up property"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    app:backgroundTint="@color/roomkit_primary"
+                    app:cornerRadius="24dp"
+                    app:elevation="0dp"
+                    app:icon="@drawable/ic_plus_white"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="20dp"
+                    app:iconTint="@color/roomkit_on_primary" />
+            </RelativeLayout>
+
+            <!-- Search Field -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="@dimen/roomkit_spacing_lg"
+                app:cardBackgroundColor="@color/roomkit_surface"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Search Icon"
+                        android:src="@drawable/ic_search"
+                        app:tint="@color/roomkit_text_muted" />
+
+                    <EditText
+                        android:id="@+id/etSearchBuildings"
+                        style="@style/TextAppearance.RoomKit.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:hint="Search buildings..."
+                        android:imeOptions="actionDone"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textColorHint="@color/roomkit_text_muted" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 3-Column Summary Metrics Card -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/roomkit_spacing_xl"
+                app:cardBackgroundColor="@color/roomkit_surface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/roomkit_card_padding"
+                    android:weightSum="3">
+
+                    <!-- Metric 1: Total Buildings -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvTotalBuildingsVal"
+                            style="@style/TextAppearance.RoomKit.StatValue.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/roomkit_text_primary"
+                            tools:text="3" />
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                            android:text="Property"
+                            android:textColor="@color/roomkit_text_secondary" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/roomkit_divider" />
+
+                    <!-- Metric 2: Total Rooms -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvTotalRoomsVal"
+                            style="@style/TextAppearance.RoomKit.StatValue.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/roomkit_text_primary"
+                            tools:text="24" />
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                            android:text="Total Rooms"
+                            android:textColor="@color/roomkit_text_secondary" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/roomkit_divider" />
+
+                    <!-- Metric 3: Occupied Rooms -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvTotalOccupiedVal"
+                            style="@style/TextAppearance.RoomKit.StatValue.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/roomkit_success"
+                            tools:text="18" />
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                            android:text="Occupied"
+                            android:textColor="@color/roomkit_text_secondary" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Section Label: Your Property -->
+            <TextView
+                style="@style/TextAppearance.RoomKit.SectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/roomkit_spacing_xxl"
+                android:text="Your Property" />
+
+            <!-- Frame Container for List & Empty Feedback -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/roomkit_spacing_md">
+
+                <!-- Building Cards List -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvBuildings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    tools:listitem="@layout/item_building_card" />
+
+                <!-- Empty State -->
+                <LinearLayout
+                    android:id="@+id/layoutEmptyState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/roomkit_spacing_xxl"
+                    android:visibility="gone"
+                    tools:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvEmptyTitle"
+                        style="@style/TextAppearance.RoomKit.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Set up your property"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvEmptySubtitle"
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                        android:text="Add your property details to get started." />
+                </LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/roomkit_background"
+    android:orientation="vertical">
+
+    <!-- Header -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="12dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:padding="8dp"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/roomkit_primary" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:layout_toStartOf="@id/tvDraftBadge"
+            android:layout_toEndOf="@id/btnBack"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextAppearance.RoomKit.ScreenTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preview Invoice"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="22sp" />
+
+            <TextView
+                style="@style/TextAppearance.RoomKit.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Review before issuing"
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- Draft Badge -->
+        <TextView
+            android:id="@+id/tvDraftBadge"
+            style="@style/TextAppearance.RoomKit.Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_badge_draft_pill"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="5dp"
+            android:text="Draft"
+            android:textColor="@color/roomkit_warning_dark"
+            app:backgroundTint="@color/roomkit_warning_bg" />
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:paddingBottom="@dimen/roomkit_bottom_safe_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
+
+            <!-- Room & Period Info Card -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <!-- Left: Room & Tenant -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvRoomNumber"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:text="Room 01" />
+
+                        <TextView
+                            android:id="@+id/tvTenantName"
+                            style="@style/TextAppearance.RoomKit.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="14sp"
+                            tools:text="Tenant: Damamge" />
+                    </LinearLayout>
+
+                    <!-- Right: Month & Due Date -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="end"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvBillingMonth"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:text="Oct 2026" />
+
+                        <TextView
+                            android:id="@+id/tvDueDate"
+                            style="@style/TextAppearance.RoomKit.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/roomkit_text_muted"
+                            android:textSize="12sp"
+                            tools:text="Due Nov 5, 2026" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- BILLING BREAKDOWN SECTION -->
+            <TextView
+                style="@style/TextAppearance.RoomKit.CardLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="BILLING BREAKDOWN" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Rent Row -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="6dp">
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:text="Monthly Rent"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvRentAmount"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:text="400,000 ៛" />
+                    </RelativeLayout>
+
+                    <!-- Electricity Row -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingVertical="6dp">
+
+                        <TextView
+                            android:id="@+id/tvElectricityDesc"
+                            style="@style/TextAppearance.RoomKit.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginEnd="12dp"
+                            android:layout_toStartOf="@id/tvElectricityAmount"
+                            android:text="Electricity — 0 kWh × 1,000 ៛"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="14sp"
+                            tools:text="Electricity — 0 kWh × 1,000 ៛" />
+
+                        <TextView
+                            android:id="@+id/tvElectricityAmount"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:text="0 ៛" />
+                    </RelativeLayout>
+
+                    <!-- Water Row -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingVertical="6dp">
+
+                        <TextView
+                            android:id="@+id/tvWaterDesc"
+                            style="@style/TextAppearance.RoomKit.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginEnd="12dp"
+                            android:layout_toStartOf="@id/tvWaterAmount"
+                            android:text="Water — 0 m³ × 1,500 ៛"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="14sp"
+                            tools:text="Water — 0 m³ × 1,500 ៛" />
+
+                        <TextView
+                            android:id="@+id/tvWaterAmount"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:text="0 ៛" />
+                    </RelativeLayout>
+
+                    <!-- Rubbish Row -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingVertical="6dp">
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:text="Rubbish / Waste"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvRubbishAmount"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:text="600 ៛" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/roomkit_divider" />
+
+                    <!-- Invoice Total Prominent Dark Navy Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:cardBackgroundColor="@color/roomkit_primary"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="18dp">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.Body"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:text="Invoice Total"
+                                android:textColor="@color/roomkit_on_primary"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvInvoiceTotal"
+                                style="@style/TextAppearance.RoomKit.Body"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:textColor="@color/roomkit_on_primary"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                tools:text="400,000 ៛" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- UTILITY CONVERSION SECTION -->
+            <TextView
+                style="@style/TextAppearance.RoomKit.CardLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="UTILITY CONVERSION" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Subtotal Row -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="4dp">
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:text="Utility Subtotal"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvUtilitySubtotal"
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:text="600 ៛" />
+                    </RelativeLayout>
+
+                    <!-- Exchange Rate Row (Single Line) -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="12dp"
+                        android:background="@color/roomkit_divider" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Draft Notice Card -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/roomkit_surface_subtle"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Draft invoice"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="You can still update meter readings before issuing. Issuing will lock the readings and billing values for this month."
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Adjustments Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bd_adjustments"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvDraftPeriodDates"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/roomkit_text_secondary" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/bd_other">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etOtherCharges"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:minHeight="56dp"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:hint="@string/bd_discount">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etDiscount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:minHeight="56dp"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tvAdjustmentError"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:accessibilityLiveRegion="polite"
+                        android:textColor="@color/roomkit_error_dark" />
+
+                    <TextView
+                        android:id="@+id/tvDraftSaveStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/roomkit_text_secondary" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSaveDraft"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:minHeight="52dp"
+                        android:text="@string/bd_save"
+                        android:textAllCaps="false"
+                        app:cornerRadius="16dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Issue Invoice Primary Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnIssueInvoice"
+                style="@style/Widget.RoomKit.PrimaryButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="28dp"
+                android:text="Issue Invoice"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="18dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

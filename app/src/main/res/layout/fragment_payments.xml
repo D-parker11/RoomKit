@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/roomkit_background"
+    android:orientation="vertical">
+
+    <!-- Header: Title, Subtitle, & Month Selector Capsule -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal"
+        android:paddingTop="@dimen/roomkit_screen_padding_top"
+        android:paddingBottom="@dimen/roomkit_spacing_md">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextAppearance.RoomKit.ScreenTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payments" />
+
+            <TextView
+                style="@style/TextAppearance.RoomKit.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Track collections and balances"
+                android:textColor="@color/roomkit_text_secondary" />
+        </LinearLayout>
+
+        <!-- Month Selector Capsule -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.RoomKit.Card.MonthPill"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            app:cardBackgroundColor="@color/roomkit_surface"
+            app:strokeColor="@color/roomkit_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/roomkit_spacing_xs">
+
+                <ImageView
+                    android:id="@+id/btnPrevMonth"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Previous Month"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="@color/roomkit_text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvSelectedMonth"
+                    style="@style/TextAppearance.RoomKit.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/roomkit_spacing_sm"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textStyle="bold"
+                    tools:text="October 2026" />
+
+                <ImageView
+                    android:id="@+id/btnNextMonth"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Next Month"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/roomkit_text_secondary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <!-- 3 Summary Metric Cards: Collected, Outstanding, Overdue -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal"
+        android:paddingVertical="@dimen/roomkit_spacing_xs">
+
+        <!-- Collected Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.RoomKit.Card.Stat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/roomkit_spacing_xs"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/roomkit_card_padding_compact">
+
+                <TextView
+                    android:id="@+id/tvSummaryCollected"
+                    style="@style/TextAppearance.RoomKit.StatValue.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/roomkit_success"
+                    tools:text="400,000 ៛" />
+
+                <TextView
+                    style="@style/TextAppearance.RoomKit.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Collected"
+                    android:textColor="@color/roomkit_text_secondary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Outstanding Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.RoomKit.Card.Stat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/roomkit_spacing_xs"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/roomkit_card_padding_compact">
+
+                <TextView
+                    android:id="@+id/tvSummaryOutstanding"
+                    style="@style/TextAppearance.RoomKit.StatValue.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/roomkit_text_primary"
+                    tools:text="400,000 ៛" />
+
+                <TextView
+                    style="@style/TextAppearance.RoomKit.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Outstanding"
+                    android:textColor="@color/roomkit_text_secondary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Overdue Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.RoomKit.Card.Stat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/roomkit_spacing_xs"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/roomkit_card_padding_compact">
+
+                <TextView
+                    android:id="@+id/tvSummaryOverdue"
+                    style="@style/TextAppearance.RoomKit.StatValue.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/roomkit_error"
+                    tools:text="400,000 ៛" />
+
+                <TextView
+                    style="@style/TextAppearance.RoomKit.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Overdue"
+                    android:textColor="@color/roomkit_text_secondary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <!-- Search Field Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="@dimen/roomkit_screen_padding_horizontal"
+        android:layout_marginTop="@dimen/roomkit_spacing_md"
+        app:cardBackgroundColor="@color/roomkit_surface"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/roomkit_border"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="Search Icon"
+                android:src="@drawable/ic_search"
+                app:tint="@color/roomkit_text_muted" />
+
+            <EditText
+                android:id="@+id/etSearchPayments"
+                style="@style/TextAppearance.RoomKit.Body"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:background="@null"
+                android:hint="Search tenant, room, building or invoice..."
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/roomkit_text_primary"
+                android:textColorHint="@color/roomkit_text_muted" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Status Filter Tabs -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutPaymentFilter"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="@dimen/roomkit_spacing_sm"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/roomkit_primary"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="2.5dp"
+        app:tabMode="fixed"
+        app:tabRippleColor="@null"
+        app:tabSelectedTextColor="@color/roomkit_primary"
+        app:tabTextAppearance="@style/TextAppearance.RoomKit.Tab"
+        app:tabTextColor="@color/roomkit_text_muted" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/roomkit_divider" />
+
+    <!-- Section Title: Payment Activity -->
+    <TextView
+        style="@style/TextAppearance.RoomKit.SectionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/roomkit_screen_padding_horizontal"
+        android:layout_marginTop="@dimen/roomkit_spacing_lg"
+        android:text="Payment Activity"
+        android:textSize="18sp" />
+
+    <!-- Frame Container for List & Empty Feedback -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPaymentActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal"
+            android:paddingTop="@dimen/roomkit_spacing_md"
+            android:paddingBottom="@dimen/roomkit_bottom_safe_padding"
+            tools:listitem="@layout/item_payment_record" />
+
+        <!-- Empty State Container -->
+        <LinearLayout
+            android:id="@+id/layoutEmptyPayments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/roomkit_spacing_xxl"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="Empty state icon"
+                android:src="@drawable/ic_billing"
+                app:tint="@color/roomkit_text_muted" />
+
+            <TextView
+                android:id="@+id/tvEmptyTitle"
+                style="@style/TextAppearance.RoomKit.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/roomkit_spacing_md"
+                android:textColor="@color/roomkit_text_primary"
+                android:textStyle="bold"
+                tools:text="No payment activity for October 2026" />
+
+            <TextView
+                android:id="@+id/tvEmptySubtitle"
+                style="@style/TextAppearance.RoomKit.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Recorded payments and balances will appear here." />
+        </LinearLayout>
+
+        <!-- Progress Spinner -->
+        <ProgressBar
+            android:id="@+id/progressPayments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/roomkit_primary"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

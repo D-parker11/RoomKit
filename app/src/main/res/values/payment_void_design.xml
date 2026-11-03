@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pvu_white">#FFFFFF</color>
+    <color name="pvu_surface">#F8FAFC</color>
+    <color name="pvu_ink">#111827</color>
+    <color name="pvu_secondary">#475569</color>
+    <color name="pvu_border">#CBD5E1</color>
+    <color name="pvu_danger">#B42318</color>
+
+    <string name="pvu_title">Void payment</string>
+    <string name="pvu_intro">Correct a payment recorded by mistake.</string>
+    <string name="pvu_amount_label">PAYMENT TO VOID</string>
+    <string name="pvu_payment_info">Payment #%1$d · %2$s</string>
+    <string name="pvu_effect">The payment stays in history as voided. The invoice balance increases by this amount. No money is refunded.</string>
+
+    <string name="pvu_reason">Reason (required)</string>
+    <string name="pvu_reason_example">Example: Duplicate payment or wrong amount.</string>
+    <string name="pvu_reason_required">Enter a reason for voiding this payment.</string>
+
+    <string name="pvu_confirm">Void Payment</string>
+    <string name="pvu_cancel">Keep Payment</string>
+    <string name="pvu_saving">Voiding payment…</string>
+    <string name="pvu_success">Payment voided. Invoice balance updated.</string>
+    <string name="pvu_failed">Unable to void payment. Please try again.</string>
+
+    <string name="pvu_history">Payment history</string>
+    <string name="pvu_details">VOIDED\nReason: %1$s\nVoided on: %2$s</string>
+    <string name="pvu_date_unknown">Unknown date</string>
+    <string name="pvu_protected">This payment belongs to a saved move-out settlement and cannot be voided here.</string>
+    <string name="pvu_inactive">This payment is not active and cannot be voided.</string>
+</resources>

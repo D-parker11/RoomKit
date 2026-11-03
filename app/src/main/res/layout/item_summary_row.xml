@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="top"
+    android:paddingVertical="8dp">
+
+    <TextView
+        android:id="@+id/tvSummaryRowLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/roomkit_text_secondary"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvSummaryRowValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:gravity="end"
+        android:textColor="@color/roomkit_text_primary"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+</LinearLayout>

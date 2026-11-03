@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ph_background">#FFFFFF</color>
+    <color name="ph_border">#E2E8F0</color>
+    <color name="ph_text">#111827</color>
+    <color name="ph_secondary">#475569</color>
+    <color name="ph_success">#047857</color>
+    <color name="ph_void_text">#B42318</color>
+    <color name="ph_void_background">#FFF1F0</color>
+
+    <string name="ph_voided">VOIDED</string>
+    <string name="ph_received">RECEIVED</string>
+    <string name="ph_applied">APPLIED</string>
+    <string name="ph_void_reason">Reason for voiding</string>
+    <string name="ph_void_date">Voided on %1$s</string>
+    <string name="ph_void_date_missing">Void date unavailable</string>
+    <string name="ph_reason_missing">No reason recorded</string>
+    <string name="ph_excluded">Not included in total paid</string>
+
+    <string name="ph_cash">Cash</string>
+    <string name="ph_bank">Bank transfer</string>
+    <string name="ph_khqr">KHQR</string>
+    <string name="ph_deposit">Deposit applied</string>
+    <string name="ph_method_unknown">Payment</string>
+</resources>

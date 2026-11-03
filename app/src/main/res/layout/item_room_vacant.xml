@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.RoomKit.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/roomkit_spacing_md"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/roomkit_card_padding">
+
+        <!-- Top Header: Room Number, Chevron, and Vacant Badge -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvRoomNumber"
+                style="@style/TextAppearance.RoomKit.SectionTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="ROOM 02" />
+
+            <TextView
+                style="@style/TextAppearance.RoomKit.Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_badge_paid_pill"
+                android:backgroundTint="#F2F4F7"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="Vacant"
+                android:textColor="@color/roomkit_text_secondary" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="Open details"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="@color/roomkit_text_muted" />
+        </LinearLayout>
+
+        <!-- Subtitle & Rent -->
+        <TextView
+            style="@style/TextAppearance.RoomKit.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="No active tenant"
+            android:textColor="@color/roomkit_text_muted" />
+
+        <TextView
+            android:id="@+id/tvMonthlyRent"
+            style="@style/TextAppearance.RoomKit.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/roomkit_text_secondary"
+            tools:text="400,000 ៛" />
+
+        <!-- Assign Tenant Action Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAssignTenant"
+            style="@style/Widget.RoomKit.PrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="@dimen/roomkit_spacing_lg"
+            android:text="Assign Tenant" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

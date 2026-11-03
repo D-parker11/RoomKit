@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screen Edge Paddings -->
+    <dimen name="roomkit_screen_padding_horizontal">24dp</dimen>
+    <dimen name="roomkit_screen_padding_top">24dp</dimen>
+    <dimen name="roomkit_bottom_safe_padding">108dp</dimen> <!-- Clears BottomNavigationView -->
+
+    <!-- Spacing Scale -->
+    <dimen name="roomkit_spacing_xs">4dp</dimen>
+    <dimen name="roomkit_spacing_sm">8dp</dimen>
+    <dimen name="roomkit_spacing_md">12dp</dimen>
+    <dimen name="roomkit_spacing_lg">16dp</dimen>
+    <dimen name="roomkit_spacing_xl">20dp</dimen>
+    <dimen name="roomkit_spacing_xxl">28dp</dimen>
+
+    <!-- Card & Component Radii -->
+    <dimen name="roomkit_card_radius">20dp</dimen>
+    <dimen name="roomkit_card_radius_sm">16dp</dimen>
+    <dimen name="roomkit_chip_radius">24dp</dimen>
+    <dimen name="roomkit_button_radius">16dp</dimen>
+    <dimen name="roomkit_status_dot_size">8dp</dimen>
+
+    <!-- Card Insets & Component Heights -->
+    <dimen name="roomkit_card_padding">20dp</dimen>
+    <dimen name="roomkit_card_padding_compact">16dp</dimen>
+    <dimen name="roomkit_button_height">54dp</dimen>
+
+    <!-- Summary Card Tokens -->
+    <dimen name="roomkit_summary_card_width">116dp</dimen>
+    <dimen name="roomkit_summary_card_height">104dp</dimen>
+</resources>

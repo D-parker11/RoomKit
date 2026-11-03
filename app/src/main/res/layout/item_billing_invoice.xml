@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.RoomKit.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/roomkit_spacing_md"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/roomkit_card_padding">
+
+        <!-- Top Row: Room/Building + Main Invoice Total -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:orientation="horizontal">
+
+            <!-- Left: Room, Tenant & Due Date Info -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvInvoiceRoomBuilding"
+                    style="@style/TextAppearance.RoomKit.SectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    tools:text="Room 01 · Barce" />
+
+                <TextView
+                    android:id="@+id/tvInvoiceTenantName"
+                    style="@style/TextAppearance.RoomKit.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/roomkit_text_secondary"
+                    tools:text="Dara Sok" />
+
+                <TextView
+                    android:id="@+id/tvInvoicePeriodDueDate"
+                    style="@style/TextAppearance.RoomKit.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/roomkit_text_muted"
+                    tools:text="Oct 2026 · Due Nov 5, 2026" />
+            </LinearLayout>
+
+            <!-- Right: Original Total & Status Badges -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvInvoiceTotal"
+                    style="@style/TextAppearance.RoomKit.StatValue.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="22sp"
+                    tools:text="400,000 ៛" />
+
+                <TextView
+                    android:id="@+id/tvInvoiceStatusBadge"
+                    style="@style/TextAppearance.RoomKit.Status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="4dp"
+                    tools:background="@drawable/bg_badge_paid_pill"
+                    tools:text="Paid"
+                    tools:textColor="@color/roomkit_success_dark" />
+
+                <TextView
+                    android:id="@+id/tvInvoiceOverdueBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_badge_overdue_pill"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:text="@string/invoice_status_overdue"
+                    android:textColor="@color/roomkit_error_dark"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Footer Divider & Payment Detail Line -->
+        <LinearLayout
+            android:id="@+id/layoutPaidDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/roomkit_divider" />
+
+            <TextView
+                android:id="@+id/tvInvoicePaymentDetail"
+                style="@style/TextAppearance.RoomKit.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                tools:text="Paid Oct 21, 2026 · Bank Transfer"
+                tools:textColor="@color/roomkit_success_dark" />
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/roomkit_background"
+    android:orientation="vertical">
+
+    <!-- Header: Title, Subtitle, & Month Selector Capsule -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal"
+        android:paddingTop="@dimen/roomkit_screen_padding_top"
+        android:paddingBottom="@dimen/roomkit_spacing_md">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextAppearance.RoomKit.ScreenTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Billing" />
+
+            <TextView
+                style="@style/TextAppearance.RoomKit.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Manage monthly invoices"
+                android:textColor="@color/roomkit_text_secondary" />
+        </LinearLayout>
+
+        <!-- Month Selector Capsule -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.RoomKit.Card.MonthPill"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            app:cardBackgroundColor="@color/roomkit_surface"
+            app:strokeColor="@color/roomkit_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/roomkit_spacing_xs">
+
+                <ImageView
+                    android:id="@+id/btnPrevMonth"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Previous Month"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="@color/roomkit_text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvSelectedMonth"
+                    style="@style/TextAppearance.RoomKit.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/roomkit_spacing_sm"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textStyle="bold"
+                    tools:text="Oct 2026" />
+
+                <ImageView
+                    android:id="@+id/btnNextMonth"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Next Month"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/roomkit_text_secondary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <!-- 5 Horizontal Summary Metric Cards (Total, Paid, Partial, Unpaid, Overdue) -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal"
+        android:paddingVertical="@dimen/roomkit_spacing_sm"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Card 1: Total -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card.Stat"
+                android:layout_width="@dimen/roomkit_summary_card_width"
+                android:layout_height="@dimen/roomkit_summary_card_height"
+                android:layout_marginEnd="@dimen/roomkit_spacing_sm">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/roomkit_spacing_sm">
+
+                    <TextView
+                        android:id="@+id/tvSummaryTotalCount"
+                        style="@style/TextAppearance.RoomKit.StatValue.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/roomkit_text_primary"
+                        tools:text="7" />
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                        android:text="Total"
+                        android:textColor="@color/roomkit_text_secondary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 2: Paid -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card.Stat"
+                android:layout_width="@dimen/roomkit_summary_card_width"
+                android:layout_height="@dimen/roomkit_summary_card_height"
+                android:layout_marginEnd="@dimen/roomkit_spacing_sm">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/roomkit_spacing_sm">
+
+                    <TextView
+                        android:id="@+id/tvSummaryPaidCount"
+                        style="@style/TextAppearance.RoomKit.StatValue.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/roomkit_success"
+                        tools:text="3" />
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                        android:text="Paid"
+                        android:textColor="@color/roomkit_text_secondary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 3: Partial -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card.Stat"
+                android:layout_width="@dimen/roomkit_summary_card_width"
+                android:layout_height="@dimen/roomkit_summary_card_height"
+                android:layout_marginEnd="@dimen/roomkit_spacing_sm">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/roomkit_spacing_sm">
+
+                    <TextView
+                        android:id="@+id/tvSummaryPartialCount"
+                        style="@style/TextAppearance.RoomKit.StatValue.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/roomkit_warning"
+                        tools:text="1" />
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                        android:text="Partial"
+                        android:textColor="@color/roomkit_text_secondary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 4: Unpaid -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card.Stat"
+                android:layout_width="@dimen/roomkit_summary_card_width"
+                android:layout_height="@dimen/roomkit_summary_card_height"
+                android:layout_marginEnd="@dimen/roomkit_spacing_sm">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/roomkit_spacing_sm">
+
+                    <TextView
+                        android:id="@+id/tvSummaryUnpaidCount"
+                        style="@style/TextAppearance.RoomKit.StatValue.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/roomkit_warning"
+                        tools:text="2" />
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                        android:text="Unpaid"
+                        android:textColor="@color/roomkit_text_secondary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 5: Overdue -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card.Stat"
+                android:layout_width="@dimen/roomkit_summary_card_width"
+                android:layout_height="@dimen/roomkit_summary_card_height">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/roomkit_spacing_sm">
+
+                    <TextView
+                        android:id="@+id/tvSummaryOverdueCount"
+                        style="@style/TextAppearance.RoomKit.StatValue.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/roomkit_error"
+                        tools:text="1" />
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                        android:text="Overdue"
+                        android:textColor="@color/roomkit_text_secondary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- Filter Tabs (All, Paid, Partial, Unpaid, Overdue) -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutFilter"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="@dimen/roomkit_spacing_sm"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/roomkit_primary"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="2.5dp"
+        app:tabMode="fixed"
+        app:tabRippleColor="@null"
+        app:tabSelectedTextColor="@color/roomkit_primary"
+        app:tabTextAppearance="@style/TextAppearance.RoomKit.Tab"
+        app:tabTextColor="@color/roomkit_text_muted" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/roomkit_divider" />
+
+    <!-- Dynamic Section Title -->
+    <TextView
+        android:id="@+id/tvBillingSectionTitle"
+        style="@style/TextAppearance.RoomKit.SectionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/roomkit_screen_padding_horizontal"
+        android:layout_marginTop="@dimen/roomkit_spacing_lg"
+        android:textSize="18sp"
+        tools:text="October 2026 Invoices" />
+
+    <!-- Invoices List & Feedback State Frame -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvInvoices"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal"
+            android:paddingTop="@dimen/roomkit_spacing_md"
+            android:paddingBottom="@dimen/roomkit_bottom_safe_padding"
+            tools:listitem="@layout/item_billing_invoice" />
+
+        <!-- Polished Empty State -->
+        <LinearLayout
+            android:id="@+id/layoutEmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/roomkit_spacing_xxl"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="No invoices icon"
+                android:src="@drawable/ic_billing"
+                app:tint="@color/roomkit_text_muted" />
+
+            <TextView
+                android:id="@+id/tvEmptyTitle"
+                style="@style/TextAppearance.RoomKit.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/roomkit_spacing_md"
+                android:textColor="@color/roomkit_text_primary"
+                android:textStyle="bold"
+                tools:text="No invoices for Oct 2026" />
+
+            <TextView
+                style="@style/TextAppearance.RoomKit.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Issued invoices for this period will appear here." />
+        </LinearLayout>
+
+        <!-- Loading Progress -->
+        <ProgressBar
+            android:id="@+id/progressBilling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/roomkit_primary"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

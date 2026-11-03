@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/roomkit_background"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollDashboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:paddingBottom="@dimen/roomkit_bottom_safe_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Greeting & Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal"
+                android:paddingTop="@dimen/roomkit_screen_padding_top">
+
+                <TextView
+                    android:id="@+id/tvGreeting"
+                    style="@style/TextAppearance.RoomKit.Greeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Good morning" />
+
+                <TextView
+                    style="@style/TextAppearance.RoomKit.ScreenTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                    android:text="RoomKit Overview" />
+            </LinearLayout>
+
+            <!-- Horizontal Building Filter RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBuildingFilters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/roomkit_spacing_lg"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal"
+                android:scrollbars="none"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_building_filter" />
+
+            <!-- Main Content Container -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal">
+
+                <!-- 2x2 Room Summary Cards (Row 1) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/roomkit_spacing_xl"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <!-- Total Rooms -->
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Widget.RoomKit.Card.Stat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/roomkit_card_padding_compact">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.CardLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TOTAL ROOMS" />
+
+                            <TextView
+                                android:id="@+id/tvTotalRoomsCount"
+                                style="@style/TextAppearance.RoomKit.StatValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/roomkit_spacing_sm"
+                                tools:text="24" />
+
+                            <TextView
+                                android:id="@+id/tvTotalRoomsSub"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                                android:text="across all buildings" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Occupied -->
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Widget.RoomKit.Card.Stat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/roomkit_card_padding_compact">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.CardLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="OCCUPIED" />
+
+                            <TextView
+                                android:id="@+id/tvOccupiedRoomsCount"
+                                style="@style/TextAppearance.RoomKit.StatValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/roomkit_spacing_sm"
+                                tools:text="18" />
+
+                            <TextView
+                                android:id="@+id/tvOccupiedRoomsSub"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                                android:text="active tenants" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- 2x2 Room Summary Cards (Row 2) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/roomkit_spacing_md"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <!-- Vacant -->
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Widget.RoomKit.Card.Stat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/roomkit_card_padding_compact">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.CardLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="VACANT" />
+
+                            <TextView
+                                android:id="@+id/tvVacantRoomsCount"
+                                style="@style/TextAppearance.RoomKit.StatValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/roomkit_spacing_sm"
+                                tools:text="6" />
+
+                            <TextView
+                                android:id="@+id/tvVacantRoomsSub"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                                android:text="available now" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Occupancy % -->
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Widget.RoomKit.Card.Stat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/roomkit_card_padding_compact">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.CardLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="OCCUPANCY" />
+
+                            <TextView
+                                android:id="@+id/tvOccupancyPercent"
+                                style="@style/TextAppearance.RoomKit.StatValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/roomkit_spacing_sm"
+                                tools:text="75%" />
+
+                            <TextView
+                                android:id="@+id/tvOccupancyPercentSub"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                                android:text="of total rooms" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- Financial Summary Card -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.RoomKit.Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/roomkit_spacing_xl"
+                    app:cardBackgroundColor="@color/roomkit_surface_subtle">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/roomkit_card_padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.SectionTitle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="This Month" />
+
+                            <TextView
+                                android:id="@+id/tvMonthYear"
+                                style="@style/TextAppearance.RoomKit.Body"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="Oct 2026" />
+                        </LinearLayout>
+
+                        <TextView
+                            style="@style/TextAppearance.RoomKit.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/roomkit_spacing_lg"
+                            android:text="Billed" />
+
+                        <TextView
+                            android:id="@+id/tvBilledAmount"
+                            style="@style/TextAppearance.RoomKit.MoneyLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            tools:text="400,000 ៛" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="@dimen/roomkit_spacing_lg"
+                            android:background="@color/roomkit_divider" />
+
+                        <!-- Collected vs Outstanding -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/TextAppearance.RoomKit.Body"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Collected" />
+
+                                <TextView
+                                    android:id="@+id/tvCollectedAmount"
+                                    style="@style/TextAppearance.RoomKit.MoneyMedium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                                    android:textColor="@color/roomkit_success"
+                                    tools:text="400,000 ៛" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/TextAppearance.RoomKit.Body"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Outstanding" />
+
+                                <TextView
+                                    android:id="@+id/tvOutstandingAmount"
+                                    style="@style/TextAppearance.RoomKit.MoneyMedium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                                    android:textColor="@color/roomkit_error"
+                                    tools:text="400,000 ៛" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="@dimen/roomkit_spacing_lg"
+                            android:background="@color/roomkit_divider" />
+
+                        <!-- Status Dot Counters -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <!-- Paid -->
+                            <View
+                                android:layout_width="@dimen/roomkit_status_dot_size"
+                                android:layout_height="@dimen/roomkit_status_dot_size"
+                                android:background="@drawable/shape_dot_green" />
+
+                            <TextView
+                                android:id="@+id/tvPaidCountLabel"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/roomkit_spacing_xs"
+                                android:textColor="@color/roomkit_text_primary"
+                                tools:text="3 Paid" />
+
+                            <!-- Partial -->
+                            <View
+                                android:layout_width="@dimen/roomkit_status_dot_size"
+                                android:layout_height="@dimen/roomkit_status_dot_size"
+                                android:layout_marginStart="@dimen/roomkit_spacing_md"
+                                android:background="@drawable/shape_dot_amber" />
+
+                            <TextView
+                                android:id="@+id/tvPartialCountLabel"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/roomkit_spacing_xs"
+                                android:textColor="@color/roomkit_text_primary"
+                                tools:text="1 Partial" />
+
+                            <!-- Unpaid -->
+                            <View
+                                android:layout_width="@dimen/roomkit_status_dot_size"
+                                android:layout_height="@dimen/roomkit_status_dot_size"
+                                android:layout_marginStart="@dimen/roomkit_spacing_md"
+                                android:background="@drawable/shape_dot_amber" />
+
+                            <TextView
+                                android:id="@+id/tvUnpaidCountLabel"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/roomkit_spacing_xs"
+                                android:textColor="@color/roomkit_text_primary"
+                                tools:text="2 Unpaid" />
+
+                            <!-- Overdue -->
+                            <View
+                                android:layout_width="@dimen/roomkit_status_dot_size"
+                                android:layout_height="@dimen/roomkit_status_dot_size"
+                                android:layout_marginStart="@dimen/roomkit_spacing_md"
+                                android:background="@drawable/shape_dot_red" />
+
+                            <TextView
+                                android:id="@+id/tvOverdueCountLabel"
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/roomkit_spacing_xs"
+                                android:textColor="@color/roomkit_text_primary"
+                                tools:text="2 Overdue" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Requires Attention Section Header -->
+                <TextView
+                    style="@style/TextAppearance.RoomKit.SectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/roomkit_spacing_xxl"
+                    android:text="Requires Attention" />
+
+                <!-- Polished Empty State Container -->
+                <LinearLayout
+                    android:id="@+id/tvEmptyAttention"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/roomkit_spacing_lg"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/roomkit_spacing_lg"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nothing needs attention"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/TextAppearance.RoomKit.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="You're all caught up." />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRequiresAttention"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/roomkit_spacing_md"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

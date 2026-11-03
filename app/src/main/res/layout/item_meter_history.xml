@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="16dp" android:paddingBottom="12dp" android:paddingHorizontal="4dp" android:minHeight="72dp" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true">
+    <TextView android:id="@+id/tvHistoryTitle" style="@style/MRHeading" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="14sp"/>
+    <TextView android:id="@+id/tvHistoryDate" style="@style/MRCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp"/>
+    <TextView android:id="@+id/tvHistoryValues" style="@style/MRBody" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp"/>
+    <TextView android:id="@+id/tvHistoryUsage" style="@style/MRCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textColor="@color/mr_success"/>
+    <TextView android:id="@+id/tvHistoryNote" style="@style/MRCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:visibility="gone"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="16dp" android:background="@color/mr_border"/>
+</LinearLayout>

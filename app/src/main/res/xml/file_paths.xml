@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Grants share access to the dedicated shared_qr subfolder inside internal cache -->
+    <cache-path
+        name="shared_qr_images"
+        path="shared_qr/" />
+
+    <!-- Fallback access for entire cache if needed -->
+    <cache-path
+        name="all_cache"
+        path="." />
+</paths>
