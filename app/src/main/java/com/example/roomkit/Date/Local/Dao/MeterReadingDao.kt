@@ -17,39 +17,39 @@ interface MeterReadingDao {
 
 
     @Query("""
-        SELECT * FROM meter_readings 
-        WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE readingType='MONTHLY' AND roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1) AND meterType = :meterType 
-        ORDER BY billingYear DESC, billingMonth DESC, readingId DESC 
+        SELECT * FROM meter_readings
+        WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1) AND meterType = :meterType
+        ORDER BY billingYear DESC, billingMonth DESC, readingId DESC
         LIMIT 1
     """)
     fun observeLatestReading(roomId: Long, meterType: String): Flow<MeterReadingEntity?>
 
     @Query("""
-        SELECT * FROM meter_readings 
-        WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE readingType='MONTHLY' AND roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1) AND meterType = :meterType AND billingMonth = :month AND billingYear = :year 
+        SELECT * FROM meter_readings
+        WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1) AND meterType = :meterType AND billingMonth = :month AND billingYear = :year
         LIMIT 1
     """)
     suspend fun getReadingForPeriod(roomId: Long, meterType: String, month: Int, year: Int): MeterReadingEntity?
 
     @Query("""
-        SELECT * FROM meter_readings 
-        WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE readingType='MONTHLY' AND roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1) AND meterType = :meterType 
-        ORDER BY billingYear DESC, billingMonth DESC, readingId DESC 
+        SELECT * FROM meter_readings
+        WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1) AND meterType = :meterType
+        ORDER BY billingYear DESC, billingMonth DESC, readingId DESC
         LIMIT 1
     """)
     suspend fun getLatestReading(roomId: Long, meterType: String): MeterReadingEntity?
 
     @Query("""
-        SELECT * FROM meter_readings 
-        WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE readingType='MONTHLY' AND roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1) 
-          AND meterType = :meterType 
-          AND billingMonth = :month 
-          AND billingYear = :year 
+        SELECT * FROM meter_readings
+        WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1)
+          AND meterType = :meterType
+          AND billingMonth = :month
+          AND billingYear = :year
         LIMIT 1
     """)
     suspend fun getReadingForMonth(roomId: Long, meterType: String, month: Int, year: Int): MeterReadingEntity?
     @Query("""SELECT * FROM meter_readings WHERE readingType='MONTHLY' AND roomId=:roomId AND meterType=:meterType
-        AND tenancyId=(SELECT tenancyId FROM tenancies WHERE readingType='MONTHLY' AND roomId=:roomId AND status='ACTIVE' LIMIT 1)
+        AND tenancyId=(SELECT tenancyId FROM tenancies WHERE roomId=:roomId AND status='ACTIVE' LIMIT 1)
         AND (billingYear < :year OR (billingYear=:year AND billingMonth < :month))
         ORDER BY billingYear DESC,billingMonth DESC LIMIT 1""")
     suspend fun getLatestReadingBefore(roomId: Long, meterType: String, month: Int, year: Int): MeterReadingEntity?
@@ -62,7 +62,7 @@ interface MeterReadingDao {
 
     @Query("""
     SELECT * FROM meter_readings
-    WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE readingType='MONTHLY' AND roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1)
+    WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1)
       AND meterType = :meterType
       AND billingMonth = :month
       AND billingYear = :year
@@ -76,7 +76,7 @@ interface MeterReadingDao {
     ): Flow<MeterReadingEntity?>
 
     @Query("""SELECT * FROM meter_readings WHERE readingType='MONTHLY' AND roomId = :roomId
-        AND tenancyId = (SELECT tenancyId FROM tenancies WHERE readingType='MONTHLY' AND roomId = :roomId AND status = 'ACTIVE' LIMIT 1)
+        AND tenancyId = (SELECT tenancyId FROM tenancies WHERE roomId = :roomId AND status = 'ACTIVE' LIMIT 1)
         AND meterType = :meterType AND (billingYear < :year OR (billingYear = :year AND billingMonth < :month))
         ORDER BY billingYear DESC, billingMonth DESC, readingId DESC LIMIT 1""")
     suspend fun getReadingBeforePeriod(
@@ -89,7 +89,7 @@ interface MeterReadingDao {
     @Query("""
     SELECT EXISTS(
         SELECT 1 FROM meter_readings
-        WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE readingType='MONTHLY' AND roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1)
+        WHERE readingType='MONTHLY' AND roomId = :roomId AND tenancyId = COALESCE((SELECT tenancyId FROM tenancies WHERE roomId = :roomId AND status = 'ACTIVE' LIMIT 1), -1)
           AND meterType = :meterType
           AND (
               billingYear > :year

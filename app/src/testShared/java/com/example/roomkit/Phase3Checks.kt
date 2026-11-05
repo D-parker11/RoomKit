@@ -1,0 +1,172 @@
+package com.example.roomkit
+
+import android.content.Context
+import android.net.Uri
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.test.core.app.ApplicationProvider
+import com.example.roomkit.Date.Backup.JsonBackupRepository
+import com.example.roomkit.Date.Local.Entity.*
+import com.example.roomkit.Date.Repositories.MonthlyCloseRepository
+import com.example.roomkit.Date.Repositories.phase3Billing
+import com.roomkit.Date.Local.Scheme.MeterHistorySchema
+import com.roomkit.Date.Local.Scheme.Phase3Schema
+import com.roomkit.Date.Local.Scheme.PropertyConstraintSchema
+import com.roomkit.data.local.AppDatabase
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Assert.*
+import org.junit.Before
+import org.junit.Test
+import java.io.File
+import java.time.YearMonth
+import java.time.ZoneId
+
+abstract class Phase3Checks {
+    private lateinit var db: AppDatabase
+    private val context: Context = ApplicationProvider.getApplicationContext()
+    private val month = YearMonth.now(ZoneId.of("Asia/Phnom_Penh")).minusMonths(1)
+    private val at = month.atDay(1).atStartOfDay(ZoneId.of("Asia/Phnom_Penh")).toInstant().toEpochMilli()
+    private var tenancyId=0L
+    private var roomId=0L
+    private var tenantId=0L
+    private val fixtureFile by lazy { File(context.cacheDir,"phase3-test-${System.nanoTime()}.json") }
+    @Before fun setup(): Unit = runBlocking {
+        db=Room.inMemoryDatabaseBuilder(context,AppDatabase::class.java).addCallback(object:RoomDatabase.Callback(){
+            override fun onCreate(sql:SupportSQLiteDatabase) {
+                MeterHistorySchema.installGuards(sql);PropertyConstraintSchema.installGuards(sql);Phase3Schema.installGuards(sql)
+            }
+        }).build()
+        val building=db.buildingDao().insertSingleBuilding(BuildingEntity(name="Fictional test property",address=null,description=null,totalRooms=2))
+        roomId=db.roomDao().insertRoomWithinCapacity(RoomEntity(buildingId=building,roomNumber="101",floor=null,monthlyRent=400_000,description=null))
+        tenantId=db.tenantDao().insertTenantCheckingIdentity(TenantEntity(fullName="Demo Tenant A",phoneNumber="test-only-A",idOrPassport="PH3-DEMO-A"))
+        tenancyId=db.tenancyDao().insertTenancy(TenancyEntity(tenantId=tenantId,roomId=roomId,moveInDate=at,
+            monthlyRent=400_000,deposit=400_000,billingDay=1,dueDay=5,electricityRate=1_000,
+            waterBillingMethod="FIXED",waterRate=20_000,rubbishFee=10_000,status="ACTIVE"))
+        db.roomDao().updateRoomStatus(roomId,"OCCUPIED")
+        db.meterReadingDao().insertReading(MeterReadingEntity(tenancyId=tenancyId,roomId=roomId,meterType="ELECTRICITY",
+            previousReading=100,currentReading=100,readingDate=at,billingMonth=month.monthValue,billingYear=month.year,readingType="INITIAL"))
+        db.meterReadingDao().insertReading(MeterReadingEntity(tenancyId=tenancyId,roomId=roomId,meterType="ELECTRICITY",
+            previousReading=100,currentReading=130,readingDate=at+1000,billingMonth=month.monthValue,billingYear=month.year))
+    }
+    @After fun teardown(){db.close();fixtureFile.delete()}
+    private fun closeRepo()=MonthlyCloseRepository(db,phase3Billing(context,db))
+    @Test fun closeIsIdempotentAndRetainsIds()=runBlocking {
+        val first=closeRepo().close(month);val second=closeRepo().close(month)
+        assertEquals(first,second);assertEquals(1,first.size)
+        assertEquals(460_000L,db.invoiceDao().getInvoiceById(first.single())!!.totalKhr)
+        assertEquals(1,closeRepo().history(month).size)
+    }
+    @Test fun competingCloseCallsReturnOneResult()=runBlocking {
+        val result=coroutineScope { val a=async{closeRepo().close(month)};val b=async{closeRepo().close(month)};a.await() to b.await() }
+        assertEquals(result.first,result.second);assertEquals(1,db.invoiceDao().getForTenancy(tenancyId).size)
+    }
+    @Test fun missingReadingRollsBackEveryInvoiceAndPeriod()=runBlocking {
+        val room=db.roomDao().insertRoomWithinCapacity(RoomEntity(buildingId=1,roomNumber="102",floor=null,monthlyRent=400_000,description=null))
+        val tenant=db.tenantDao().insertTenantCheckingIdentity(TenantEntity(fullName="Demo Tenant B",phoneNumber="test-only-B"))
+        db.tenancyDao().insertTenancy(TenancyEntity(tenantId=tenant,roomId=room,moveInDate=at,monthlyRent=400_000,deposit=0,
+            billingDay=1,dueDay=5,electricityRate=1000,waterBillingMethod="FIXED",waterRate=20_000,rubbishFee=10_000,status="ACTIVE"))
+        assertTrue(runCatching{closeRepo().close(month)}.isFailure)
+        assertTrue(db.invoiceDao().getForTenancy(tenancyId).isEmpty());assertNull(closeRepo().state(month))
+    }
+    @Test fun reopenRequiresReasonAndPreservesIssuedSnapshots()=runBlocking {
+        val id=closeRepo().close(month).single();val original=db.invoiceDao().getInvoiceById(id)
+        assertTrue(runCatching{closeRepo().reopen(month,"")}.isFailure)
+        assertEquals("CLOSED",closeRepo().state(month)!!.status)
+        closeRepo().reopen(month,"Reviewed correction")
+        assertEquals(original,db.invoiceDao().getInvoiceById(id));assertEquals(listOf(id),closeRepo().close(month))
+        assertEquals(listOf("CLOSE","REOPEN","CLOSE"),closeRepo().history(month).map{it.action})
+    }
+    @Test fun monthlyReadingCannotChangeBeforeIssue()=runBlocking {
+        val row=db.meterReadingDao().getForTenancy(tenancyId).first{it.readingType=="MONTHLY"}
+        assertTrue(runCatching{db.meterReadingDao().updateReading(row.copy(currentReading=140))}.isFailure)
+        assertEquals(130L,db.meterReadingDao().getForTenancy(tenancyId).first{it.readingType=="MONTHLY"}.currentReading)
+    }
+    @Test fun closedMonthStillAcceptsPayments()=runBlocking {
+        val billing=phase3Billing(context,db);val id=closeRepo().close(month).single()
+        billing.recordPayment(id,200_000,method="CASH").getOrThrow()
+        assertEquals(260_000L,db.invoiceDao().getInvoiceById(id)!!.balanceKhr)
+    }
+    @Test fun backupRoundTripRetainsAuditAndAmounts()=runBlocking {
+        val id=closeRepo().close(month).single();val repository=JsonBackupRepository(context,db)
+        repository.export(Uri.fromFile(fixtureFile),"test-only backup password".toCharArray())
+        val tenant=db.tenantDao().getTenantById(tenantId)!!
+        db.tenantDao().updateTenant(tenant.copy(fullName="Changed after backup"))
+        repository.restore(Uri.fromFile(fixtureFile),"test-only backup password".toCharArray())
+        assertEquals(tenant,db.tenantDao().getTenantById(tenantId))
+        assertEquals(460_000L,db.invoiceDao().getInvoiceById(id)!!.totalKhr)
+        assertEquals("CLOSED",closeRepo().state(month)!!.status);assertEquals(1,closeRepo().history(month).size)
+    }
+    @Test fun wrongPasswordDoesNotChangeExistingData()=runBlocking {
+        val repository=JsonBackupRepository(context,db);val before=db.tenantDao().getTenantById(tenantId)
+        repository.export(Uri.fromFile(fixtureFile),"test-only backup password".toCharArray())
+        assertTrue(runCatching{repository.restore(Uri.fromFile(fixtureFile),"another wrong password".toCharArray())}.isFailure)
+        assertEquals(before,db.tenantDao().getTenantById(tenantId))
+    }
+    @Test fun malformedJsonDoesNotChangeExistingData()=runBlocking {
+        val before=db.tenantDao().getTenantById(tenantId);fixtureFile.writeText("{broken")
+        assertTrue(runCatching{JsonBackupRepository(context,db).restore(Uri.fromFile(fixtureFile),"test-only password".toCharArray())}.isFailure)
+        assertEquals(before,db.tenantDao().getTenantById(tenantId))
+    }
+    @Test fun migration10To11PreservesExistingRows()=runBlocking {
+        val name="phase3-migration-${System.nanoTime()}.db"
+        val file=context.getDatabasePath(name)
+        var old:AppDatabase?=null
+        var upgraded:AppDatabase?=null
+        try {
+            old=Room.databaseBuilder(context,AppDatabase::class.java,name).addCallback(object:RoomDatabase.Callback(){
+                override fun onCreate(sql:SupportSQLiteDatabase) {
+                    MeterHistorySchema.installGuards(sql);PropertyConstraintSchema.installGuards(sql)
+                }
+            }).build()
+            val id=old.tenantDao().insertTenantCheckingIdentity(TenantEntity(fullName="Preserved legacy tenant",phoneNumber="migration-only"))
+            old.close();old=null
+            // Derive a v10-shaped fixture: the v11 migration adds only these two tables/guards.
+            android.database.sqlite.SQLiteDatabase.openDatabase(file.path,null,0).use { sql ->
+                sql.execSQL("DROP TABLE billing_period_events")
+                sql.execSQL("DROP TABLE billing_periods")
+                sql.version=10
+            }
+            upgraded=Room.databaseBuilder(context,AppDatabase::class.java,name)
+                .addMigrations(AppDatabase.MIGRATION_10_11).build()
+            assertEquals("Preserved legacy tenant",upgraded.tenantDao().getTenantById(id)!!.fullName)
+            assertNull(upgraded.billingPeriodDao().get(month.year,month.monthValue))
+            upgraded.openHelper.writableDatabase.query("PRAGMA user_version").use { it.moveToFirst();assertEquals(11,it.getInt(0)) }
+            upgraded.openHelper.writableDatabase.query("SELECT COUNT(*) FROM sqlite_master WHERE type='trigger' AND name='meter_monthly_immutable'").use {
+                it.moveToFirst();assertEquals(1,it.getInt(0))
+            }
+        } finally { old?.close();upgraded?.close();context.deleteDatabase(name) }
+    }
+    @Test fun authenticatedButInconsistentBackupCannotReplaceData()=runBlocking {
+        val repository=JsonBackupRepository(context,db)
+        val password="test-only backup password".toCharArray()
+        repository.export(Uri.fromFile(fixtureFile),password)
+        val outer=org.json.JSONObject(fixtureFile.readText())
+        val decoder=java.util.Base64.getDecoder()
+        val plain=com.example.roomkit.Date.Backup.BackupCrypto.decrypt(
+            com.example.roomkit.Date.Backup.BackupCrypto.Envelope(decoder.decode(outer.getString("salt")),decoder.decode(outer.getString("iv")),decoder.decode(outer.getString("data"))),password)
+        val payload=org.json.JSONObject(plain.toString(Charsets.UTF_8))
+        payload.getJSONObject("tables").getJSONArray("tenancies").getJSONObject(0).put("monthlyRent",-1)
+        val sealed=com.example.roomkit.Date.Backup.BackupCrypto.encrypt(payload.toString().toByteArray(),password)
+        val encoder=java.util.Base64.getEncoder()
+        outer.put("salt",encoder.encodeToString(sealed.salt)).put("iv",encoder.encodeToString(sealed.iv)).put("data",encoder.encodeToString(sealed.ciphertext))
+        fixtureFile.writeText(outer.toString())
+        assertTrue(runCatching{repository.restore(Uri.fromFile(fixtureFile),password)}.isFailure)
+        assertEquals(400_000L,db.tenancyDao().getTenancyById(tenancyId)!!.monthlyRent)
+        password.fill('\u0000');plain.fill(0)
+    }
+    @Test fun replacementAfterSavedMonthlyCarriesOnlyUnbilledUsage()=runBlocking {
+        val rows=db.meterReadingDao().getForTenancy(tenancyId)
+        val replacement=MeterReadingEntity(tenancyId=tenancyId,roomId=roomId,meterType="ELECTRICITY",
+            previousReading=140,currentReading=0,readingDate=at+2000,billingMonth=month.monthValue,billingYear=month.year,
+            readingType="METERREPLACEMENT",eventOrdinal=1,meterSequence=1,reason="Damaged meter")
+        db.meterReadingDao().insertReading(replacement)
+        val next=month.plusMonths(1)
+        val basis=com.example.roomkit.Date.Repositories.MeterHistory.monthly(rows+replacement,next.monthValue,next.year,0)
+        assertEquals(0L,basis.previous);assertEquals(10L,basis.carried);assertEquals(15L,basis.usage(5))
+        assertEquals(130L,db.meterReadingDao().getForTenancy(tenancyId).first{it.readingType=="MONTHLY"}.currentReading)
+    }
+}

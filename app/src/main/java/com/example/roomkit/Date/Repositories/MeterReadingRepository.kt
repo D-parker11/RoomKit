@@ -62,7 +62,7 @@ class MeterReadingRepository(
         val tenantName = tenant?.fullName ?: "Tenant"
 
         // Check if an official active invoice exists and locks this month
-        // (Drafts or VOID invoices do NOT lock meter readings)
+        // Saved monthly facts are immutable even before issue or after void.
         val invoiceStatus = getActiveInvoiceStatus(tenancy.tenancyId, month, year)
         val isLocked = locksMeterReadings(invoiceStatus)
 
@@ -84,7 +84,8 @@ class MeterReadingRepository(
                 existingCurrentElectricity = existingElec?.currentReading,
                 previousWater = prevWater,
                 existingCurrentWater = existingWater?.currentReading,
-                isLockedByInvoice = isLocked, electricityBasis = e, waterBasis = w, history = history
+                isLockedByInvoice = isLocked || existingElec != null || existingWater != null ||
+                    db.billingPeriodDao().get(year, month)?.status == "CLOSED", electricityBasis = e, waterBasis = w, history = history
             )
         )
     }
@@ -113,7 +114,7 @@ class MeterReadingRepository(
                 MeterSaveValidation.unchanged(expectedContext, fresh)
                 val tenancy = fresh.tenancy
                 check(!fresh.isLockedByInvoice) {
-                    "This meter reading is already used by an issued invoice."
+                    "This month is locked or its monthly readings have already been recorded."
                 }
                 val moveIn = java.util.Calendar.getInstance(java.util.TimeZone.getTimeZone("Asia/Phnom_Penh")).apply { timeInMillis = tenancy.moveInDate }
                 require(year * 12 + month - 1 >= moveIn.get(java.util.Calendar.YEAR) * 12 + moveIn.get(java.util.Calendar.MONTH)) {
@@ -133,14 +134,7 @@ class MeterReadingRepository(
                 // Electricity
                 val existingElec = meterReadingDao.getReadingForMonth(roomId, "ELECTRICITY", month, year)
                 if (existingElec != null) {
-                    meterReadingDao.updateReading(
-                        existingElec.copy(
-                            previousReading = prevElec,
-                            carriedUsage = fresh.electricityBasis.carried, meterSequence = fresh.electricityBasis.sequence,
-                            currentReading = currElec,
-                            readingDate = System.currentTimeMillis()
-                        )
-                    )
+                    error("Recorded monthly electricity readings are immutable.")
                 } else {
                     meterReadingDao.insertReading(
                         MeterReadingEntity(
@@ -161,14 +155,7 @@ class MeterReadingRepository(
                 if (!isWaterFixed) {
                     val existingWater = meterReadingDao.getReadingForMonth(roomId, "WATER", month, year)
                     if (existingWater != null) {
-                        meterReadingDao.updateReading(
-                            existingWater.copy(
-                                previousReading = prevWater,
-                                carriedUsage = fresh.waterBasis.carried, meterSequence = fresh.waterBasis.sequence,
-                                currentReading = currWater,
-                                readingDate = System.currentTimeMillis()
-                            )
-                        )
+                        error("Recorded monthly water readings are immutable.")
                     } else {
                         meterReadingDao.insertReading(
                             MeterReadingEntity(
@@ -218,17 +205,15 @@ class MeterReadingRepository(
             val basis = MeterHistory.advance(if (type == "ELECTRICITY") fresh.electricityBasis else fresh.waterBasis, rows)
             MeterSaveValidation.replacement(closing, opening, MeterHistory.minimumCurrent(rows, basis))
             val sequence = Math.addExact(basis.sequence, 1)
-            val carried = basis.usage(closing)
+            basis.usage(closing) // overflow validation
             meterReadingDao.insertReading(MeterReadingEntity(
                 tenancyId=fresh.tenancy.tenancyId, roomId=roomId, meterType=type,
                 previousReading=closing, currentReading=opening, readingDate=now,
                 billingMonth=month, billingYear=year, readingType="METERREPLACEMENT",
                 eventOrdinal=sequence, meterSequence=sequence, reason=reason.trim()))
-            // A saved monthly row remains one row; it now carries the consumed old-meter units.
-            val monthly = meterReadingDao.getReadingForMonth(roomId, type, month, year)
-            if (monthly != null && !fresh.isLockedByInvoice) meterReadingDao.updateReading(monthly.copy(
-                previousReading=opening, currentReading=opening, carriedUsage=carried,
-                meterSequence=sequence, readingDate=now))
+            // Keep the saved monthly fact unchanged. Usage after its closing reading is
+            // carried by replacement history into the next bill or final settlement.
+
         }
         Result.success(Unit)
     } catch (e: CancellationException) { throw e }

@@ -112,3 +112,8 @@ Uninstalling the application may remove locally stored data.
 ## Project Repository
 
 https://github.com/D-parker11/RoomKit
+## Phase 3 completion update
+
+Month close/reopening and protected JSON backup/restore are available from **More → Month close & backups**. Saved monthly meter readings are read-only. Tap the meter screen's month subtitle to select a past billing period when entering missing readings.
+
+The Room schema is version 11, with a data-preserving migration from version 10. Installation, close eligibility, backup limits and manual acceptance steps are documented in [Phase 3 update](docs/PHASE3_UPDATE.md). Commands actually executed are recorded separately in [Phase 3 verification](docs/PHASE3_VERIFICATION.md).

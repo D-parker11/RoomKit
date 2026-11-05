@@ -30,7 +30,7 @@ class TenantRepository(private val tenantDao: TenantDao) {
         if (cleanPhone.isBlank()) return Result.failure(IllegalArgumentException("Phone number cannot be empty."))
 
         return try {
-            val id = tenantDao.insertTenant(
+            val id = tenantDao.insertTenantCheckingIdentity(
                 TenantEntity(
                     fullName = cleanName,
                     phoneNumber = cleanPhone,
@@ -39,6 +39,8 @@ class TenantRepository(private val tenantDao: TenantDao) {
                 )
             )
             Result.success(id)
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
         } catch (e: Exception) {
             Result.failure(e)
         }

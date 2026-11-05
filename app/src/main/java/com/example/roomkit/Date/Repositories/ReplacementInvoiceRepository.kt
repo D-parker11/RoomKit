@@ -160,6 +160,27 @@ class ReplacementInvoiceRepository(
         }
     }
 
+    /** Used only by the outer all-or-nothing month-close transaction. No reminder side effects. */
+    internal suspend fun issueStoredDraftWithinTransaction(expected: InvoiceEntity): InvoiceEntity {
+        check(db.inTransaction())
+        val old = checkedDraft(expected)
+        val values = mapOf(
+            "rent" to old.rentKhr.toString(), "electricityPrevious" to (old.electricityPrevious ?: 0L).toString(),
+            "electricityCurrent" to (old.electricityCurrent ?: 0L).toString(),
+            "electricityRate" to old.electricityRateKhrSnapshot.toString(),
+            "waterPrevious" to (old.waterPrevious ?: 0L).toString(), "waterCurrent" to (old.waterCurrent ?: 0L).toString(),
+            "waterRate" to (if (old.waterBillingMethod.equals("FIXED", true)) old.fixedWaterFeeKhrSnapshot ?: 0L else old.waterRateKhrSnapshot ?: 0L).toString(),
+            "rubbish" to old.rubbishFeeKhrSnapshot.toString(), "other" to old.otherChargesKhr.toString(),
+            "discount" to old.discountKhr.toString(), "discountReason" to old.discountReason.orEmpty()
+        )
+        val edited = calculateDraft(old, values)
+        db.writeDraftItems(edited)
+        val issued = edited.copy(status=if (edited.totalKhr == 0L) "PAID" else "ISSUED",
+            balanceKhr=edited.totalKhr, issueDate=System.currentTimeMillis())
+        invoices.updateInvoice(issued)
+        return issued
+    }
+
     suspend fun issue(expected: InvoiceEntity, values: Map<String, String>): Result<Long> = attempt {
         val detail = db.withTransaction {
             val edited = calculateDraft(checkedDraft(expected), values)

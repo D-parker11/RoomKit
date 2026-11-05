@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@color/rks2_bg">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="12dp" android:background="@color/rks2_surface">
+        <ImageButton android:id="@+id/settingsBack" android:layout_width="48dp" android:layout_height="48dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_arrow_back" android:contentDescription="@string/rks2_back" app:tint="@color/rks2_text" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:paddingStart="8dp">
+            <TextView android:id="@+id/pageTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_month" android:textColor="@color/rks2_text" android:textSize="26sp" android:textStyle="bold" android:accessibilityHeading="true" />
+            <TextView android:id="@+id/pageSubtitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/rks2_month_subtitle" android:textColor="@color/rks2_muted" android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:fillViewport="true" android:clipToPadding="false">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp" android:paddingBottom="40dp">
+            <LinearLayout android:id="@+id/toolsMonthlySection" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <com.google.android.material.card.MaterialCardView style="@style/Rks2Card">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_review_title" android:textColor="@color/rks2_text" android:textSize="20sp" android:lineSpacingExtra="3dp" android:layout_marginBottom="12dp" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_review_body" android:textColor="@color/rks2_muted" android:textSize="14sp" android:lineSpacingExtra="3dp" android:layout_marginBottom="12dp" />
+                            <com.google.android.material.textfield.TextInputLayout style="@style/RksInput" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/rks2_month_hint" android:layout_marginBottom="16dp">
+                                <com.google.android.material.textfield.TextInputEditText android:id="@+id/toolsMonth" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="text" android:singleLine="true" android:maxLength="7" android:saveEnabled="false" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.button.MaterialButton android:id="@+id/toolsReview" style="@style/Rks2Secondary" android:text="@string/rks2_review" />
+                            <com.google.android.material.button.MaterialButton android:id="@+id/toolsClose" style="@style/Rks2Primary" android:text="@string/rks2_close" />
+                            <com.google.android.material.button.MaterialButton android:id="@+id/toolsReopen" style="@style/Rks2Secondary" android:text="@string/rks2_reopen" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_reopen_note" android:textColor="@color/rks2_muted" android:textSize="12sp" android:lineSpacingExtra="3dp" android:layout_marginBottom="12dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/toolsBackupSection" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <com.google.android.material.card.MaterialCardView style="@style/Rks2Card">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_save_title" android:textColor="@color/rks2_text" android:textSize="20sp" android:lineSpacingExtra="3dp" android:layout_marginBottom="12dp" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_save_body" android:textColor="@color/rks2_muted" android:textSize="14sp" android:lineSpacingExtra="3dp" android:layout_marginBottom="12dp" />
+                            <com.google.android.material.button.MaterialButton android:id="@+id/toolsExport" style="@style/Rks2Primary" android:text="@string/rks2_save_backup" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <Space android:layout_width="1dp" android:layout_height="16dp" />
+                <com.google.android.material.card.MaterialCardView style="@style/Rks2Card">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_restore_title" android:textColor="@color/rks2_text" android:textSize="20sp" android:lineSpacingExtra="3dp" android:layout_marginBottom="12dp" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_restore_body" android:textColor="@color/rks2_muted" android:textSize="14sp" android:lineSpacingExtra="3dp" android:layout_marginBottom="12dp" />
+                            <com.google.android.material.button.MaterialButton android:id="@+id/toolsRestore" style="@style/Rks2Secondary" android:text="@string/rks2_restore" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_restore_warning" android:textColor="@color/rks2_error" android:textSize="12sp" android:lineSpacingExtra="3dp" android:layout_marginBottom="12dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_backup_note" android:textColor="@color/rks2_muted" android:textSize="12sp" android:lineSpacingExtra="3dp" android:layout_marginBottom="12dp" />
+            </LinearLayout>
+            <com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/toolsProgress" android:layout_width="match_parent" android:layout_height="wrap_content" android:indeterminate="true" android:visibility="gone" android:layout_marginTop="16dp" app:indicatorColor="@color/rks2_text" />
+            <TextView android:id="@+id/toolsStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:padding="16dp" android:textColor="@color/rks2_text" android:textSize="13sp" android:lineSpacingExtra="4dp" android:accessibilityLiveRegion="polite" android:visibility="gone" android:textIsSelectable="true" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

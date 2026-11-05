@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="84dp" android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true">
+    <ImageView android:id="@+id/rowIcon" android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="14dp" android:importantForAccessibility="no" app:tint="@color/rks2_muted" />
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+        <TextView android:id="@+id/rowTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="15sp" android:textStyle="bold" android:textColor="@color/rks2_text" />
+        <TextView android:id="@+id/rowSubtitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textSize="12sp" android:lineSpacingExtra="2dp" android:textColor="@color/rks2_muted" />
+    </LinearLayout>
+    <TextView android:id="@+id/rowValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:maxWidth="90dp" android:gravity="end" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/rks2_muted" />
+    <ImageView android:id="@+id/rowChevron" android:layout_width="16dp" android:layout_height="16dp" android:layout_marginStart="10dp" android:importantForAccessibility="no" android:src="@drawable/ic_chevron_right" app:tint="@color/rks2_muted" />
+</LinearLayout>

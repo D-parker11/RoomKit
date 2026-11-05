@@ -38,6 +38,10 @@ android {
         jvmTarget = "11"
     }
 
+    sourceSets.getByName("test").java.srcDir("src/testShared/java")
+    sourceSets.getByName("androidTest").java.srcDir("src/testShared/java")
+    testOptions { unitTests.isIncludeAndroidResources = true }
+
     buildFeatures {
         viewBinding = true
     }
@@ -58,10 +62,27 @@ dependencies {
     ksp(libs.room.compiler)
 
     testImplementation(libs.junit)
+    testImplementation("androidx.test:core-ktx:1.5.0")
+    testImplementation("org.robolectric:robolectric:4.14.1")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation("androidx.test:core-ktx:1.5.0")
 
     // WorkManager (Proper Kotlin DSL syntax)
     implementation("androidx.work:work-runtime-ktx:2.9.0")
     implementation("com.google.zxing:core:3.5.3")
+}
+val testJavaToolchains =
+    extensions.getByType<
+            org.gradle.jvm.toolchain.JavaToolchainService
+            >()
+
+tasks.withType<org.gradle.api.tasks.testing.Test>().configureEach {
+    javaLauncher.set(
+        testJavaToolchains.launcherFor {
+            languageVersion.set(
+                org.gradle.jvm.toolchain.JavaLanguageVersion.of(17)
+            )
+        }
+    )
 }

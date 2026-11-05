@@ -13,6 +13,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface InvoiceDao {
+    @Query("SELECT * FROM invoices ORDER BY invoiceId")
+    suspend fun getAllOnceForBackup(): List<InvoiceEntity>
+
     @Query("SELECT * FROM invoices WHERE tenancyId = :id ORDER BY invoiceId")
     suspend fun getForTenancy(id: Long): List<InvoiceEntity>
 

@@ -50,12 +50,26 @@ class MeterReadingViewModel(private val roomId: Long, private val repository: Me
                         fixedWaterFee=ctx.tenancy.waterRate, rubbishFee=ctx.tenancy.rubbishFee,
                         currency=ctx.tenancy.currency, isLockedByInvoice=ctx.isLockedByInvoice,
                         electricityError=null, waterError=null, history=history,
-                        globalError=if(ctx.isLockedByInvoice) "Issued invoice: this period is locked." else null) }
+                        globalError=if(ctx.isLockedByInvoice) "Monthly readings are read-only after saving. Closed months must be reopened for new preparation." else null) }
                 }
             } catch(e: CancellationException) { throw e }
             catch(e: Exception) { _uiState.update { it.copy(isLoading=false, globalError=e.message) } }
         }
     }
+    fun selectPeriod(value: String) {
+        if (_uiState.value.isLoading || _uiState.value.isSaving) return
+        try {
+            val period=java.time.YearMonth.parse(value.trim())
+            require(period.year in 1..9999 && period <= java.time.YearMonth.now(ZoneId.of("Asia/Phnom_Penh"))) {
+                "Choose the current month or a past month."
+            }
+            loadedContext=null
+            _uiState.value=MeterReadingUiState(roomId=roomId,billingMonth=period.monthValue,billingYear=period.year,
+                billingMonthText=period.format(DateTimeFormatter.ofPattern("MMMM yyyy",Locale.US)))
+            reload()
+        } catch(e: Exception) { _uiState.update { it.copy(globalError=e.message ?: "Use YYYY-MM.") } }
+    }
+
     fun onElectricityChanged(input: String) = change(input, true)
     fun onWaterChanged(input: String) = change(input, false)
     private fun change(input: String, electricity: Boolean) {

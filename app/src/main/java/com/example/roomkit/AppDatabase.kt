@@ -34,6 +34,8 @@ import com.roomkit.data.local.dao.BuildingDao
 
 @Database(
     entities = [
+        com.example.roomkit.Date.Local.Entity.BillingPeriodEntity::class,
+        com.example.roomkit.Date.Local.Entity.BillingPeriodEventEntity::class,
         InvoiceItemEntity::class,
         BillingDraftAdjustmentEntity::class,
         BuildingEntity::class,
@@ -45,10 +47,11 @@ import com.roomkit.data.local.dao.BuildingDao
         PaymentEntity::class,
         MoveOutSettlementEntity::class
     ],
-    version = 10,
+    version = 11,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
+    abstract fun billingPeriodDao(): com.example.roomkit.Date.Local.Dao.BillingPeriodDao
     abstract fun invoiceItemDao(): InvoiceItemDao
     abstract fun billingDraftAdjustmentDao(): BillingDraftAdjustmentDao
     abstract fun moveOutDao(): MoveOutDao
@@ -106,6 +109,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_10_11 = com.roomkit.Date.Local.Scheme.Phase3Schema.MIGRATION_10_11
         val MIGRATION_9_10 = com.roomkit.Date.Local.Scheme.PropertyConstraintSchema.MIGRATION_9_10
         val MIGRATION_8_9 = com.roomkit.Date.Local.Scheme.MeterHistorySchema.MIGRATION_8_9
         val MIGRATION_7_8 = com.roomkit.Date.Local.Scheme.InvoicePaymentFieldsSchema.MIGRATION_7_8
@@ -123,11 +127,12 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "roomkit_khr_mvp.db"
                 )
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9, MIGRATION_9_10)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11)
                     .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             com.roomkit.Date.Local.Scheme.MeterHistorySchema.installGuards(db)
                             com.roomkit.Date.Local.Scheme.PropertyConstraintSchema.installGuards(db)
+                            com.roomkit.Date.Local.Scheme.Phase3Schema.installGuards(db)
                         }
                     }).build().also { INSTANCE = it }
             }

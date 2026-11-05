@@ -309,6 +309,68 @@
                             app:tint="@color/roomkit_text_muted" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
+                <!-- Month close and protected backups -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardFoundation"
+                    style="@style/Widget.RoomKit.Card.Menu"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="@dimen/roomkit_spacing_md">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/roomkit_spacing_lg"
+                        android:paddingVertical="@dimen/roomkit_spacing_lg">
+
+                        <FrameLayout
+                            android:layout_width="46dp"
+                            android:layout_height="46dp"
+                            android:background="@drawable/bg_more_icon_container">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="Month close and backups"
+                                android:src="@drawable/ic_settings"
+                                app:tint="@color/roomkit_primary" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/roomkit_spacing_lg"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.Body"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Month close &amp; backups"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                style="@style/TextAppearance.RoomKit.Caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Close history and protected data copies"
+                                android:textColor="@color/roomkit_text_secondary" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Open month close and backups"
+                            android:src="@drawable/ic_chevron_right"
+                            app:tint="@color/roomkit_text_muted" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
             <!-- App Information Footer -->

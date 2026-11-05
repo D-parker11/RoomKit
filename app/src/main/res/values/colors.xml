@@ -107,4 +107,12 @@
     <color name="rpt_hero">#EAF5F2</color>
     <color name="rpt_error">#B42318</color>
 
+    <item name="cardFoundation" type="id" />
+    <color name="rks2_bg">#F7F8FA</color>
+    <color name="rks2_surface">#FFFFFF</color>
+    <color name="rks2_text">#111827</color>
+    <color name="rks2_muted">#667085</color>
+    <color name="rks2_border">#E4E7EC</color>
+    <color name="rks2_success">#147D5C</color>
+    <color name="rks2_error">#B42318</color>
 </resources>
