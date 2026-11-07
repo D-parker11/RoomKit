@@ -28,7 +28,7 @@
     <!-- Buildings Fragment -->
     <fragment
         android:id="@+id/buildingsFragment"
-        android:name="com.roomkit.ui.buildings.BuildingsFragment"
+        android:name="com.example.roomkit.Date.Ui.Building.BuildingsFragment"
         android:label="Buildings">
 
         <action

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,9 +8,7 @@
     android:background="@color/roomkit_background"
     android:orientation="vertical">
 
-    <!-- =========================================================
-         HEADER
-         ========================================================= -->
+    <!-- Top Header -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,37 +31,34 @@
             app:tint="@color/roomkit_primary" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/btnBackMoveIn"
+            android:gravity="start|center_vertical"
             android:orientation="vertical">
 
             <TextView
                 style="@style/TextAppearance.RoomKit.ScreenTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Move In Tenant"
+                android:text="Move in tenant"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="22sp" />
+                android:textSize="24sp" />
 
             <TextView
                 style="@style/TextAppearance.RoomKit.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Set up tenancy and monthly billing"
+                android:text="Choose a room and review the rental terms"
                 android:textColor="@color/roomkit_text_secondary"
                 android:textSize="12sp" />
-
         </LinearLayout>
-
     </RelativeLayout>
 
-
-    <!-- =========================================================
-         SCROLLABLE FORM
-         ========================================================= -->
+    <!-- Scrollable Form Container -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollMoveIn"
         android:layout_width="match_parent"
@@ -82,10 +77,7 @@
             android:paddingEnd="20dp"
             android:paddingBottom="24dp">
 
-
-            <!-- =================================================
-                 ERROR
-                 ================================================= -->
+            <!-- Error Banner -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardError"
                 android:layout_width="match_parent"
@@ -94,32 +86,32 @@
                 android:visibility="gone"
                 app:cardBackgroundColor="@color/roomkit_error_bg"
                 app:cardCornerRadius="14dp"
-                app:cardElevation="0dp"
-                tools:visibility="visible">
+                app:cardElevation="0dp">
 
                 <TextView
                     android:id="@+id/tvErrorMessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:accessibilityLiveRegion="polite"
                     android:padding="14dp"
                     android:textColor="@color/roomkit_error_dark"
                     android:textSize="13sp"
                     tools:text="Please complete all required fields." />
-
             </com.google.android.material.card.MaterialCardView>
 
-
-            <!-- =================================================
-                 1. TENANT & ROOM
-                 ================================================= -->
+            <!-- SECTION 01: Tenant and Room -->
             <TextView
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:layout_marginBottom="8dp"
-                android:text="TENANT &amp; ROOM" />
-
+                android:letterSpacing="0"
+                android:text="01  Tenant and room"
+                android:textAllCaps="false"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.RoomKit.Card"
@@ -136,94 +128,108 @@
                     android:orientation="vertical"
                     android:padding="18dp">
 
-
-                    <!-- Tenant -->
+                    <!-- Tenant Field -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilTenant"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Select Tenant"
+                        android:hint="Tenant"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
+                        app:boxStrokeColor="@color/roomkit_primary"
                         app:boxStrokeWidth="1dp"
-                        app:boxStrokeWidthFocused="2dp">
+                        app:boxStrokeWidthFocused="2dp"
+                        app:endIconContentDescription="Choose an available tenant"
+                        app:endIconDrawable="@drawable/mtrl_dropdown_arrow"
+                        app:endIconMode="custom"
+                        app:hintTextColor="@color/roomkit_text_secondary">
 
-                        <AutoCompleteTextView
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/actvTenant"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:cursorVisible="false"
+                            android:focusable="false"
                             android:inputType="none"
-                            android:paddingStart="4dp"
-                            android:paddingEnd="4dp"
+                            android:maxLines="2"
+                            android:minHeight="58dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:singleLine="false"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <!-- Building -->
+                    <!-- Property Dropdown -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilBuilding"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:hint="Select Building"
+                        android:hint="Property"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
+                        app:boxStrokeColor="@color/roomkit_primary"
                         app:boxStrokeWidth="1dp"
-                        app:boxStrokeWidthFocused="2dp">
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/roomkit_text_secondary">
 
-                        <AutoCompleteTextView
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
                             android:id="@+id/actvBuilding"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="none"
-                            android:paddingStart="4dp"
-                            android:paddingEnd="4dp"
+                            android:maxLines="2"
+                            android:minHeight="58dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:singleLine="false"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <!-- Available Room -->
+                    <!-- Room Dropdown -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilRoom"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:hint="Select Available Room"
+                        android:hint="Vacant room"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
+                        app:boxStrokeColor="@color/roomkit_primary"
                         app:boxStrokeWidth="1dp"
-                        app:boxStrokeWidthFocused="2dp">
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/roomkit_text_secondary">
 
-                        <AutoCompleteTextView
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
                             android:id="@+id/actvRoom"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="none"
-                            android:paddingStart="4dp"
-                            android:paddingEnd="4dp"
+                            android:maxLines="2"
+                            android:minHeight="58dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:singleLine="false"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <!-- Move-In Date -->
+                    <!-- Move-In Date Field -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilMoveInDate"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -231,37 +237,35 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:hint="Move-In Date"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
+                        app:boxStrokeColor="@color/roomkit_primary"
                         app:boxStrokeWidth="1dp"
                         app:boxStrokeWidthFocused="2dp"
                         app:endIconDrawable="@drawable/ic_calender"
-                        app:endIconMode="custom">
+                        app:endIconMode="custom"
+                        app:helperText="The date this tenancy starts"
+                        app:hintTextColor="@color/roomkit_text_secondary">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etMoveInDate"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:clickable="true"
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:inputType="none"
+                            android:minHeight="58dp"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
-
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
-
-            <!-- =================================================
-                 2. RENT & DEPOSIT
-                 ================================================= -->
+            <!-- SECTION 02: Rent and Deposit -->
             <TextView
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
@@ -269,8 +273,12 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
-                android:text="RENT &amp; DEPOSIT" />
-
+                android:letterSpacing="0"
+                android:text="02  Rent and deposit"
+                android:textAllCaps="false"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.RoomKit.Card"
@@ -285,74 +293,71 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:padding="18dp"
-                    android:weightSum="2">
+                    android:orientation="vertical"
+                    android:padding="18dp">
 
-
-                    <!-- Monthly Rent -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilMonthlyRent"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:layout_weight="1"
                         android:hint="Monthly Rent"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:helperText="Whole Cambodian riel per month"
+                        app:hintTextColor="@color/roomkit_text_secondary"
                         app:prefixText="៛ ">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etMonthlyRent"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="number"
                             android:maxLines="1"
+                            android:minHeight="58dp"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <!-- Deposit -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilDeposit"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:layout_weight="1"
+                        android:layout_marginTop="14dp"
                         android:hint="Deposit"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:helperText="Enter 0 if no deposit is held"
+                        app:hintTextColor="@color/roomkit_text_secondary"
                         app:prefixText="៛ ">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etDeposit"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="number"
                             android:maxLines="1"
+                            android:minHeight="58dp"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
-
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
-
-            <!-- =================================================
-                 3. BILLING SCHEDULE
-                 ================================================= -->
+            <!-- SECTION 03: Billing Schedule -->
             <TextView
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
@@ -360,8 +365,12 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
-                android:text="BILLING SCHEDULE" />
-
+                android:letterSpacing="0"
+                android:text="03  Billing schedule"
+                android:textAllCaps="false"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.RoomKit.Card"
@@ -380,8 +389,6 @@
                     android:padding="18dp"
                     android:weightSum="2">
 
-
-                    <!-- Billing Day -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilBillingDay"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -390,27 +397,29 @@
                         android:layout_marginEnd="6dp"
                         android:layout_weight="1"
                         android:hint="Billing Day"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
-                        app:helperText="Starts each month">
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:helperText="Billing cycle starts on day 1–31"
+                        app:hintTextColor="@color/roomkit_text_secondary">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etBillingDay"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="number"
                             android:maxLength="2"
                             android:maxLines="1"
+                            android:minHeight="58dp"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <!-- Due Day -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilDueDay"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -419,33 +428,32 @@
                         android:layout_marginStart="6dp"
                         android:layout_weight="1"
                         android:hint="Due Day"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
-                        app:helperText="Payment due: day 1–28">
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:helperText="Payment due: day 1–28"
+                        app:hintTextColor="@color/roomkit_text_secondary">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etDueDay"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="number"
                             android:maxLength="2"
                             android:maxLines="1"
+                            android:minHeight="58dp"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
-
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
-
-            <!-- =================================================
-                 4. UTILITY RATES
-                 ================================================= -->
+            <!-- SECTION 04: Utility Rates -->
             <TextView
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
@@ -453,8 +461,12 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
-                android:text="UTILITY RATES" />
-
+                android:letterSpacing="0"
+                android:text="04  Utility rates"
+                android:textAllCaps="false"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.RoomKit.Card"
@@ -471,34 +483,34 @@
                     android:orientation="vertical"
                     android:padding="18dp">
 
-
-                    <!-- Electricity -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilElectricityRate"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Electricity Rate"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/roomkit_text_secondary"
                         app:suffixText="៛ / kWh">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etElectricityRate"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="number"
                             android:maxLines="1"
+                            android:minHeight="58dp"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <!-- Water Method Label -->
                     <TextView
                         style="@style/TextAppearance.RoomKit.Caption"
                         android:layout_width="wrap_content"
@@ -509,8 +521,6 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-
-                    <!-- Water Method -->
                     <RadioGroup
                         android:id="@+id/rgWaterMethod"
                         android:layout_width="match_parent"
@@ -547,11 +557,8 @@
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="13sp"
                             app:buttonTint="@color/roomkit_primary" />
-
                     </RadioGroup>
 
-
-                    <!-- Fixed Water Fee -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilWaterFee"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -559,26 +566,28 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:hint="Water Fee"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/roomkit_text_secondary"
                         app:suffixText="៛ / month">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etWaterFee"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="number"
                             android:maxLines="1"
+                            android:minHeight="58dp"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <!-- Metered Water Rate -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilWaterRate"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -587,27 +596,28 @@
                         android:layout_marginTop="12dp"
                         android:hint="Water Rate"
                         android:visibility="gone"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
-                        app:suffixText="៛ / m³"
-                        tools:visibility="gone">
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/roomkit_text_secondary"
+                        app:suffixText="៛ / m³">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etWaterRate"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="number"
                             android:maxLines="1"
+                            android:minHeight="58dp"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <!-- Rubbish -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilRubbishFee"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -615,32 +625,31 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:hint="Rubbish / Waste Fee"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/roomkit_text_secondary"
                         app:suffixText="៛ / month">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etRubbishFee"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="number"
                             android:maxLines="1"
+                            android:minHeight="58dp"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
-
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
-
-            <!-- =================================================
-                 5. INITIAL METER READINGS
-                 ================================================= -->
+            <!-- SECTION 05: Opening Meter Readings -->
             <TextView
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
@@ -648,8 +657,12 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
-                android:text="INITIAL METER READINGS" />
-
+                android:letterSpacing="0"
+                android:text="05  Opening meter readings"
+                android:textAllCaps="false"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.RoomKit.Card"
@@ -675,34 +688,35 @@
                         android:textColor="@color/roomkit_text_muted"
                         android:textSize="12sp" />
 
-
-                    <!-- Initial Electricity -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilInitialElectricity"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Initial Electricity Reading"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:helperText="Use the meter value at move-in"
+                        app:hintTextColor="@color/roomkit_text_secondary"
                         app:suffixText="kWh">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etInitialElectricity"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="number"
                             android:maxLines="1"
+                            android:minHeight="58dp"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <!-- Initial Water -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilInitialWater"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -711,37 +725,34 @@
                         android:layout_marginTop="12dp"
                         android:hint="Initial Water Reading"
                         android:visibility="gone"
+                        app:boxBackgroundColor="@color/roomkit_surface"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
                         app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/roomkit_border"
-                        app:suffixText="m³"
-                        tools:visibility="gone">
+                        app:boxStrokeColor="@color/roomkit_primary"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/roomkit_text_secondary"
+                        app:suffixText="m³">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etInitialWater"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:inputType="number"
                             android:maxLines="1"
+                            android:minHeight="58dp"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="15sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
-
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
 
-
-    <!-- =========================================================
-         STICKY ACTION
-         ========================================================= -->
+    <!-- Bottom Action Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -762,13 +773,13 @@
             android:id="@+id/btnConfirmMoveIn"
             style="@style/Widget.RoomKit.PrimaryButton"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Confirm Move-In"
+            android:layout_height="58dp"
+            android:letterSpacing="0"
+            android:text="Review move-in"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:textStyle="bold"
             app:cornerRadius="18dp" />
-
     </LinearLayout>
 
 </LinearLayout>

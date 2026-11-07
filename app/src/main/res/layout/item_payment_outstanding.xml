@@ -1,121 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.RoomKit.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/roomkit_spacing_md"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?attr/selectableItemBackground">
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/rpay_surface"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/rpay_border"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/roomkit_card_padding">
+        android:padding="16dp">
 
+        <!-- Header: Avatar, Tenant Name & Room/Building -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:gravity="top"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <!-- Left Info Column -->
+            <TextView
+                android:id="@+id/tvAvatar"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@color/rpay_avatar"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:importantForAccessibility="no"
+                android:textColor="@color/rpay_ink"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="CS" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/roomkit_spacing_sm"
+                android:layout_marginStart="12dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvDueDate"
-                    style="@style/TextAppearance.RoomKit.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/roomkit_text_muted"
-                    tools:text="Due Oct 5, 2026" />
-
-                <TextView
                     android:id="@+id/tvTenantName"
-                    style="@style/TextAppearance.RoomKit.SectionTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:fontFamily="sans-serif"
+                    android:maxLines="2"
+                    android:textColor="@color/rpay_ink"
                     android:textSize="17sp"
-                    tools:text="Visal Nhem" />
+                    android:textStyle="bold"
+                    tools:text="Channdavith Sovann" />
 
                 <TextView
                     android:id="@+id/tvRoomBuilding"
-                    style="@style/TextAppearance.RoomKit.Body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@color/rpay_muted"
                     android:textSize="13sp"
-                    tools:text="Room 103 · Campus Residence" />
-            </LinearLayout>
-
-            <!-- Right Balance Due & Status -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvRemainingBalance"
-                    style="@style/TextAppearance.RoomKit.StatValue.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/roomkit_error"
-                    android:textSize="22sp"
-                    tools:text="400,000 ៛" />
-
-                <TextView
-                    android:id="@+id/tvStatusBadge"
-                    style="@style/TextAppearance.RoomKit.Status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:paddingHorizontal="14dp"
-                    android:paddingVertical="4dp"
-                    tools:background="@drawable/bg_badge_overdue_pill"
-                    tools:text="Overdue"
-                    tools:textColor="@color/roomkit_error_dark" />
+                    tools:text="Room 01 · Proser" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Action Buttons Row -->
+        <!-- Balance Label -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:fontFamily="sans-serif"
+            android:text="Balance due"
+            android:textColor="@color/rpay_muted"
+            android:textSize="13sp" />
+
+        <!-- Remaining Balance & Status Badge -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="@dimen/roomkit_spacing_lg"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvRemainingBalance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:maxLines="1"
+                android:textColor="@color/rpay_ink"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:autoSizeMaxTextSize="25sp"
+                app:autoSizeMinTextSize="18sp"
+                app:autoSizeStepGranularity="1sp"
+                app:autoSizeTextType="uniform"
+                tools:text="846,000 KHR" />
+
+            <TextView
+                android:id="@+id/tvStatusBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:textColor="@color/rpay_amber"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="Unpaid" />
+        </LinearLayout>
+
+        <!-- Due Date & Partial Breakdown -->
+        <TextView
+            android:id="@+id/tvDueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/rpay_muted"
+            android:textSize="13sp"
+            tools:text="Due 05 Dec 2026" />
+
+        <TextView
+            android:id="@+id/tvPartialBreakdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/rpay_muted"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:text="Paid: 400,000 KHR · Remaining: 446,000 KHR" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="12dp"
+            android:background="@color/rpay_border" />
+
+        <!-- Card Actions -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnViewInvoice"
-                style="@style/Widget.RoomKit.Button.NeutralSurface"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/roomkit_spacing_xs"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="View Invoice" />
+                android:elevation="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:letterSpacing="0"
+                android:minHeight="48dp"
+                android:paddingHorizontal="8dp"
+                android:stateListAnimator="@null"
+                android:text="View invoice"
+                android:textAllCaps="false"
+                android:textColor="@color/rpay_muted"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/rpay_surface"
+                app:cornerRadius="10dp"
+                app:strokeColor="@color/rpay_border"
+                app:strokeWidth="1dp" />
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="1dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRecordPayment"
-                style="@style/Widget.RoomKit.PrimaryButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/roomkit_spacing_xs"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Record Payment" />
+                android:elevation="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:letterSpacing="0"
+                android:minHeight="48dp"
+                android:paddingHorizontal="8dp"
+                android:stateListAnimator="@null"
+                android:text="Record payment"
+                android:textAllCaps="false"
+                android:textColor="@color/rpay_surface"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/rpay_ink"
+                app:cornerRadius="10dp"
+                app:strokeColor="@color/rpay_border"
+                app:strokeWidth="0dp" />
         </LinearLayout>
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

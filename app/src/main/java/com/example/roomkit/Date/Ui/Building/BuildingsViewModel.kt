@@ -5,32 +5,61 @@ import androidx.lifecycle.viewModelScope
 import com.example.roomkit.Date.Local.Entity.BuildingEntity
 import com.roomkit.data.local.model.BuildingWithStats
 import com.roomkit.data.repository.BuildingRepository
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 data class OverallSummary(
     val totalBuildings: Int = 0,
     val totalRooms: Int = 0,
     val totalOccupied: Int = 0
-)
+) {
+    val totalVacant: Int
+        get() = (totalRooms - totalOccupied).coerceAtLeast(0)
+}
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class BuildingsViewModel(private val repository: BuildingRepository) : ViewModel() {
+class BuildingsViewModel(
+    private val repository: BuildingRepository
+) : ViewModel() {
 
     private val searchQuery = MutableStateFlow("")
 
-    val buildings: StateFlow<List<BuildingWithStats>> = searchQuery
-        .flatMapLatest { query -> repository.getBuildings(query) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val buildings: StateFlow<List<BuildingWithStats>> =
+        searchQuery
+            .flatMapLatest { query ->
+                repository.getBuildings(query)
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = emptyList()
+            )
 
-    val summary: StateFlow<OverallSummary> = buildings.map { list ->
-        OverallSummary(
-            totalBuildings = list.size,
-            totalRooms = list.sumOf { it.totalRooms },
-            totalOccupied = list.sumOf { it.occupiedRooms }
-        )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), OverallSummary())
+    val summary: StateFlow<OverallSummary> =
+        buildings
+            .map { properties ->
+                OverallSummary(
+                    totalBuildings = properties.size,
+                    totalRooms = properties.sumOf {
+                        it.totalRooms
+                    },
+                    totalOccupied = properties.sumOf {
+                        it.occupiedRooms
+                    }
+                )
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = OverallSummary()
+            )
 
     fun onSearchQueryChanged(query: String) {
         searchQuery.value = query.trim()
@@ -43,38 +72,57 @@ class BuildingsViewModel(private val repository: BuildingRepository) : ViewModel
         totalRooms: Int,
         onResult: (Result<Unit>) -> Unit
     ) {
-        viewModelScope.launch {
-            try {
-                repository.addBuilding(
-                    name = name,
-                    address = address,
-                    description = description,
-                    totalRooms = totalRooms
-                )
-                onResult(Result.success(Unit))
-            } catch (e: kotlinx.coroutines.CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                onResult(Result.failure(e))
-            }
+        performOperation(onResult) {
+            repository.addBuilding(
+                name = name,
+                address = address,
+                description = description,
+                totalRooms = totalRooms
+            )
         }
     }
 
-    fun updateBuilding(building: BuildingEntity, onResult: (Result<Unit>) -> Unit) {
-        viewModelScope.launch {
-            try {
-                repository.updateBuilding(building)
-                onResult(Result.success(Unit))
-            } catch (e: Exception) {
-                onResult(Result.failure(e))
-            }
+    fun updateBuilding(
+        building: BuildingEntity,
+        onResult: (Result<Unit>) -> Unit
+    ) {
+        performOperation(onResult) {
+            repository.updateBuilding(building)
         }
     }
 
-    fun deleteBuilding(building: BuildingEntity, onResult: (Result<Unit>) -> Unit) {
+    fun deleteBuilding(
+        building: BuildingEntity,
+        onResult: (Result<Unit>) -> Unit
+    ) {
         viewModelScope.launch {
-            val res = repository.deleteBuilding(building)
-            onResult(res)
+            val result: Result<Unit> = try {
+                repository.deleteBuilding(building)
+            } catch (exception: CancellationException) {
+                throw exception
+            } catch (exception: Exception) {
+                Result.failure(exception)
+            }
+
+            onResult(result)
+        }
+    }
+
+    private fun performOperation(
+        onResult: (Result<Unit>) -> Unit,
+        operation: suspend () -> Unit
+    ) {
+        viewModelScope.launch {
+            val result: Result<Unit> = try {
+                operation()
+                Result.success(Unit)
+            } catch (exception: CancellationException) {
+                throw exception
+            } catch (exception: Exception) {
+                Result.failure(exception)
+            }
+
+            onResult(result)
         }
     }
 }

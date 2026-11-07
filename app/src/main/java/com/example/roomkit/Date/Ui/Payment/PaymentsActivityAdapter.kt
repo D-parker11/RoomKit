@@ -1,246 +1,102 @@
-//@file:Suppress("PackageNaming")
-//package com.example.roomkit.Date.Ui.Payment
-//
-//import android.graphics.drawable.GradientDrawable
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import android.widget.TextView
-//import androidx.core.graphics.toColorInt
-//import androidx.recyclerview.widget.DiffUtil
-//import androidx.recyclerview.widget.ListAdapter
-//import androidx.recyclerview.widget.RecyclerView
-//import com.example.roomkit.Date.Billing.CurrencyFormatter
-//import com.example.roomkit.databinding.ItemPaymentOutstandingBinding
-//import com.example.roomkit.databinding.ItemPaymentRecordBinding
-//
-//class PaymentsActivityAdapter(
-//    private val onInvoiceClick: (Long) -> Unit,
-//    private val onRecordPaymentClick: (Long) -> Unit
-//) : ListAdapter<PaymentActivityItem, RecyclerView.ViewHolder>(DiffCallback) {
-//
-//    companion object {
-//        private const val TYPE_PAYMENT = 1
-//        private const val TYPE_OUTSTANDING = 2
-//
-//        private val DiffCallback = object : DiffUtil.ItemCallback<PaymentActivityItem>() {
-//            override fun areItemsTheSame(oldItem: PaymentActivityItem, newItem: PaymentActivityItem): Boolean {
-//                return oldItem.id == newItem.id
-//            }
-//
-//            override fun areContentsTheSame(oldItem: PaymentActivityItem, newItem: PaymentActivityItem): Boolean {
-//                return oldItem == newItem
-//            }
-//        }
-//    }
-//
-//    override fun getItemViewType(position: Int): Int {
-//        return when (getItem(position)) {
-//            is PaymentActivityItem.PaymentRecord -> TYPE_PAYMENT
-//            is PaymentActivityItem.OutstandingInvoice -> TYPE_OUTSTANDING
-//        }
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-//        val inflater = LayoutInflater.from(parent.context)
-//        return if (viewType == TYPE_PAYMENT) {
-//            val binding = ItemPaymentRecordBinding.inflate(inflater, parent, false)
-//            PaymentRecordViewHolder(binding)
-//        } else {
-//            val binding = ItemPaymentOutstandingBinding.inflate(inflater, parent, false)
-//            OutstandingViewHolder(binding)
-//        }
-//    }
-//
-//    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//        when (val item = getItem(position)) {
-//            is PaymentActivityItem.PaymentRecord -> (holder as PaymentRecordViewHolder).bind(item)
-//            is PaymentActivityItem.OutstandingInvoice -> (holder as OutstandingViewHolder).bind(item)
-//        }
-//    }
-//
-//    inner class PaymentRecordViewHolder(private val b: ItemPaymentRecordBinding) : RecyclerView.ViewHolder(b.root) {
-//        fun bind(item: PaymentActivityItem.PaymentRecord) {
-//            b.tvPaymentDate.text = item.paymentDateFormatted
-//            b.tvTenantName.text = item.tenantName
-//            b.tvRoomBuilding.text = "Room ${item.roomNumber} · ${item.buildingName}"
-//            b.tvPaymentAmount.text = CurrencyFormatter.formatKhr(item.paymentAmountKhr)
-//
-//            val methodLabel = when (item.paymentMethod.uppercase()) {
-//                "DEPOSIT" -> "Deposit applied"
-//                "KHQR" -> "KHQR"
-//                "BANK_TRANSFER", "BANK" -> "Bank Transfer"
-//                else -> "Cash"
-//            }
-//            b.tvPaymentMethod.text = methodLabel
-//
-//            if (item.isFullyPaid) {
-//                applyBadge(b.tvStatusBadge, "Paid", "#ECFDF5".toColorInt(), "#059669".toColorInt())
-//                b.layoutPartialFooter.visibility = View.GONE
-//            } else {
-//                applyBadge(b.tvStatusBadge, "Partial", "#EFF6FF".toColorInt(), "#2563EB".toColorInt())
-//                b.layoutPartialFooter.visibility = View.VISIBLE
-//                val invTotal = CurrencyFormatter.formatKhr(item.invoiceTotalKhr)
-//                val bal = CurrencyFormatter.formatKhr(item.remainingBalanceKhr)
-//                b.tvPartialBreakdown.text = "Invoice $invTotal · Balance $bal"
-//            }
-//
-//            b.root.setOnClickListener { onInvoiceClick(item.invoiceId) }
-//        }
-//    }
-//
-//    inner class OutstandingViewHolder(private val b: ItemPaymentOutstandingBinding) : RecyclerView.ViewHolder(b.root) {
-//        fun bind(item: PaymentActivityItem.OutstandingInvoice) {
-//            b.tvDueDate.text = item.dueDateFormatted
-//            b.tvTenantName.text = item.tenantName
-//            b.tvRoomBuilding.text = "Room ${item.roomNumber} · ${item.buildingName}"
-//            b.tvRemainingBalance.text = CurrencyFormatter.formatKhr(item.remainingBalanceKhr)
-//
-//            if (item.isOverdue) {
-//                applyBadge(b.tvStatusBadge, "Overdue", "#FEE2E2".toColorInt(), "#DC2626".toColorInt())
-//                b.tvRemainingBalance.setTextColor("#DC2626".toColorInt())
-//            } else {
-//                applyBadge(b.tvStatusBadge, "Unpaid", "#FEF3C7".toColorInt(), "#D97706".toColorInt())
-//                b.tvRemainingBalance.setTextColor("#D97706".toColorInt())
-//            }
-//
-//            b.btnViewInvoice.setOnClickListener { onInvoiceClick(item.invoiceId) }
-//            b.btnRecordPayment.setOnClickListener { onRecordPaymentClick(item.invoiceId) }
-//            b.root.setOnClickListener { onInvoiceClick(item.invoiceId) }
-//        }
-//    }
-//
-//    private fun applyBadge(tv: TextView, text: String, bgColor: Int, textColor: Int) {
-//        tv.text = text
-//        tv.setTextColor(textColor)
-//        tv.background = GradientDrawable().apply {
-//            cornerRadius = 24f
-//            setColor(bgColor)
-//        }
-//    }
-//}
-
 @file:Suppress("PackageNaming")
 package com.example.roomkit.Date.Ui.Payment
 
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.graphics.toColorInt
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.roomkit.Date.Billing.CurrencyFormatter
+import com.example.roomkit.R
 import com.example.roomkit.databinding.ItemPaymentOutstandingBinding
 import com.example.roomkit.databinding.ItemPaymentRecordBinding
+import java.util.Locale
 
 class PaymentsActivityAdapter(
     private val onInvoiceClick: (Long) -> Unit,
     private val onRecordPaymentClick: (Long) -> Unit
-) : ListAdapter<PaymentActivityItem, RecyclerView.ViewHolder>(DiffCallback) {
-
-    companion object {
-        private const val TYPE_PAYMENT = 1
-        private const val TYPE_OUTSTANDING = 2
-
-        private val DiffCallback = object : DiffUtil.ItemCallback<PaymentActivityItem>() {
-            override fun areItemsTheSame(oldItem: PaymentActivityItem, newItem: PaymentActivityItem): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: PaymentActivityItem, newItem: PaymentActivityItem): Boolean {
-                return oldItem == newItem
-            }
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return when (getItem(position)) {
-            is PaymentActivityItem.PaymentRecord -> TYPE_PAYMENT
-            is PaymentActivityItem.OutstandingInvoice -> TYPE_OUTSTANDING
-        }
-    }
-
+) : ListAdapter<PaymentActivityItem, RecyclerView.ViewHolder>(Diff) {
+    override fun getItemViewType(position: Int) = if (getItem(position) is PaymentActivityItem.PaymentRecord) 1 else 2
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return if (viewType == TYPE_PAYMENT) {
-            val binding = ItemPaymentRecordBinding.inflate(inflater, parent, false)
-            PaymentRecordViewHolder(binding)
-        } else {
-            val binding = ItemPaymentOutstandingBinding.inflate(inflater, parent, false)
-            OutstandingViewHolder(binding)
-        }
+        return if (viewType == 1) ReceiptHolder(ItemPaymentRecordBinding.inflate(inflater, parent, false))
+        else DueHolder(ItemPaymentOutstandingBinding.inflate(inflater, parent, false))
     }
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
-            is PaymentActivityItem.PaymentRecord -> (holder as PaymentRecordViewHolder).bind(item)
-            is PaymentActivityItem.OutstandingInvoice -> (holder as OutstandingViewHolder).bind(item)
+            is PaymentActivityItem.PaymentRecord -> (holder as ReceiptHolder).bind(item)
+            is PaymentActivityItem.OutstandingInvoice -> (holder as DueHolder).bind(item)
         }
     }
-
-    inner class PaymentRecordViewHolder(private val b: ItemPaymentRecordBinding) : RecyclerView.ViewHolder(b.root) {
-        fun bind(item: PaymentActivityItem.PaymentRecord) {
-            b.tvPaymentDate.text = item.paymentDateFormatted
-            b.tvTenantName.text = item.tenantName
-            b.tvRoomBuilding.text = "Room ${item.roomNumber} · ${item.buildingName}"
-            b.tvPaymentAmount.text = CurrencyFormatter.formatKhr(item.paymentAmountKhr)
-
-            val methodLabel = when (item.paymentMethod.uppercase()) {
+    private fun money(value: Long) = String.format(Locale.US, "%,d KHR", value)
+    private fun initials(name: String): String = name.trim().split(Regex("\\s+"))
+        .filter { it.isNotEmpty() }.take(2).joinToString("") { it.take(1) }.uppercase(Locale.ROOT).ifEmpty { "?" }
+    private fun room(number: String, building: String) = "Room $number" + if (building.isBlank()) "" else " · $building"
+    private fun badge(view: TextView, label: String, background: Int, foreground: Int) {
+        view.text = label
+        view.setTextColor(ContextCompat.getColor(view.context, foreground))
+        view.background = GradientDrawable().apply {
+            cornerRadius = 8 * view.resources.displayMetrics.density
+            setColor(ContextCompat.getColor(view.context, background))
+        }
+    }
+    inner class DueHolder(private val b: ItemPaymentOutstandingBinding) : RecyclerView.ViewHolder(b.root) {
+        fun bind(item: PaymentActivityItem.OutstandingInvoice) = with(b) {
+            tvAvatar.text = initials(item.tenantName)
+            tvTenantName.text = item.tenantName
+            tvRoomBuilding.text = room(item.roomNumber, item.buildingName)
+            tvRemainingBalance.text = money(item.remainingBalanceKhr)
+            tvDueDate.text = item.dueDateFormatted
+            tvPartialBreakdown.isVisible = item.totalPaidKhr > 0L
+            tvPartialBreakdown.text = "Paid ${money(item.totalPaidKhr)} of ${money(item.invoiceTotalKhr)}"
+            tvDueDate.setTextColor(ContextCompat.getColor(root.context, if (item.isOverdue) R.color.rpay_red else R.color.rpay_muted))
+            when {
+                item.isOverdue -> badge(tvStatusBadge, "Overdue", R.color.rpay_red_surface, R.color.rpay_red)
+                item.totalPaidKhr > 0L -> badge(tvStatusBadge, "Partial", R.color.rpay_blue_surface, R.color.rpay_blue)
+                else -> badge(tvStatusBadge, "Unpaid", R.color.rpay_amber_surface, R.color.rpay_amber)
+            }
+            btnRecordPayment.isEnabled = item.remainingBalanceKhr > 0L
+            btnViewInvoice.setOnClickListener { onInvoiceClick(item.invoiceId) }
+            btnRecordPayment.setOnClickListener { onRecordPaymentClick(item.invoiceId) }
+        }
+    }
+    inner class ReceiptHolder(private val b: ItemPaymentRecordBinding) : RecyclerView.ViewHolder(b.root) {
+        fun bind(item: PaymentActivityItem.PaymentRecord) = with(b) {
+            tvAvatar.text = initials(item.tenantName)
+            tvTenantName.text = item.tenantName
+            tvRoomBuilding.text = room(item.roomNumber, item.buildingName)
+            tvPaymentAmount.text = money(item.paymentAmountKhr)
+            tvPaymentDate.text = item.paymentDateFormatted
+            tvPaymentAmount.setTextColor(ContextCompat.getColor(root.context, if (item.isVoided) R.color.rpay_muted else R.color.rpay_green))
+            val method = when (item.paymentMethod.trim().uppercase(Locale.ROOT)) {
                 "DEPOSIT" -> "Deposit applied"
                 "KHQR" -> "KHQR"
-                "BANK_TRANSFER", "BANK" -> "Bank Transfer"
-                else -> "Cash"
+                "BANK", "BANK_TRANSFER" -> "Bank transfer"
+                "CASH" -> "Cash"
+                else -> item.paymentMethod.ifBlank { "Payment" }
             }
-            b.tvPaymentMethod.text = methodLabel
-
+            tvPaymentMethod.text = method
             if (item.isVoided) {
-                applyBadge(b.tvStatusBadge, b.root.context.getString(com.example.roomkit.R.string.pv_voided), "#FEE2E2".toColorInt(), "#DC2626".toColorInt())
-                b.layoutPartialFooter.visibility = View.GONE
-            } else if (item.isFullyPaid) {
-                applyBadge(b.tvStatusBadge, "Paid", "#ECFDF5".toColorInt(), "#059669".toColorInt())
-                b.layoutPartialFooter.visibility = View.GONE
+                badge(tvStatusBadge, "Voided", R.color.rpay_red_surface, R.color.rpay_red)
+                tvReceiptDetail.text = "Voided payment · Excluded from collected total"
             } else {
-                applyBadge(b.tvStatusBadge, "Partial", "#EFF6FF".toColorInt(), "#2563EB".toColorInt())
-                b.layoutPartialFooter.visibility = View.VISIBLE
-                val invTotal = CurrencyFormatter.formatKhr(item.invoiceTotalKhr)
-                val bal = CurrencyFormatter.formatKhr(item.remainingBalanceKhr)
-                b.tvPartialBreakdown.text = "Invoice $invTotal · Balance $bal"
+                badge(tvStatusBadge, "Recorded", R.color.rpay_green_surface, R.color.rpay_green)
+                tvReceiptDetail.text = if (item.isFullyPaid) "Invoice fully paid" else "Invoice balance · ${money(item.remainingBalanceKhr)}"
             }
-
-            b.root.setOnClickListener { onInvoiceClick(item.invoiceId) }
+            btnViewInvoice.setOnClickListener { onInvoiceClick(item.invoiceId) }
         }
     }
-
-    inner class OutstandingViewHolder(private val b: ItemPaymentOutstandingBinding) : RecyclerView.ViewHolder(b.root) {
-        fun bind(item: PaymentActivityItem.OutstandingInvoice) {
-            b.tvDueDate.text = item.dueDateFormatted
-            b.tvTenantName.text = item.tenantName
-            b.tvRoomBuilding.text = "Room ${item.roomNumber} · ${item.buildingName}"
-            b.tvRemainingBalance.text = CurrencyFormatter.formatKhr(item.remainingBalanceKhr)
-
-            if (item.isOverdue) {
-                applyBadge(b.tvStatusBadge, "Overdue", "#FEE2E2".toColorInt(), "#DC2626".toColorInt())
-                b.tvRemainingBalance.setTextColor("#DC2626".toColorInt())
-            } else {
-                applyBadge(b.tvStatusBadge, "Unpaid", "#FEF3C7".toColorInt(), "#D97706".toColorInt())
-                b.tvRemainingBalance.setTextColor("#D97706".toColorInt())
+    private companion object {
+        val Diff = object : DiffUtil.ItemCallback<PaymentActivityItem>() {
+            override fun areItemsTheSame(oldItem: PaymentActivityItem, newItem: PaymentActivityItem): Boolean = when {
+                oldItem is PaymentActivityItem.PaymentRecord && newItem is PaymentActivityItem.PaymentRecord -> oldItem.paymentId == newItem.paymentId
+                oldItem is PaymentActivityItem.OutstandingInvoice && newItem is PaymentActivityItem.OutstandingInvoice -> oldItem.invoiceId == newItem.invoiceId
+                else -> false
             }
-
-            b.btnViewInvoice.setOnClickListener { onInvoiceClick(item.invoiceId) }
-            b.btnRecordPayment.setOnClickListener { onRecordPaymentClick(item.invoiceId) }
-            b.root.setOnClickListener { onInvoiceClick(item.invoiceId) }
-        }
-    }
-
-    private fun applyBadge(tv: TextView, text: String, bgColor: Int, textColor: Int) {
-        tv.text = text
-        tv.setTextColor(textColor)
-        tv.background = GradientDrawable().apply {
-            cornerRadius = 24f
-            setColor(bgColor)
+            override fun areContentsTheSame(oldItem: PaymentActivityItem, newItem: PaymentActivityItem) = oldItem == newItem
         }
     }
 }

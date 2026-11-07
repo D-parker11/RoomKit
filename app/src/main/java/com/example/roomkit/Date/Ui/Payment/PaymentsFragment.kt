@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.core.widget.addTextChangedListener
+import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,136 +17,121 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.roomkit.Date.Billing.CurrencyFormatter
 import com.example.roomkit.Date.Ui.Factory.ViewModelFactory
 import com.example.roomkit.R
 import com.example.roomkit.databinding.FragmentPaymentsBinding
-import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class PaymentsFragment : Fragment() {
-
     private var _binding: FragmentPaymentsBinding? = null
     private val binding get() = _binding!!
-
-    private val viewModel: PaymentsViewModel by viewModels {
-        ViewModelFactory(requireContext())
-    }
-
-    private lateinit var activityAdapter: PaymentsActivityAdapter
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    private val viewModel: PaymentsViewModel by viewModels { ViewModelFactory(requireContext()) }
+    private lateinit var collectionAdapter: PaymentsActivityAdapter
+    private lateinit var historyAdapter: PaymentsActivityAdapter
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentPaymentsBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupRecyclerView()
-        setupMonthSelector()
-        setupSearch()
-        setupTabs()
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
-                    renderUi(state)
-                }
-            }
-        }
-    }
-
-    private fun setupRecyclerView() {
-        activityAdapter = PaymentsActivityAdapter(
-            onInvoiceClick = { invoiceId ->
-                findNavController().navigate(
-                    R.id.action_paymentsFragment_to_invoiceDetailFragment,
-                    bundleOf("invoiceId" to invoiceId)
-                )
-            },
-            onRecordPaymentClick = { invoiceId ->
-                // Use the action ID declared in your nav_graph.xml
-                findNavController().navigate(
-                    R.id.action_paymentsFragment_to_recordPaymentBottomSheet,
-                    bundleOf("invoiceId" to invoiceId)
-                )
-            }
-        )
+        collectionAdapter = newAdapter()
+        historyAdapter = newAdapter()
         binding.rvPaymentActivity.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = activityAdapter
-            setHasFixedSize(true)
+            adapter = collectionAdapter
+            isNestedScrollingEnabled = false
         }
-    }
+        binding.rvPaymentHistory.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = historyAdapter
+            isNestedScrollingEnabled = false
+        }
 
-    private fun setupMonthSelector() {
         binding.btnPrevMonth.setOnClickListener { viewModel.onPreviousMonthClicked() }
         binding.btnNextMonth.setOnClickListener { viewModel.onNextMonthClicked() }
-    }
-
-    private fun setupSearch() {
-        binding.etSearchPayments.addTextChangedListener { editable ->
-            viewModel.onSearchQueryChanged(editable?.toString().orEmpty())
+        binding.etSearchPayments.setText(viewModel.currentSearchQuery)
+        binding.etSearchPayments.doAfterTextChanged { viewModel.onSearchQueryChanged(it?.toString().orEmpty()) }
+        listOf(binding.chipAll to PaymentsScreenFilter.ALL,
+            binding.chipUnpaid to PaymentsScreenFilter.UNPAID,
+            binding.chipPaid to PaymentsScreenFilter.PAID).forEach { (chip, filter) ->
+            chip.setOnClickListener { chip.isChecked = true; viewModel.onScreenFilterSelected(filter) }
         }
-    }
-
-    private fun setupTabs() {
-        binding.tabLayoutPaymentFilter.apply {
-            removeAllTabs()
-            addTab(newTab().setText("All"))
-            addTab(newTab().setText("Paid"))
-            addTab(newTab().setText("Partial"))
-            addTab(newTab().setText("Overdue"))
-
-            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    val filter = when (tab?.position) {
-                        1 -> PaymentFilter.PAID
-                        2 -> PaymentFilter.PARTIAL
-                        3 -> PaymentFilter.OVERDUE
-                        else -> PaymentFilter.ALL
-                    }
-                    viewModel.onFilterSelected(filter)
-                }
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-            })
-        }
-    }
-
-    private fun renderUi(s: PaymentsUiState) {
-        binding.tvSelectedMonth.text = s.monthYearFormatted
-
-        // Top 3 Metrics
-        binding.tvSummaryCollected.text = CurrencyFormatter.formatKhr(s.collectedKhr)
-        binding.tvSummaryOutstanding.text = CurrencyFormatter.formatKhr(s.outstandingKhr)
-        binding.tvSummaryOverdue.text = CurrencyFormatter.formatKhr(s.overdueKhr)
-
-        // List vs Empty
-        if (s.items.isEmpty()) {
-            binding.rvPaymentActivity.visibility = View.GONE
-            binding.layoutEmptyPayments.visibility = View.VISIBLE
-            if (s.searchQuery.isNotEmpty()) {
-                binding.tvEmptyTitle.text = "No matching payments or invoices"
-                binding.tvEmptySubtitle.text = "Try searching with another tenant name or room number."
-            } else {
-                binding.tvEmptyTitle.text = "No payment activity for ${s.monthYearFormatted}"
-                binding.tvEmptySubtitle.text = "Recorded payments and due invoices will appear here."
+        binding.chipMore.closeIconContentDescription = "More filters"
+        binding.chipMore.setOnClickListener { showMore() }
+        binding.chipMore.setOnCloseIconClickListener { showMore() }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.screenState.collect { render(it) }
             }
-        } else {
-            binding.rvPaymentActivity.visibility = View.VISIBLE
-            binding.layoutEmptyPayments.visibility = View.GONE
-            activityAdapter.submitList(s.items)
         }
     }
-
+    private fun newAdapter() = PaymentsActivityAdapter(
+        onInvoiceClick = { navigate(R.id.action_paymentsFragment_to_invoiceDetailFragment, it) },
+        onRecordPaymentClick = { navigate(R.id.action_paymentsFragment_to_recordPaymentBottomSheet, it) }
+    )
+    private fun navigate(action: Int, invoiceId: Long) {
+        val nav = findNavController()
+        if (nav.currentDestination?.getAction(action) != null) nav.navigate(action, bundleOf("invoiceId" to invoiceId))
+    }
+    private fun showMore() {
+        val s = viewModel.screenState.value
+        updateChips(s)
+        val choices = listOf(
+            PaymentsScreenFilter.PARTIAL to "Partial (${s.partialCount})",
+            PaymentsScreenFilter.OVERDUE to "Overdue (${s.overdueCount})",
+            PaymentsScreenFilter.HISTORY to "Payment history (${s.historyCount})"
+        )
+        PopupMenu(requireContext(), binding.chipMore).apply {
+            choices.forEachIndexed { index, pair -> menu.add(0, index, index, pair.second) }
+            setOnMenuItemClickListener { viewModel.onScreenFilterSelected(choices[it.itemId].first); true }
+            show()
+        }
+    }
+    private fun updateChips(s: PaymentsReferenceState) = with(binding) {
+        chipAll.text = "All ${s.invoiceCount}"
+        chipUnpaid.text = "Unpaid ${s.unpaidCount}"
+        chipPaid.text = "Paid ${s.paidCount}"
+        chipAll.isChecked = s.filter == PaymentsScreenFilter.ALL
+        chipUnpaid.isChecked = s.filter == PaymentsScreenFilter.UNPAID
+        chipPaid.isChecked = s.filter == PaymentsScreenFilter.PAID
+        chipMore.isChecked = s.filter in setOf(PaymentsScreenFilter.PARTIAL, PaymentsScreenFilter.OVERDUE, PaymentsScreenFilter.HISTORY)
+        chipMore.text = when (s.filter) {
+            PaymentsScreenFilter.PARTIAL -> "Partial ${s.partialCount}"
+            PaymentsScreenFilter.OVERDUE -> "Overdue ${s.overdueCount}"
+            PaymentsScreenFilter.HISTORY -> "History"
+            else -> "More"
+        }
+    }
+    private fun money(value: Long) = String.format(Locale.US, "%,d KHR", value)
+    private fun render(state: PaymentsReferenceState) = with(binding) {
+        val s = state.content
+        progressPayments.isVisible = s.isLoading
+        paymentsContent.isVisible = !s.isLoading
+        tvSelectedMonth.text = s.monthYearFormatted
+        tvSummaryOutstanding.text = money(s.outstandingKhr)
+        tvSummaryCollected.text = money(s.collectedKhr)
+        tvSummaryOverdue.text = money(s.overdueKhr)
+        tvSummaryOverdue.setTextColor(ContextCompat.getColor(requireContext(), if (s.overdueKhr > 0) R.color.rpay_red else R.color.rpay_muted))
+        updateChips(state)
+        val due = s.items.filterIsInstance<PaymentActivityItem.OutstandingInvoice>()
+        val history = s.items.filterIsInstance<PaymentActivityItem.PaymentRecord>()
+        collectionAdapter.submitList(due)
+        historyAdapter.submitList(history)
+        collectionHeader.isVisible = due.isNotEmpty()
+        rvPaymentActivity.isVisible = due.isNotEmpty()
+        historyHeader.isVisible = history.isNotEmpty()
+        rvPaymentHistory.isVisible = history.isNotEmpty()
+        tvCollectionCount.text = resources.getQuantityString(R.plurals.rpay_invoices, due.size, due.size)
+        tvHistoryCount.text = resources.getQuantityString(R.plurals.rpay_receipts, history.size, history.size)
+        layoutEmptyPayments.isVisible = !s.isLoading && s.items.isEmpty()
+        tvEmptyTitle.text = if (s.searchQuery.isNotBlank()) "No matching records" else "No records in this view"
+        tvEmptySubtitle.text = if (s.searchQuery.isNotBlank()) "Try another tenant, room, property or invoice number." else "Try another filter or month. Fully paid invoices have no balance to collect."
+    }
     override fun onDestroyView() {
-        super.onDestroyView()
+        binding.rvPaymentActivity.adapter = null
+        binding.rvPaymentHistory.adapter = null
         _binding = null
+        super.onDestroyView()
     }
 }

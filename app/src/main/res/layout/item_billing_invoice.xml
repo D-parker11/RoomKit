@@ -3,131 +3,132 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.RoomKit.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/roomkit_spacing_md"
+    android:layout_marginBottom="10dp"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?attr/selectableItemBackground">
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/rb_surface"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/rb_border"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/roomkit_card_padding">
+        android:padding="16dp">
 
-        <!-- Top Row: Room/Building + Main Invoice Total -->
+        <!-- Header: Room/Building & Status Badge -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="top"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <!-- Left: Room, Tenant & Due Date Info -->
-            <LinearLayout
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvInvoiceRoomBuilding"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:fontFamily="sans"
+                android:includeFontPadding="false"
+                android:textColor="@color/rb_ink"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                tools:text="Room 01" />
 
-                <TextView
-                    android:id="@+id/tvInvoiceRoomBuilding"
-                    style="@style/TextAppearance.RoomKit.SectionTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    tools:text="Room 01 · Barce" />
-
-                <TextView
-                    android:id="@+id/tvInvoiceTenantName"
-                    style="@style/TextAppearance.RoomKit.Body"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textColor="@color/roomkit_text_secondary"
-                    tools:text="Dara Sok" />
-
-                <TextView
-                    android:id="@+id/tvInvoicePeriodDueDate"
-                    style="@style/TextAppearance.RoomKit.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/roomkit_text_muted"
-                    tools:text="Oct 2026 · Due Nov 5, 2026" />
-            </LinearLayout>
-
-            <!-- Right: Original Total & Status Badges -->
-            <LinearLayout
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvInvoiceStatusBadge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvInvoiceTotal"
-                    style="@style/TextAppearance.RoomKit.StatValue.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/roomkit_text_primary"
-                    android:textSize="22sp"
-                    tools:text="400,000 ៛" />
-
-                <TextView
-                    android:id="@+id/tvInvoiceStatusBadge"
-                    style="@style/TextAppearance.RoomKit.Status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:paddingHorizontal="14dp"
-                    android:paddingVertical="4dp"
-                    tools:background="@drawable/bg_badge_paid_pill"
-                    tools:text="Paid"
-                    tools:textColor="@color/roomkit_success_dark" />
-
-                <TextView
-                    android:id="@+id/tvInvoiceOverdueBadge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/bg_badge_overdue_pill"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="4dp"
-                    android:text="@string/invoice_status_overdue"
-                    android:textColor="@color/roomkit_error_dark"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-            </LinearLayout>
+                android:fontFamily="sans"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:textColor="@color/rb_muted"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="Unpaid" />
         </LinearLayout>
 
-        <!-- Footer Divider & Payment Detail Line -->
-        <LinearLayout
-            android:id="@+id/layoutPaidDetail"
+        <!-- Tenant Name -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvInvoiceTenantName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:fontFamily="sans"
+            android:includeFontPadding="false"
+            android:maxLines="2"
+            android:textColor="@color/rb_muted"
+            android:textSize="13sp"
+            tools:text="Channdavith Sovann" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/roomkit_divider" />
+        <!-- Total Amount & Forward Arrow -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvInvoicePaymentDetail"
-                style="@style/TextAppearance.RoomKit.Caption"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvInvoiceTotal"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:fontFamily="sans"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/rb_ink"
+                android:textSize="23sp"
                 android:textStyle="bold"
-                tools:text="Paid Oct 21, 2026 · Bank Transfer"
-                tools:textColor="@color/roomkit_success_dark" />
+                app:autoSizeMaxTextSize="23sp"
+                app:autoSizeMinTextSize="16sp"
+                app:autoSizeStepGranularity="1sp"
+                app:autoSizeTextType="uniform"
+                tools:text="846,000 KHR" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_rb_right"
+                app:tint="@color/rb_muted" />
         </LinearLayout>
 
+        <!-- Due Date Info -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvInvoicePeriodDueDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans"
+            android:includeFontPadding="false"
+            android:textColor="@color/rb_muted"
+            android:textSize="13sp"
+            tools:text="Due 05 Dec 2026" />
+
+        <!-- Optional Payment / Cancellation Detail -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvInvoicePaymentDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans"
+            android:includeFontPadding="false"
+            android:textColor="@color/rb_muted"
+            android:textSize="13sp"
+            android:visibility="gone"
+            tools:text="Cancelled · No payment due" />
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

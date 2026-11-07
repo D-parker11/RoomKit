@@ -800,115 +800,70 @@ class InvoiceDetailFragment : Fragment() {
     }
     private fun showVoidInvoiceDialog() {
         if (voidDialog?.isShowing == true) return
-
         val state = viewModel.uiState.value
-        if (state.invoiceId <= 0L || state.errorMessage != null) return
+        if (state.invoiceId <= 0L || state.errorMessage != null || state.isLoading) return
 
-        val reasonInput =
-            com.google.android.material.textfield.TextInputEditText(
-                requireContext()
-            ).apply {
-                hint = getString(R.string.iv_reason_hint)
-                minLines = 2
-                maxLines = 5
-                inputType =
-                    android.text.InputType.TYPE_CLASS_TEXT or
-                            android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES or
-                            android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE
-            }
-
-        val padding = (24 * resources.displayMetrics.density).toInt()
-
-        val inputContainer = android.widget.LinearLayout(
-            requireContext()
-        ).apply {
-            orientation = android.widget.LinearLayout.VERTICAL
-            setPadding(padding, 0, padding, 0)
-            addView(
-                reasonInput,
-                android.widget.LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-            )
-        }
-
+        val content = com.example.roomkit.databinding.DialogVoidInvoiceBinding.inflate(layoutInflater)
         val dialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.iv_title)
-            .setMessage(R.string.iv_explanation)
-            .setView(inputContainer)
-            .setNegativeButton(R.string.iv_keep, null)
-            .setPositiveButton(R.string.iv_action, null)
+            .setView(content.root)
+            .setBackground(android.graphics.drawable.GradientDrawable().apply {
+                setColor(ContextCompat.getColor(requireContext(), R.color.rvi_surface))
+                cornerRadius = 24f * resources.displayMetrics.density
+            })
             .create()
-
         voidDialog = dialog
+        var saving = false
 
-        dialog.setOnDismissListener {
-            if (voidDialog === dialog) {
-                voidDialog = null
-            }
+        fun updateConfirm() {
+            content.btnVoidInvoice.isEnabled = !saving && !content.etVoidReason.text.isNullOrBlank()
         }
-
-        dialog.setOnShowListener {
-            val confirm = dialog.getButton(
-                android.content.DialogInterface.BUTTON_POSITIVE
-            )
-            val cancel = dialog.getButton(
-                android.content.DialogInterface.BUTTON_NEGATIVE
-            )
-
-            confirm.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.roomkit_error_dark
-                )
-            )
-
-            confirm.setOnClickListener {
-                val reason = reasonInput.text
-                    ?.toString()
-                    ?.trim()
-                    .orEmpty()
-
-                if (reason.isBlank()) {
-                    reasonInput.error =
-                        getString(R.string.iv_reason_required)
-                    reasonInput.requestFocus()
-                    return@setOnClickListener
-                }
-
-                confirm.isEnabled = false
-                cancel.isEnabled = false
-                reasonInput.isEnabled = false
-                dialog.setCancelable(false)
-                dialog.setCanceledOnTouchOutside(false)
-
-                viewModel.voidInvoice(
-                    invoiceId = state.invoiceId,
-                    reason = reason
-                ) { result ->
-                    if (_binding != null && voidDialog === dialog) {
-                        result.onSuccess {
-                            dialog.dismiss()
-                            showMessage(getString(R.string.iv_success))
-                        }.onFailure { error ->
-                            confirm.isEnabled = true
-                            cancel.isEnabled = true
-                            reasonInput.isEnabled = true
-                            dialog.setCancelable(true)
-                            dialog.setCanceledOnTouchOutside(true)
-
-                            reasonInput.error = error.message
-                                ?: getString(R.string.iv_failed)
-                        }
+        fun setSaving(value: Boolean) {
+            saving = value
+            content.btnKeepInvoice.isEnabled = !value
+            content.etVoidReason.isEnabled = !value
+            content.btnVoidInvoice.setText(if (value) R.string.rvi_saving else R.string.rvi_confirm)
+            dialog.setCancelable(!value)
+            dialog.setCanceledOnTouchOutside(!value)
+            updateConfirm()
+        }
+        content.etVoidReason.doAfterTextChanged {
+            content.tilVoidReason.error = null
+            content.tvVoidError.isVisible = false
+            updateConfirm()
+        }
+        content.btnKeepInvoice.setOnClickListener { if (!saving) dialog.dismiss() }
+        content.btnVoidInvoice.setOnClickListener {
+            if (saving) return@setOnClickListener
+            val reason = content.etVoidReason.text?.toString()?.trim().orEmpty()
+            if (reason.isBlank()) {
+                content.tilVoidReason.error = getString(R.string.iv_reason_required)
+                content.etVoidReason.requestFocus()
+                return@setOnClickListener
+            }
+            content.tvVoidError.isVisible = false
+            setSaving(true)
+            // The existing ViewModel/repository remains responsible for the
+            // transaction and for rejecting invoices with active payments.
+            viewModel.voidInvoice(invoiceId = state.invoiceId, reason = reason) { result ->
+                if (_binding != null && voidDialog === dialog) {
+                    result.onSuccess {
+                        dialog.dismiss()
+                        showMessage(getString(R.string.iv_success))
+                    }.onFailure { error ->
+                        setSaving(false)
+                        content.tvVoidError.text = error.message ?: getString(R.string.iv_failed)
+                        content.tvVoidError.isVisible = true
                     }
                 }
             }
         }
-
+        dialog.setOnDismissListener {
+            if (voidDialog === dialog) voidDialog = null
+        }
+        updateConfirm()
         dialog.show()
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
-
 
     private fun renderReplacementAction(state: InvoiceDetailUiState) {
         val status = state.status.trim().uppercase(java.util.Locale.ROOT)

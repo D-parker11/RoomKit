@@ -3,222 +3,153 @@ package com.example.roomkit.Date.Ui.Payment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.roomkit.Date.Billing.InvoiceStatusResolver
+import com.example.roomkit.Date.Billing.invoiceStatusClock
 import com.example.roomkit.Date.Repositories.BillingRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import java.text.SimpleDateFormat
-import java.util.Calendar
+import java.time.YearMonth
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
-class PaymentsViewModel(
-    private val repository: BillingRepository
-) : ViewModel() {
+enum class PaymentsScreenFilter { ALL, UNPAID, PAID, PARTIAL, OVERDUE, HISTORY }
 
-    private val currentCal = Calendar.getInstance()
-    private val selectedMonthFlow = MutableStateFlow(currentCal.get(Calendar.MONTH) + 1)
-    private val selectedYearFlow = MutableStateFlow(currentCal.get(Calendar.YEAR))
-    private val selectedFilterFlow = MutableStateFlow(PaymentFilter.ALL)
-    private val searchQueryFlow = MutableStateFlow("")
+data class PaymentsReferenceState(
+    val content: PaymentsUiState = PaymentsUiState(),
+    val filter: PaymentsScreenFilter = PaymentsScreenFilter.ALL,
+    val invoiceCount: Int = 0,
+    val unpaidCount: Int = 0,
+    val paidCount: Int = 0,
+    val partialCount: Int = 0,
+    val overdueCount: Int = 0,
+    val historyCount: Int = 0
+)
 
-    private val monthYearFormatter = SimpleDateFormat("MMMM yyyy", Locale.US)
-    private val itemDateFormatter = SimpleDateFormat("MMM d, yyyy", Locale.US)
+class PaymentsViewModel(private val repository: BillingRepository) : ViewModel() {
+    private val month = MutableStateFlow(YearMonth.now())
+    private val filter = MutableStateFlow(PaymentsScreenFilter.ALL)
+    private val query = MutableStateFlow("")
+    val currentSearchQuery: String get() = query.value
+    @OptIn(FlowPreview::class)
+    private val debouncedQuery = query.debounce(250)
+    private val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.US)
+    private val monthFormat = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.US)
 
-    // Debounce search query so user typing doesn't stutter the UI
-    @OptIn(kotlinx.coroutines.FlowPreview::class)
-    private val debouncedSearchFlow = searchQueryFlow
-        .debounce(300)
-        .stateIn(viewModelScope, SharingStarted.Eagerly, "")
-
-    val uiState: StateFlow<PaymentsUiState> = combine(
-        repository.observeBillingData(),
-        selectedMonthFlow,
-        selectedYearFlow,
-        selectedFilterFlow,
-        debouncedSearchFlow
-    ) { raw, month, year, filter, query ->
-
-        val cal = Calendar.getInstance().apply {
-            set(Calendar.DAY_OF_MONTH, 1)
-            set(Calendar.MONTH, month - 1)
-            set(Calendar.YEAR, year)
+    val screenState: StateFlow<PaymentsReferenceState> = combine(
+        combine(repository.observeBillingData(), invoiceStatusClock()) { raw, now -> raw to now },
+        month, filter, debouncedQuery
+    ) { timed, selectedMonth, selectedFilter, search ->
+        val (raw, now) = timed
+        val buildings = raw.buildings.associateBy { it.buildingId }
+        val rooms = raw.rooms.associateBy { it.roomId }
+        val tenancies = raw.tenancies.associateBy { it.tenancyId }
+        val tenants = raw.tenants.associateBy { it.tenantId }
+        val payments = raw.payments.groupBy { it.invoiceId }
+        val official = setOf("ISSUED", "UNPAID", "PARTIAL", "PARTIALLY_PAID", "PAID", "OVERDUE")
+        val invoices = raw.invoices.filter {
+            it.billingYear == selectedMonth.year && it.billingMonth == selectedMonth.monthValue &&
+                    it.status.trim().uppercase(Locale.ROOT) in official
         }
-        val monthYearFormatted = monthYearFormatter.format(cal.time)
-
-        val buildingMap = raw.buildings.associateBy { it.buildingId }
-        val roomMap = raw.rooms.associateBy { it.roomId }
-        val tenancyMap = raw.tenancies.associateBy { it.tenancyId }
-        val tenantMap = raw.tenants.associateBy { it.tenantId }
-        val paymentsByInvoice = raw.payments.filter { it.status == "ACTIVE" }.groupBy { it.invoiceId }
-
-        val todayTime = Date().time
-
-        // 1. Filter official Invoices scoped to selected month
-        val validStatuses = setOf("ISSUED", "PARTIALLY_PAID", "PAID", "OVERDUE")
-        val scopedInvoices = raw.invoices.filter { inv ->
-            inv.billingMonth == month && inv.billingYear == year && validStatuses.contains(inv.status.uppercase(Locale.US))
-        }
-
-        // 2. Compute Summary Metrics
-        var collectedKhr = 0L
-        var outstandingKhr = 0L
-        var overdueKhr = 0L
-
-        // Collected = sum of all payment records belonging to invoices of this month
-        scopedInvoices.forEach { inv ->
-            val invoicePayments = paymentsByInvoice[inv.invoiceId] ?: emptyList()
-            val totalPaid = invoicePayments.sumOf { it.amountKhr }
-            val remaining = (inv.totalKhr - totalPaid).coerceAtLeast(0L)
-            val isOverdue = inv.dueDate != null && inv.dueDate < todayTime
-
-            collectedKhr += totalPaid
-            outstandingKhr += remaining
-            if (isOverdue && remaining > 0L) {
-                overdueKhr += remaining
+        val outstanding = mutableListOf<PaymentActivityItem.OutstandingInvoice>()
+        val receipts = mutableListOf<PaymentActivityItem.PaymentRecord>()
+        val unpaidIds = mutableSetOf<Long>()
+        val paidIds = mutableSetOf<Long>()
+        val partialIds = mutableSetOf<Long>()
+        val overdueIds = mutableSetOf<Long>()
+        var collected = 0L
+        var balance = 0L
+        var overdue = 0L
+        for (invoice in invoices) {
+            val records = payments[invoice.invoiceId].orEmpty()
+            val active = records.filter { it.status.trim().equals("ACTIVE", true) }
+            val paid = active.sumOf { it.amountKhr }
+            val resolved = InvoiceStatusResolver.resolve(invoice.status, invoice.totalKhr, paid, invoice.dueDate, now)
+            val remaining = resolved.remainingKhr.coerceAtLeast(0L)
+            collected += paid
+            balance += remaining
+            if (remaining == 0L) paidIds.add(invoice.invoiceId)
+            else if (paid > 0L) partialIds.add(invoice.invoiceId)
+            else unpaidIds.add(invoice.invoiceId)
+            if (resolved.isOverdue && remaining > 0L) {
+                overdue += remaining
+                overdueIds.add(invoice.invoiceId)
+            }
+            val tenancy = tenancies[invoice.tenancyId]
+            val room = tenancy?.let { rooms[it.roomId] }
+            val name = tenancy?.let { tenants[it.tenantId]?.fullName } ?: "Tenant"
+            val number = room?.roomNumber ?: "—"
+            val property = room?.let { buildings[it.buildingId]?.name }.orEmpty()
+            if (remaining > 0L) outstanding.add(PaymentActivityItem.OutstandingInvoice(
+                invoiceId = invoice.invoiceId, tenantName = name, roomNumber = number,
+                buildingName = property,
+                dueDateFormatted = invoice.dueDate?.let { "Due ${dateFormat.format(Date(it))}" } ?: "No due date",
+                timestamp = invoice.dueDate ?: invoice.issueDate,
+                invoiceTotalKhr = invoice.totalKhr, totalPaidKhr = paid,
+                remainingBalanceKhr = remaining, isOverdue = resolved.isOverdue
+            ))
+            // Keep voided receipts visible in history, but never count them as collected money.
+            for (p in records) {
+                val status = p.status.trim().uppercase(Locale.ROOT)
+                if (status !in setOf("ACTIVE", "VOID", "VOIDED")) continue
+                receipts.add(PaymentActivityItem.PaymentRecord(
+                    paymentId = p.paymentId, invoiceId = invoice.invoiceId, tenantName = name,
+                    roomNumber = number, buildingName = property,
+                    paymentDateFormatted = dateFormat.format(Date(p.paymentDate)), timestamp = p.paymentDate,
+                    paymentAmountKhr = p.amountKhr, paymentMethod = p.paymentMethod,
+                    invoiceTotalKhr = invoice.totalKhr, remainingBalanceKhr = remaining,
+                    isFullyPaid = remaining == 0L, isVoided = status != "ACTIVE"
+                ))
             }
         }
-
-        // 3. Build Activity Items: Payment receipts + Unpaid/Overdue invoices
-        val activityList = mutableListOf<PaymentActivityItem>()
-
-        // A. Add Payment Records
-        for (inv in scopedInvoices) {
-            val tenancy = tenancyMap[inv.tenancyId]
-            val room = tenancy?.let { roomMap[it.roomId] }
-            val building = room?.let { buildingMap[it.buildingId] }
-            val tenant = tenancy?.let { tenantMap[it.tenantId] }
-
-            val roomNum = room?.roomNumber ?: "Room"
-            val bName = building?.name ?: ""
-            val tName = tenant?.fullName ?: "Tenant"
-
-            val invoicePayments = paymentsByInvoice[inv.invoiceId] ?: emptyList()
-            val totalPaid = invoicePayments.sumOf { it.amountKhr }
-            val remaining = (inv.totalKhr - totalPaid).coerceAtLeast(0L)
-
-            raw.payments.filter { it.invoiceId == inv.invoiceId }.forEach { p ->
-                activityList.add(
-                    PaymentActivityItem.PaymentRecord(
-                        paymentId = p.paymentId,
-                        invoiceId = inv.invoiceId,
-                        tenantName = tName,
-                        roomNumber = roomNum,
-                        buildingName = bName,
-                        paymentDateFormatted = itemDateFormatter.format(Date(p.paymentDate)),
-                        timestamp = p.paymentDate,
-                        paymentAmountKhr = p.amountKhr,
-                        paymentMethod = p.paymentMethod,
-                        invoiceTotalKhr = inv.totalKhr,
-                        remainingBalanceKhr = remaining,
-                        isFullyPaid = remaining == 0L,
-                        isVoided = p.status == "VOIDED"
-                    )
-                )
-            }
-
-            // B. Add Outstanding / Overdue invoices still needing collection
-            if (remaining > 0L) {
-                val isDuePassed = inv.dueDate != null && inv.dueDate < todayTime
-                activityList.add(
-                    PaymentActivityItem.OutstandingInvoice(
-                        invoiceId = inv.invoiceId,
-                        tenantName = tName,
-                        roomNumber = roomNum,
-                        buildingName = bName,
-                        dueDateFormatted = if (inv.dueDate != null) "Due ${itemDateFormatter.format(Date(inv.dueDate))}" else "",
-                        timestamp = inv.dueDate ?: inv.issueDate,
-                        invoiceTotalKhr = inv.totalKhr,
-                        totalPaidKhr = totalPaid,
-                        remainingBalanceKhr = remaining,
-                        isOverdue = isDuePassed
-                    )
-                )
-            }
+        val candidates: List<PaymentActivityItem> = when (selectedFilter) {
+            PaymentsScreenFilter.ALL -> outstanding + receipts
+            PaymentsScreenFilter.UNPAID -> outstanding.filter { it.invoiceId in unpaidIds }
+            PaymentsScreenFilter.PAID -> receipts.filter { !it.isVoided && it.invoiceId in paidIds }
+            PaymentsScreenFilter.PARTIAL -> outstanding.filter { it.invoiceId in partialIds }
+            PaymentsScreenFilter.OVERDUE -> outstanding.filter { it.invoiceId in overdueIds }
+            PaymentsScreenFilter.HISTORY -> receipts
         }
-
-        // 4. Filter by Tab selection
-        val tabFiltered = when (filter) {
-            PaymentFilter.ALL -> activityList
-            PaymentFilter.PAID -> activityList.filter { it is PaymentActivityItem.PaymentRecord && !it.isVoided && it.isFullyPaid }
-            PaymentFilter.PARTIAL -> activityList.filter {
-                (it is PaymentActivityItem.PaymentRecord && !it.isVoided && !it.isFullyPaid) ||
-                        (it is PaymentActivityItem.OutstandingInvoice && it.totalPaidKhr > 0L)
+        val q = search.trim()
+        val visible = candidates.filter { item ->
+            val fields = when (item) {
+                is PaymentActivityItem.OutstandingInvoice -> listOf(item.tenantName, item.roomNumber, item.buildingName, item.invoiceId.toString(), "Room ${item.roomNumber}")
+                is PaymentActivityItem.PaymentRecord -> listOf(item.tenantName, item.roomNumber, item.buildingName, item.invoiceId.toString(), "Room ${item.roomNumber}")
             }
-            PaymentFilter.OVERDUE -> activityList.filter { it is PaymentActivityItem.OutstandingInvoice && it.isOverdue }
-        }
-
-        // 5. Filter by Search Query
-        val q = query.trim().lowercase(Locale.US)
-        val finalItems = if (q.isEmpty()) {
-            tabFiltered
-        } else {
-            tabFiltered.filter { item ->
-                when (item) {
-                    is PaymentActivityItem.PaymentRecord -> {
-                        item.tenantName.lowercase(Locale.US).contains(q) ||
-                                item.roomNumber.lowercase(Locale.US).contains(q) ||
-                                item.buildingName.lowercase(Locale.US).contains(q) ||
-                                item.invoiceId.toString().contains(q)
-                    }
-                    is PaymentActivityItem.OutstandingInvoice -> {
-                        item.tenantName.lowercase(Locale.US).contains(q) ||
-                                item.roomNumber.lowercase(Locale.US).contains(q) ||
-                                item.buildingName.lowercase(Locale.US).contains(q) ||
-                                item.invoiceId.toString().contains(q)
-                    }
-                }
-            }
+            q.isEmpty() || fields.any { it.contains(q, ignoreCase = true) }
         }.sortedByDescending { it.timestamp }
-
-        PaymentsUiState(
-            isLoading = false,
-            selectedMonth = month,
-            selectedYear = year,
-            monthYearFormatted = monthYearFormatted,
-            selectedFilter = filter,
-            searchQuery = query,
-            collectedKhr = collectedKhr,
-            outstandingKhr = outstandingKhr,
-            overdueKhr = overdueKhr,
-            items = finalItems
+        val legacyFilter = when (selectedFilter) {
+            PaymentsScreenFilter.PAID -> PaymentFilter.PAID
+            PaymentsScreenFilter.PARTIAL -> PaymentFilter.PARTIAL
+            PaymentsScreenFilter.OVERDUE -> PaymentFilter.OVERDUE
+            else -> PaymentFilter.ALL
+        }
+        PaymentsReferenceState(
+            content = PaymentsUiState(
+                isLoading = false, selectedMonth = selectedMonth.monthValue, selectedYear = selectedMonth.year,
+                monthYearFormatted = selectedMonth.format(monthFormat), selectedFilter = legacyFilter,
+                searchQuery = search, collectedKhr = collected, outstandingKhr = balance, overdueKhr = overdue,
+                items = visible
+            ), filter = selectedFilter, invoiceCount = invoices.size, unpaidCount = unpaidIds.size,
+            paidCount = paidIds.size, partialCount = partialIds.size, overdueCount = overdueIds.size,
+            historyCount = receipts.size
         )
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        PaymentsUiState()
-    )
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PaymentsReferenceState())
 
-    fun onPreviousMonthClicked() {
-        val cal = Calendar.getInstance().apply {
-            set(Calendar.DAY_OF_MONTH, 1)
-            set(Calendar.MONTH, selectedMonthFlow.value - 1)
-            set(Calendar.YEAR, selectedYearFlow.value)
-            add(Calendar.MONTH, -1)
+    // Existing consumers can continue using the original UI-state type.
+    val uiState: StateFlow<PaymentsUiState> = screenState.map { it.content }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PaymentsUiState())
+    fun onPreviousMonthClicked() { month.value = month.value.minusMonths(1) }
+    fun onNextMonthClicked() { month.value = month.value.plusMonths(1) }
+    fun onSearchQueryChanged(value: String) { query.value = value }
+    fun onScreenFilterSelected(value: PaymentsScreenFilter) { filter.value = value }
+    fun onFilterSelected(value: PaymentFilter) {
+        filter.value = when (value) {
+            PaymentFilter.PAID -> PaymentsScreenFilter.PAID
+            PaymentFilter.PARTIAL -> PaymentsScreenFilter.PARTIAL
+            PaymentFilter.OVERDUE -> PaymentsScreenFilter.OVERDUE
+            else -> PaymentsScreenFilter.ALL
         }
-        selectedMonthFlow.value = cal.get(Calendar.MONTH) + 1
-        selectedYearFlow.value = cal.get(Calendar.YEAR)
-    }
-
-    fun onNextMonthClicked() {
-        val cal = Calendar.getInstance().apply {
-            set(Calendar.DAY_OF_MONTH, 1)
-            set(Calendar.MONTH, selectedMonthFlow.value - 1)
-            set(Calendar.YEAR, selectedYearFlow.value)
-            add(Calendar.MONTH, 1)
-        }
-        selectedMonthFlow.value = cal.get(Calendar.MONTH) + 1
-        selectedYearFlow.value = cal.get(Calendar.YEAR)
-    }
-
-    fun onFilterSelected(filter: PaymentFilter) {
-        selectedFilterFlow.value = filter
-    }
-
-    fun onSearchQueryChanged(query: String) {
-        searchQueryFlow.value = query
     }
 }

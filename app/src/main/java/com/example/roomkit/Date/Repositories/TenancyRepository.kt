@@ -30,6 +30,9 @@ class TenancyRepository(
     fun observeAllTenants(): Flow<List<TenantEntity>> =
         tenantDao.getAllTenants()
 
+    fun observeTenantAssignmentOptions(): Flow<List<com.example.roomkit.Date.Local.Model.TenantAssignmentOption>> =
+        tenantDao.observeTenantAssignmentOptions()
+
     fun observeAllBuildings(): Flow<List<BuildingEntity>> =
         buildingDao.getAllBuildings()
 

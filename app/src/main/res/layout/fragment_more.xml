@@ -1,404 +1,444 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollMore"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/roomkit_background"
-    android:orientation="vertical">
+    android:background="@color/rm_background"
+    android:clipToPadding="false"
+    android:fillViewport="true">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollMore"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:fillViewport="true"
-        android:overScrollMode="never"
-        android:paddingBottom="@dimen/roomkit_bottom_safe_padding">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="24dp">
 
+        <!-- Screen Header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="@string/rm_title"
+            android:textColor="@color/rm_ink"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/rm_subtitle"
+            android:textColor="@color/rm_muted"
+            android:textSize="14sp" />
+
+        <!-- Brand / Property Hero Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="@color/rm_surface"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/rm_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="18dp">
+
+                <FrameLayout
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_rm_icon">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_rm_building"
+                        app:tint="@color/rm_ink" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/rm_brand"
+                        android:textColor="@color/rm_ink"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/rm_brand_sub"
+                        android:textColor="@color/rm_muted"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Section 1: Management -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="sans-serif"
+            android:letterSpacing="0.10"
+            android:text="@string/rm_management"
+            android:textColor="@color/rm_ink"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/rm_surface"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/rm_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Row 1: Tenants -->
+                <LinearLayout
+                    android:id="@+id/cardTenants"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:minHeight="80dp"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/bg_rm_icon">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_rm_tenants"
+                            app:tint="@color/rm_ink" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/rm_tenants"
+                            android:textColor="@color/rm_ink"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/rm_tenants_sub"
+                            android:textColor="@color/rm_muted"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ref_chvron"
+                        app:tint="@color/rm_ink" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="74dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/rm_border" />
+
+                <!-- Row 2: Reports -->
+                <LinearLayout
+                    android:id="@+id/cardReports"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:minHeight="80dp"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/bg_rm_icon">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_rm_reports"
+                            app:tint="@color/rm_ink" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/rm_reports"
+                            android:textColor="@color/rm_ink"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/rm_reports_sub"
+                            android:textColor="@color/rm_muted"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ref_chvron"
+                        app:tint="@color/rm_ink" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="74dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/rm_border" />
+
+                <!-- Row 3: Reminders -->
+                <LinearLayout
+                    android:id="@+id/cardReminders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:minHeight="80dp"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/bg_rm_icon">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_rm_bell"
+                            app:tint="@color/rm_ink" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/rm_reminders"
+                            android:textColor="@color/rm_ink"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/rm_reminders_sub"
+                            android:textColor="@color/rm_muted"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ref_chvron"
+                        app:tint="@color/rm_ink" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Section 2: Preferences -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="sans-serif"
+            android:letterSpacing="0.10"
+            android:text="@string/rm_preferences"
+            android:textColor="@color/rm_ink"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/rm_surface"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/rm_border"
+            app:strokeWidth="1dp">
+
+            <!-- Settings Row -->
+            <LinearLayout
+                android:id="@+id/cardSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:minHeight="80dp"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <FrameLayout
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_rm_icon">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_rr_setting"
+                        app:tint="@color/rm_ink" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/rm_settings"
+                        android:textColor="@color/rm_ink"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/rm_settings_sub"
+                        android:textColor="@color/rm_muted"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ref_chvron"
+                    app:tint="@color/rm_ink" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Version & Footer Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal"
-            android:paddingTop="@dimen/roomkit_screen_padding_top">
-
-            <!-- Header -->
-            <TextView
-                style="@style/TextAppearance.RoomKit.ScreenTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="More" />
+            android:paddingTop="28dp"
+            android:paddingBottom="16dp">
 
             <TextView
-                style="@style/TextAppearance.RoomKit.Caption"
+                android:id="@+id/tvAppVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Tenants, reports &amp; settings"
-                android:textColor="@color/roomkit_text_secondary" />
+                android:fontFamily="sans-serif"
+                android:text="@string/rm_version_preview"
+                android:textColor="@color/rm_muted"
+                android:textSize="12sp"
+                tools:text="RoomKit v1.0.0" />
 
-            <!-- Menu Cards Container -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/roomkit_spacing_xl"
-                android:orientation="vertical">
-
-                <!-- 1. Tenants Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardTenants"
-                    style="@style/Widget.RoomKit.Card.Menu"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="@dimen/roomkit_spacing_md">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="@dimen/roomkit_spacing_lg"
-                        android:paddingVertical="@dimen/roomkit_spacing_lg">
-
-                        <FrameLayout
-                            android:layout_width="46dp"
-                            android:layout_height="46dp"
-                            android:background="@drawable/bg_more_icon_container">
-
-                            <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:layout_gravity="center"
-                                android:contentDescription="Tenants"
-                                android:src="@drawable/ic_tenants"
-                                app:tint="@color/roomkit_primary" />
-                        </FrameLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/roomkit_spacing_lg"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.RoomKit.Body"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Tenants"
-                                android:textColor="@color/roomkit_text_primary"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tvTenantsSubtitle"
-                                style="@style/TextAppearance.RoomKit.Caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:textColor="@color/roomkit_text_secondary"
-                                tools:text="18 active tenants" />
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="Open Tenants"
-                            android:src="@drawable/ic_chevron_right"
-                            app:tint="@color/roomkit_text_muted" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- 2. Reports Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardReports"
-                    style="@style/Widget.RoomKit.Card.Menu"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="@dimen/roomkit_spacing_md">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="@dimen/roomkit_spacing_lg"
-                        android:paddingVertical="@dimen/roomkit_spacing_lg">
-
-                        <FrameLayout
-                            android:layout_width="46dp"
-                            android:layout_height="46dp"
-                            android:background="@drawable/bg_more_icon_container">
-
-                            <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:layout_gravity="center"
-                                android:contentDescription="Reports"
-                                android:src="@drawable/ic_trending_up"
-                                app:tint="@color/roomkit_primary" />
-                        </FrameLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/roomkit_spacing_lg"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.RoomKit.Body"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Reports"
-                                android:textColor="@color/roomkit_text_primary"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                style="@style/TextAppearance.RoomKit.Caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Revenue &amp; occupancy analytics"
-                                android:textColor="@color/roomkit_text_secondary" />
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="Open Reports"
-                            android:src="@drawable/ic_chevron_right"
-                            app:tint="@color/roomkit_text_muted" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- 3. Reminders Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardReminders"
-                    style="@style/Widget.RoomKit.Card.Menu"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="@dimen/roomkit_spacing_md">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="@dimen/roomkit_spacing_lg"
-                        android:paddingVertical="@dimen/roomkit_spacing_lg">
-
-                        <FrameLayout
-                            android:layout_width="46dp"
-                            android:layout_height="46dp"
-                            android:background="@drawable/bg_more_icon_container">
-
-                            <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:layout_gravity="center"
-                                android:contentDescription="Reminders"
-                                android:src="@drawable/ic_notifications"
-                                app:tint="@color/roomkit_primary" />
-                        </FrameLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/roomkit_spacing_lg"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.RoomKit.Body"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Reminders"
-                                android:textColor="@color/roomkit_text_primary"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tvRemindersSubtitle"
-                                style="@style/TextAppearance.RoomKit.Caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:textColor="@color/roomkit_text_secondary"
-                                tools:text="4 items need attention" />
-                        </LinearLayout>
-
-                        <!-- Notification Count Badge -->
-                        <TextView
-                            android:id="@+id/tvReminderBadge"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_marginEnd="@dimen/roomkit_spacing_sm"
-                            android:background="@drawable/bg_badge_notification_circle"
-                            android:gravity="center"
-                            android:textColor="@color/roomkit_on_primary"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:visibility="gone"
-                            tools:text="4"
-                            tools:visibility="visible" />
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="Open Reminders"
-                            android:src="@drawable/ic_chevron_right"
-                            app:tint="@color/roomkit_text_muted" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- 4. Settings Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardSettings"
-                    style="@style/Widget.RoomKit.Card.Menu"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="@dimen/roomkit_spacing_md">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="@dimen/roomkit_spacing_lg"
-                        android:paddingVertical="@dimen/roomkit_spacing_lg">
-
-                        <FrameLayout
-                            android:layout_width="46dp"
-                            android:layout_height="46dp"
-                            android:background="@drawable/bg_more_icon_container">
-
-                            <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:layout_gravity="center"
-                                android:contentDescription="Settings"
-                                android:src="@drawable/ic_settings"
-                                app:tint="@color/roomkit_primary" />
-                        </FrameLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/roomkit_spacing_lg"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.RoomKit.Body"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Settings"
-                                android:textColor="@color/roomkit_text_primary"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                style="@style/TextAppearance.RoomKit.Caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Rates, billing, and app preferences"
-                                android:textColor="@color/roomkit_text_secondary" />
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="Open Settings"
-                            android:src="@drawable/ic_chevron_right"
-                            app:tint="@color/roomkit_text_muted" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Month close and protected backups -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardFoundation"
-                    style="@style/Widget.RoomKit.Card.Menu"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="@dimen/roomkit_spacing_md">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="@dimen/roomkit_spacing_lg"
-                        android:paddingVertical="@dimen/roomkit_spacing_lg">
-
-                        <FrameLayout
-                            android:layout_width="46dp"
-                            android:layout_height="46dp"
-                            android:background="@drawable/bg_more_icon_container">
-
-                            <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:layout_gravity="center"
-                                android:contentDescription="Month close and backups"
-                                android:src="@drawable/ic_settings"
-                                app:tint="@color/roomkit_primary" />
-                        </FrameLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/roomkit_spacing_lg"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.RoomKit.Body"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Month close &amp; backups"
-                                android:textColor="@color/roomkit_text_primary"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                style="@style/TextAppearance.RoomKit.Caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Close history and protected data copies"
-                                android:textColor="@color/roomkit_text_secondary" />
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="Open month close and backups"
-                            android:src="@drawable/ic_chevron_right"
-                            app:tint="@color/roomkit_text_muted" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-
-            <!-- App Information Footer -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/roomkit_spacing_xxl"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/roomkit_spacing_md">
-
-                <TextView
-                    style="@style/TextAppearance.RoomKit.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RoomKit"
-                    android:textColor="@color/roomkit_text_secondary"
-                    android:textStyle="bold" />
-
-                <TextView
-                    style="@style/TextAppearance.RoomKit.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Version 1.0.0 · Offline Management"
-                    android:textColor="@color/roomkit_text_muted" />
-            </LinearLayout>
-
+                android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/rm_footer"
+                android:textColor="@color/rm_muted"
+                android:textSize="12sp" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

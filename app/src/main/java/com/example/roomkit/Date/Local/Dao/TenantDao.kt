@@ -9,6 +9,24 @@ import kotlinx.coroutines.flow.Flow
 interface TenantDao {
 
     @Query("""
+        SELECT t.tenantId, t.fullName, t.phoneNumber,
+               act.tenancyId AS activeTenancyId,
+               r.roomNumber AS currentRoomNumber,
+               b.name AS currentBuildingName
+        FROM tenants t
+        LEFT JOIN tenancies act ON act.tenancyId = (
+            SELECT MIN(active.tenancyId) FROM tenancies active
+            WHERE active.tenantId = t.tenantId AND active.status = 'ACTIVE'
+        )
+        LEFT JOIN rooms r ON r.roomId = act.roomId
+        LEFT JOIN buildings b ON b.buildingId = r.buildingId
+        ORDER BY (act.tenancyId IS NOT NULL) ASC, t.fullName COLLATE NOCASE ASC, t.tenantId ASC
+    """)
+    fun observeTenantAssignmentOptions(): Flow<List<com.example.roomkit.Date.Local.Model.TenantAssignmentOption>>
+
+
+
+    @Query("""
         SELECT 
             t.tenantId,
             t.fullName,

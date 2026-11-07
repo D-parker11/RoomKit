@@ -19,6 +19,7 @@ import com.example.roomkit.databinding.FragmentRoomsBinding
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import androidx.core.widget.doAfterTextChanged
 
 class RoomsFragment : Fragment() {
 
@@ -46,9 +47,24 @@ class RoomsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+        binding.etSearchRooms.setText(viewModel.searchQuery.value)
 
+        binding.etSearchRooms.doAfterTextChanged { text ->
+            viewModel.onSearchQueryChanged(text?.toString().orEmpty())
+        }
         binding.btnAddRoom.setOnClickListener { navigateToAddRoom() }
         binding.btnEmptyAddRoom.setOnClickListener { navigateToAddRoom() }
+        if (savedInstanceState == null) {
+            val initialFilter = arguments?.getString("initialFilter")
+
+            viewModel.selectTab(
+                if (initialFilter == "VACANT") {
+                    RoomTabFilter.VACANT
+                } else {
+                    RoomTabFilter.ALL
+                }
+            )
+        }
 
         setupRecyclerView()
         setupTabs()
@@ -87,26 +103,41 @@ class RoomsFragment : Fragment() {
             setHasFixedSize(true)
         }
     }
-
     private fun setupTabs() {
         binding.tabLayoutRoomFilter.apply {
+            clearOnTabSelectedListeners()
             removeAllTabs()
-            addTab(newTab().setText("All (0)"))
-            addTab(newTab().setText("Occupied (0)"))
-            addTab(newTab().setText("Vacant (0)"))
 
-            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    val filter = when (tab?.position) {
-                        1 -> RoomTabFilter.OCCUPIED
-                        2 -> RoomTabFilter.VACANT
-                        else -> RoomTabFilter.ALL
+            // Do not automatically select All when adding it.
+            addTab(newTab().setText("All (0)"), false)
+            addTab(newTab().setText("Occupied (0)"), false)
+            addTab(newTab().setText("Vacant (0)"), false)
+
+            val selectedPosition = when (viewModel.selectedTab.value) {
+                RoomTabFilter.ALL -> 0
+                RoomTabFilter.OCCUPIED -> 1
+                RoomTabFilter.VACANT -> 2
+            }
+
+            getTabAt(selectedPosition)?.select()
+
+            addOnTabSelectedListener(
+                object : TabLayout.OnTabSelectedListener {
+                    override fun onTabSelected(tab: TabLayout.Tab?) {
+                        viewModel.selectTab(
+                            when (tab?.position) {
+                                1 -> RoomTabFilter.OCCUPIED
+                                2 -> RoomTabFilter.VACANT
+                                else -> RoomTabFilter.ALL
+                            }
+                        )
                     }
-                    viewModel.selectTab(filter)
+
+                    override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+                    override fun onTabReselected(tab: TabLayout.Tab?) {}
                 }
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-            })
+            )
         }
     }
 

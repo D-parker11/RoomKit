@@ -230,12 +230,43 @@
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilSearchRooms"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:hintEnabled="false"
+                app:boxBackgroundColor="@color/rrs_search_surface"
+                app:boxStrokeColor="@color/rrs_search_border"
+                app:boxStrokeWidth="1dp"
+                app:boxCornerRadiusTopStart="14dp"
+                app:boxCornerRadiusTopEnd="14dp"
+                app:boxCornerRadiusBottomStart="14dp"
+                app:boxCornerRadiusBottomEnd="14dp"
+                app:startIconDrawable="@drawable/ic_search"
+                app:startIconTint="@color/roomkit_text_muted"
+                app:endIconMode="clear_text">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSearchRooms"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="@string/rrs_search_hint"
+                    android:textSize="14sp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textColorHint="@color/roomkit_text_muted"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"
+                    android:importantForAutofill="no" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!-- Filter Tabs: All, Occupied, Vacant -->
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayoutRoomFilter"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:layout_marginTop="@dimen/roomkit_spacing_lg"
+                android:layout_marginTop="12dp"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/roomkit_primary"
                 app:tabIndicatorFullWidth="false"

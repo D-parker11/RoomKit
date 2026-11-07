@@ -1,3 +1,4 @@
+@file:Suppress("PackageNaming")
 package com.example.roomkit.Date.Ui.Room
 
 import androidx.lifecycle.ViewModel
@@ -6,13 +7,7 @@ import com.example.roomkit.Date.Local.Entity.BuildingEntity
 import com.roomkit.data.local.model.RoomItemDetails
 import com.roomkit.data.repository.BuildingRepository
 import com.roomkit.data.repository.RoomRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import kotlin.math.roundToInt
 
 enum class RoomTabFilter { ALL, OCCUPIED, VACANT }
@@ -22,78 +17,34 @@ class RoomsViewModel(
     private val buildingRepository: BuildingRepository,
     private val roomRepository: RoomRepository
 ) : ViewModel() {
-
-    // 1. Building details (Name & Address)
-    // Directly stateIn the repository's Flow without wrapping in flow { emit(...) }
-    val building: StateFlow<BuildingEntity?> = buildingRepository
-        .getBuildingById(buildingId)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = null
-        )
-
-    // 2. Tab filter state
+    val building: StateFlow<BuildingEntity?> = buildingRepository.getBuildingById(buildingId)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
     private val _selectedTab = MutableStateFlow(RoomTabFilter.ALL)
-    val selectedTab: StateFlow<RoomTabFilter> = _selectedTab
-
-    // 3. Rooms stream
-    private val allRoomsFlow: Flow<List<RoomItemDetails>> = roomRepository.getRoomsForBuilding(buildingId)
-
-    // Dynamic counts
-    val allCount: StateFlow<Int> = allRoomsFlow
-        .map { it.size }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = 0
-        )
-
-    val occupiedCount: StateFlow<Int> = allRoomsFlow
-        .map { list -> list.count { it.isOccupied } }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = 0
-        )
-
-    val vacantCount: StateFlow<Int> = allRoomsFlow
-        .map { list -> list.count { !it.isOccupied } }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = 0
-        )
-
-    // Dynamic Occupancy % calculation: (Occupied / Total) * 100
-    val occupancyPercentage: StateFlow<Int> = allRoomsFlow
-        .map { list ->
-            if (list.isEmpty()) 0
-            else {
-                val occupied = list.count { it.isOccupied }
-                ((occupied.toDouble() / list.size.toDouble()) * 100.0).roundToInt()
+    val selectedTab = _selectedTab.asStateFlow()
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery = _searchQuery.asStateFlow()
+    private val allRooms = roomRepository.getRoomsForBuilding(buildingId)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val allCount = allRooms.map { it.size }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+    val occupiedCount = allRooms.map { list -> list.count { it.isOccupied } }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+    val vacantCount = allRooms.map { list -> list.count { !it.isOccupied } }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+    val occupancyPercentage = allRooms.map { list ->
+        if (list.isEmpty()) 0 else (list.count { it.isOccupied } * 100.0 / list.size).roundToInt()
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+    val displayedRooms: StateFlow<List<RoomItemDetails>> = combine(allRooms, _selectedTab, _searchQuery) { list, tab, query ->
+        val q = query.trim()
+        list.filter { room ->
+            val matchesTab = when (tab) {
+                RoomTabFilter.ALL -> true
+                RoomTabFilter.OCCUPIED -> room.isOccupied
+                RoomTabFilter.VACANT -> !room.isOccupied
             }
+            matchesTab && (q.isEmpty() || room.roomNumber.contains(q, true) ||
+                    "Room ${room.roomNumber}".contains(q, true) || room.tenantName.orEmpty().contains(q, true))
         }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = 0
-        )
-
-    // Filtered rooms list
-    val displayedRooms: StateFlow<List<RoomItemDetails>> = combine(allRoomsFlow, _selectedTab) { list, tab ->
-        when (tab) {
-            RoomTabFilter.ALL -> list
-            RoomTabFilter.OCCUPIED -> list.filter { it.isOccupied }
-            RoomTabFilter.VACANT -> list.filter { !it.isOccupied }
-        }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = emptyList()
-    )
-
-    fun selectTab(tab: RoomTabFilter) {
-        _selectedTab.value = tab
-    }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    fun selectTab(tab: RoomTabFilter) { _selectedTab.value = tab }
+    fun onSearchQueryChanged(query: String) { _searchQuery.value = query }
 }

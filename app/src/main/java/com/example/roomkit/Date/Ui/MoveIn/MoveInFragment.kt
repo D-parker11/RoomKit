@@ -5,6 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.content.Context
+import android.graphics.drawable.GradientDrawable
+import android.view.Gravity
+import android.widget.AutoCompleteTextView
+import android.widget.Filter
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -16,15 +23,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.roomkit.Date.Billing.CurrencyFormatter
-import com.example.roomkit.Date.Local.Entity.RoomEntity
-import com.example.roomkit.Date.Local.Model.VacantRoomOption
 import com.example.roomkit.Date.Ui.Factory.ViewModelFactory
 import com.example.roomkit.databinding.FragmentMoveInBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import java.util.Calendar
-import java.util.Locale
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import com.example.roomkit.R
@@ -35,7 +39,8 @@ class MoveInFragment : Fragment() {
     private var _binding: FragmentMoveInBinding? = null
     private val binding get() = _binding!!
 
-    private var roomAdapter: RoomOptionAdapter? = null
+    private var isBindingState = false
+    private var tenantPicker: TenantPickerDialog? = null
     private var confirmationDialog: AlertDialog? = null
 
     private var lastShownError: String? = null
@@ -87,6 +92,7 @@ class MoveInFragment : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupDropdownListeners()
         setupClickListeners()
         setupInputWatchers()
         observeUiState()
@@ -94,13 +100,15 @@ class MoveInFragment : Fragment() {
 
     private fun setupClickListeners() {
 
+        binding.actvTenant.setOnClickListener { showTenantPicker() }
+        binding.tilTenant.setEndIconOnClickListener { showTenantPicker() }
+
         binding.btnBackMoveIn.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        binding.etMoveInDate.setOnClickListener {
-            showMoveInDatePicker()
-        }
+        binding.etMoveInDate.setOnClickListener { showMoveInDatePicker() }
+        binding.tilMoveInDate.setEndIconOnClickListener { showMoveInDatePicker() }
 
         binding.btnConfirmMoveIn.setOnClickListener {
             showConfirmationDialog()
@@ -110,24 +118,28 @@ class MoveInFragment : Fragment() {
     private fun setupInputWatchers() {
 
         binding.etMonthlyRent.doAfterTextChanged {
+            if (isBindingState) return@doAfterTextChanged
             viewModel.onRentChanged(
                 it?.toString().orEmpty()
             )
         }
 
         binding.etDeposit.doAfterTextChanged {
+            if (isBindingState) return@doAfterTextChanged
             viewModel.onDepositChanged(
                 it?.toString().orEmpty()
             )
         }
 
         binding.etBillingDay.doAfterTextChanged {
+            if (isBindingState) return@doAfterTextChanged
             viewModel.onBillingDayChanged(
                 it?.toString().orEmpty()
             )
         }
 
         binding.etDueDay.doAfterTextChanged {
+            if (isBindingState) return@doAfterTextChanged
             val value = it?.toString().orEmpty()
             viewModel.onDueDayChanged(value)
             // Do not show an error on an untouched empty field.
@@ -137,6 +149,7 @@ class MoveInFragment : Fragment() {
         }
 
         binding.etElectricityRate.doAfterTextChanged {
+            if (isBindingState) return@doAfterTextChanged
             viewModel.onElectricityRateChanged(
                 it?.toString().orEmpty()
             )
@@ -144,6 +157,7 @@ class MoveInFragment : Fragment() {
 
         // Fixed water fee
         binding.etWaterFee.doAfterTextChanged {
+            if (isBindingState) return@doAfterTextChanged
             if (!viewModel.uiState.value.isWaterMetered) {
                 viewModel.onWaterFeeOrRateChanged(
                     it?.toString().orEmpty()
@@ -153,6 +167,7 @@ class MoveInFragment : Fragment() {
 
         // Metered water rate
         binding.etWaterRate.doAfterTextChanged {
+            if (isBindingState) return@doAfterTextChanged
             if (viewModel.uiState.value.isWaterMetered) {
                 viewModel.onWaterFeeOrRateChanged(
                     it?.toString().orEmpty()
@@ -161,18 +176,21 @@ class MoveInFragment : Fragment() {
         }
 
         binding.etRubbishFee.doAfterTextChanged {
+            if (isBindingState) return@doAfterTextChanged
             viewModel.onRubbishFeeChanged(
                 it?.toString().orEmpty()
             )
         }
 
         binding.etInitialElectricity.doAfterTextChanged {
+            if (isBindingState) return@doAfterTextChanged
             viewModel.onInitialElecReadingChanged(
                 it?.toString().orEmpty()
             )
         }
 
         binding.etInitialWater.doAfterTextChanged {
+            if (isBindingState) return@doAfterTextChanged
             viewModel.onInitialWaterReadingChanged(
                 it?.toString().orEmpty()
             )
@@ -180,7 +198,7 @@ class MoveInFragment : Fragment() {
 
         binding.rgWaterMethod.setOnCheckedChangeListener { _, checkedId ->
 
-            if (checkedId == View.NO_ID) {
+            if (isBindingState || checkedId == View.NO_ID) {
                 return@setOnCheckedChangeListener
             }
 
@@ -227,8 +245,12 @@ class MoveInFragment : Fragment() {
                 Lifecycle.State.RESUMED
             ) {
 
-                viewModel.uiState.collect { state ->
-                    bindState(state)
+                launch { viewModel.uiState.collect { state -> bindState(state) } }
+                launch {
+                    viewModel.tenantPickerState.collect { picker ->
+                        bindTenantSelector(viewModel.uiState.value)
+                        tenantPicker?.render(picker, viewModel.uiState.value.tenantId)
+                    }
                 }
             }
         }
@@ -238,13 +260,18 @@ class MoveInFragment : Fragment() {
         state: MoveInUiState
     ) {
 
-        bindDate(state)
-        bindError(state)
-        bindTenantSelector(state)
-        bindRoomSelector(state)
-        bindWaterMethod(state)
-        bindInitialValues(state)
-        bindSavingState(state)
+        isBindingState = true
+        try {
+            bindDate(state)
+            bindError(state)
+            bindTenantSelector(state)
+            bindRoomSelector(state)
+            bindWaterMethod(state)
+            bindInitialValues(state)
+            bindSavingState(state)
+        } finally {
+            isBindingState = false
+        }
 
         if (state.isSuccess) {
             handleMoveInSuccess(state)
@@ -271,6 +298,7 @@ class MoveInFragment : Fragment() {
         val message = state.errorMessage
             ?.takeIf { it.isNotBlank() }
 
+        binding.cardError.isVisible = message != null
         binding.tvErrorMessage.isVisible = message != null
         binding.tvErrorMessage.text = message.orEmpty()
 
@@ -329,191 +357,89 @@ class MoveInFragment : Fragment() {
         dialog.show()
     }
 
-    private fun bindTenantSelector(
-        state: MoveInUiState
-    ) {
-
-        if (state.isTenantLocked) {
-
-            binding.actvTenant.setText(
-                state.tenantName,
-                false
-            )
-
-            binding.tilTenant.isEnabled = false
-
-            return
-        }
-
-        binding.tilTenant.isEnabled = true
-
-        val tenants = state.allTenants
-
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            tenants.map { it.fullName }
-        )
-
-        binding.actvTenant.setAdapter(adapter)
-
-        binding.actvTenant.setOnItemClickListener {
-                _,
-                _,
-                position,
-                _ ->
-
-            tenants
-                .getOrNull(position)
-                ?.let(viewModel::onTenantSelected)
+    private fun bindTenantSelector(state: MoveInUiState) {
+        setInputText(binding.actvTenant, state.tenantName)
+        val picker = viewModel.tenantPickerState.value
+        val option = picker.options.firstOrNull { it.tenantId == state.tenantId }
+        binding.tilTenant.helperText = when {
+            picker.isLoading -> "Checking tenant availability…"
+            picker.errorMessage != null -> "Availability unavailable. Open the picker to retry."
+            option != null -> option.assignmentLabel
+            picker.options.isEmpty() -> "No tenants found. Add a tenant first."
+            else -> "Search by name or phone · Available tenants first"
         }
     }
 
-    private fun bindRoomSelector(
-        state: MoveInUiState
-    ) {
+    private fun showTenantPicker() {
+        val state = viewModel.uiState.value
+        if (state.isTenantLocked || state.isSaving || state.isSuccess) return
+        if (tenantPicker?.isShowing == true) return
+        val picker = TenantPickerDialog(requireContext(),
+            onSelected = viewModel::selectTenantForMoveIn,
+            onRetry = viewModel::reloadTenantOptions)
+        tenantPicker = picker
+        picker.setOnDismissListener { if (tenantPicker === picker) tenantPicker = null }
+        picker.render(viewModel.tenantPickerState.value, state.tenantId)
+        picker.show()
+    }
 
-        if (state.isRoomLocked) {
-
-            binding.actvBuilding.setText(
-                state.buildingName,
-                false
-            )
-
-            binding.actvRoom.setText(
-                state.roomNumber,
-                false
-            )
-
-            binding.tilBuilding.isEnabled = false
-            binding.tilRoom.isEnabled = false
-
-            return
-        }
-
-        binding.tilBuilding.isEnabled = true
-
+    private fun bindRoomSelector(state: MoveInUiState) {
         setupBuildingSelector(state)
-        if (state.allBuildings.size == 1) {
-            binding.actvBuilding.setText(state.allBuildings.single().name, false)
+        updateOptions(binding.actvRoom, state.availableRooms.map {
+            MoveInOption(it.roomId, roomLabel(it.roomNumber, it.monthlyRent))
+        })
+        val room = state.availableRooms.firstOrNull { it.roomId == state.roomId }
+        val label = when {
+            room != null -> roomLabel(room.roomNumber, room.monthlyRent)
+            state.isRoomLocked -> "Room ${state.roomNumber}"
+            else -> ""
         }
-
-        binding.tilRoom.isEnabled =
-            state.buildingId != null
-
-        setupRoomOptions(
-            state.availableRooms
-        )
-    }
-
-    private fun setupBuildingSelector(
-        state: MoveInUiState
-    ) {
-
-        val buildings = state.allBuildings
-
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            buildings.map { it.name }
-        )
-
-        binding.actvBuilding.setAdapter(adapter)
-
-        binding.actvBuilding.setOnItemClickListener {
-                _,
-                _,
-                position,
-                _ ->
-
-            buildings
-                .getOrNull(position)
-                ?.let(viewModel::onBuildingSelected)
+        setDropdownText(binding.actvRoom, label)
+        binding.tilRoom.helperText = when {
+            state.isRoomLocked -> "Room selected from its details"
+            state.buildingId == null -> "Select a property first"
+            state.availableRooms.isEmpty() -> "No vacant rooms available in this property"
+            else -> "${state.availableRooms.size} vacant room(s) available"
         }
     }
 
-    private fun bindWaterMethod(
-        state: MoveInUiState
-    ) {
+    private fun setupBuildingSelector(state: MoveInUiState) {
+        updateOptions(binding.actvBuilding, state.allBuildings.map {
+            MoveInOption(it.buildingId, it.name)
+        })
+        setDropdownText(binding.actvBuilding, state.buildingName)
+    }
 
-        val checkedId =
-            if (state.isWaterMetered) {
-                binding.rbWaterMetered.id
-            } else {
-                binding.rbWaterFixed.id
-            }
+    private fun bindWaterMethod(state: MoveInUiState) {
+        val checkedId = if (state.isWaterMetered) binding.rbWaterMetered.id else binding.rbWaterFixed.id
+        if (binding.rgWaterMethod.checkedRadioButtonId != checkedId) binding.rgWaterMethod.check(checkedId)
+        binding.tilWaterFee.isVisible = !state.isWaterMetered
+        binding.tilWaterRate.isVisible = state.isWaterMetered
+        binding.tilInitialWater.isVisible = state.isWaterMetered
+        val field = if (state.isWaterMetered) binding.etWaterRate else binding.etWaterFee
+        setInputText(field, state.waterFeeOrRateKhrInput)
+    }
 
-        if (binding.rgWaterMethod.checkedRadioButtonId != checkedId) {
-            binding.rgWaterMethod.check(checkedId)
-        }
+    private fun bindInitialValues(state: MoveInUiState) {
+        setInputText(binding.etMonthlyRent, state.monthlyRentKhrInput)
+        setInputText(binding.etDeposit, state.depositKhrInput)
+        setInputText(binding.etBillingDay, state.billingDayInput)
+        setInputText(binding.etDueDay, state.dueDayInput)
+        setInputText(binding.etElectricityRate, state.electricityRateKhrInput)
+        setInputText(binding.etRubbishFee, state.rubbishFeeKhrInput)
+        setInputText(binding.etInitialElectricity, state.initialElecReadingInput)
+        setInputText(binding.etInitialWater, state.initialWaterReadingInput)
+    }
 
-        binding.tilWaterFee.isVisible =
-            !state.isWaterMetered
-
-        binding.tilWaterRate.isVisible =
-            state.isWaterMetered
-
-        binding.tilInitialWater.isVisible =
-            state.isWaterMetered
-
-        val waterValue =
-            state.waterFeeOrRateKhrInput
-
-        if (state.isWaterMetered) {
-
-            val current =
-                binding.etWaterRate.text
-                    ?.toString()
-                    .orEmpty()
-
-            if (
-                current.isBlank() &&
-                waterValue.isNotBlank()
-            ) {
-                binding.etWaterRate.setText(
-                    waterValue
-                )
-            }
-
-        } else {
-
-            val current =
-                binding.etWaterFee.text
-                    ?.toString()
-                    .orEmpty()
-
-            if (
-                current.isBlank() &&
-                waterValue.isNotBlank()
-            ) {
-                binding.etWaterFee.setText(
-                    waterValue
-                )
-            }
+    private fun setInputText(field: android.widget.EditText, value: String) {
+        if (field.text.toString() != value) {
+            field.setText(value)
+            field.setSelection(value.length)
         }
     }
 
-    private fun bindInitialValues(
-        state: MoveInUiState
-    ) {
-
-        if (
-            binding.etMonthlyRent.text.isNullOrBlank() &&
-            state.monthlyRentKhrInput.isNotBlank()
-        ) {
-            binding.etMonthlyRent.setText(
-                state.monthlyRentKhrInput
-            )
-        }
-
-        if (
-            binding.etDeposit.text.isNullOrBlank() &&
-            state.depositKhrInput.isNotBlank()
-        ) {
-            binding.etDeposit.setText(
-                state.depositKhrInput
-            )
-        }
+    private fun setDropdownText(field: AutoCompleteTextView, value: String) {
+        if (field.text.toString() != value) field.setText(value, false)
     }
 
     private fun bindSavingState(state: MoveInUiState) {
@@ -521,7 +447,7 @@ class MoveInFragment : Fragment() {
 
         binding.btnConfirmMoveIn.isEnabled = canEdit
         binding.btnConfirmMoveIn.text =
-            if (state.isSaving) "Saving..." else "Confirm Move-In"
+            if (state.isSaving) "Saving…" else "Review move-in"
 
         binding.tilTenant.isEnabled =
             canEdit && !state.isTenantLocked
@@ -532,7 +458,7 @@ class MoveInFragment : Fragment() {
         binding.tilRoom.isEnabled =
             canEdit &&
                     !state.isRoomLocked &&
-                    state.buildingId != null
+                    state.buildingId != null && state.availableRooms.isNotEmpty()
 
         binding.etMoveInDate.isEnabled = canEdit
         binding.etMonthlyRent.isEnabled = canEdit
@@ -549,76 +475,80 @@ class MoveInFragment : Fragment() {
         binding.rbWaterMetered.isEnabled = canEdit
     }
 
-    private fun setupRoomOptions(
-        availableRooms: List<RoomEntity>
-    ) {
-
-        val roomOptions =
-            availableRooms.map { room ->
-
-                VacantRoomOption(
-                    roomId = room.roomId,
-                    buildingId = room.buildingId,
-                    roomNumber = room.roomNumber,
-                    floor = room.floor,
-                    monthlyRent = room.monthlyRent
-                )
-            }
-
-        roomAdapter = RoomOptionAdapter(
-            requireContext(),
-            roomOptions
-        )
-
-        binding.actvRoom.setAdapter(
-            roomAdapter
-        )
-
-        binding.actvRoom.setOnItemClickListener {
-                _,
-                _,
-                position,
-                _ ->
-
-            val selectedOption =
-                roomOptions.getOrNull(position)
-                    ?: return@setOnItemClickListener
-
-            val room =
-                availableRooms.getOrNull(position)
-                    ?: return@setOnItemClickListener
-
-            roomAdapter?.selectedRoomId =
-                selectedOption.roomId
-
-            roomAdapter?.notifyDataSetChanged()
-
-            val formattedRent =
-                CurrencyFormatter
-                    .formatKhr(selectedOption.monthlyRent)
-
-            binding.actvRoom.setText(
-                "Room ${selectedOption.roomNumber} · $formattedRent/mo",
-                false
-            )
-
-            val rentKhr =
-                String.format(
-                    Locale.US,
-                    "%d",
-                    selectedOption.monthlyRent
-                )
-
-            binding.etMonthlyRent.setText(
-                rentKhr
-            )
-
-            binding.etDeposit.setText(
-                rentKhr
-            )
-
-            viewModel.onRoomSelected(room)
+    private fun setupDropdownListeners() {
+        binding.actvBuilding.setOnItemClickListener { parent, _, position, _ ->
+            val option = parent.getItemAtPosition(position) as? MoveInOption
+                ?: return@setOnItemClickListener
+            viewModel.uiState.value.allBuildings.firstOrNull { it.buildingId == option.id }
+                ?.let(viewModel::onBuildingSelected)
         }
+        binding.actvRoom.setOnItemClickListener { parent, _, position, _ ->
+            val option = parent.getItemAtPosition(position) as? MoveInOption
+                ?: return@setOnItemClickListener
+            viewModel.uiState.value.availableRooms.firstOrNull { it.roomId == option.id }
+                ?.let(viewModel::onRoomSelected)
+        }
+        listOf(binding.actvBuilding, binding.actvRoom).forEach { field ->
+            field.threshold = 0
+            field.setDropDownBackgroundDrawable(GradientDrawable().apply {
+                setColor(ContextCompat.getColor(requireContext(), R.color.roomkit_surface))
+                cornerRadius = 16f * resources.displayMetrics.density
+            })
+        }
+    }
+
+    private fun updateOptions(field: AutoCompleteTextView, options: List<MoveInOption>) {
+        val existing = field.adapter as? MoveInOptionsAdapter
+        if (existing?.options != options) {
+            field.setAdapter(MoveInOptionsAdapter(requireContext(), options))
+        }
+    }
+
+    private fun roomLabel(number: String, rent: Long): String =
+        "Room $number · ${CurrencyFormatter.formatKhr(rent)} / month"
+
+    private data class MoveInOption(val id: Long, val label: String) {
+        override fun toString(): String = label
+    }
+
+    /** Non-editable selectors always expose the entire current list, including after a selection. */
+    private class MoveInOptionsAdapter(
+        context: Context,
+        val options: List<MoveInOption>
+    ) : ArrayAdapter<MoveInOption>(context, android.R.layout.simple_list_item_1, options) {
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View =
+            row(position, convertView)
+
+        override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View =
+            row(position, convertView)
+
+        private fun row(position: Int, convertView: View?): TextView {
+            val density = context.resources.displayMetrics.density
+            return ((convertView as? TextView) ?: TextView(context)).apply {
+                layoutParams = android.widget.AbsListView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                minHeight = (56 * density).toInt()
+                gravity = Gravity.CENTER_VERTICAL
+                setPadding((16 * density).toInt(), (12 * density).toInt(),
+                    (16 * density).toInt(), (12 * density).toInt())
+                setTextColor(ContextCompat.getColor(context, R.color.roomkit_text_primary))
+                setBackgroundColor(ContextCompat.getColor(context, R.color.roomkit_surface))
+                textSize = 15f
+                maxLines = 3
+                text = getItem(position)?.label.orEmpty()
+            }
+        }
+
+        private val completeListFilter = object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults =
+                FilterResults().apply { values = options; count = options.size }
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                notifyDataSetChanged()
+            }
+            override fun convertResultToString(resultValue: Any?): CharSequence =
+                (resultValue as? MoveInOption)?.label.orEmpty()
+        }
+        override fun getFilter(): Filter = completeListFilter
     }
 
     private fun validateDueDay(value: String): Boolean {
@@ -737,6 +667,8 @@ class MoveInFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        tenantPicker?.dismiss()
+        tenantPicker = null
         moveInErrorDialog?.dismiss()
         moveInErrorDialog = null
         lastShownError = null
@@ -744,7 +676,7 @@ class MoveInFragment : Fragment() {
         confirmationDialog?.dismiss()
         confirmationDialog = null
 
-        roomAdapter = null
+        isBindingState = false
         _binding = null
 
         super.onDestroyView()

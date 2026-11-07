@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.CancellationException
+import com.example.roomkit.Date.Local.Model.TenantAssignmentOption
 
 class MoveInViewModel(
     private val presetRoomId: Long = 0L,
@@ -26,12 +28,59 @@ class MoveInViewModel(
     private val _uiState = MutableStateFlow(MoveInUiState())
     val uiState: StateFlow<MoveInUiState> = _uiState.asStateFlow()
 
+    private val _tenantPickerState = MutableStateFlow(TenantPickerState())
+    val tenantPickerState: StateFlow<TenantPickerState> = _tenantPickerState.asStateFlow()
+    private var tenantOptionsJob: Job? = null
+
     private val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.US)
 
     init {
         val today = System.currentTimeMillis()
         _uiState.update { it.copy(moveInDate = today, moveInDateFormatted = dateFormat.format(Date(today))) }
         loadInitialData()
+        reloadTenantOptions()
+    }
+
+    fun reloadTenantOptions() {
+        tenantOptionsJob?.cancel()
+        _tenantPickerState.value = TenantPickerState(isLoading = true)
+        tenantOptionsJob = viewModelScope.launch {
+            try {
+                tenancyRepository.observeTenantAssignmentOptions().collect { options ->
+                    _tenantPickerState.value = TenantPickerState(options = options, isLoading = false)
+                    val state = _uiState.value
+                    val selected = options.firstOrNull { it.tenantId == state.tenantId }
+                    if (state.tenantId != null && !state.isTenantLocked &&
+                        !state.isSaving && !state.isSuccess && (selected == null || !selected.isAvailable)) {
+                        _uiState.update { it.copy(tenantId = null, tenantName = "",
+                            errorMessage = "The selected tenant is no longer available. Please choose another tenant.") }
+                    }
+                }
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (error: Exception) {
+                _tenantPickerState.value = TenantPickerState(isLoading = false,
+                    errorMessage = "Tenant availability could not be loaded. Tap Try again.")
+            }
+        }
+    }
+
+    fun selectTenantForMoveIn(tenantId: Long): Boolean {
+        val state = _uiState.value
+        if (state.isTenantLocked || state.isSaving || state.isSuccess) return false
+        val picker = _tenantPickerState.value
+        val option = picker.options.firstOrNull { it.tenantId == tenantId }
+        if (picker.isLoading || picker.errorMessage != null || option == null) {
+            _uiState.update { it.copy(errorMessage = "Tenant availability is not ready. Please reopen the tenant picker.") }
+            return false
+        }
+        if (!option.isAvailable) {
+            _uiState.update { it.copy(errorMessage = "${option.fullName} already rents ${option.assignmentLabel}. Complete their move-out first.") }
+            return false
+        }
+        _uiState.update { it.copy(tenantId = option.tenantId, tenantName = option.fullName,
+            errorMessage = null) }
+        return true
     }
 
     private fun loadInitialData() {
@@ -62,6 +111,7 @@ class MoveInViewModel(
             if (presetRoomId > 0L) {
                 val room = tenancyRepository.getRoomById(presetRoomId)
                 if (room != null) {
+                    availableRoomsJob?.cancel()
                     val building = tenancyRepository.getBuildingById(room.buildingId)
                     val rentKhrFormatted = room.monthlyRent.toString()
                     _uiState.update {
@@ -81,6 +131,11 @@ class MoveInViewModel(
     }
 
     fun onTenantSelected(tenant: TenantEntity, isLocked: Boolean = false) {
+        if (_uiState.value.isSaving || _uiState.value.isSuccess) return
+        if (!isLocked) {
+            selectTenantForMoveIn(tenant.tenantId)
+            return
+        }
         _uiState.update {
             it.copy(
                 tenantId = tenant.tenantId,
@@ -92,7 +147,8 @@ class MoveInViewModel(
     }
 
     fun onBuildingSelected(building: BuildingEntity) {
-        if (_uiState.value.isRoomLocked || _uiState.value.isSaving) return
+        if (_uiState.value.isRoomLocked || _uiState.value.isSaving || _uiState.value.isSuccess) return
+        if (_uiState.value.buildingId == building.buildingId) return
 
         availableRoomsJob?.cancel()
 
@@ -113,7 +169,17 @@ class MoveInViewModel(
                 .collect { rooms ->
                     _uiState.update { current ->
                         if (current.buildingId == building.buildingId) {
-                            current.copy(availableRooms = rooms)
+                            val selectionGone = current.roomId != null &&
+                                    rooms.none { it.roomId == current.roomId } &&
+                                    !current.isSaving && !current.isSuccess && !current.isRoomLocked
+                            current.copy(
+                                availableRooms = rooms,
+                                roomId = if (selectionGone) null else current.roomId,
+                                roomNumber = if (selectionGone) "" else current.roomNumber,
+                                errorMessage = if (selectionGone)
+                                    "The selected room is no longer available. Please choose another room."
+                                else current.errorMessage
+                            )
                         } else {
                             current
                         }
@@ -123,12 +189,19 @@ class MoveInViewModel(
     }
 
     fun onRoomSelected(room: RoomEntity) {
-        if (_uiState.value.isRoomLocked) return
-        val rentKhrFormatted = room.monthlyRent.toString()
+        val state = _uiState.value
+        if (state.isRoomLocked || state.isSaving || state.isSuccess) return
+        val selected = state.availableRooms.firstOrNull {
+            it.roomId == room.roomId && it.buildingId == state.buildingId
+        } ?: run {
+            _uiState.update { it.copy(errorMessage = "This room is no longer available. Choose another room.") }
+            return
+        }
+        val rentKhrFormatted = selected.monthlyRent.toString()
         _uiState.update {
             it.copy(
-                roomId = room.roomId,
-                roomNumber = room.roomNumber,
+                roomId = selected.roomId,
+                roomNumber = selected.roomNumber,
                 monthlyRentKhrInput = rentKhrFormatted.removeSuffix("៛"),
                 depositKhrInput = rentKhrFormatted.removeSuffix("៛"),
                 errorMessage = null
@@ -181,6 +254,16 @@ class MoveInViewModel(
             _uiState.update { it.copy(errorMessage = "Please select a tenant.") }
             return
         }
+        val picker = _tenantPickerState.value
+        val tenantOption = picker.options.firstOrNull { it.tenantId == tenantId }
+        if (picker.isLoading || picker.errorMessage != null || tenantOption == null) {
+            _uiState.update { it.copy(errorMessage = "Wait for tenant availability to load, then try again.") }
+            return
+        }
+        if (!tenantOption.isAvailable) {
+            _uiState.update { it.copy(errorMessage = "${tenantOption.fullName} already rents ${tenantOption.assignmentLabel}. Complete their move-out first.") }
+            return
+        }
         val buildingId = state.buildingId
         if (buildingId == null) {
             _uiState.update { it.copy(errorMessage = "Please select a building.") }
@@ -200,7 +283,7 @@ class MoveInViewModel(
 
         val depositKhr = parseKhrInput(state.depositKhrInput)
         if (depositKhr == null || depositKhr < 0L) {
-            _uiState.update { it.copy(errorMessage = "Deposit cannot be negative.") }
+            _uiState.update { it.copy(errorMessage = "Enter a deposit of 0 or more whole riel. Use 0 if no deposit is held.") }
             return
         }
 
@@ -279,3 +362,9 @@ class MoveInViewModel(
 
     private fun parseKhrInput(amount: String): Long? = com.example.roomkit.Date.Billing.CurrencyFormatter.parseKhrInput(amount)
 }
+
+data class TenantPickerState(
+    val options: List<TenantAssignmentOption> = emptyList(),
+    val isLoading: Boolean = true,
+    val errorMessage: String? = null
+)

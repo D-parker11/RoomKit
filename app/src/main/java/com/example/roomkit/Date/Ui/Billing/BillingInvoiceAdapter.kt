@@ -3,125 +3,88 @@ package com.example.roomkit.Date.Ui.Billing
 
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.toColorInt
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.roomkit.Date.Billing.CurrencyFormatter
+import com.example.roomkit.R
 import com.example.roomkit.databinding.ItemBillingInvoiceBinding
+import java.util.Locale
 
-class BillingInvoiceAdapter(
-    private val onItemClick: (Long) -> Unit
-) : ListAdapter<BillingInvoiceItem, BillingInvoiceAdapter.InvoiceViewHolder>(DiffCallback) {
+class BillingInvoiceAdapter(private val onItemClick: (Long) -> Unit) :
+    ListAdapter<BillingInvoiceItem, BillingInvoiceAdapter.InvoiceViewHolder>(DiffCallback) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = InvoiceViewHolder(
+        ItemBillingInvoiceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
+    override fun onBindViewHolder(holder: InvoiceViewHolder, position: Int) = holder.bind(getItem(position))
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InvoiceViewHolder {
-        val binding = ItemBillingInvoiceBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-        return InvoiceViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: InvoiceViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
-    inner class InvoiceViewHolder(
-        private val binding: ItemBillingInvoiceBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-
+    inner class InvoiceViewHolder(private val binding: ItemBillingInvoiceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: BillingInvoiceItem) {
-            val buildingSuffix = if (item.buildingName.isNotBlank()) " · ${item.buildingName}" else ""
-            binding.tvInvoiceRoomBuilding.text = "Room ${item.roomNumber}$buildingSuffix"
+            val context = binding.root.context
+            fun string(id: Int, vararg args: Any) = context.getString(id, *args)
+            fun money(value: Long) = String.format(Locale.US, "%,d KHR", value)
+            val isVoid = item.status == BillingDisplayStatus.VOID
+            val isDraft = item.status == BillingDisplayStatus.DRAFT
+            val overdue = !isVoid && !isDraft && item.isOverdue
+            binding.tvInvoiceRoomBuilding.text = string(R.string.rb_room_number, item.roomNumber)
             binding.tvInvoiceTenantName.text = item.tenantName
-            binding.tvInvoicePeriodDueDate.text = "${item.billingPeriod} · ${item.dueDateText}"
-
-            // Original full invoice amount on right
-            binding.tvInvoiceTotal.text = CurrencyFormatter.formatKhr(item.invoiceTotalKhr)
-
-            binding.tvInvoiceOverdueBadge.visibility = if (item.isOverdue) View.VISIBLE else View.GONE
-
-            // Setup Badge & Payment Footer depending on status
-            when (item.status) {
-                BillingDisplayStatus.DRAFT -> {
-                    bindBadge("Draft", "#F3F4F6".toColorInt(), "#6B7280".toColorInt())
-                    binding.layoutPaidDetail.visibility = View.VISIBLE
-                    binding.tvInvoicePaymentDetail.text = "Not issued · Tap to open"
-                    binding.tvInvoicePaymentDetail.setTextColor("#6B7280".toColorInt())
+            binding.tvInvoiceTotal.text = money(item.invoiceTotalKhr)
+            binding.tvInvoiceTotal.setTextColor(ContextCompat.getColor(context, if (isVoid) R.color.rb_muted else R.color.rb_ink))
+            binding.tvInvoicePeriodDueDate.text = item.dueDateText
+            binding.tvInvoicePeriodDueDate.isVisible = !isVoid && !isDraft && item.dueDateText.isNotBlank()
+            // Reset recycled views before applying each status.
+            binding.tvInvoicePaymentDetail.text = ""
+            binding.tvInvoicePaymentDetail.isVisible = false
+            binding.tvInvoicePaymentDetail.setTextColor(ContextCompat.getColor(context, R.color.rb_muted))
+            val label: Int
+            val color: Int
+            val background: Int
+            when {
+                isVoid -> {
+                    label = R.string.rb_void; color = R.color.rb_muted; background = R.color.rb_badge_neutral
+                    binding.tvInvoicePaymentDetail.text = string(R.string.rb_cancelled)
                 }
-
-                BillingDisplayStatus.VOID -> {
-                    bindBadge("Void", "#F3F4F6".toColorInt(), "#6B7280".toColorInt())
-                    binding.layoutPaidDetail.visibility = View.VISIBLE
-                    binding.tvInvoicePaymentDetail.text = "Cancelled · No payment due"
-                    binding.tvInvoicePaymentDetail.setTextColor("#6B7280".toColorInt())
+                isDraft -> {
+                    label = R.string.rb_draft; color = R.color.rb_muted; background = R.color.rb_badge_neutral
+                    binding.tvInvoicePaymentDetail.text = string(R.string.rb_not_issued)
                 }
-
-                BillingDisplayStatus.PAID -> {
-                    bindBadge("Paid", "#ECFDF5".toColorInt(), "#059669".toColorInt())
-                    binding.layoutPaidDetail.visibility = View.VISIBLE
-
-                    val method = item.lastPaymentMethodText ?: "Payment"
-                    val dateText = item.lastPaymentDateText ?: ""
-                    binding.tvInvoicePaymentDetail.text = if (dateText.isNotEmpty()) {
-                        "Paid $dateText · $method"
-                    } else {
-                        "Paid · $method"
-                    }
-                    binding.tvInvoicePaymentDetail.setTextColor("#059669".toColorInt())
+                overdue || item.status == BillingDisplayStatus.OVERDUE -> {
+                    label = R.string.rb_overdue; color = R.color.rb_red; background = R.color.rb_badge_red
                 }
-                BillingDisplayStatus.PARTIAL -> {
-                    bindBadge("Partial", "#EFF6FF".toColorInt(), "#2563EB".toColorInt())
-                    binding.layoutPaidDetail.visibility = View.VISIBLE
-
-                    val paidFormatted = CurrencyFormatter.formatKhr(item.totalPaidKhr)
-                    val balanceFormatted = CurrencyFormatter.formatKhr(item.remainingBalanceKhr)
-                    binding.tvInvoicePaymentDetail.text = "Paid $paidFormatted · Balance $balanceFormatted"
-                    binding.tvInvoicePaymentDetail.setTextColor("#2563EB".toColorInt())
+                item.status == BillingDisplayStatus.PAID -> {
+                    label = R.string.rb_paid; color = R.color.rb_green; background = R.color.rb_badge_green
+                    binding.tvInvoicePaymentDetail.text = listOfNotNull(
+                        string(R.string.rb_paid),
+                        item.lastPaymentDateText?.takeIf { it.isNotBlank() },
+                        item.lastPaymentMethodText?.takeIf { it.isNotBlank() }
+                    ).joinToString(" · ")
                 }
-                BillingDisplayStatus.OVERDUE -> {
-                    bindBadge("Overdue", "#FEE2E2".toColorInt(), "#DC2626".toColorInt())
-
-                    if (item.totalPaidKhr > 0L) {
-                        binding.layoutPaidDetail.visibility = View.VISIBLE
-                        val paidFormatted = CurrencyFormatter.formatKhr(item.totalPaidKhr)
-                        val balanceFormatted = CurrencyFormatter.formatKhr(item.remainingBalanceKhr)
-                        binding.tvInvoicePaymentDetail.text = "Paid $paidFormatted · Balance $balanceFormatted"
-                        binding.tvInvoicePaymentDetail.setTextColor("#DC2626".toColorInt())
-                    } else {
-                        binding.layoutPaidDetail.visibility = View.GONE
-                    }
+                item.status == BillingDisplayStatus.PARTIAL -> {
+                    label = R.string.rb_partial; color = R.color.rb_blue; background = R.color.rb_badge_blue
                 }
-                BillingDisplayStatus.UNPAID -> {
-                    bindBadge("Unpaid", "#FEF3C7".toColorInt(), "#D97706".toColorInt())
-                    binding.layoutPaidDetail.visibility = View.GONE
+                else -> {
+                    label = R.string.rb_unpaid; color = R.color.rb_amber; background = R.color.rb_badge_amber
                 }
             }
-
-            binding.root.setOnClickListener {
-                onItemClick(item.invoiceId)
+            if (!isVoid && !isDraft && item.totalPaidKhr > 0L && item.remainingBalanceKhr > 0L) {
+                binding.tvInvoicePaymentDetail.text = string(R.string.rb_payment_balance, money(item.totalPaidKhr), money(item.remainingBalanceKhr))
             }
-        }
-
-        private fun bindBadge(text: String, bgColor: Int, textColor: Int) {
-            binding.tvInvoiceStatusBadge.text = text
-            binding.tvInvoiceStatusBadge.setTextColor(textColor)
-            val drawable = GradientDrawable().apply {
-                cornerRadius = 24f
-                setColor(bgColor)
+            binding.tvInvoicePaymentDetail.isVisible = binding.tvInvoicePaymentDetail.text.isNotEmpty()
+            if (!isVoid && !isDraft) binding.tvInvoicePaymentDetail.setTextColor(ContextCompat.getColor(context, color))
+            binding.tvInvoiceStatusBadge.setText(label)
+            binding.tvInvoiceStatusBadge.setTextColor(ContextCompat.getColor(context, color))
+            binding.tvInvoiceStatusBadge.background = GradientDrawable().apply {
+                setColor(ContextCompat.getColor(context, background))
+                cornerRadius = 20f * context.resources.displayMetrics.density
             }
-            binding.tvInvoiceStatusBadge.background = drawable
+            binding.root.setOnClickListener { onItemClick(item.invoiceId) }
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<BillingInvoiceItem>() {
-        override fun areItemsTheSame(oldItem: BillingInvoiceItem, newItem: BillingInvoiceItem): Boolean {
-            return oldItem.invoiceId == newItem.invoiceId
-        }
-
-        override fun areContentsTheSame(oldItem: BillingInvoiceItem, newItem: BillingInvoiceItem): Boolean {
-            return oldItem == newItem
-        }
+    private companion object DiffCallback : DiffUtil.ItemCallback<BillingInvoiceItem>() {
+        override fun areItemsTheSame(oldItem: BillingInvoiceItem, newItem: BillingInvoiceItem) = oldItem.invoiceId == newItem.invoiceId
+        override fun areContentsTheSame(oldItem: BillingInvoiceItem, newItem: BillingInvoiceItem) = oldItem == newItem
     }
 }
