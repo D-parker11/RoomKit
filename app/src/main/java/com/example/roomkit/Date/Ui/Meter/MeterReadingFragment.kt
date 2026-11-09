@@ -55,20 +55,20 @@ class MeterReadingFragment : Fragment() {
         replacementExpanded = savedInstanceState?.getBoolean("replacementExpanded") ?: replacementExpanded
         allHistory = savedInstanceState?.getBoolean("allHistory") ?: allHistory
         replacementPending = savedInstanceState?.getBoolean("replacementPending") ?: replacementPending
-        binding.tvBillingMonthSubtitle.contentDescription="Choose billing month"
-        binding.tvBillingMonthSubtitle.setOnClickListener {
-            val state=viewModel.uiState.value
-            if (!state.isLoading && !state.isSaving) {
-                val field=EditText(requireContext()).apply {
-                    hint="YYYY-MM";setText("%04d-%02d".format(state.billingYear,state.billingMonth))
-                }
-                MaterialAlertDialogBuilder(requireContext()).setTitle("Choose billing month")
-                    .setMessage("Changing month discards unsaved input. Saved readings stay read-only. Meter replacement is available for the current month only.")
-                    .setView(field).setNegativeButton("Cancel",null).setPositiveButton("Load month") { _,_->
-                        replacementExpanded=false;viewModel.selectPeriod(field.text.toString())
-                    }.show()
-            }
-        }
+//        binding.tvBillingMonthSubtitle.contentDescription="Choose billing month"
+//        binding.tvBillingMonthSubtitle.setOnClickListener {
+//            val state=viewModel.uiState.value
+//            if (!state.isLoading && !state.isSaving) {
+//                val field=EditText(requireContext()).apply {
+//                    hint="YYYY-MM";setText("%04d-%02d".format(state.billingYear,state.billingMonth))
+//                }
+//                MaterialAlertDialogBuilder(requireContext()).setTitle("Choose billing month")
+//                    .setMessage("Changing month discards unsaved input. Saved readings stay read-only. Meter replacement is available for the current month only.")
+//                    .setView(field).setNegativeButton("Cancel",null).setPositiveButton("Load month") { _,_->
+//                        replacementExpanded=false;viewModel.selectPeriod(field.text.toString())
+//                    }.show()
+//            }
+//        }
         binding.btnBackMeterReading.setOnClickListener { findNavController().popBackStack() }
         binding.etCurrentElectricity.doAfterTextChanged { if (!rendering) viewModel.onElectricityChanged(it?.toString().orEmpty()) }
         binding.etCurrentWater.doAfterTextChanged { if (!rendering) viewModel.onWaterChanged(it?.toString().orEmpty()) }
@@ -138,7 +138,7 @@ class MeterReadingFragment : Fragment() {
             val today=java.time.YearMonth.now(ZoneId.of("Asia/Phnom_Penh"))
             val currentMonth=state.billingYear==today.year && state.billingMonth==today.monthValue
             val replacementEditable = state.hasActiveTenancy && !busy && currentMonth
-            binding.tvBillingMonthSubtitle.text = "${state.billingMonthText} · Change"
+//            binding.tvBillingMonthSubtitle.text = "${state.billingMonthText} · Change"
             binding.tvRoomTenantBanner.text = if (state.roomNumber.isBlank()) getString(R.string.mr_room_only)
             else getString(R.string.mr_room_tenant, state.roomNumber, state.tenantName)
             binding.progressMeters.isVisible = busy
