@@ -85,6 +85,12 @@
                     tools:text="ID: N12345678" />
             </LinearLayout>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditTenant"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:minHeight="48dp" android:text="@string/qa_edit_tenant" />
+
             <!-- Current Tenancy Section -->
             <TextView
                 android:layout_width="wrap_content"

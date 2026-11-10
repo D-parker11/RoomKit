@@ -93,8 +93,8 @@ class MoveOutRepository(private val db: AppDatabase) {
         val i=r.input; val t=fresh.tenancy
         val cal=Calendar.getInstance(java.util.TimeZone.getTimeZone("Asia/Phnom_Penh")).apply { timeInMillis=i.date }
         val now=System.currentTimeMillis()
-        var finalId: Long? = null
-        if (r.newCharges > 0) {
+        // Every completed move-out retains a final document, including zero new charges.
+        val finalId = run {
             val finalDraft = InvoiceEntity(
                 tenancyId=id,invoiceKind="FINAL",billingMonth=cal.get(Calendar.MONTH)+1,billingYear=cal.get(Calendar.YEAR),
                 rentKhr=i.additionalRent,electricityPrevious=r.electricityStart,electricityCurrent=i.electricity,
@@ -110,11 +110,11 @@ class MoveOutRepository(private val db: AppDatabase) {
                 electricityMeterSequence=r.electricityBasis.sequence, waterMeterSequence=r.waterBasis.sequence,
                 totalKhr=r.newCharges,balanceKhr=0L,issueDate=0L,dueDate=i.date,status="DRAFT")
             val savedId = db.invoiceDao().insertInvoice(finalDraft)
-            finalId = savedId
             val savedDraft = finalDraft.copy(invoiceId = savedId)
             db.writeDraftItems(savedDraft)
             db.invoiceDao().updateInvoice(savedDraft.copy(status = "ISSUED",
                 issueDate = now, balanceKhr = r.newCharges))
+            savedId
         }
         var allocation=i.applyDeposit
         // Oldest debt first. Every allocation is a traceable payment, not income received again.

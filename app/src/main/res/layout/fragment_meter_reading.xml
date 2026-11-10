@@ -39,6 +39,14 @@
 
 
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tvBillingMonthSubtitle"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:minHeight="48dp" android:layout_marginBottom="12dp"
+                android:textAllCaps="false" android:text="@string/dm_choose_month"
+                android:contentDescription="@string/dm_choose_month" />
+
             <TextView android:id="@+id/tvRoomTenantBanner" style="@style/RoomKitMeterHeading" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="18dp" tools:text="Room 04 · Ngoun Channdevith" android:textSize="18sp"/>
 
 

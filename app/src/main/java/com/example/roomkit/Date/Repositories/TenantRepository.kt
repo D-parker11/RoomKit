@@ -45,4 +45,7 @@ class TenantRepository(private val tenantDao: TenantDao) {
             Result.failure(e)
         }
     }
+    suspend fun updateTenant(tenantId: Long, fullName: String, phone: String, identity: String?, note: String?) {
+        tenantDao.updateTenantProfile(tenantId, fullName, phone, identity, note)
+    }
 }

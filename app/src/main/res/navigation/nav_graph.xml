@@ -324,5 +324,10 @@
         android:label="Reports"
         tools:layout="@layout/fragment_reports" />
 
+    <fragment android:id="@+id/editTenantFragment"
+        android:name="com.example.roomkit.Date.Ui.Tenant.EditTenantFragment"
+        android:label="@string/qa_edit_tenant">
+        <argument android:name="tenantId" app:argType="long" />
+    </fragment>
 </navigation>
 

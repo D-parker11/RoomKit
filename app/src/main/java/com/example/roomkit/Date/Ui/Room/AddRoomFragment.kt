@@ -107,7 +107,10 @@ class AddRoomFragment : Fragment() {
                     binding.btnSaveAndAddRoom.isEnabled = state.isSaveEnabled
 
                     // Navigation on success
-                    if (state.saveSuccess) {
+                    if (state.saveSuccess && findNavController().currentDestination?.id == com.example.roomkit.R.id.addRoomFragment) {
+                        state.savedRoomId?.let { id ->
+                            parentFragmentManager.setFragmentResult("room-added", androidx.core.os.bundleOf("roomId" to id))
+                        }
                         Toast.makeText(
                             requireContext(),
                             "Room ${state.roomNumber.trim()} added successfully",

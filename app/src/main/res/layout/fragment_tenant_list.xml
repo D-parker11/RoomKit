@@ -103,7 +103,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="12dp"
                     android:background="@null"
-                    android:hint="Search tenant, phone, room or building..."
+                    android:hint="@string/qa_tenant_search"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:maxLines="1"

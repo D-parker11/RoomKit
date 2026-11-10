@@ -102,6 +102,9 @@ class TenantDetailsFragment : Fragment() {
             }
         }
 
+        binding.btnEditTenant.setOnClickListener {
+            findNavController().navigate(R.id.editTenantFragment, bundleOf("tenantId" to tenantId))
+        }
         observeDetails()
     }
 

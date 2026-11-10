@@ -24,6 +24,7 @@ data class AddRoomUiState(
     val rentError: String? = null,
     val isSaving: Boolean = false,
     val saveSuccess: Boolean = false,
+    val savedRoomId: Long? = null,
     val generalError: String? = null
 ) {
     val isSaveEnabled: Boolean
@@ -129,8 +130,8 @@ class AddRoomViewModel(
                 note = state.notes.trim().ifBlank { null }
             )
 
-            result.onSuccess {
-                _uiState.update { it.copy(isSaving = false, saveSuccess = true) }
+            result.onSuccess { roomId ->
+                _uiState.update { it.copy(isSaving = false, saveSuccess = true, savedRoomId = roomId) }
             }.onFailure { err ->
                 val msg = when {
                     err.message?.contains("already exists", ignoreCase = true) == true ->

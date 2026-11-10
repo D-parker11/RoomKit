@@ -77,11 +77,13 @@ class TenantListFragment : Fragment() {
     }
 
     private fun setupTabs() {
+        binding.tabLayoutTenantFilter.clearOnTabSelectedListeners()
         binding.tabLayoutTenantFilter.removeAllTabs()
-        binding.tabLayoutTenantFilter.addTab(binding.tabLayoutTenantFilter.newTab().setText("All (0)"))
-        binding.tabLayoutTenantFilter.addTab(binding.tabLayoutTenantFilter.newTab().setText("Active (0)"))
-        binding.tabLayoutTenantFilter.addTab(binding.tabLayoutTenantFilter.newTab().setText("Moved Out"))
+        binding.tabLayoutTenantFilter.addTab(binding.tabLayoutTenantFilter.newTab().setText("All (0)"), false)
+        binding.tabLayoutTenantFilter.addTab(binding.tabLayoutTenantFilter.newTab().setText("Active (0)"), false)
+        binding.tabLayoutTenantFilter.addTab(binding.tabLayoutTenantFilter.newTab().setText("Moved Out"), false)
 
+        binding.tabLayoutTenantFilter.getTabAt(viewModel.selectedFilter.value.ordinal)?.select()
         binding.tabLayoutTenantFilter.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
@@ -96,6 +98,7 @@ class TenantListFragment : Fragment() {
     }
 
     private fun setupSearch() {
+        binding.etSearchTenant.setText(viewModel.searchQuery.value)
         binding.etSearchTenant.doAfterTextChanged { text ->
             viewModel.setSearchQuery(text?.toString().orEmpty())
         }
@@ -106,7 +109,20 @@ class TenantListFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // Collect filtered list and toggle empty state visibility
                 launch {
-                    viewModel.filteredTenants.collect { list ->
+                    viewModel.listState.collect { state ->
+                        val list = state.tenants
+                        val noMatches = state.query.isNotBlank()
+                        binding.tvEmptyTitle.setText(when {
+                            noMatches -> R.string.qa_no_tenants_found
+                            state.noTenants -> R.string.qa_no_tenants_yet
+                            else -> R.string.qa_no_tenants_filter
+                        })
+                        binding.tvEmptySubtitle.setText(when {
+                            noMatches -> R.string.qa_search_retry
+                            state.noTenants -> R.string.qa_add_first_tenant
+                            else -> R.string.qa_change_filter
+                        })
+                        binding.btnEmptyAddTenant.visibility = if (state.noTenants && !noMatches) View.VISIBLE else View.GONE
                         adapter.submitList(list)
                         binding.layoutEmptyTenants.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
                         binding.rvTenants.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
@@ -129,6 +145,7 @@ class TenantListFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        _binding?.rvTenants?.adapter = null
         super.onDestroyView()
         _binding = null
     }
