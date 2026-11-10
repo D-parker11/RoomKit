@@ -15,10 +15,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ConcatAdapter
-import com.example.roomkit.dataheader.ItemRoomsHeaderBinding
+import com.example.roomkit.databinding.ItemRoomsHeaderBinding
 import com.example.roomkit.Date.Ui.Factory.ViewModelFactory
 import com.example.roomkit.R
-import com.example.roomkit.dataheader.FragmentRoomsBinding
+import com.example.roomkit.databinding.FragmentRoomsBinding
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
