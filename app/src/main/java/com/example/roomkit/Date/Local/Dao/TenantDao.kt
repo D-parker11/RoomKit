@@ -50,7 +50,8 @@ interface TenantDao {
         LEFT JOIN buildings b ON r.buildingId = b.buildingId
         WHERE (:query = '' 
            OR LOWER(t.fullName) LIKE '%' || LOWER(:query) || '%' 
-           OR t.phoneNumber LIKE '%' || :query || '%')
+           OR t.phoneNumber LIKE '%' || :query || '%'
+           OR LOWER(t.idOrPassport) LIKE '%' || LOWER(:query) || '%')
         ORDER BY act.tenancyId IS NOT NULL DESC, t.fullName ASC
     """)
     fun observeTenantsWithCurrentRoom(query: String = ""): Flow<List<TenantWithCurrentTenancy>>
@@ -80,23 +81,33 @@ interface TenantDao {
 
     @Transaction
     suspend fun insertTenantCheckingIdentity(tenant: TenantEntity): Long {
-        val identity = tenant.idOrPassport
-            ?.trim()
-            ?.uppercase(java.util.Locale.ROOT)
-            .orEmpty()
-
-        if (identity.isNotEmpty()) {
-            val existingTenant = getAllTenantsOnce().firstOrNull {
-                it.idOrPassport
-                    ?.trim()
-                    ?.uppercase(java.util.Locale.ROOT) == identity
-            }
-
-            require(existingTenant == null) {
-                "A tenant with this ID/passport already exists. Use the existing tenant profile."
-            }
-        }
-
+        validateIdentity(tenant)
         return insertTenant(tenant)
+    }
+
+    @Transaction
+    suspend fun updateTenantProfile(
+        tenantId: Long, fullName: String, phone: String, identity: String?, note: String?
+    ) {
+        val existing = getTenantById(tenantId) ?: error("Tenant no longer exists.")
+        val updated = existing.copy(fullName = fullName.trim(), phoneNumber = phone.trim(),
+            idOrPassport = identity?.trim()?.ifBlank { null }, note = note?.trim()?.ifBlank { null })
+        validateIdentity(updated)
+        // UPDATE preserves primary key, creation date, tenancies and invoice links.
+        updateTenant(updated)
+    }
+
+    suspend fun validateIdentity(tenant: TenantEntity) {
+        require(tenant.fullName.isNotBlank()) { "Tenant name cannot be empty." }
+        require(tenant.phoneNumber.isNotBlank()) { "Phone number cannot be empty." }
+        val phone = com.example.roomkit.Date.Local.Model.TenantIdentity.phone(tenant.phoneNumber)
+        val identity = com.example.roomkit.Date.Local.Model.TenantIdentity.document(tenant.idOrPassport)
+        val others = getAllTenantsOnce().filter { it.tenantId != tenant.tenantId }
+        require(others.none { com.example.roomkit.Date.Local.Model.TenantIdentity.phone(it.phoneNumber) == phone }) {
+            "A tenant with this phone number already exists. Use the existing tenant profile."
+        }
+        require(identity.isEmpty() || others.none {
+            com.example.roomkit.Date.Local.Model.TenantIdentity.document(it.idOrPassport) == identity
+        }) { "A tenant with this ID/passport already exists. Use the existing tenant profile." }
     }
 }

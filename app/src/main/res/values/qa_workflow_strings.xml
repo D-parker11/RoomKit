@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="qa_edit_tenant">Edit tenant</string>
+    <string name="qa_edit_tenant_hint">Update profile details. Rental history is preserved.</string>
+    <string name="qa_save_changes">Save changes</string>
+    <string name="qa_saving">Saving…</string>
+    <string name="qa_tenant_updated">Tenant updated</string>
+    <string name="qa_no_tenants_found">No tenants found</string>
+    <string name="qa_no_tenants_yet">No tenants yet</string>
+    <string name="qa_no_tenants_filter">No tenants in this filter</string>
+    <string name="qa_search_retry">Try another name, phone number or ID/passport.</string>
+    <string name="qa_add_first_tenant">Add your first tenant to get started.</string>
+    <string name="qa_change_filter">Choose All to see your tenant profiles.</string>
+    <string name="qa_tenant_search">Search name, phone or ID/passport</string>
+    <string name="qa_meter_month">%1$s · Change month</string>
+    <string name="qa_meter_month_warning">Changing month discards unsaved input. Saved readings remain read-only. Closed periods must be reopened before new preparation. Meter replacement is available for the current month only.</string>
+</resources>

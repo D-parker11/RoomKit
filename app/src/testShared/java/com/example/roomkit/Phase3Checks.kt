@@ -14,6 +14,7 @@ import com.roomkit.Date.Local.Scheme.MeterHistorySchema
 import com.roomkit.Date.Local.Scheme.Phase3Schema
 import com.roomkit.Date.Local.Scheme.PropertyConstraintSchema
 import com.roomkit.data.local.AppDatabase
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
@@ -168,5 +169,72 @@ abstract class Phase3Checks {
         val basis=com.example.roomkit.Date.Repositories.MeterHistory.monthly(rows+replacement,next.monthValue,next.year,0)
         assertEquals(0L,basis.previous);assertEquals(10L,basis.carried);assertEquals(15L,basis.usage(5))
         assertEquals(130L,db.meterReadingDao().getForTenancy(tenancyId).first{it.readingType=="MONTHLY"}.currentReading)
+    }
+
+    @Test fun tenantEditPreservesLinksAndAllowsUnchangedIdentity() = runBlocking {
+        val invoiceId = closeRepo().close(month).single()
+        val originalInvoice = db.invoiceDao().getInvoiceById(invoiceId)
+        val originalTenancy = db.tenancyDao().getTenancyById(tenancyId)
+        val original = db.tenantDao().getTenantById(tenantId)!!
+        db.tenantDao().updateTenantProfile(tenantId, "Updated name", original.phoneNumber,
+            original.idOrPassport, "Updated notes")
+        val edited = db.tenantDao().getTenantById(tenantId)!!
+        assertEquals(original.tenantId, edited.tenantId)
+        assertEquals(original.createdAt, edited.createdAt)
+        assertEquals("Updated name", edited.fullName)
+        assertEquals("Updated notes", edited.note)
+        assertEquals(originalTenancy, db.tenancyDao().getTenancyById(tenancyId))
+        assertEquals(originalInvoice, db.invoiceDao().getInvoiceById(invoiceId))
+    }
+
+    @Test fun tenantCreateAndEditBlockNormalizedDuplicates() = runBlocking {
+        val other = db.tenantDao().insertTenantCheckingIdentity(TenantEntity(
+            fullName = "Second tenant", phoneNumber = "012 345 678", idOrPassport = "TEST-B"))
+        assertTrue(runCatching { db.tenantDao().insertTenantCheckingIdentity(TenantEntity(
+            fullName = "Duplicate", phoneNumber = "+85512345678")) }.isFailure)
+        assertTrue(runCatching { db.tenantDao().updateTenantProfile(tenantId,
+            "Changed", "00855 12 345 678", "UNIQUE", null) }.isFailure)
+        assertTrue(runCatching { db.tenantDao().updateTenantProfile(tenantId,
+            "Changed", "099111222", " test-b ", null) }.isFailure)
+        assertTrue(runCatching { db.tenantDao().updateTenantProfile(tenantId,
+            "", "099111222", null, null) }.isFailure)
+        assertTrue(runCatching { db.tenantDao().updateTenantProfile(tenantId,
+            "Changed", " ", null, null) }.isFailure)
+        assertEquals("Demo Tenant A", db.tenantDao().getTenantById(tenantId)!!.fullName)
+        assertEquals("Second tenant", db.tenantDao().getTenantById(other)!!.fullName)
+    }
+
+    @Test fun tenantSearchIncludesIdentity() = runBlocking {
+        val matches = db.tenantDao().observeTenantsWithCurrentRoom("ph3-demo-a").first()
+        assertEquals(listOf(tenantId), matches.map { it.tenantId })
+    }
+
+    @Test fun zeroChargeMoveOutCreatesFinalDocumentWithoutPayment() = runBlocking {
+        // Regular invoice has already billed usage to 130 and this month's fixed water.
+        val regularId = closeRepo().close(month).single()
+        closeRepo().reopen(month, "Prepare final settlement")
+        val repository = com.example.roomkit.Date.Repositories.MoveOutRepository(db)
+        val snapshot = repository.snapshot(tenancyId)
+        val input = com.example.roomkit.Date.Repositories.MoveOutInput(
+            date = at + 2000, electricity = 130, water = null, additionalRent = 0,
+            otherCharges = 0, chargeReason = "", applyDeposit = 0, deductions = 0,
+            deductionReason = "", refundPaid = false)
+        val review = repository.review(snapshot, input)
+        assertEquals(0L, review.newCharges)
+        repository.complete(review)
+        val settlement = db.moveOutDao().get(tenancyId)!!
+        assertNotNull(settlement.finalInvoiceId)
+        val finalInvoice = db.invoiceDao().getInvoiceById(settlement.finalInvoiceId!!)!!
+        assertEquals("FINAL", finalInvoice.invoiceKind)
+        assertEquals("ISSUED", finalInvoice.status)
+        assertEquals(0L, finalInvoice.totalKhr)
+        assertEquals(0L, finalInvoice.balanceKhr)
+        assertTrue(db.invoiceItemDao().getForInvoice(finalInvoice.invoiceId).isNotEmpty())
+        assertTrue(db.paymentDao().getForTenancy(tenancyId).isEmpty())
+        assertEquals(460_000L, db.invoiceDao().getInvoiceById(regularId)!!.balanceKhr)
+        assertEquals("ENDED", db.tenancyDao().getTenancyById(tenancyId)!!.status)
+        assertEquals("VACANT", db.roomDao().getRoomById(roomId)!!.status)
+        assertTrue(runCatching { repository.complete(review) }.isFailure)
+        assertEquals(1, db.invoiceDao().getForTenancy(tenancyId).count { it.invoiceKind == "FINAL" })
     }
 }

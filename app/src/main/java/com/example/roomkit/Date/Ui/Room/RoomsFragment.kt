@@ -13,9 +13,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ConcatAdapter
+import com.example.roomkit.dataheader.ItemRoomsHeaderBinding
 import com.example.roomkit.Date.Ui.Factory.ViewModelFactory
 import com.example.roomkit.R
-import com.example.roomkit.databinding.FragmentRoomsBinding
+import com.example.roomkit.dataheader.FragmentRoomsBinding
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -33,6 +36,10 @@ class RoomsFragment : Fragment() {
     }
 
     private lateinit var roomsAdapter: RoomsAdapter
+    private var _header: ItemRoomsHeaderBinding? = null
+    private val header get() = requireNotNull(_header)
+    private var pendingRoomId: Long? = null
+    private var initialFilterApplied = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,16 +52,28 @@ class RoomsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _header = ItemRoomsHeaderBinding.inflate(layoutInflater, binding.root, false)
+        initialFilterApplied = savedInstanceState?.getBoolean("initialFilterApplied") ?: initialFilterApplied
+        pendingRoomId = savedInstanceState?.getLong("pendingRoomId")?.takeIf { it > 0 } ?: pendingRoomId
+        parentFragmentManager.setFragmentResultListener("room-added", viewLifecycleOwner) { _, result ->
+            pendingRoomId = result.getLong("roomId")
+            viewModel.onSearchQueryChanged("")
+            header.etSearchRooms.setText("")
+            viewModel.selectTab(RoomTabFilter.ALL)
+            header.tabLayoutRoomFilter.getTabAt(0)?.select()
+            scrollToSavedRoom()
+        }
 
-        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
-        binding.etSearchRooms.setText(viewModel.searchQuery.value)
+        header.btnBack.setOnClickListener { findNavController().popBackStack() }
+        header.etSearchRooms.setText(viewModel.searchQuery.value)
 
-        binding.etSearchRooms.doAfterTextChanged { text ->
+        header.etSearchRooms.doAfterTextChanged { text ->
             viewModel.onSearchQueryChanged(text?.toString().orEmpty())
         }
-        binding.btnAddRoom.setOnClickListener { navigateToAddRoom() }
-        binding.btnEmptyAddRoom.setOnClickListener { navigateToAddRoom() }
-        if (savedInstanceState == null) {
+        header.btnAddRoom.setOnClickListener { navigateToAddRoom() }
+        header.btnEmptyAddRoom.setOnClickListener { navigateToAddRoom() }
+        if (!initialFilterApplied) {
+            initialFilterApplied = true
             val initialFilter = arguments?.getString("initialFilter")
 
             viewModel.selectTab(
@@ -97,14 +116,30 @@ class RoomsFragment : Fragment() {
             }
         )
 
-        binding.rvRooms.apply {
+        binding.root.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = roomsAdapter
+            adapter = ConcatAdapter(object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                override fun getItemCount() = 1
+                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+                    object : RecyclerView.ViewHolder(header.root) {}
+                override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = Unit
+            }, roomsAdapter)
             setHasFixedSize(true)
+            // Cards retain the same screen margins while the header owns its own padding.
+            addItemDecoration(object : RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(outRect: android.graphics.Rect, view: View,
+                    parent: RecyclerView, state: RecyclerView.State) {
+                    if (parent.getChildAdapterPosition(view) > 0) {
+                        val padding = resources.getDimensionPixelSize(R.dimen.roomkit_screen_padding_horizontal)
+                        outRect.left = padding
+                        outRect.right = padding
+                    }
+                }
+            })
         }
     }
     private fun setupTabs() {
-        binding.tabLayoutRoomFilter.apply {
+        header.tabLayoutRoomFilter.apply {
             clearOnTabSelectedListeners()
             removeAllTabs()
 
@@ -147,8 +182,8 @@ class RoomsFragment : Fragment() {
                 // 1. Building Header Info
                 launch {
                     viewModel.building.collect { building ->
-                        binding.tvBuildingName.text = building?.name ?: "Building Rooms"
-                        binding.tvBuildingAddress.text = building?.address?.ifBlank { "No address recorded" } ?: "No address recorded"
+                        header.tvBuildingName.text = building?.name ?: "Building Rooms"
+                        header.tvBuildingAddress.text = building?.address?.ifBlank { "No address recorded" } ?: "No address recorded"
                     }
                 }
 
@@ -162,12 +197,12 @@ class RoomsFragment : Fragment() {
                     ) { all, occupied, vacant, occupancyPct ->
                         SummaryData(all, occupied, vacant, occupancyPct)
                     }.collect { summary ->
-                        binding.tvSummaryTotalRooms.text = summary.all.toString()
-                        binding.tvSummaryOccupied.text = summary.occupied.toString()
-                        binding.tvSummaryVacant.text = summary.vacant.toString()
-                        binding.tvSummaryOccupancyPercent.text = "${summary.occupancyPct}%"
+                        header.tvSummaryTotalRooms.text = summary.all.toString()
+                        header.tvSummaryOccupied.text = summary.occupied.toString()
+                        header.tvSummaryVacant.text = summary.vacant.toString()
+                        header.tvSummaryOccupancyPercent.text = "${summary.occupancyPct}%"
 
-                        val tabLayout = binding.tabLayoutRoomFilter
+                        val tabLayout = header.tabLayoutRoomFilter
                         tabLayout.getTabAt(0)?.text = "All (${summary.all})"
                         tabLayout.getTabAt(1)?.text = "Occupied (${summary.occupied})"
                         tabLayout.getTabAt(2)?.text = "Vacant (${summary.vacant})"
@@ -179,35 +214,48 @@ class RoomsFragment : Fragment() {
                     combine(viewModel.displayedRooms, viewModel.selectedTab) { rooms, tab ->
                         rooms to tab
                     }.collect { (rooms, tab) ->
+                        roomsAdapter.submitList(rooms) {
+                            scrollToSavedRoom()
+                        }
                         if (rooms.isEmpty()) {
-                            binding.rvRooms.visibility = View.GONE
-                            binding.layoutEmptyRooms.visibility = View.VISIBLE
+                            binding.root.visibility = View.VISIBLE
+                            header.layoutEmptyRooms.visibility = View.VISIBLE
 
                             when (tab) {
                                 RoomTabFilter.OCCUPIED -> {
-                                    binding.tvEmptyTitle.text = "No occupied rooms"
-                                    binding.tvEmptySubtitle.text = "Assigned tenants will appear here."
-                                    binding.btnEmptyAddRoom.visibility = View.GONE
+                                    header.tvEmptyTitle.text = "No occupied rooms"
+                                    header.tvEmptySubtitle.text = "Assigned tenants will appear here."
+                                    header.btnEmptyAddRoom.visibility = View.GONE
                                 }
                                 RoomTabFilter.VACANT -> {
-                                    binding.tvEmptyTitle.text = "No vacant rooms"
-                                    binding.tvEmptySubtitle.text = "All rooms are currently occupied."
-                                    binding.btnEmptyAddRoom.visibility = View.GONE
+                                    header.tvEmptyTitle.text = "No vacant rooms"
+                                    header.tvEmptySubtitle.text = "All rooms are currently occupied."
+                                    header.btnEmptyAddRoom.visibility = View.GONE
                                 }
                                 RoomTabFilter.ALL -> {
-                                    binding.tvEmptyTitle.text = "No rooms yet"
-                                    binding.tvEmptySubtitle.text = "Add your first room to this building."
-                                    binding.btnEmptyAddRoom.visibility = View.VISIBLE
+                                    header.tvEmptyTitle.text = "No rooms yet"
+                                    header.tvEmptySubtitle.text = "Add your first room to this building."
+                                    header.btnEmptyAddRoom.visibility = View.VISIBLE
                                 }
                             }
                         } else {
-                            binding.rvRooms.visibility = View.VISIBLE
-                            binding.layoutEmptyRooms.visibility = View.GONE
-                            roomsAdapter.submitList(rooms)
+                            binding.root.visibility = View.VISIBLE
+                            header.layoutEmptyRooms.visibility = View.GONE
+
                         }
                     }
                 }
             }
+        }
+    }
+
+    private fun scrollToSavedRoom() {
+        if (!::roomsAdapter.isInitialized || _binding == null) return
+        val id = pendingRoomId ?: return
+        val index = roomsAdapter.currentList.indexOfFirst { it.roomId == id }
+        if (index >= 0) {
+            binding.root.scrollToPosition(index + 1)
+            pendingRoomId = null
         }
     }
 
@@ -218,7 +266,15 @@ class RoomsFragment : Fragment() {
         val occupancyPct: Int
     )
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean("initialFilterApplied", initialFilterApplied)
+        pendingRoomId?.let { outState.putLong("pendingRoomId", it) }
+        super.onSaveInstanceState(outState)
+    }
+
     override fun onDestroyView() {
+        _binding?.root?.adapter = null
+        _header = null
         super.onDestroyView()
         _binding = null
     }

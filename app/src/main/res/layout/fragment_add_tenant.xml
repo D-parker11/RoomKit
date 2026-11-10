@@ -36,6 +36,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvTenantFormTitle"
                 style="@style/TextAppearance.RoomKit.ScreenTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
                 android:textSize="22sp" />
 
             <TextView
+                android:id="@+id/tvTenantFormSubtitle"
                 style="@style/TextAppearance.RoomKit.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

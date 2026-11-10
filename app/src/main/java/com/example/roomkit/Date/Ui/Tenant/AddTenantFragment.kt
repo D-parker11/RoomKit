@@ -68,9 +68,7 @@ class AddTenantFragment : Fragment() {
         }
     }
 
-    private fun validateAndSave(
-        forceCreate: Boolean = false
-    ) {
+    private fun validateAndSave() {
 
         clearErrors()
 
@@ -126,8 +124,7 @@ class AddTenantFragment : Fragment() {
             fullName = fullName,
             phone = phone,
             idOrPassport = idPassport,
-            notes = notes,
-            forceCreate = forceCreate
+            notes = notes
         )
     }
 
@@ -185,9 +182,7 @@ class AddTenantFragment : Fragment() {
                         state.showDuplicateWarning -> {
 
                             showDuplicateWarningDialog(
-                                matches = state.duplicateMatches,
-                                canCreateSeparateTenant =
-                                    state.canCreateSeparateTenant
+                                matches = state.duplicateMatches
                             )
                         }
                     }
@@ -197,8 +192,7 @@ class AddTenantFragment : Fragment() {
     }
 
     private fun showDuplicateWarningDialog(
-        matches: List<TenantMatch>,
-        canCreateSeparateTenant: Boolean
+        matches: List<TenantMatch>
     ) {
 
         if (matches.isEmpty()) {
@@ -279,19 +273,6 @@ class AddTenantFragment : Fragment() {
                         .dismissDuplicateWarning()
                 }
 
-        /*
-         * Allow a separate record when the ViewModel says it is safe.
-         */
-        if (canCreateSeparateTenant) {
-
-            builder.setNeutralButton(
-                R.string.add_tenant_create_separate
-            ) { _, _ ->
-
-                confirmCreateSeparateTenant()
-            }
-        }
-
         val dialog = builder.create()
 
         duplicateDialog = dialog
@@ -322,57 +303,6 @@ class AddTenantFragment : Fragment() {
                 "tenantId" to tenantId
             )
         )
-    }
-
-    private fun confirmCreateSeparateTenant() {
-
-        val dialog =
-            MaterialAlertDialogBuilder(
-                requireContext()
-            )
-                .setTitle(
-                    R.string.add_tenant_create_separate
-                )
-                .setMessage(
-                    R.string.add_tenant_separate_confirmation
-                )
-                .setPositiveButton(
-                    R.string.add_tenant_create
-                ) { _, _ ->
-
-                    /*
-                     * ViewModel performs duplicate checks again
-                     * before creating the tenant.
-                     */
-                    validateAndSave(
-                        forceCreate = true
-                    )
-                }
-                .setNegativeButton(
-                    R.string.add_tenant_cancel
-                ) { _, _ ->
-
-                    viewModel
-                        .dismissDuplicateWarning()
-                }
-                .create()
-
-        duplicateDialog = dialog
-
-        dialog.setOnCancelListener {
-
-            viewModel
-                .dismissDuplicateWarning()
-        }
-
-        dialog.setOnDismissListener {
-
-            if (duplicateDialog === dialog) {
-                duplicateDialog = null
-            }
-        }
-
-        dialog.show()
     }
 
     private fun showMessage(

@@ -30,6 +30,13 @@ data class TenantTabCounts(
     val movedOutCount: Int = 0
 )
 
+data class TenantListState(
+    val tenants: List<TenantWithCurrentTenancy> = emptyList(),
+    val noTenants: Boolean = true,
+    val query: String = "",
+    val filter: TenantFilter = TenantFilter.ALL
+)
+
 class TenantsViewModel(
     private val repository: TenantRepository
 ) : ViewModel() {
@@ -60,8 +67,8 @@ class TenantsViewModel(
         val errorMessage: String? = null
     )
 
-    private val searchQuery = MutableStateFlow("")
-    private val selectedFilter = MutableStateFlow(TenantFilter.ALL)
+    val searchQuery = MutableStateFlow("")
+    val selectedFilter = MutableStateFlow(TenantFilter.ALL)
 
     private val _uiState = MutableStateFlow(TenantSaveUiState())
     val uiState: StateFlow<TenantSaveUiState> = _uiState.asStateFlow()
@@ -92,7 +99,7 @@ class TenantsViewModel(
             initialValue = TenantTabCounts()
         )
 
-    val filteredTenants: StateFlow<List<TenantWithCurrentTenancy>> =
+    val listState: StateFlow<TenantListState> =
         combine(
             allTenants,
             searchQuery,
@@ -100,14 +107,15 @@ class TenantsViewModel(
         ) { tenants, query, filter ->
             val cleanQuery = query.trim()
 
-            tenants.filter { tenant ->
+            val filtered = tenants.filter { tenant ->
                 val matchesQuery =
                     cleanQuery.isBlank() ||
                             tenant.fullName.contains(
                                 cleanQuery,
                                 ignoreCase = true
                             ) ||
-                            tenant.phoneNumber.contains(cleanQuery)
+                            tenant.phoneNumber.contains(cleanQuery) ||
+                            tenant.idOrPassport.orEmpty().contains(cleanQuery, ignoreCase = true)
 
                 val matchesFilter = when (filter) {
                     TenantFilter.ALL -> true
@@ -122,10 +130,11 @@ class TenantsViewModel(
 
                 matchesQuery && matchesFilter
             }
+            TenantListState(filtered, tenants.isEmpty(), cleanQuery, filter)
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = emptyList()
+            initialValue = TenantListState()
         )
 
     fun setSearchQuery(query: String) {
@@ -140,8 +149,7 @@ class TenantsViewModel(
         fullName: String,
         phone: String,
         idOrPassport: String,
-        notes: String,
-        forceCreate: Boolean = false
+        notes: String
     ) {
         if (_uiState.value.isSaving) return
 
@@ -216,21 +224,13 @@ class TenantsViewModel(
                     }
                 }
 
-                val hasMatchingIdentity = matches.any {
-                    it.sameIdentityDocument
-                }
-
-                // Matching ID/passport is always blocked.
-                // A phone match can be overridden after user confirmation.
-                val needsReview =
-                    hasMatchingIdentity ||
-                            (matches.isNotEmpty() && !forceCreate)
+                val needsReview = matches.isNotEmpty()
 
                 if (needsReview) {
                     _uiState.value = TenantSaveUiState(
                         duplicateMatches = matches,
                         showDuplicateWarning = true,
-                        canCreateSeparateTenant = !hasMatchingIdentity
+                        canCreateSeparateTenant = false
                     )
                     return@launch
                 }
@@ -279,21 +279,8 @@ class TenantsViewModel(
             .lowercase(Locale.ROOT)
 
     private fun normalizeIdentity(value: String): String =
-        value.trim().uppercase(Locale.ROOT)
+        com.example.roomkit.Date.Local.Model.TenantIdentity.document(value)
 
-    // Basic matching for Cambodian local and international formats.
-    // This helper does not validate whether a phone number is valid.
-    private fun normalizePhone(value: String): String {
-        val digits = value.filter { it in '0'..'9' }
-
-        return when {
-            digits.startsWith("00855") ->
-                "0" + digits.removePrefix("00855").removePrefix("0")
-
-            digits.startsWith("855") ->
-                "0" + digits.removePrefix("855").removePrefix("0")
-
-            else -> digits
-        }
-    }
+    private fun normalizePhone(value: String): String =
+        com.example.roomkit.Date.Local.Model.TenantIdentity.phone(value)
 }

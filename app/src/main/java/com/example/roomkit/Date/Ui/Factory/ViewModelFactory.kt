@@ -72,6 +72,9 @@ class ViewModelFactory(
                 requireNotNull(targetId) { "buildingId is required for RoomsViewModel" }
                 RoomsViewModel(targetId, buildingRepo, roomRepo) as T
             }
+            modelClass.isAssignableFrom(com.example.roomkit.Date.Ui.Tenant.EditTenantViewModel::class.java) -> {
+                com.example.roomkit.Date.Ui.Tenant.EditTenantViewModel(requireNotNull(targetId), tenantRepo) as T
+            }
             modelClass.isAssignableFrom(TenantsViewModel::class.java) -> {
                 TenantsViewModel(tenantRepo) as T
             }
