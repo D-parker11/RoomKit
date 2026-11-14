@@ -258,5 +258,5 @@ This follow-up supersedes the earlier statement that this host could not run the
 
 The fresh emulator, partial property migration, signing compatibility, schema 12, and post-update room creation are documented as separate evidence; none is represented as a populated financial-history upgrade. Isolated populated 10→11→12 automated migration remains **PASS** as previously recorded. Stage 10 natural reminder delivery remains **NOT TESTED**. Stage 12 and the project’s overall requirements remain incomplete while the device financial-history upgrade and previously listed restore/reliability gaps remain open.
 
-No operation changed RoomKit-Test or RoomKit-Restore-Test. No financial transaction, database edit, uninstall, data clear, commit, or push was performed during this follow-up.
+No operation changed RoomKit-Test or RoomKit-Restore-Test. No financial transaction, database edit, uninstall, or data clear was performed. This sanitized report/evidence update is committed and pushed to the existing feature branch; no application source was changed.
 - The report’s previous checkpoint text saying the history/empty-state checks were not rechecked is historical; the results above close those checks. The sanitized report/evidence package is published on `fix/tenant-and-workflow-qa`; other cited local-only evidence remains excluded from the branch.
