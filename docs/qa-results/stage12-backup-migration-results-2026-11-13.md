@@ -259,4 +259,50 @@ This follow-up supersedes the earlier statement that this host could not run the
 The fresh emulator, partial property migration, signing compatibility, schema 12, and post-update room creation are documented as separate evidence; none is represented as a populated financial-history upgrade. Isolated populated 10→11→12 automated migration remains **PASS** as previously recorded. Stage 10 natural reminder delivery remains **NOT TESTED**. Stage 12 and the project’s overall requirements remain incomplete while the device financial-history upgrade and previously listed restore/reliability gaps remain open.
 
 No operation changed RoomKit-Test or RoomKit-Restore-Test. No financial transaction, database edit, uninstall, or data clear was performed. This sanitized report/evidence update is committed and pushed to the existing feature branch; no application source was changed.
+
+## Patched schema-11 build → current build — populated device upgrade — 2026-11-14
+
+This is a new isolated follow-up. It does **not** repeat or overwrite the historical revision-167b552 APK attempt above. The earlier `schema11-runtime-errors.txt` remains preserved as evidence of that unpatched APK’s crash. The current result is specifically **“patched schema-11 build → current build.”**
+
+### Build and device setup
+
+- Host: Apple M3 Pro, `arm64`; system image `android-37.0/google_apis_playstore/arm64-v8a`.
+- Fresh disposable AVD: `RoomKit-Patched-Migration`, serial `emulator-5572`, Android API 37 / ABI `arm64-v8a`. Protected RoomKit-Test (`emulator-5554`) and RoomKit-Restore-Test (`emulator-5556`) were not targeted or modified.
+- Patched source was an isolated export of revision `167b552419e2d4852356cc2eb2f5a91a7c9bd25f` in `/private/tmp/roomkit-stage12-schema11`. The only source change was the known `RoomsFragment` initialization-order correction: assign `LinearLayoutManager` immediately before `ItemRoomsHeaderBinding.inflate(...)` and remove its later duplicate assignment in `setupRecyclerView()`. No database, financial, migration, or other app logic changed. `AppDatabase` still declares schema 11.
+- Isolated patched schema-11 APK build: **BUILD SUCCESSFUL**. APK SHA-256 `7b706d0eafa362ec0dd24b5797d0ca9976b937335ec7a178c401bd680a98032d`.
+- Build command, source diff scope, APK hashes, and signer fingerprints are preserved in [`patched-build-evidence.txt`](stage12-patched-migration/patched-build-evidence.txt).
+- Current APK SHA-256 `554b5b7fb087d986818a08421d8abddd42e37f6137333b76789dde528711a598`. Both APKs have matching debug-certificate SHA-256 `34ead576782bab92dfed67e2490d6589a52ed103768633ffc5d43626e992bf6d`.
+- The patched schema-11 app launched and opened Property → View all rooms without the historical crash. No permission, app data, or database workaround was used.
+
+### Schema-11 UI fixture and baseline
+
+All fixture rows below were created through the patched schema-11 app UI. The pre-upgrade DB was copied with `run-as` and inspected with SQLite read-only mode; the snapshot and WAL/SHM files remain local under `/private/tmp`.
+
+| Entity | ID / relationship | Pre-upgrade value |
+|---|---|---|
+| Building | ID 1 | `Stage12 patched migration`, capacity 2 |
+| Room | ID 1 → building 1 | `QA-MIG-11`, rent 100,000 KHR, occupied |
+| Tenant | ID 1 | `Stage12 migration tenant`, fake identifier `STG12-PATCH-001` |
+| Tenancy | ID 1 → tenant 1 / room 1 | Active; KHR; rent 100,000; deposit 100,000; billing day 1; due day 5; electricity rate 1,000; fixed water 20,000; rubbish 10,000 |
+| Meter readings | IDs 1 and 2 → tenancy 1 / room 1 | Electricity INITIAL 0→0 and MONTHLY 0→10 kWh for November 2026 |
+| Invoice | ID 1, regular, tenancy 1; UI invoice `#0001` | November 2026; total 140,000 KHR; paid 40,000; balance 100,000; PARTIALLY_PAID; due December 5, 2026 |
+| Invoice items | 6 rows → invoice 1 | Rent 100,000; electricity 10,000; fixed water 20,000; rubbish 10,000; other 0; discount 0 KHR |
+| Payment | ID 1 → invoice 1 | 40,000 KHR, CASH, ACTIVE |
+| Settlement | none | 0 rows |
+
+Before updating, schema version was 11. Read-only table counts were 1 building, 1 room, 1 tenant, 1 tenancy, 2 readings, 1 invoice, 6 invoice items, 1 payment, and 0 settlements. UI evidence: [`schema11-property-created.png`](stage12-patched-migration/schema11-property-created.png), [`schema11-room-created.png`](stage12-patched-migration/schema11-room-created.png), [`schema11-movein-review.png`](stage12-patched-migration/schema11-movein-review.png), [`schema11-reading-saved.png`](stage12-patched-migration/schema11-reading-saved.png), [`schema11-draft-saved.png`](stage12-patched-migration/schema11-draft-saved.png), [`schema11-issue-confirm.png`](stage12-patched-migration/schema11-issue-confirm.png), and [`schema11-invoice-partial-payment.png`](stage12-patched-migration/schema11-invoice-partial-payment.png). The invoice preview showed rent 100,000 + electricity 10,000 + water 20,000 + rubbish 10,000 = **140,000 KHR** before issue.
+
+### In-place update and verification
+
+- **Update install: PASS.** Installed the current APK with `adb install -r` on `emulator-5572`; install succeeded without uninstall or clearing data.
+- **Migration: PASS.** Current app launched and read-only inspection reported schema version 12. Building, room, tenant, tenancy, reading, invoice, line-item, payment IDs and foreign-key relationships were preserved. The tenancy retained its terms; readings remained 0→0 INITIAL and 0→10 MONTHLY; invoice ID 1/#0001 retained total 140,000, active paid amount 40,000, balance 100,000, partial status, and the item snapshots and due date. Foreign-key check reported no violations. Schema 12 contains `chargeReason`, `refundPaidAt`, and `refundReference` on settlements.
+- **Restart persistence: PASS.** Force-stopped and reopened RoomKit after update. Room `QA-MIG-11` remained occupied by the same tenant, with November reading 10 kWh. The invoice screen still showed total 140,000, paid 40,000, balance 100,000, and the same CASH payment (`current-invoice-after-restart.png`).
+- **New record after migration: PASS.** Through the current UI, created vacant room ID 2 `QA-MIG-12` under building ID 1 at 100,000 KHR/month. After a second force-stop/reopen, the room list showed both rooms and retained the occupied migrated room, 10 kWh reading, and new vacant room (`current-new-room.png`, `current-room-list-after-restart.png`). Final read-only counts: schema 12; 1 building, 2 rooms, 1 tenant, 1 tenancy, 2 readings, 1 invoice, 6 invoice items, 1 payment, 0 settlements. Protected financial data was not involved.
+- **Crash check: PASS.** No AndroidRuntime errors appeared in the post-update window ([`post-update-runtime-errors.txt`](stage12-patched-migration/post-update-runtime-errors.txt)). The historic unpatched crash remains in its separate evidence file and was not cleared or replaced.
+
+### Determination
+
+The **patched schema-11 build → current build populated device upgrade: PASS** for the linked tenancy, meter history, invoice, partial payment, balance, restart persistence, and post-migration record creation listed above. This validates the migration path with the narrowly patched schema-11 test build; it does not relabel the unpatched historical APK attempt. The separate isolated automated migration evidence remains unchanged. Stage 10 natural reminder delivery remains **NOT TESTED**. Overall Stage 12 remains incomplete for unrelated restore/reliability gaps recorded elsewhere in this report.
+
+The isolated patch and both APKs remain local under `/private/tmp`; this report and selected sanitized UI/runtime evidence are suitable for the feature-branch QA commit. No production source, protected emulator, protected financial record, or device database was modified manually.
 - The report’s previous checkpoint text saying the history/empty-state checks were not rechecked is historical; the results above close those checks. The sanitized report/evidence package is published on `fix/tenant-and-workflow-qa`; other cited local-only evidence remains excluded from the branch.

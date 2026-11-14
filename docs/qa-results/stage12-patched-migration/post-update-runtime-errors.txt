@@ -1,0 +1,6 @@
+Post-update AndroidRuntime error check
+Date: 2026-11-14
+Target: RoomKit-Patched-Migration / emulator-5572
+Command: adb -s emulator-5572 logcat -d -t 400 -s AndroidRuntime:E
+Result: no matching error entries in the inspected window after the in-place schema-12 update, app restart, and new-room creation.
+The original unpatched revision-167b552 crash log remains preserved separately at ../stage12-populated-upgrade/schema11-runtime-errors.txt.

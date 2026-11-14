@@ -1,0 +1,13 @@
+Stage 12 isolated patched schema-11 build evidence
+Date: 2026-11-14
+
+Source base: revision 167b552419e2d4852356cc2eb2f5a91a7c9bd25f
+Isolated source: /private/tmp/roomkit-stage12-schema11
+Only code diff: move binding.root.layoutManager = LinearLayoutManager(requireContext()) to immediately before ItemRoomsHeaderBinding.inflate(...); remove the later duplicate assignment from setupRecyclerView().
+Database source declaration: AppDatabase version = 11.
+Build: ANDROID_HOME=/Users/macbookpro/Library/Android/sdk ./gradlew :app:assembleDebug --console=plain
+Result: BUILD SUCCESSFUL.
+Patched schema-11 APK SHA-256: 7b706d0eafa362ec0dd24b5797d0ca9976b937335ec7a178c401bd680a98032d
+Current APK SHA-256: 554b5b7fb087d986818a08421d8abddd42e37f6137333b76789dde528711a598
+Both APK signer certificate SHA-256: 34ead576782bab92dfed67e2490d6589a52ed103768633ffc5d43626e992bf6d
+Install sequence on RoomKit-Patched-Migration / emulator-5572: patched schema-11 APK installed fresh; current APK then installed with adb install -r. No uninstall or app-data clear.
