@@ -15,7 +15,7 @@ interface RoomDao {
         r.buildingId,
         r.roomNumber,
         r.floor,
-        r.monthlyRent,
+        CASE WHEN t.tenancyId IS NOT NULL THEN t.monthlyRent ELSE r.monthlyRent END AS monthlyRent,
         COALESCE(t.currency, 'KHR') AS currency,
         t.waterBillingMethod AS waterBillingMethod,
         CASE WHEN t.tenancyId IS NOT NULL THEN 1 ELSE 0 END AS isOccupied,

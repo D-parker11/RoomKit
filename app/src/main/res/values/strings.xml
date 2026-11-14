@@ -171,10 +171,16 @@
         <string name="mu_saved">Move-out date: %1$s\nFinal electricity: %2$d kWh\nFinal water: %3$s\nRefund status: %4$s\n%5$s</string>
         <string name="mu_paid">Paid</string>
         <string name="mu_pending">Pending (if refund is due)</string>
+        <string name="mu_no_refund_due">No refund due</string>
         <string name="mu_legacy_history">This older ended rental has no saved move-out settlement. Its invoices remain available in rental history.</string>
         <string name="mu_refund_checkbox">I have actually paid the refund of %1$s. Leave unchecked to keep it pending.</string>
         <string name="mu_saving">Saving…</string>
         <string name="mu_record_refund">Record Refund as Paid</string>
+        <string name="mu_pending_amount">Pending — %1$s</string>
+        <string name="mu_refund_reference_hint">Receipt/reference (optional)</string>
+        <string name="mu_refund_record_confirmation">Record %1$s as refunded on %2$s? This will permanently mark the pending refund as paid.</string>
+        <string name="mu_refund_paid_details">Refund recorded paid on %1$s%2$s</string>
+        <string name="mu_date_unavailable">date not recorded</string>
         <string name="mu_complete">Complete Move-Out</string>
         <string name="mu_review">Review Settlement</string>
         <string name="mu_final">New final invoice</string>

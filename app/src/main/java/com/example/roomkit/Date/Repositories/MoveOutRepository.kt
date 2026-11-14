@@ -10,8 +10,7 @@ import java.util.Calendar
 data class MoveOutInput(
     val date: Long, val electricity: Long, val water: Long?,
     val additionalRent: Long, val otherCharges: Long, val chargeReason: String,
-    val applyDeposit: Long, val deductions: Long, val deductionReason: String,
-    val refundPaid: Boolean
+    val applyDeposit: Long, val deductions: Long, val deductionReason: String
 )
 data class MoveOutSnapshot(
     val tenancy: TenancyEntity, val room: RoomEntity,
@@ -51,7 +50,9 @@ class MoveOutRepository(private val db: AppDatabase) {
         }
         require(listOf(input.additionalRent,input.otherCharges,input.applyDeposit,input.deductions).all { it >= 0 }) { "Amounts cannot be negative." }
         if (input.additionalRent > 0 || input.otherCharges > 0) require(input.chargeReason.isNotBlank()) { "Explain additional rent/fees and confirm they were not billed already." }
-        if (input.deductions > 0) require(input.deductionReason.isNotBlank()) { "Enter a reason for deposit deductions." }
+        if (input.deductions > 0) require(input.deductionReason.trim().let { reason ->
+            reason.length >= 3 && reason.any(Char::isLetterOrDigit)
+        }) { "Enter a meaningful reason for deposit deductions." }
         val official = s.invoices.filter { it.status !in listOf("VOID", "VOIDED", "DRAFT") }
         check(s.invoices.none { it.status == "DRAFT" }) { "Issue or remove existing drafts before move-out." }
         val period = Calendar.getInstance(java.util.TimeZone.getTimeZone("Asia/Phnom_Penh")).apply { timeInMillis = input.date }
@@ -137,9 +138,11 @@ class MoveOutRepository(private val db: AppDatabase) {
             readingDate=i.date, billingMonth=cal.get(Calendar.MONTH)+1, billingYear=cal.get(Calendar.YEAR), readingType="FINAL")
         db.meterReadingDao().insertReading(finalReading("ELECTRICITY", i.electricity, r.electricityBasis))
         if (t.waterBillingMethod != "FIXED") db.meterReadingDao().insertReading(finalReading("WATER", i.water!!, r.waterBasis))
+        val savedChargeReason = if (i.additionalRent > 0 || i.otherCharges > 0) i.chargeReason.trim() else ""
+        val savedDeductionReason = if (i.deductions > 0) i.deductionReason.trim() else ""
         db.moveOutDao().insert(MoveOutSettlementEntity(id,t.roomId,i.date,i.electricity,
-            if(t.waterBillingMethod=="FIXED") null else i.water,t.deposit,i.applyDeposit,i.deductions,
-            "Charges: ${i.chargeReason}\nDeductions: ${i.deductionReason}",r.refund,i.refundPaid,r.debt,finalId,now))
+            if(t.waterBillingMethod=="FIXED") null else i.water,t.deposit,i.applyDeposit,
+            savedChargeReason,i.deductions,savedDeductionReason,r.refund,false,null,null,r.debt,finalId,now))
         check(db.tenancyDao().markTenancyEnded(id,i.date)==1) { "Rental was already ended." }
         db.roomDao().updateRoomStatus(t.roomId,"VACANT")
     }

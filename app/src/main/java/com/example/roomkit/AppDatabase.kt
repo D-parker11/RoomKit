@@ -47,7 +47,7 @@ import com.roomkit.data.local.dao.BuildingDao
         PaymentEntity::class,
         MoveOutSettlementEntity::class
     ],
-    version = 11,
+    version = 12,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -110,6 +110,13 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         val MIGRATION_10_11 = com.roomkit.Date.Local.Scheme.Phase3Schema.MIGRATION_10_11
+        val MIGRATION_11_12 = object : Migration(11, 12) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE move_out_settlements ADD COLUMN chargeReason TEXT NOT NULL DEFAULT ''")
+                db.execSQL("ALTER TABLE move_out_settlements ADD COLUMN refundPaidAt INTEGER")
+                db.execSQL("ALTER TABLE move_out_settlements ADD COLUMN refundReference TEXT")
+            }
+        }
         val MIGRATION_9_10 = com.roomkit.Date.Local.Scheme.PropertyConstraintSchema.MIGRATION_9_10
         val MIGRATION_8_9 = com.roomkit.Date.Local.Scheme.MeterHistorySchema.MIGRATION_8_9
         val MIGRATION_7_8 = com.roomkit.Date.Local.Scheme.InvoicePaymentFieldsSchema.MIGRATION_7_8
@@ -127,7 +134,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "roomkit_khr_mvp.db"
                 )
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11, MIGRATION_11_12)
                     .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             com.roomkit.Date.Local.Scheme.MeterHistorySchema.installGuards(db)

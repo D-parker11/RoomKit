@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.test.core.app.ApplicationProvider
 import com.example.roomkit.Date.Backup.JsonBackupRepository
+import com.example.roomkit.Date.Backup.BackupCrypto
 import com.example.roomkit.Date.Local.Entity.*
 import com.example.roomkit.Date.Repositories.MonthlyCloseRepository
 import com.example.roomkit.Date.Repositories.phase3Billing
@@ -101,6 +102,38 @@ abstract class Phase3Checks {
         assertEquals(460_000L,db.invoiceDao().getInvoiceById(id)!!.totalKhr)
         assertEquals("CLOSED",closeRepo().state(month)!!.status);assertEquals(1,closeRepo().history(month).size)
     }
+    @Test fun schema11BackupRestoresIntoCurrentSchema12WithSettlementDefaults(): Unit = runBlocking {
+        val moveOut = com.example.roomkit.Date.Repositories.MoveOutRepository(db)
+        val snapshot = moveOut.snapshot(tenancyId)
+        moveOut.complete(moveOut.review(snapshot, com.example.roomkit.Date.Repositories.MoveOutInput(
+            date=at+2_000, electricity=130, water=null, additionalRent=0, otherCharges=0,
+            chargeReason="", applyDeposit=0, deductions=0, deductionReason="")))
+        val repository = JsonBackupRepository(context, db)
+        val password = "test-only backup password".toCharArray()
+        repository.export(Uri.fromFile(fixtureFile), password)
+        val outer = org.json.JSONObject(fixtureFile.readText())
+        val decoder = java.util.Base64.getDecoder()
+        val plain = BackupCrypto.decrypt(BackupCrypto.Envelope(
+            decoder.decode(outer.getString("salt")), decoder.decode(outer.getString("iv")),
+            decoder.decode(outer.getString("data"))), password)
+        val payload = org.json.JSONObject(plain.toString(Charsets.UTF_8)).put("schemaVersion", 11)
+        val settlement = payload.getJSONObject("tables").getJSONArray("move_out_settlements").getJSONObject(0)
+        settlement.remove("chargeReason"); settlement.remove("refundPaidAt"); settlement.remove("refundReference")
+        val sealed = BackupCrypto.encrypt(payload.toString().toByteArray(Charsets.UTF_8), password)
+        val encoder = java.util.Base64.getEncoder()
+        outer.put("salt", encoder.encodeToString(sealed.salt)).put("iv", encoder.encodeToString(sealed.iv))
+            .put("data", encoder.encodeToString(sealed.ciphertext))
+        fixtureFile.writeText(outer.toString())
+
+        db.tenantDao().updateTenant(db.tenantDao().getTenantById(tenantId)!!.copy(fullName="Changed after backup"))
+        repository.restore(Uri.fromFile(fixtureFile), password)
+        assertEquals("Demo Tenant A", db.tenantDao().getTenantById(tenantId)!!.fullName)
+        val restored = db.moveOutDao().get(tenancyId)!!
+        assertEquals("", restored.chargeReason)
+        assertNull(restored.refundPaidAt)
+        assertNull(restored.refundReference)
+        password.fill('\u0000'); plain.fill(0)
+    }
     @Test fun wrongPasswordDoesNotChangeExistingData()=runBlocking {
         val repository=JsonBackupRepository(context,db);val before=db.tenantDao().getTenantById(tenantId)
         repository.export(Uri.fromFile(fixtureFile),"test-only backup password".toCharArray())
@@ -123,22 +156,78 @@ abstract class Phase3Checks {
                     MeterHistorySchema.installGuards(sql);PropertyConstraintSchema.installGuards(sql)
                 }
             }).build()
-            val id=old.tenantDao().insertTenantCheckingIdentity(TenantEntity(fullName="Preserved legacy tenant",phoneNumber="migration-only"))
+            val buildingId=old.buildingDao().insertSingleBuilding(BuildingEntity(name="Legacy test property",address=null,description=null,totalRooms=1))
+            val roomId=old.roomDao().insertRoomWithinCapacity(RoomEntity(buildingId=buildingId,roomNumber="M-1",floor=null,monthlyRent=140_000,description=null))
+            val tenantId=old.tenantDao().insertTenantCheckingIdentity(TenantEntity(
+                fullName="Preserved legacy tenant",phoneNumber="migration-only",idOrPassport="LEGACY-001"))
+            val tenancyId=old.tenancyDao().insertTenancy(TenancyEntity(tenantId=tenantId,roomId=roomId,
+                moveInDate=at,monthlyRent=100_000,deposit=50_000,billingDay=1,dueDay=5,
+                electricityRate=1_000,waterBillingMethod="FIXED",waterRate=20_000,rubbishFee=10_000,status="ACTIVE"))
+            old.roomDao().updateRoomStatus(roomId,"OCCUPIED")
+            old.meterReadingDao().insertReading(MeterReadingEntity(tenancyId=tenancyId,roomId=roomId,
+                meterType="ELECTRICITY",previousReading=100,currentReading=100,readingDate=at,
+                billingMonth=month.monthValue,billingYear=month.year,readingType="INITIAL"))
+            old.meterReadingDao().insertReading(MeterReadingEntity(tenancyId=tenancyId,roomId=roomId,
+                meterType="ELECTRICITY",previousReading=100,currentReading=110,readingDate=at+1_000,
+                billingMonth=month.monthValue,billingYear=month.year))
+            val regularId=MonthlyCloseRepository(old,phase3Billing(context,old)).close(month).single()
+            assertEquals(140_000L,old.invoiceDao().getInvoiceById(regularId)!!.totalKhr)
+            phase3Billing(context,old).recordPayment(regularId,45_000,method="CASH").getOrThrow()
+            val moveOut=com.example.roomkit.Date.Repositories.MoveOutRepository(old)
+            val settlementReview=moveOut.review(moveOut.snapshot(tenancyId),com.example.roomkit.Date.Repositories.MoveOutInput(
+                date=at+2_000,electricity=115,water=null,additionalRent=0,otherCharges=0,
+                chargeReason="",applyDeposit=0,deductions=0,deductionReason=""))
+            moveOut.complete(settlementReview)
+            val finalInvoiceId=old.invoiceDao().getForTenancy(tenancyId).single { it.invoiceKind=="FINAL" }.invoiceId
+            val payment=old.paymentDao().getForTenancy(tenancyId).single()
+            val history=old.meterReadingDao().getForTenancy(tenancyId)
+            val settlement=old.moveOutDao().get(tenancyId)!!
+            assertEquals(5_000L,old.invoiceDao().getInvoiceById(finalInvoiceId)!!.totalKhr)
+            assertEquals(45_000L,payment.amountKhr)
+            assertEquals(50_000L,settlement.refundKhr)
+            val items=old.invoiceItemDao().getForInvoice(regularId)
+            val amounts=items.associate { it.itemCode to it.amountKhr }
             old.close();old=null
-            // Derive a v10-shaped fixture: the v11 migration adds only these two tables/guards.
+            // Derive a v10-shaped fixture with representative financial and history rows.
             android.database.sqlite.SQLiteDatabase.openDatabase(file.path,null,0).use { sql ->
                 sql.execSQL("DROP TABLE billing_period_events")
                 sql.execSQL("DROP TABLE billing_periods")
+                sql.execSQL("ALTER TABLE move_out_settlements RENAME TO settlements_v12")
+                sql.execSQL("DROP INDEX index_move_out_settlements_tenancyId")
+                sql.execSQL("""CREATE TABLE move_out_settlements (
+                    tenancyId INTEGER NOT NULL PRIMARY KEY, roomId INTEGER NOT NULL, moveOutDate INTEGER NOT NULL,
+                    electricityFinal INTEGER NOT NULL, waterFinal INTEGER, depositHeldKhr INTEGER NOT NULL,
+                    appliedKhr INTEGER NOT NULL, deductionsKhr INTEGER NOT NULL,
+                    deductionReason TEXT NOT NULL, refundKhr INTEGER NOT NULL, refundPaid INTEGER NOT NULL,
+                    debtKhr INTEGER NOT NULL, finalInvoiceId INTEGER, createdAt INTEGER NOT NULL,
+                    FOREIGN KEY(tenancyId) REFERENCES tenancies(tenancyId) ON UPDATE NO ACTION ON DELETE RESTRICT)""")
+                sql.execSQL("CREATE UNIQUE INDEX index_move_out_settlements_tenancyId ON move_out_settlements(tenancyId)")
+                sql.execSQL("""INSERT INTO move_out_settlements(tenancyId,roomId,moveOutDate,electricityFinal,waterFinal,
+                    depositHeldKhr,appliedKhr,deductionsKhr,deductionReason,refundKhr,refundPaid,debtKhr,finalInvoiceId,createdAt)
+                    SELECT tenancyId,roomId,moveOutDate,electricityFinal,waterFinal,depositHeldKhr,appliedKhr,
+                    deductionsKhr,deductionReason,refundKhr,refundPaid,debtKhr,finalInvoiceId,createdAt FROM settlements_v12""")
+                sql.execSQL("DROP TABLE settlements_v12")
                 sql.version=10
             }
             upgraded=Room.databaseBuilder(context,AppDatabase::class.java,name)
-                .addMigrations(AppDatabase.MIGRATION_10_11).build()
-            assertEquals("Preserved legacy tenant",upgraded.tenantDao().getTenantById(id)!!.fullName)
+                .addMigrations(AppDatabase.MIGRATION_10_11, AppDatabase.MIGRATION_11_12).build()
+            assertEquals("Preserved legacy tenant",upgraded.tenantDao().getTenantById(tenantId)!!.fullName)
+            assertEquals(tenancyId,upgraded.tenancyDao().getTenancyById(tenancyId)!!.tenancyId)
+            assertEquals(regularId,upgraded.invoiceDao().getForTenancy(tenancyId).single { it.invoiceKind=="REGULAR" }.invoiceId)
+            assertEquals(140_000L,upgraded.invoiceDao().getInvoiceById(regularId)!!.totalKhr)
+            assertEquals(amounts,upgraded.invoiceItemDao().getForInvoice(regularId).associate { it.itemCode to it.amountKhr })
+            assertEquals(payment,upgraded.paymentDao().getForTenancy(tenancyId).single())
+            assertEquals(history,upgraded.meterReadingDao().getForTenancy(tenancyId))
+            val migratedSettlement=upgraded.moveOutDao().get(tenancyId)!!
+            assertEquals(settlement.copy(chargeReason="",refundPaidAt=null,refundReference=null),migratedSettlement)
+            assertEquals(finalInvoiceId,migratedSettlement.finalInvoiceId)
             assertNull(upgraded.billingPeriodDao().get(month.year,month.monthValue))
-            upgraded.openHelper.writableDatabase.query("PRAGMA user_version").use { it.moveToFirst();assertEquals(11,it.getInt(0)) }
+            upgraded.openHelper.writableDatabase.query("PRAGMA user_version").use { it.moveToFirst();assertEquals(12,it.getInt(0)) }
             upgraded.openHelper.writableDatabase.query("SELECT COUNT(*) FROM sqlite_master WHERE type='trigger' AND name='meter_monthly_immutable'").use {
                 it.moveToFirst();assertEquals(1,it.getInt(0))
             }
+            val postMigrationId=upgraded.tenantDao().insertTenantCheckingIdentity(TenantEntity(fullName="Created after migration",phoneNumber="migration-new"))
+            assertEquals("Created after migration",upgraded.tenantDao().getTenantById(postMigrationId)!!.fullName)
         } finally { old?.close();upgraded?.close();context.deleteDatabase(name) }
     }
     @Test fun authenticatedButInconsistentBackupCannotReplaceData()=runBlocking {
@@ -218,7 +307,7 @@ abstract class Phase3Checks {
         val input = com.example.roomkit.Date.Repositories.MoveOutInput(
             date = at + 2000, electricity = 130, water = null, additionalRent = 0,
             otherCharges = 0, chargeReason = "", applyDeposit = 0, deductions = 0,
-            deductionReason = "", refundPaid = false)
+            deductionReason = "")
         val review = repository.review(snapshot, input)
         assertEquals(0L, review.newCharges)
         repository.complete(review)

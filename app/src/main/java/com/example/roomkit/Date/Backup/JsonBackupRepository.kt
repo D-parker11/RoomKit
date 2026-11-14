@@ -21,6 +21,9 @@ import java.util.UUID
 class JsonBackupRepository(context: Context, private val db: AppDatabase) {
     private val context = context.applicationContext
     companion object {
+        private const val CURRENT_SCHEMA_VERSION = 12
+        private val SUPPORTED_SCHEMA_VERSIONS = setOf(11, CURRENT_SCHEMA_VERSION)
+        private val SCHEMA_12_SETTLEMENT_COLUMNS = setOf("chargeReason", "refundPaidAt", "refundReference")
         val TABLES = listOf("buildings", "rooms", "tenants", "tenancies", "meter_readings", "invoices",
             "invoice_items", "payments", "move_out_settlements", "billing_draft_adjustments",
             "billing_periods", "billing_period_events")
@@ -45,7 +48,7 @@ class JsonBackupRepository(context: Context, private val db: AppDatabase) {
                 }
                 tables.put(table, rows)
             }
-            JSONObject().put("format", "ROOMKIT_DATA").put("schemaVersion", 11)
+            JSONObject().put("format", "ROOMKIT_DATA").put("schemaVersion", CURRENT_SCHEMA_VERSION)
                 .put("createdAt", System.currentTimeMillis()).put("tables", tables).toString().toByteArray(Charsets.UTF_8)
         }
         val encrypted = try { BackupCrypto.encrypt(snapshot, password) } finally { snapshot.fill(0) }
@@ -72,8 +75,9 @@ class JsonBackupRepository(context: Context, private val db: AppDatabase) {
                 decoder.decode(outer.getString("iv")), decoder.decode(outer.getString("data"))), password)
         } catch (e: Exception) { throw IllegalArgumentException("Wrong password or damaged backup.", e) }
         val payload = try { JSONObject(plain.toString(Charsets.UTF_8)) } finally { plain.fill(0) }
-        require(payload.getString("format") == "ROOMKIT_DATA" && payload.getInt("schemaVersion") == 11) {
-            "Only RoomKit schema 11 backups are supported. No data was changed."
+        val schemaVersion = payload.getInt("schemaVersion")
+        require(payload.getString("format") == "ROOMKIT_DATA" && schemaVersion in SUPPORTED_SCHEMA_VERSIONS) {
+            "Only RoomKit schema 11 or 12 backups are supported. No data was changed."
         }
         val tables = payload.getJSONObject("tables")
         require(tables.keys().asSequence().toSet() == TABLES.toSet()) { "Backup tables are incomplete or unsupported." }
@@ -81,7 +85,7 @@ class JsonBackupRepository(context: Context, private val db: AppDatabase) {
         val probe = Room.databaseBuilder(context, AppDatabase::class.java, name).build()
         val oldInvoiceIds = mutableListOf<Long>()
         try {
-            probe.withTransaction { importRows(probe.openHelper.writableDatabase, tables) }
+            probe.withTransaction { importRows(probe.openHelper.writableDatabase, tables, schemaVersion) }
             validate(probe)
             // Existing workers and UI writes serialize on this transaction. DDL and row changes
             // roll back together on any failure. No file swap or live-database deletion is used.
@@ -102,7 +106,7 @@ class JsonBackupRepository(context: Context, private val db: AppDatabase) {
                     check(count(sql, "SELECT changes()") > 0) { "Existing invoice replacement links are inconsistent." }
                 }
                 for (t in listOf("meter_readings", "tenancies", "tenants", "rooms", "buildings")) sql.execSQL("DELETE FROM `$t`")
-                importRows(sql, tables)
+                importRows(sql, tables, schemaVersion)
                 for ((_, definition) in triggers) sql.execSQL(definition)
                 // Room's invalidation triggers are TEMP triggers; they are never removed above.
                 sql.query("PRAGMA foreign_key_check").use { check(!it.moveToFirst()) { "Restored relationships are invalid." } }
@@ -126,21 +130,25 @@ class JsonBackupRepository(context: Context, private val db: AppDatabase) {
         Unit
     }
 
-    private fun importRows(sql: SupportSQLiteDatabase, tables: JSONObject) {
+    private fun importRows(sql: SupportSQLiteDatabase, tables: JSONObject, schemaVersion: Int) {
         var total = 0
         for (t in TABLES) {
             val columns = linkedMapOf<String, String>()
             sql.query("PRAGMA table_info(`$t`)").use { while (it.moveToNext()) columns[it.getString(1)] = it.getString(2) }
             val rows = tables.getJSONArray(t)
+            val v12Columns = if (t == "move_out_settlements" && schemaVersion == 11) SCHEMA_12_SETTLEMENT_COLUMNS else emptySet()
+            val requiredKeys = columns.keys - v12Columns
             total = Math.addExact(total, rows.length())
             require(total <= 100_000) { "Backup contains too many records." }
             val ordered = (0 until rows.length()).map { rows.getJSONObject(it) }.let { list ->
                 if (t == "invoices") list.sortedBy { it.getLong("revision") } else list
             }
             for (row in ordered) {
-                require(row.keys().asSequence().toSet() == columns.keys) { "Unsupported columns in $t." }
+                require(row.keys().asSequence().toSet() == requiredKeys) { "Unsupported columns in $t." }
                 val values = columns.map { (key, type) ->
-                    val value = if (row.isNull(key)) null else row.get(key)
+                    val value = if (key in v12Columns && !row.has(key)) {
+                        if (key == "chargeReason") "" else null
+                    } else if (row.isNull(key)) null else row.get(key)
                     when {
                         value == null -> null
                         type == "INTEGER" -> { require(value is Int || value is Long) { "Invalid whole number in $t.$key" }; (value as Number).toLong() }
@@ -172,6 +180,7 @@ class JsonBackupRepository(context: Context, private val db: AppDatabase) {
             "SELECT COUNT(*) FROM billing_periods p JOIN invoices i ON i.billingYear=p.billingYear AND i.billingMonth=p.billingMonth WHERE p.status='CLOSED' AND i.status='DRAFT'",
             "SELECT COUNT(*) FROM meter_readings WHERE (readingType<>'METERREPLACEMENT' AND eventOrdinal<>0) OR (readingType='METERREPLACEMENT' AND (eventOrdinal<>meterSequence OR meterSequence<1 OR LENGTH(TRIM(COALESCE(reason,'')))=0))",
             "SELECT COUNT(*) FROM move_out_settlements s WHERE depositHeldKhr<0 OR appliedKhr<0 OR deductionsKhr<0 OR refundKhr<0 OR debtKhr<0 OR refundPaid NOT IN (0,1) OR NOT EXISTS(SELECT 1 FROM tenancies t WHERE t.tenancyId=s.tenancyId AND t.roomId=s.roomId AND t.status='ENDED') OR (finalInvoiceId IS NOT NULL AND NOT EXISTS(SELECT 1 FROM invoices i WHERE i.invoiceId=s.finalInvoiceId AND i.tenancyId=s.tenancyId AND i.invoiceKind='FINAL'))",
+            "SELECT COUNT(*) FROM move_out_settlements WHERE (refundPaid=1 AND refundKhr<=0) OR (refundPaidAt IS NOT NULL AND refundPaid=0)",
             "SELECT COUNT(*) FROM invoices i WHERE replacesInvoiceId IS NOT NULL AND NOT EXISTS(SELECT 1 FROM invoices o WHERE o.invoiceId=i.replacesInvoiceId AND o.status IN ('VOID','VOIDED') AND o.tenancyId=i.tenancyId AND o.billingYear=i.billingYear AND o.billingMonth=i.billingMonth AND o.invoiceKind=i.invoiceKind AND o.revision<i.revision)"
         )) require(count(sql, query) == 0L) { "Backup contains inconsistent business records." }
         for (i in candidate.invoiceDao().getAllOnceForBackup()) {

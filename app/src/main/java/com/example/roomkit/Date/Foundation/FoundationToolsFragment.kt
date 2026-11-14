@@ -110,7 +110,9 @@ class FoundationToolsFragment : Fragment(R.layout.fragment_foundation_tools) {
                 } else {
                     vm.keepPassword(value.toCharArray())
                     pass.text?.clear(); confirm?.text?.clear(); dialog.dismiss()
-                    if (restoring) open.launch(arrayOf("application/json", "application/octet-stream", "text/plain"))
+                    // Keep the provider filter broad. RoomKit validates the encrypted
+                    // envelope and schema before any live database replacement.
+                    if (restoring) open.launch(arrayOf("*/*"))
                     else create.launch("RoomKit-backup-${java.time.LocalDate.now()}.json")
                 }
             }

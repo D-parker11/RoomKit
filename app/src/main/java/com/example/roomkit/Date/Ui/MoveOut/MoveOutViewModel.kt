@@ -40,12 +40,12 @@ class MoveOutViewModel(private val id: Long, private val db: AppDatabase) : View
         } catch(e: CancellationException) { throw e }
         catch(e: Exception) { mutable.update { it.copy(review=null,error=e.message) } }
     } }
-    fun recordRefundPaid() {
+    fun recordRefundPaid(paidAt: Long, reference: String?) {
         if(state.value.saving) return
         mutable.update { it.copy(saving=true) }
         viewModelScope.launch {
             try {
-                check(db.moveOutDao().markRefundPaid(id)==1) { "Refund was already recorded or no refund is due." }
+                check(db.moveOutDao().markRefundPaid(id, paidAt, reference?.trim()?.takeIf(String::isNotEmpty))==1) { "Refund was already recorded or no refund is due." }
                 mutable.update { it.copy(saving=false,settlement=db.moveOutDao().get(id)) }
             } catch(e: CancellationException) { throw e }
             catch(e: Exception) { mutable.update { it.copy(saving=false,error=e.message) } }

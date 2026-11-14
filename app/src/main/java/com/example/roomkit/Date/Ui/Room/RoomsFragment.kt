@@ -52,6 +52,7 @@ class RoomsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.root.layoutManager = LinearLayoutManager(requireContext())
         _header = ItemRoomsHeaderBinding.inflate(layoutInflater, binding.root, false)
         initialFilterApplied = savedInstanceState?.getBoolean("initialFilterApplied") ?: initialFilterApplied
         pendingRoomId = savedInstanceState?.getLong("pendingRoomId")?.takeIf { it > 0 } ?: pendingRoomId
@@ -117,7 +118,6 @@ class RoomsFragment : Fragment() {
         )
 
         binding.root.apply {
-            layoutManager = LinearLayoutManager(requireContext())
             adapter = ConcatAdapter(object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 override fun getItemCount() = 1
                 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -222,6 +222,7 @@ class RoomsFragment : Fragment() {
                             header.layoutEmptyRooms.visibility = View.VISIBLE
 
                             when (tab) {
+
                                 RoomTabFilter.OCCUPIED -> {
                                     header.tvEmptyTitle.text = "No occupied rooms"
                                     header.tvEmptySubtitle.text = "Assigned tenants will appear here."

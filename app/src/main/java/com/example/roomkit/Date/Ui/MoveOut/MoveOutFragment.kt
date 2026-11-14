@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -17,6 +19,7 @@ import com.example.roomkit.R
 import com.example.roomkit.databinding.FragmentMoveOutBinding
 import com.example.roomkit.databinding.ItemSummaryRowBinding
 import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.roomkit.data.local.AppDatabase
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -56,15 +59,11 @@ class MoveOutFragment : Fragment() {
                 updateConditionalFields()
             }
         } }
-        b.cbRefundPaid.setOnCheckedChangeListener { _, _ ->
-            if (!rendering) { b.cbAcknowledge.isChecked = false; viewModel.invalidateReview() }
-        }
         b.btnPrimaryAction.setOnClickListener {
             val s = viewModel.state.value
             if (s.loading || s.saving) return@setOnClickListener
             if (s.settlement != null) {
-                if (b.cbAcknowledge.isChecked) viewModel.recordRefundPaid()
-                else showError(getString(R.string.mu_ack_required))
+                if (s.settlement.refundKhr > 0 && !s.settlement.refundPaid) showRefundRecordingDialog(s.settlement.refundKhr)
             } else if (s.review != null) {
                 if (b.cbAcknowledge.isChecked) viewModel.complete()
                 else showError(getString(R.string.mu_ack_required))
@@ -107,7 +106,29 @@ class MoveOutFragment : Fragment() {
         val deductions = parse(b.tilDeductions, true) ?: return
         viewModel.review(MoveOutInput(viewModel.selectedDate, elec, water, rent, fees,
             b.etChargeExplanation.text.toString(), applied, deductions,
-            b.etDeductionReason.text.toString(), b.cbRefundPaid.isChecked))
+            b.etDeductionReason.text.toString()))
+    }
+    private fun showRefundRecordingDialog(amount: Long) {
+        val reference = EditText(requireContext()).apply {
+            hint = getString(R.string.mu_refund_reference_hint)
+            inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+            maxLines = 1
+        }
+        val container = LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(48, 0, 48, 0)
+            addView(reference, LinearLayout.LayoutParams(-1, -2))
+        }
+        val paidAt = System.currentTimeMillis()
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.mu_record_refund)
+            .setMessage(getString(R.string.mu_refund_record_confirmation, money(amount), dates.format(Date(paidAt))))
+            .setView(container)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(R.string.mu_record_refund) { _, _ ->
+                viewModel.recordRefundPaid(paidAt, reference.text?.toString())
+            }
+            .show()
     }
     private fun updateConditionalFields() {
         val b = _binding ?: return
@@ -130,7 +151,7 @@ class MoveOutFragment : Fragment() {
             b.tvElecBilledBaseline.isVisible = !history
             val editable = !history && !s.loading && !s.saving && snap != null
             listOf(b.etFinalElectricity,b.etFinalWater,b.etAdditionalRent,b.etOtherFees,b.etDepositApplied,b.etDeductions,b.etChargeExplanation,b.etDeductionReason,b.etMoveOutDate).forEach { it.isEnabled = editable }
-            b.cbRefundPaid.isEnabled = editable
+            b.layoutRefundPaidContainer.isVisible = false
             b.btnBack.isEnabled = !s.saving
             b.cbAcknowledge.isEnabled = !s.saving
             b.etMoveOutDate.setText(dates.format(Date(saved?.moveOutDate ?: viewModel.selectedDate)))
@@ -165,18 +186,25 @@ class MoveOutFragment : Fragment() {
             if (saved != null) {
                 val finalAmount = snap?.invoices?.firstOrNull { it.invoiceId == saved.finalInvoiceId }?.totalKhr ?: 0
                 renderRows(finalAmount,(saved.debtKhr+saved.appliedKhr-finalAmount).coerceAtLeast(0),saved.appliedKhr,saved.deductionsKhr,saved.refundKhr,saved.debtKhr)
-                b.tvSavedSettlement.text = getString(R.string.mu_saved,dates.format(Date(saved.moveOutDate)),saved.electricityFinal,saved.waterFinal?.toString() ?: "—",if(saved.refundPaid) getString(R.string.mu_paid) else getString(R.string.mu_pending),saved.deductionReason)
+                val refundStatus = when {
+                    saved.refundKhr <= 0 -> getString(R.string.mu_no_refund_due)
+                    saved.refundPaid -> getString(R.string.mu_paid)
+                    else -> getString(R.string.mu_pending_amount, money(saved.refundKhr))
+                }
+                val paidDetails = if (saved.refundPaid) {
+                    val paidDate = saved.refundPaidAt?.let { dates.format(Date(it)) } ?: getString(R.string.mu_date_unavailable)
+                    getString(R.string.mu_refund_paid_details, paidDate, saved.refundReference.orEmpty())
+                } else ""
+                b.tvSavedSettlement.text = listOf(
+                    getString(R.string.mu_saved,dates.format(Date(saved.moveOutDate)),saved.electricityFinal,saved.waterFinal?.toString() ?: "—",refundStatus,listOf(saved.chargeReason,saved.deductionReason).filter(String::isNotBlank).joinToString("\n")),
+                    paidDetails
+                ).filter(String::isNotBlank).joinToString("\n")
             } else if (history) b.tvSavedSettlement.text = getString(R.string.mu_legacy_history)
             b.tvSavedSettlement.isVisible = history
             // Keep checkbox available after a review is invalidated by checking it.
-            val potentialRefund = snap?.tenancy?.deposit?.let { held ->
-                held - (b.etDepositApplied.text.toString().toLongOrNull() ?: 0) - (b.etDeductions.text.toString().toLongOrNull() ?: 0)
-            } ?: 0
-            b.layoutRefundPaidContainer.isVisible = !history && potentialRefund > 0
-            b.cbRefundPaid.text = getString(R.string.mu_refund_checkbox,money(potentialRefund.coerceAtLeast(0)))
             val pendingRefund = saved != null && saved.refundKhr > 0 && !saved.refundPaid
-            b.cbAcknowledge.isVisible = r != null || pendingRefund
-            b.cbAcknowledge.setText(if(history) R.string.mu_refund_ack else R.string.mu_ack)
+            b.cbAcknowledge.isVisible = r != null
+            b.cbAcknowledge.setText(R.string.mu_ack)
             b.btnPrimaryAction.isVisible = !history || pendingRefund
             b.btnPrimaryAction.isEnabled = !s.loading && !s.saving && snap != null && (!history || pendingRefund)
             b.btnPrimaryAction.setText(when {
