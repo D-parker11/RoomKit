@@ -1,0 +1,5 @@
+Post-update AndroidRuntime error check
+Date: 2026-11-14
+Target: RoomKit-Populated-Migration / emulator-5570
+Command: adb -s emulator-5570 logcat -d -t 250 -s AndroidRuntime:E
+Result: no matching error entries in the inspected recent window after the schema-12 update and QA-MIG-01 creation.
