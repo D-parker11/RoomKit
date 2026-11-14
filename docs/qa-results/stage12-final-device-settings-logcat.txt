@@ -1,0 +1,23 @@
+Stage 12 final test-device settings and crash scan
+Date: 2026-11-14 (+07)
+AVD: RoomKit-Test
+Serial: emulator-5554
+Device time: Sat Nov 14 13:16:17 +07 2026
+Time zone: Asia/Phnom_Penh
+Automatic time: enabled
+Automatic time zone: enabled
+Auto-rotate: enabled
+Current rotation: portrait
+Airplane mode: off
+Wi-Fi: enabled
+Mobile data: enabled
+DND: off
+
+Connected emulator identities at final verification:
+- emulator-5554: RoomKit-Test
+- emulator-5556: RoomKit-Restore-Test
+- RoomKit-Migration-Test did not boot or appear as a connected serial.
+
+Recent RoomKit Logcat scan found no FATAL EXCEPTION, ANR in
+com.example.roomkit, or RoomKit exception/error entry. This only describes
+the captured recent buffer interval.

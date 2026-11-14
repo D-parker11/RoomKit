@@ -1,0 +1,21 @@
+Stage 12 older APK build and device-upgrade attempt
+Date: 2026-11-14
+
+Older source revision: 167b552 (AppDatabase schema version 11)
+Checkout: isolated git archive under /private/tmp/roomkit-stage12-schema11
+Task: :app:assembleDebug
+Result: BUILD SUCCESSFUL
+APK SHA-256: 6eb76cf4df34334937500f4b70e7f763a9620924d60b12f7cd76a6ac49ff0aae
+APK location: /private/tmp/roomkit-stage12-schema11/app/build/outputs/apk/debug/app-debug.apk (local-only)
+
+Dedicated AVD: RoomKit-Migration-Test (present in local AVD catalog)
+Attempted serial/port: emulator-5558 / port 5558
+Result: populated in-place device upgrade NOT TESTED; emulator failed before boot.
+The GUI launch reported:
+  Incompatible processor. This Qt build requires the following features: neon
+A headless/offscreen launch also exited without creating a device. Subsequent
+adb devices output listed RoomKit-Test and RoomKit-Restore-Test only. No older
+APK was installed, and no migration-device data was cleared or changed.
+
+Keep separate from the passing isolated populated 10->11->12 automated test
+and the earlier empty schema-11 device upgrade.
