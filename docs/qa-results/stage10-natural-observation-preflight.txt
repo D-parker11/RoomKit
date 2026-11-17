@@ -1,0 +1,16 @@
+      topResumedActivity=ActivityRecord{13485410 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t2}
+Thu Nov 12 20:21:11 +07 2026
+    Restricted due to: none.
+    Ready: false (job=false user=true !restricted=true !pending=true !active=true !backingup=true comp=true)
+  JOB #u0a232/183: e52d0be com.example.roomkit/androidx.work.impl.background.systemjob.SystemJobService
+    u0a232 tag=*job*r/com.example.roomkit/androidx.work.impl.background.systemjob.SystemJobService
+    Source: uid=u0a232 user=0 pkg=com.example.roomkit
+    JobInfo:
+      Service: com.example.roomkit/androidx.work.impl.background.systemjob.SystemJobService
+      Priority: 300 [DEFAULT]
+      Requires: charging=false batteryNotLow=false deviceIdle=false
+      Has media backup exemption=false 
+      Extras: mParcelledData.dataSize=248
+      Minimum latency: +4d12h46m20s682ms
+      Backoff: policy=1 initial=+30s0ms
+      Has early constraint

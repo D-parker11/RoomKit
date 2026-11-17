@@ -300,62 +300,152 @@
                         android:textSize="12sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <!-- Filter Chips Carousel -->
-            <HorizontalScrollView
+            <!-- Search Field Card -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:clipToPadding="false"
-                android:scrollbars="none">
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@color/rpay_surface"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/rpay_border"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:baselineAligned="false"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="14dp">
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipAll"
-                        style="@style/Widget.RoomKit.BillingReferenceChip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:text="@string/rb_all" />
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_search"
+                        app:tint="@color/rpay_ink" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipUnpaid"
-                        style="@style/Widget.RoomKit.BillingReferenceChip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:text="@string/rb_unpaid" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipPaid"
-                        style="@style/Widget.RoomKit.BillingReferenceChip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:text="@string/rb_paid" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipMore"
-                        style="@style/Widget.RoomKit.BillingReferenceChip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:contentDescription="@string/rb_more"
-                        android:text="@string/rb_more"
-                        app:chipIcon="@drawable/rc_rb_down"
-                        app:chipIconVisible="false"
-                        app:closeIcon="@drawable/rc_rb_down"
-                        app:closeIconSize="14dp"
-                        app:closeIconTint="@color/rb_filter_text"
-                        app:closeIconVisible="true" />
+                    <EditText
+                        android:id="@+id/etSearchInvoices"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/search"
+                        android:imeOptions="actionSearch"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textColor="@color/rpay_ink"
+                        android:textColorHint="@color/rpay_muted"
+                        android:textSize="15sp" />
                 </LinearLayout>
-            </HorizontalScrollView>
+            </com.google.android.material.card.MaterialCardView>
+            <!-- Full-width filters -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAll"
+                    style="@style/Widget.RoomKit.BillingReferenceChip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:minHeight="48dp"
+                    android:checkable="true"
+                    android:ellipsize="end"
+                    android:text="@string/rb_all"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:checkedIconVisible="false"
+                    app:chipIconVisible="false"
+                    app:chipMinHeight="40dp"
+                    app:chipStartPadding="4dp"
+                    app:chipEndPadding="4dp"
+                    app:textStartPadding="2dp"
+                    app:textEndPadding="2dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipUnpaid"
+                    style="@style/Widget.RoomKit.BillingReferenceChip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:minHeight="48dp"
+                    android:checkable="true"
+                    android:ellipsize="end"
+                    android:text="@string/rb_unpaid"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:checkedIconVisible="false"
+                    app:chipIconVisible="false"
+                    app:chipMinHeight="40dp"
+                    app:chipStartPadding="4dp"
+                    app:chipEndPadding="4dp"
+                    app:textStartPadding="2dp"
+                    app:textEndPadding="2dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipPaid"
+                    style="@style/Widget.RoomKit.BillingReferenceChip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:minHeight="48dp"
+                    android:checkable="true"
+                    android:ellipsize="end"
+                    android:text="@string/rb_paid"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:checkedIconVisible="false"
+                    app:chipIconVisible="false"
+                    app:chipMinHeight="40dp"
+                    app:chipStartPadding="4dp"
+                    app:chipEndPadding="4dp"
+                    app:textStartPadding="2dp"
+                    app:textEndPadding="2dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipMore"
+                    style="@style/Widget.RoomKit.BillingReferenceChip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minWidth="0dp"
+                    android:minHeight="48dp"
+                    android:checkable="true"
+                    android:contentDescription="@string/rb_more"
+                    android:ellipsize="end"
+                    android:text="@string/rb_more"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:checkedIconVisible="false"
+                    app:chipIconVisible="false"
+                    app:chipMinHeight="40dp"
+                    app:chipStartPadding="4dp"
+                    app:chipEndPadding="4dp"
+                    app:textStartPadding="2dp"
+                    app:textEndPadding="2dp"
+                    app:closeIcon="@drawable/rc_rb_down"
+                    app:closeIconSize="14dp"
+                    app:closeIconStartPadding="2dp"
+                    app:closeIconEndPadding="0dp"
+                    app:closeIconTint="@color/rb_filter_text"
+                    app:closeIconVisible="true" />
+
+            </LinearLayout>
 
             <!-- Section Header: Invoices -->
             <LinearLayout

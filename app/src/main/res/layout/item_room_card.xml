@@ -10,7 +10,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Top Row: ROOM 101 & Status Badge -->
+    <!-- Top Row: ROOM 101 & Occupancy Status Badge -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -40,19 +40,25 @@
                 tools:text="101" />
         </LinearLayout>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvRoomStatusBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/bg_badge_occupied"
-            android:paddingHorizontal="14dp"
-            android:paddingVertical="4dp"
+            android:background="@drawable/bg_rd_badge_green"
+            android:drawablePadding="6dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
             android:text="Occupied"
-            android:textColor="#FFFFFF"
+            android:textColor="#15803D"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_rd_status_dot"
+            app:drawableTint="#15803D" />
     </RelativeLayout>
 
     <!-- Tenant Name (Occupied) OR Available Notice (Vacant) -->
@@ -142,16 +148,22 @@
                 android:textSize="12sp"
                 tools:text="Due Sep 5" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvPaymentStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_badge_unpaid"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="3dp"
-                android:textColor="#D97706"
+                android:background="@drawable/bg_rd_badge_amber"
+                android:drawablePadding="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="9dp"
+                android:paddingVertical="4dp"
+                android:textColor="#B45309"
                 android:textSize="11sp"
                 android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_rd_status_dot"
+                app:drawableTint="#B45309"
                 tools:text="Unpaid" />
         </LinearLayout>
     </RelativeLayout>

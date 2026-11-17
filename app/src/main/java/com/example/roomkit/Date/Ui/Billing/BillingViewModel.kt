@@ -40,6 +40,14 @@ class BillingViewModel(private val repository: BillingRepository) : ViewModel() 
     private val periodFlow = MutableStateFlow(YearMonth.now())
     private val buildingFlow = MutableStateFlow<Long?>(null)
     private val selectionFlow = MutableStateFlow(BillingSelection())
+    private val searchQuery = MutableStateFlow("")
+
+    val currentSearchQuery: String
+        get() = searchQuery.value
+
+    fun onSearchQueryChanged(value: String) {
+        searchQuery.value = value
+    }
     private val dueDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.US)
     private val paymentDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.US)
 
@@ -47,8 +55,9 @@ class BillingViewModel(private val repository: BillingRepository) : ViewModel() 
         combine(repository.observeBillingData(), invoiceStatusClock()) { raw, now -> raw to now },
         periodFlow,
         buildingFlow,
-        selectionFlow
-    ) { timedData, period, buildingId, selection ->
+        selectionFlow,
+        searchQuery
+    ) { timedData, period, buildingId, selection, search->
         val (raw, now) = timedData
         val monthText = period.format(DateTimeFormatter.ofPattern("MMM yyyy", Locale.US))
         val buildings = raw.buildings.associateBy { it.buildingId }
@@ -127,6 +136,37 @@ class BillingViewModel(private val repository: BillingRepository) : ViewModel() 
                 }
             }
         }
+
+        // ADD YOUR SEARCH CODE HERE
+        val searchText = search.trim()
+
+        val visibleInvoices = if (searchText.isEmpty()) {
+            filtered
+        } else {
+            filtered.filter { invoice ->
+                invoice.tenantName.contains(searchText, ignoreCase = true) ||
+                        invoice.roomNumber.contains(searchText, ignoreCase = true) ||
+                        "Room ${invoice.roomNumber}".contains(
+                            searchText,
+                            ignoreCase = true
+                        ) ||
+                        invoice.buildingName.contains(
+                            searchText,
+                            ignoreCase = true
+                        ) ||
+                        invoice.invoiceId.toString().contains(
+                            searchText.removePrefix("#")
+                        )
+            }
+        }
+
+        BillingReferenceState(
+            content = BillingUiState(
+                // Keep your existing fields.
+                invoices = visibleInvoices
+            ),
+            // Keep your existing fields.
+        )
         BillingReferenceState(
             content = BillingUiState(
                 isLoading = false,
@@ -140,7 +180,7 @@ class BillingViewModel(private val repository: BillingRepository) : ViewModel() 
                 partialCount = partialCount,
                 unpaidCount = unpaidCount,
                 overdueCount = overdueCount,
-                invoices = filtered
+                invoices = visibleInvoices
             ),
             outstandingKhr = outstanding,
             voidCount = voidCount,
@@ -153,9 +193,18 @@ class BillingViewModel(private val repository: BillingRepository) : ViewModel() 
     val uiState: StateFlow<BillingUiState> = screenState.map { it.content }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), BillingUiState())
 
+
     fun onPreviousMonthClicked() { periodFlow.value = periodFlow.value.minusMonths(1) }
     fun onNextMonthClicked() { periodFlow.value = periodFlow.value.plusMonths(1) }
     fun onFilterSelected(filter: BillingFilter) { selectionFlow.value = BillingSelection(payment = filter) }
     fun onDocumentFilterSelected(filter: BillingDocumentFilter) { selectionFlow.value = BillingSelection(document = filter) }
+
     fun onBuildingSelected(buildingId: Long?) { buildingFlow.value = buildingId }
+    val currentPeriod: YearMonth
+        get() = periodFlow.value
+
+    fun onMonthChanged(month: Int, year: Int) {
+        if (month !in 1..12 || year !in 1900..9999) return
+        periodFlow.value = YearMonth.of(year, month)
+    }
 }

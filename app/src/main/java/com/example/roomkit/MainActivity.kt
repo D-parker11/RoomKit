@@ -3,28 +3,36 @@ package com.example.roomkit
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.example.roomkit.Date.Reminders.InvoiceReminderNotifications
 import com.example.roomkit.Date.Reminders.InvoiceReminderScheduler
+import com.example.roomkit.Date.Ui.Reminders.RemindersViewModel
 import com.example.roomkit.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private val remindersViewModel: RemindersViewModel by viewModels()
 
     private var pendingReminderInvoiceId: Long? = null
     private var pendingNavigationTab: Int? = null
@@ -47,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         setupWindowInsets()
         setupNavigation()
+        observeReminderBadge()
 
         if (savedInstanceState == null &&
             intent?.action == Intent.ACTION_MAIN
@@ -81,6 +90,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun observeReminderBadge() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                remindersViewModel.uiState.collect { state ->
+                    if (state.loading) return@collect
+                    val urgentCount = state.overdueCount + state.todayCount
+                    if (urgentCount > 0) {
+                        binding.bottomNav.getOrCreateBadge(R.id.moreFragment).apply {
+                            isVisible = true
+                            number = urgentCount
+                            backgroundColor = ContextCompat.getColor(this@MainActivity, R.color.rr_red)
+                            badgeTextColor = Color.WHITE
+                        }
+                    } else {
+                        binding.bottomNav.removeBadge(R.id.moreFragment)
+                    }
+                }
+            }
+        }
+    }
+
     private fun setupWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { view, insets ->
             val systemBars = insets.getInsets(
@@ -106,8 +136,7 @@ class MainActivity : AppCompatActivity() {
 
         // Selection is managed by the screen's originating tab.
         // Do not also call setupWithNavController().
-        navController.addOnDestinationChangedListener {
-                controller, destination, _ ->
+        navController.addOnDestinationChangedListener { controller, destination, _ ->
 
             binding.bottomNav.visibility =
                 if (destination.id == R.id.moveOutFragment) {
@@ -134,7 +163,6 @@ class MainActivity : AppCompatActivity() {
             entry.savedStateHandle[KEY_ORIGIN_TAB] = originTab
             highlightTab(originTab)
 
-// Add the diagnostic code here.
             Log.d(
                 "RoomKitNav",
                 "destinationId=${destination.id}, " +
@@ -156,7 +184,7 @@ class MainActivity : AppCompatActivity() {
 
                 Log.d("RoomKitNav", "checkedAfterNavigation=$checkedItems")
             }
-        } // End of addOnDestinationChangedListener
+        }
 
         binding.bottomNav.setOnItemSelectedListener { item ->
             openBottomTab(item.itemId)
@@ -173,8 +201,6 @@ class MainActivity : AppCompatActivity() {
         val currentEntry = navController.currentBackStackEntry
 
         if (currentEntry?.destination?.id == tabId) {
-            // A screen opened from Dashboard can become the selected
-            // tab's root when the user explicitly taps that tab.
             currentEntry.savedStateHandle[KEY_ORIGIN_TAB] = tabId
             highlightTab(tabId)
             return true
@@ -192,7 +218,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun highlightTab(tabId: Int) {
-        // Checking a menu item updates its appearance without navigating.
         binding.bottomNav.menu.findItem(tabId)?.isChecked = true
     }
 
@@ -252,8 +277,6 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         consumeReminderIntent(intent)
-
-        // Open the invoice in onPostResume(), after saved state is cleared.
     }
 
     private fun consumeReminderIntent(intent: Intent?) {
@@ -270,7 +293,6 @@ class MainActivity : AppCompatActivity() {
             pendingReminderInvoiceId = invoiceId
         }
 
-        // Consume once so rotation does not reopen the same notification.
         intent.removeExtra(InvoiceReminderNotifications.EXTRA_INVOICE_ID)
         intent.action = null
         intent.data = null
@@ -280,6 +302,7 @@ class MainActivity : AppCompatActivity() {
         super.onPostResume()
 
         reconcileReminders()
+        remindersViewModel.refresh()
         openPendingReminderInvoice()
     }
 

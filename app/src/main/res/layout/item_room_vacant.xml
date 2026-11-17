@@ -16,7 +16,7 @@
         android:orientation="vertical"
         android:padding="@dimen/roomkit_card_padding">
 
-        <!-- Top Header: Room Number, Chevron, and Vacant Badge -->
+        <!-- Top Header: Room Number, Vacant Badge, and Chevron -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,16 +32,23 @@
                 android:textSize="18sp"
                 tools:text="ROOM 02" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 style="@style/TextAppearance.RoomKit.Status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_badge_paid_pill"
-                android:backgroundTint="#F2F4F7"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
+                android:background="@drawable/bg_rd_badge_neutral"
+                android:drawablePadding="6dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
                 android:text="Vacant"
-                android:textColor="@color/roomkit_text_secondary" />
+                android:textColor="#64748B"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_rd_status_dot"
+                app:drawableTint="#64748B" />
 
             <ImageView
                 android:layout_width="18dp"

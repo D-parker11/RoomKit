@@ -1,15 +1,25 @@
+@file:Suppress("PackageNaming")
+
 package com.example.roomkit.Date.Ui.Building
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.room.withTransaction
 import com.example.roomkit.Date.Local.Entity.BuildingEntity
+import com.example.roomkit.R
 import com.example.roomkit.databinding.BottomSheetAddBuildingBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.roomkit.data.local.AppDatabase
 import com.roomkit.data.repository.BuildingRepository
@@ -21,7 +31,7 @@ class AddBuildingBottomSheetDialogFragment :
     BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetAddBuildingBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = requireNotNull(_binding)
 
     private val buildingId: Long
         get() = arguments?.getLong(ARG_BUILDING_ID) ?: 0L
@@ -43,6 +53,7 @@ class AddBuildingBottomSheetDialogFragment :
         "Porsenchey"
     )
 
+    // Required: inflate the form and initialize ViewBinding.
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,40 +73,125 @@ class AddBuildingBottomSheetDialogFragment :
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupHeader()
         setupDistrictDropdown()
+        setupListeners()
+        setupInsets(view)
 
-        binding.tvBuildingTitle.text =
-            if (isEditing) "Edit Building" else "Add Building"
+        // Phone storage is not implemented in the existing save logic.
+        binding.tilContactPhone.visibility = View.GONE
 
-        binding.btnCreateBuilding.text =
-            if (isEditing) "Save Changes" else "Create Building"
+        if (isEditing) {
+            loadBuilding(populateFields = savedInstanceState == null)
+        } else {
+            setSaveEnabled(true)
+        }
+    }
 
+    override fun onStart() {
+        super.onStart()
+
+        val sheetDialog = dialog as? BottomSheetDialog ?: return
+
+        sheetDialog.window?.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+        )
+
+        val sheet = sheetDialog.findViewById<View>(
+            com.google.android.material.R.id.design_bottom_sheet
+        ) ?: return
+
+        sheet.post {
+            val currentBinding = _binding ?: return@post
+            val container = sheet.parent as? View ?: return@post
+            val topGap = (24 * resources.displayMetrics.density).toInt()
+            val availableHeight = container.height
+
+            if (availableHeight <= topGap) return@post
+
+            sheet.layoutParams = sheet.layoutParams.apply {
+                height = availableHeight - topGap
+            }
+
+            currentBinding.root.layoutParams =
+                currentBinding.root.layoutParams.apply {
+                    height = ViewGroup.LayoutParams.MATCH_PARENT
+                }
+
+            sheet.background = ColorDrawable(Color.TRANSPARENT)
+
+            sheetDialog.behavior.apply {
+                isFitToContents = true
+                skipCollapsed = true
+                state = BottomSheetBehavior.STATE_EXPANDED
+            }
+
+            sheet.requestLayout()
+            ViewCompat.requestApplyInsets(currentBinding.root)
+        }
+    }
+
+    private fun setupHeader() {
+        binding.tvBuildingTitle.setText(
+            if (isEditing) {
+                R.string.rk_property_edit
+            } else {
+                R.string.rk_property_setup
+            }
+        )
+
+        updateSaveButtonText()
+    }
+
+    private fun setupDistrictDropdown() {
+        binding.actvDistrict.setAdapter(
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                districts
+            )
+        )
+
+        // Android restores the previous selection after view creation.
+        binding.actvDistrict.setText(districts.first(), false)
+    }
+
+    private fun setupListeners() {
         binding.btnCloseAddBuilding.setOnClickListener {
             if (!isSaving) dismiss()
-        }
-
-        binding.btnHeaderSave.setOnClickListener {
-            validateAndSave()
         }
 
         binding.btnCreateBuilding.setOnClickListener {
             validateAndSave()
         }
-
-        if (isEditing) {
-            loadBuilding(savedInstanceState == null)
-        }
     }
 
-    private fun setupDistrictDropdown() {
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            districts
-        )
+    private fun setupInsets(view: View) {
+        val initialLeft = view.paddingLeft
+        val initialTop = view.paddingTop
+        val initialRight = view.paddingRight
+        val initialBottom = view.paddingBottom
 
-        binding.actvDistrict.setAdapter(adapter)
-        binding.actvDistrict.setText(districts.first(), false)
+        ViewCompat.setOnApplyWindowInsetsListener(view) { target, insets ->
+            val navigation = insets.getInsets(
+                WindowInsetsCompat.Type.navigationBars()
+            )
+            val keyboard = insets.getInsets(
+                WindowInsetsCompat.Type.ime()
+            )
+
+            target.setPadding(
+                initialLeft + navigation.left,
+                initialTop,
+                initialRight + navigation.right,
+                initialBottom + maxOf(
+                    navigation.bottom,
+                    keyboard.bottom
+                )
+            )
+
+            insets
+        }
     }
 
     private fun loadBuilding(populateFields: Boolean) {
@@ -112,54 +208,64 @@ class AddBuildingBottomSheetDialogFragment :
                 loadedBuilding = building
 
                 if (populateFields) {
-                    binding.etBuildingName.setText(building.name)
-
-                    // The existing app stores:
-                    // "street, district, city" in one address column.
-                    val addressParts = building.address
-                        .orEmpty()
-                        .split(",")
-                        .map { it.trim() }
-
-                    if (addressParts.size >= 3) {
-                        binding.etStreetAddress.setText(
-                            addressParts.dropLast(2).joinToString(", ")
-                        )
-                        binding.actvDistrict.setText(
-                            addressParts[addressParts.lastIndex - 1],
-                            false
-                        )
-                        binding.etCity.setText(addressParts.last())
-                    } else {
-                        binding.etStreetAddress.setText(building.address)
-                    }
-
-                    val floors = Regex(
-                        """Floors:\s*(\d+)""",
-                        RegexOption.IGNORE_CASE
-                    ).find(building.description.orEmpty())
-                        ?.groupValues
-                        ?.getOrNull(1)
-
-                    binding.etFloors.setText(floors.orEmpty())
-
-                    // Capacity comes from the real database column.
-                    binding.etTotalRooms.setText(
-                        building.totalRooms
-                            .takeIf { it > 0 }
-                            ?.toString()
-                            .orEmpty()
-                    )
+                    populateBuildingFields(building)
                 }
 
                 setSaveEnabled(true)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                showMessage(e.message ?: "Unable to load building.")
+            } catch (exception: CancellationException) {
+                throw exception
+            } catch (exception: Exception) {
+                showMessage(
+                    exception.message ?: "Unable to load building."
+                )
                 dismiss()
             }
         }
+    }
+
+    private fun populateBuildingFields(building: BuildingEntity) {
+        binding.etBuildingName.setText(building.name)
+
+        // Preserve the existing "street, district, city" storage format.
+        val addressParts = building.address
+            .orEmpty()
+            .split(",")
+            .map { it.trim() }
+
+        if (addressParts.size >= 3) {
+            binding.etStreetAddress.setText(
+                addressParts.dropLast(2).joinToString(", ")
+            )
+            binding.actvDistrict.setText(
+                addressParts[addressParts.lastIndex - 1],
+                false
+            )
+            binding.etCity.setText(addressParts.last())
+        } else {
+            binding.etStreetAddress.setText(building.address)
+        }
+
+        val floors = FLOORS_PATTERN
+            .find(building.description.orEmpty())
+            ?.groupValues
+            ?.getOrNull(1)
+
+        binding.etFloors.setText(floors.orEmpty())
+
+        binding.etTotalRooms.setText(
+            building.totalRooms
+                .takeIf { it > 0 }
+                ?.toString()
+                .orEmpty()
+        )
+    }
+
+    private fun clearErrors() {
+        binding.tilBuildingName.error = null
+        binding.tilStreetAddress.error = null
+        binding.tilDistrict.error = null
+        binding.tilFloors.error = null
+        binding.tilTotalRooms.error = null
     }
 
     private fun validateAndSave() {
@@ -177,7 +283,9 @@ class AddBuildingBottomSheetDialogFragment :
 
         val city = binding.etCity.text
             ?.toString()?.trim().orEmpty()
-            .ifBlank { "Phnom Penh" }
+            .ifBlank {
+                getString(R.string.rk_property_default_city)
+            }
 
         val floorsInput = binding.etFloors.text
             ?.toString()?.trim().orEmpty()
@@ -191,16 +299,12 @@ class AddBuildingBottomSheetDialogFragment :
         val totalRooms = binding.etTotalRooms.text
             ?.toString()?.trim()?.toIntOrNull()
 
-        binding.tilBuildingName.error = null
-        binding.tilStreetAddress.error = null
-        binding.tilDistrict.error = null
-        binding.tilFloors.error = null
-        binding.tilTotalRooms.error = null
+        clearErrors()
 
         when {
             name.isBlank() -> {
                 binding.tilBuildingName.error =
-                    "Building name is required."
+                    "Property name is required."
                 binding.etBuildingName.requestFocus()
                 return
             }
@@ -233,7 +337,20 @@ class AddBuildingBottomSheetDialogFragment :
             }
         }
 
-        val fullAddress = "$street, $district, $city"
+        saveBuilding(
+            name = name,
+            address = "$street, $district, $city",
+            floors = floors,
+            totalRooms = totalRooms
+        )
+    }
+
+    private fun saveBuilding(
+        name: String,
+        address: String,
+        floors: Int,
+        totalRooms: Int
+    ) {
         val db = AppDatabase.getInstance(requireContext())
         val repository = BuildingRepository(db.buildingDao())
 
@@ -256,22 +373,19 @@ class AddBuildingBottomSheetDialogFragment :
                             .getRoomCountForBuilding(buildingId)
 
                         require(totalRooms >= roomCount) {
-                            "This building already has $roomCount rooms. " +
+                            "This property already has $roomCount rooms. " +
                                     "Capacity must be at least $roomCount."
                         }
-
-                        // Preserve other description text.
-                        val description = updateDescription(
-                            current.description,
-                            floors,
-                            totalRooms
-                        )
 
                         repository.updateBuilding(
                             current.copy(
                                 name = name,
-                                address = fullAddress,
-                                description = description,
+                                address = address,
+                                description = updateDescription(
+                                    existing = current.description,
+                                    floors = floors,
+                                    totalRooms = totalRooms
+                                ),
                                 totalRooms = totalRooms
                             )
                         )
@@ -279,7 +393,7 @@ class AddBuildingBottomSheetDialogFragment :
                         repository.insertBuilding(
                             BuildingEntity(
                                 name = name,
-                                address = fullAddress,
+                                address = address,
                                 description =
                                     "Floors: $floors | Total Rooms: $totalRooms",
                                 totalRooms = totalRooms
@@ -290,23 +404,27 @@ class AddBuildingBottomSheetDialogFragment :
 
                 showMessage(
                     if (isEditing) {
-                        "Building updated successfully."
+                        "Property updated successfully."
                     } else {
                         "$name added successfully."
                     }
                 )
 
                 dismiss()
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                showMessage(e.message ?: "Unable to save building.")
+            } catch (exception: CancellationException) {
+                throw exception
+            } catch (exception: Exception) {
+                showMessage(
+                    exception.message ?: "Unable to save property."
+                )
             } finally {
                 isSaving = false
                 isCancelable = true
 
                 if (_binding != null) {
-                    setSaveEnabled(!isEditing || loadedBuilding != null)
+                    setSaveEnabled(
+                        !isEditing || loadedBuilding != null
+                    )
                 }
             }
         }
@@ -317,50 +435,82 @@ class AddBuildingBottomSheetDialogFragment :
         floors: Int,
         totalRooms: Int
     ): String {
-        val floorsPattern = Regex(
-            """Floors:\s*\d+""",
-            RegexOption.IGNORE_CASE
-        )
-        val roomsPattern = Regex(
-            """Total Rooms:\s*\d+""",
-            RegexOption.IGNORE_CASE
-        )
+        var description = existing.orEmpty()
 
-        var text = existing.orEmpty()
-
-        text = if (floorsPattern.containsMatchIn(text)) {
-            floorsPattern.replace(text, "Floors: $floors")
+        description = if (
+            FLOORS_PATTERN.containsMatchIn(description)
+        ) {
+            FLOORS_PATTERN.replace(
+                description,
+                "Floors: $floors"
+            )
         } else {
-            listOf(text, "Floors: $floors")
+            listOf(description, "Floors: $floors")
                 .filter { it.isNotBlank() }
                 .joinToString(" | ")
         }
 
-        return if (roomsPattern.containsMatchIn(text)) {
-            roomsPattern.replace(text, "Total Rooms: $totalRooms")
+        return if (
+            ROOMS_PATTERN.containsMatchIn(description)
+        ) {
+            ROOMS_PATTERN.replace(
+                description,
+                "Total Rooms: $totalRooms"
+            )
         } else {
-            "$text | Total Rooms: $totalRooms"
+            "$description | Total Rooms: $totalRooms"
         }
     }
 
     private fun setSaveEnabled(enabled: Boolean) {
-        binding.btnHeaderSave.isEnabled = enabled
         binding.btnCreateBuilding.isEnabled = enabled
+        binding.btnCloseAddBuilding.isEnabled = !isSaving
+        updateSaveButtonText()
+    }
+
+    private fun updateSaveButtonText() {
+        binding.btnCreateBuilding.setText(
+            when {
+                isSaving -> R.string.rk_property_saving
+                isEditing -> R.string.rk_property_save
+                else -> R.string.rk_property_create
+            }
+        )
     }
 
     private fun showMessage(message: String) {
-        val context = context ?: return
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        val currentContext = context ?: return
+
+        Toast.makeText(
+            currentContext,
+            message,
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     override fun onDestroyView() {
+        _binding?.root?.let {
+            ViewCompat.setOnApplyWindowInsetsListener(it, null)
+        }
+
         _binding = null
         super.onDestroyView()
     }
 
     companion object {
         const val TAG = "AddBuildingBottomSheet"
+
         private const val ARG_BUILDING_ID = "buildingId"
+
+        private val FLOORS_PATTERN = Regex(
+            """Floors:\s*(\d+)""",
+            RegexOption.IGNORE_CASE
+        )
+
+        private val ROOMS_PATTERN = Regex(
+            """Total Rooms:\s*\d+""",
+            RegexOption.IGNORE_CASE
+        )
 
         fun newInstance(
             buildingId: Long = 0L

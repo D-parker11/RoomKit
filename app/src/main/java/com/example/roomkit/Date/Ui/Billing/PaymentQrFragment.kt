@@ -1,14 +1,13 @@
+@file:Suppress("PackageNaming")
+
 package com.example.roomkit.Date.Ui.Billing
 
 import android.content.ClipData
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -16,170 +15,195 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.roomkit.Date.Billing.CurrencyFormatter
+import com.example.roomkit.Date.Billing.PaymentQrImageGenerator
 import com.example.roomkit.Date.Ui.Factory.ViewModelFactory
 import com.example.roomkit.R
 import com.example.roomkit.databinding.FragmentPaymentQrBinding
+import java.util.Locale
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class PaymentQrFragment : Fragment() {
+class PaymentQrFragment : Fragment(R.layout.fragment_payment_qr) {
 
-    private var _binding: FragmentPaymentQrBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentPaymentQrBinding? = null
+    private var exporting = false
 
-    private val invoiceId: Long by lazy { arguments?.getLong("invoiceId") ?: 0L }
-    private val viewModel: PaymentQrViewModel by viewModels {
-        ViewModelFactory(requireContext(), targetId = invoiceId)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentPaymentQrBinding.inflate(inflater, container, false)
-        return binding.root
+    private val vm: PaymentQrViewModel by viewModels {
+        ViewModelFactory(
+            requireContext(),
+            targetId = arguments?.getLong("invoiceId") ?: 0L
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnBackPaymentQr.setOnClickListener { findNavController().popBackStack() }
+        val b = FragmentPaymentQrBinding.bind(view)
+        binding = b
 
-        // 1. DIRECTLY LOAD AND DISPLAY YOUR BANK QR CODE
-        val bankQrBitmap: Bitmap? = try {
-            BitmapFactory.decodeResource(resources, R.drawable.ic_qr_code)
-        } catch (e: Exception) {
-            null
+        b.btnBackPaymentQr.setOnClickListener {
+            findNavController().popBackStack()
         }
 
-        if (bankQrBitmap != null) {
-            binding.ivQrCode.setImageBitmap(bankQrBitmap)
-            binding.ivQrCode.visibility = View.VISIBLE
-            binding.progressQr.visibility = View.GONE
-            // Send to viewModel so Share and Save Image include it
-            viewModel.setCustomBankQrBitmap(bankQrBitmap)
-        } else {
-            // Fallback: Use whatever drawable is set in XML
-            binding.ivQrCode.setImageResource(R.drawable.ic_qr_code)
-            binding.ivQrCode.visibility = View.VISIBLE
-            binding.progressQr.visibility = View.GONE
-        }
-
-        // 2. SHARE BUTTON
-        binding.btnShareQr.setOnClickListener {
-            val s = viewModel.uiState.value
-            if (!s.isPayable) {
-                Toast.makeText(requireContext(), "Payment QR is disabled for this invoice.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            // Ensure the ViewModel has the bitmap from the displayed ImageView
-            val drawable = binding.ivQrCode.drawable
-            if (viewModel.uiState.value.qrBitmap == null && drawable is android.graphics.drawable.BitmapDrawable) {
-                viewModel.setCustomBankQrBitmap(drawable.bitmap)
-            }
-
-            val shareUri = viewModel.prepareShareImageUri(requireContext())
-            if (shareUri != null) {
-                val message = """
-            RoomKit Payment
-            
-            Tenant: ${s.tenantName}
-            Room: ${s.roomNumber}
-            Invoice: ${s.invoiceNumberFormatted}
-            Period: ${s.billingPeriodFormatted}
-            
-            Amount Due: ${CurrencyFormatter.formatKhr(s.remainingBalanceKhr)}
-            
-            Please scan the attached KHQR with any Cambodian banking app to pay.
-        """.trimIndent()
-
-                val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                    type = "image/png"
-                    putExtra(Intent.EXTRA_STREAM, shareUri)
-                    putExtra(Intent.EXTRA_TEXT, message)
-                    clipData = ClipData.newRawUri("KHQR Payment", shareUri)
-                    // Critical: Grant read permission on the intent
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                }
-
-                val chooser = Intent.createChooser(shareIntent, "Share Payment QR via").apply {
-                    // Critical: Also pass read permission to the system chooser activity
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                }
-
-                // Grant explicit read URI permission to all potential matching receiver apps
-                val resInfoList = requireContext().packageManager.queryIntentActivities(
-                    chooser,
-                    android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
-                )
-                for (resolveInfo in resInfoList) {
-                    val packageName = resolveInfo.activityInfo.packageName
-                    requireContext().grantUriPermission(
-                        packageName,
-                        shareUri,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    )
-                }
-
-                startActivity(chooser)
-            } else {
-                Toast.makeText(requireContext(), "Unable to prepare share image.", Toast.LENGTH_SHORT).show()
+        b.btnSetup.setOnClickListener {
+            val nav = findNavController()
+            if (!parentFragmentManager.isStateSaved &&
+                nav.currentDestination?.id == R.id.paymentQrFragment
+            ) {
+                nav.navigate(R.id.paymentSetupFragment)
             }
         }
 
-        // 3. SAVE BUTTON
-        binding.btnSaveImage.setOnClickListener {
-            val s = viewModel.uiState.value
-            if (!s.isPayable) {
-                Toast.makeText(requireContext(), "Payment QR is disabled for this invoice.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+        b.btnShareQr.setOnClickListener { export(share = true) }
+        b.btnSaveImage.setOnClickListener { export(share = false) }
 
-            binding.btnSaveImage.isEnabled = false
-            viewModel.saveImageToGallery(requireContext()) { res ->
-                binding.btnSaveImage.isEnabled = true
-                res.onSuccess {
-                    Toast.makeText(requireContext(), "Payment QR saved to Pictures/RoomKit", Toast.LENGTH_LONG).show()
-                }.onFailure { err ->
-                    Toast.makeText(requireContext(), "Unable to save image: ${err.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        // 4. OBSERVE INVOICE STATE
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
-                    renderUi(state)
-                }
+                vm.uiState.collect { render(it) }
             }
         }
     }
 
-    private fun renderUi(s: PaymentQrUiState) {
-        if (s.errorMessage != null && !s.isPayable) {
-            Toast.makeText(requireContext(), s.errorMessage, Toast.LENGTH_LONG).show()
+    private fun render(s: PaymentQrUiState) {
+        val b = binding ?: return
+
+        val ready = !s.isLoading &&
+                s.isPayable &&
+                s.qrBitmap != null
+
+        val hasInvoice = !s.isLoading && s.invoiceId > 0L
+
+        val needsSetup = hasInvoice &&
+                !s.isConfigured &&
+                s.remainingBalanceKhr > 0L &&
+                s.status.trim().uppercase(Locale.ROOT) in setOf(
+            "ISSUED",
+            "UNPAID",
+            "PARTIAL",
+            "PARTIALLY_PAID",
+            "PAID",
+            "OVERDUE"
+        )
+
+        b.progressQr.isVisible = s.isLoading
+
+        // Hide empty invoice fields while loading or when unavailable.
+        b.invoiceCard.isVisible = hasInvoice
+        b.paymentCard.isVisible = !s.isLoading
+
+        b.tvRoomTenantPill.text = "Room ${s.roomNumber} · ${s.tenantName}"
+        b.tvBillingPeriod.text = "${s.billingPeriodFormatted} · ${s.invoiceNumberFormatted}"
+        b.tvAmountDue.text = CurrencyFormatter.formatKhr(s.remainingBalanceKhr)
+
+        b.btnSetup.isVisible = needsSetup
+
+        b.ivQrCode.setImageBitmap(if (ready) s.qrBitmap else null)
+        b.ivQrCode.isVisible = ready
+
+        // Show only the recipient's display name (hide technical routing IDs).
+        b.tvReceiver.isVisible = ready && s.receiverName.isNotBlank()
+        b.tvReceiver.text = s.receiverName
+
+        b.tvStateTitle.text = when {
+            ready -> "Scan to pay"
+            needsSetup -> "Add your payment QR first"
+            hasInvoice && s.remainingBalanceKhr == 0L -> "No payment due"
+            else -> "Payment QR unavailable"
         }
 
-        // Keep QR visible; hide the progress spinner once invoice data finishes loading
-        binding.progressQr.visibility = if (s.isLoading) View.VISIBLE else View.GONE
+        b.tvPaymentNotice.isVisible = true
+        b.tvPaymentNotice.text = when {
+            ready ->
+                "Enter ${CurrencyFormatter.formatKhr(s.remainingBalanceKhr)} " +
+                        "in your banking app. Check the receiver before paying."
 
-        binding.tvRoomTenantPill.text = "Room ${s.roomNumber} • ${s.tenantName}"
-        binding.tvBillingPeriod.text = s.billingPeriodFormatted
-        binding.tvAmountDue.text = CurrencyFormatter.formatKhr(s.remainingBalanceKhr)
-        binding.tvPaymentNotice.text = "PAYMENT AMOUNT IS EXACT — ${CurrencyFormatter.formatKhr(s.remainingBalanceKhr)}"
+            needsSetup ->
+                "Import your receiving KHQR image to display it here for this invoice."
 
-        // Buttons state
-        binding.btnShareQr.isEnabled = s.isPayable
-        binding.btnSaveImage.isEnabled = s.isPayable
-        val alpha = if (s.isPayable) 1.0f else 0.5f
-        binding.btnShareQr.alpha = alpha
-        binding.btnSaveImage.alpha = alpha
+            else ->
+                s.errorMessage
+                    ?: "Unable to load payment details. Go back and reopen this invoice."
+        }
+
+        b.shareActions.isVisible = ready
+        b.btnShareQr.isEnabled = ready && !exporting
+        b.btnSaveImage.isEnabled = ready && !exporting
+        b.btnShareQr.text = if (exporting) "Preparing…" else "Share payment QR"
+
+        b.manualNotice.isVisible = ready
+    }
+
+    private fun export(share: Boolean) {
+        val s = vm.uiState.value
+        val qr = s.qrBitmap ?: return
+        if (exporting || !s.isPayable) return
+
+        exporting = true
+        render(s)
+
+        val app = requireContext().applicationContext
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val uri = withContext(Dispatchers.IO) {
+                    val card = PaymentQrImageGenerator.createPaymentCardBitmap(
+                        qr,
+                        s.roomNumber,
+                        s.tenantName,
+                        s.billingPeriodFormatted,
+                        s.invoiceNumberFormatted,
+                        s.remainingBalanceKhr,
+                        s.receiverName,
+                        "" // Keep technical routing ID out of exported card image
+                    )
+                    try {
+                        val name = "RoomKit_QR_${s.invoiceId}_${System.currentTimeMillis()}"
+                        if (share) {
+                            PaymentQrImageGenerator.saveToCacheForSharing(app, card, name)
+                        } else {
+                            PaymentQrImageGenerator.saveToPicturesGallery(app, card, name)
+                        }
+                    } finally {
+                        card.recycle()
+                    }
+                }
+
+                // Do not share a card after the observed account/balance changed.
+                if (vm.uiState.value != s) {
+                    Toast.makeText(
+                        app,
+                        "Payment details changed. Please create a new payment card.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else if (share && lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "image/png"
+                        putExtra(Intent.EXTRA_STREAM, uri)
+                        putExtra(
+                            Intent.EXTRA_TEXT,
+                            "${s.invoiceNumberFormatted} · Enter ${CurrencyFormatter.formatKhr(s.remainingBalanceKhr)}. Receiver: ${s.receiverName}"
+                        )
+                        clipData = ClipData.newRawUri("Payment QR", uri)
+                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    }
+                    startActivity(Intent.createChooser(intent, "Share payment QR"))
+                } else if (!share) {
+                    Toast.makeText(app, "Saved to Pictures/RoomKit", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Toast.makeText(app, e.message ?: "Unable to export QR.", Toast.LENGTH_LONG).show()
+            } finally {
+                exporting = false
+                render(vm.uiState.value)
+            }
+        }
     }
 
     override fun onDestroyView() {
+        binding = null
         super.onDestroyView()
-        _binding = null
     }
 }

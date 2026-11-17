@@ -1,0 +1,46 @@
+--------- beginning of crash
+11-11 09:34:06.335  1025  1217 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 1217 (gd_stack_thread), pid 1025 (droid.bluetooth)
+11-11 09:34:06.518 11375 11375 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+11-11 09:34:06.518 11375 11375 F DEBUG   : Build fingerprint: 'google/sdk_gphone64_arm64/emu64a:17/CE2A.260420.051.A2/16418371:user/release-keys'
+11-11 09:34:06.518 11375 11375 F DEBUG   : Kernel Release: '6.12.81-android16-6-g4f69fc7b210c-ab16167562-4k'
+11-11 09:34:06.518 11375 11375 F DEBUG   : Revision: '0'
+11-11 09:34:06.518 11375 11375 F DEBUG   : ABI: 'arm64'
+11-11 09:34:06.518 11375 11375 F DEBUG   : Timestamp: 2026-11-11 09:34:06.390272782+0700
+11-11 09:34:06.518 11375 11375 F DEBUG   : Process uptime: 0s
+11-11 09:34:06.518 11375 11375 F DEBUG   : Executable: /system/bin/app_process64
+11-11 09:34:06.518 11375 11375 F DEBUG   : Cmdline: com.google.android.bluetooth
+11-11 09:34:06.518 11375 11375 F DEBUG   : pid: 1025, ppid: 430, tid: 1217, name: gd_stack_thread  >>> com.google.android.bluetooth <<<
+11-11 09:34:06.518 11375 11375 F DEBUG   : uid: 1002
+11-11 09:34:06.518 11375 11375 F DEBUG   : tagged_addr_ctrl: 0000000000000001 (PR_TAGGED_ADDR_ENABLE)
+11-11 09:34:06.518 11375 11375 F DEBUG   : pac_enabled_keys: 000000000000000f (PR_PAC_APIAKEY, PR_PAC_APIBKEY, PR_PAC_APDAKEY, PR_PAC_APDBKEY)
+11-11 09:34:06.518 11375 11375 F DEBUG   : esr: 0000000092000006 (Data Abort Exception 0x24)
+11-11 09:34:06.518 11375 11375 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+11-11 09:34:06.518 11375 11375 F DEBUG   : Abort message: 'system/gd/hci/hci_layer.cc:565 on_hardware_error: Hardware Error Event with code 0x42'
+11-11 09:34:06.518 11375 11375 F DEBUG   :     x0  0000000000000000  x1  00000000000004c1  x2  0000000000000006  x3  00000071e43f6e40
+11-11 09:34:06.518 11375 11375 F DEBUG   :     x4  6e1f343534396262  x5  6e1f343534396262  x6  6e1f343534396262  x7  7f7f7f7f7f7f7f7f
+11-11 09:34:06.518 11375 11375 F DEBUG   :     x8  00000000000000f0  x9  5340ad62bb35cdcd  x10 000000ff00000020  x11 0000000000058006
+11-11 09:34:06.518 11375 11375 F DEBUG   :     x12 000000007fffffff  x13 00000000001aea3a  x14 0000001f2c81da15  x15 0000000029aaaaab
+11-11 09:34:06.518 11375 11375 F DEBUG   :     x16 0000007524bd53e0  x17 0000007524bbc4c0  x18 00000071e3c70048  x19 0000000000000401
+11-11 09:34:06.518 11375 11375 F DEBUG   :     x20 00000000000004c1  x21 00000000ffffffff  x22 000000728f20e000  x23 00000071e43f7488
+11-11 09:34:06.518 11375 11375 F DEBUG   :     x24 00000071e43f74a0  x25 00000071e43f6fa8  x26 00000071e43f8300  x27 00000071e99707e1
+11-11 09:34:06.518 11375 11375 F DEBUG   :     x28 00000071ea6ba930  x29 00000071e43f6ec0
+11-11 09:34:06.518 11375 11375 F DEBUG   :     lr  0000007524b5991c  sp  00000071e43f6e40  pc  0000007524b59940  pst 0000000000001000
+11-11 09:34:06.518 11375 11375 F DEBUG   :     esr 0000000092000006  vg  0000000000000000
+11-11 09:34:06.518 11375 11375 F DEBUG   : 14 total frames
+11-11 09:34:06.518 11375 11375 F DEBUG   : backtrace:
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #00 pc 000000000007b940  /apex/com.android.runtime/lib64/bionic/libc.so (abort+160) (BuildId: 2b45d17e0b10945475de75d36ca06c40)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #01 pc 000000000060aadc  /apex/com.android.art/lib64/libart.so (art::Runtime::Abort(char const*)+628) (BuildId: e65c6c7e332651ccb61659e8a99bbbd5)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #02 pc 000000000001644c  /apex/com.android.art/lib64/libbase.so (android::base::SetAborter(std::__1::function<void (char const*)>&&)::$_0::__invoke(char const*)+84) (BuildId: 6fabc39c947e59790084bf0be7368dcb)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #03 pc 0000000000d9ce10  /apex/com.android.bt/lib64/libbluetooth_jni.so (bluetooth::log_internal::vlog(bluetooth::log_internal::Level, char const*, bluetooth::log_internal::source_location, std::__1::basic_string_view<char, std::__1::char_traits<char>>, std::__1::basic_format_args<std::__1::basic_format_context<std::__1::back_insert_iterator<std::__1::__format::__output_buffer<char>>, char>>)+844) (BuildId: 763433607192f36a069c8739cca132ef)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #04 pc 0000000000b6cc24  /apex/com.android.bt/lib64/libbluetooth_jni.so (void bluetooth::log::fatal<unsigned char>(std::__1::basic_format_string<char, std::__1::type_identity<unsigned char>::type>, unsigned char&&, bluetooth::log_internal::source_location)+100) (BuildId: 763433607192f36a069c8739cca132ef)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #05 pc 0000000000b673f8  /apex/com.android.bt/lib64/libbluetooth_jni.so (bluetooth::hci::HciLayer::impl::on_hci_event(bluetooth::hci::EventView)+20988) (BuildId: 763433607192f36a069c8739cca132ef)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #06 pc 0000000000b675e8  /apex/com.android.bt/lib64/libbluetooth_jni.so (void base::internal::FunctorTraits<void (bluetooth::hci::HciLayer::impl::*)(bluetooth::hci::EventView), void>::Invoke<void (bluetooth::hci::HciLayer::impl::*)(bluetooth::hci::EventView), bluetooth::hci::HciLayer::impl*, bluetooth::hci::EventView>(void (bluetooth::hci::HciLayer::impl::*)(bluetooth::hci::EventView), bluetooth::hci::HciLayer::impl*&&, bluetooth::hci::EventView&&)+296) (BuildId: 763433607192f36a069c8739cca132ef)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #07 pc 0000000000b67490  /apex/com.android.bt/lib64/libbluetooth_jni.so (base::internal::Invoker<base::internal::BindState<void (bluetooth::hci::HciLayer::impl::*)(bluetooth::hci::EventView), base::internal::UnretainedWrapper<bluetooth::hci::HciLayer::impl>, bluetooth::hci::EventView>, void ()>::RunOnce(base::internal::BindStateBase*)+60) (BuildId: 763433607192f36a069c8739cca132ef)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #08 pc 0000000000a6c54c  /apex/com.android.bt/lib64/libbluetooth_jni.so (bluetooth::os::Handler::handle_all_queued_events()+320) (BuildId: 763433607192f36a069c8739cca132ef)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #09 pc 0000000000a6ec08  /apex/com.android.bt/lib64/libbluetooth_jni.so (bluetooth::os::Reactor::Run()+792) (BuildId: 763433607192f36a069c8739cca132ef)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #10 pc 0000000000a6f7fc  /apex/com.android.bt/lib64/libbluetooth_jni.so (bluetooth::os::Thread::run(std::__1::promise<void>)+412) (BuildId: 763433607192f36a069c8739cca132ef)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #11 pc 0000000000a6fa14  /apex/com.android.bt/lib64/libbluetooth_jni.so (void* std::__1::__thread_proxy[abi:nn220000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void (bluetooth::os::Thread::*)(std::__1::promise<void>), bluetooth::os::Thread*, std::__1::promise<void>>>(void*)+108) (BuildId: 763433607192f36a069c8739cca132ef)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #12 pc 000000000008e208  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*) (.__uniq.67847048707805468364044055584648682506)+184) (BuildId: 2b45d17e0b10945475de75d36ca06c40)
+11-11 09:34:06.518 11375 11375 F DEBUG   :       #13 pc 000000000007f4dc  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+68) (BuildId: 2b45d17e0b10945475de75d36ca06c40)
+11-11 09:34:06.518 11375 11375 F DEBUG   : Note: To display stack pointer information, use the pbtombstone tool:
+11-11 09:34:06.518 11375 11375 F DEBUG   :         pbtombstone --display-sp tombstone_XX.pb

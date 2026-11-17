@@ -329,5 +329,7 @@
         android:label="@string/qa_edit_tenant">
         <argument android:name="tenantId" app:argType="long" />
     </fragment>
+    <fragment android:id="@+id/paymentSetupFragment"
+        android:name="com.example.roomkit.Date.Payment.PaymentSetupFragment"
+        android:label="Payment setup" tools:layout="@layout/fragment_payment_setup" />
 </navigation>
-

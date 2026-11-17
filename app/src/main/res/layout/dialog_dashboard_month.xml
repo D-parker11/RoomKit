@@ -1,67 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingHorizontal="24dp"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:fillViewport="true">
 
-    <!-- Picker Instruction / Description -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/dm_picker_hint"
-        android:textSize="14sp" />
-
-    <!-- Month & Year Pickers Container -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="24dp">
 
-        <!-- Month Column -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="36dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:importantForAccessibility="no"
+            app:cardBackgroundColor="@color/roomkit_border"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp" />
+
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.4"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:labelFor="@id/monthPicker"
-                android:text="@string/dm_month" />
+                android:layout_weight="1"
+                android:accessibilityHeading="true"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/dm_choose_month"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="22sp" />
 
-            <NumberPicker
-                android:id="@+id/monthPicker"
-                android:layout_width="match_parent"
-                android:layout_height="160dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:letterSpacing="0"
+                android:text="@string/dm_cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/roomkit_text_secondary"
+                app:cornerRadius="24dp" />
         </LinearLayout>
 
-        <!-- Year Column -->
-        <LinearLayout
-            android:layout_width="0dp"
+        <!-- Selected billing period -->
+        <TextView
+            android:id="@+id/tvSelectedPeriod"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_marginTop="4dp"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPreviousYear"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:minWidth="0dp"
+                android:padding="0dp"
+                android:text="‹"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="28sp"
+                app:cornerRadius="24dp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tvYear"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:labelFor="@id/yearPicker"
-                android:text="@string/dm_year" />
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="20sp" />
 
-            <NumberPicker
-                android:id="@+id/yearPicker"
-                android:layout_width="match_parent"
-                android:layout_height="160dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNextYear"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:minWidth="0dp"
+                android:padding="0dp"
+                android:text="›"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="28sp"
+                app:cornerRadius="24dp" />
         </LinearLayout>
+
+        <!-- Four rows of three months, populated in Kotlin -->
+        <LinearLayout
+            android:id="@+id/monthGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnThisMonth"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:letterSpacing="0"
+            android:text="@string/dm_this_month"
+            android:textAllCaps="false"
+            android:textColor="@color/roomkit_primary"
+            app:cornerRadius="24dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnApply"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:letterSpacing="0"
+            android:text="@string/dm_apply"
+            android:textAllCaps="false"
+            android:textColor="@color/roomkit_on_primary"
+            android:textSize="16sp"
+            app:backgroundTint="@color/roomkit_primary"
+            app:cornerRadius="16dp" />
+
     </LinearLayout>
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

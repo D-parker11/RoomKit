@@ -1,349 +1,403 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/roomkit_background"
+    android:orientation="vertical"
+    tools:context=".Date.Ui.Room.EditRoomFragment">
 
-    <!-- Top App Bar -->
-    <RelativeLayout
-        android:id="@+id/layoutTopHeader"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:paddingHorizontal="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <!-- Toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/roomkit_surface"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="12dp">
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btnBackEditRoom"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back"
-            android:src="@drawable/ic_arrow_back"
-            app:tint="#111827" />
+            android:contentDescription="Go back"
+            android:padding="12dp"
+            app:srcCompat="@drawable/ic_arrow_back"
+            app:tint="@color/roomkit_text_primary" />
 
         <TextView
             android:id="@+id/tvHeaderTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Edit Room"
-            android:textColor="#111827"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="Edit room"
+            android:textColor="@color/roomkit_text_primary"
+            android:textSize="18sp" />
 
-    <View
-        android:id="@+id/dividerTop"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#F3F4F6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutTopHeader" />
+        <Space
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="0dp"
+        android:id="@+id/scrollEditRoom"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@id/layoutBottomAction"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dividerTop">
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="32dp">
+            android:orientation="vertical">
 
-            <!-- Error Banner -->
+            <!-- Property context: display text, not a disabled field -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PROPERTY"
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="11sp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.08" />
+
+            <TextView
+                android:id="@+id/etBuilding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="20sp"
+                tools:text="Proser" />
+
+            <!-- Occupied notice -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/layoutOccupiedNotice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/roomkit_neutral_surface"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Room currently occupied"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:lineSpacingExtra="3dp"
+                        android:text="Default rent changes apply to future tenancies. Current tenant charges and past invoices stay unchanged."
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Room details"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilRoomNumber"
+                    style="@style/RoomKitFormInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:hint="Room number *">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRoomNumber"
+                        style="@style/RoomKitFormEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapCharacters"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilFloor"
+                    style="@style/RoomKitFormInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Floor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFloor"
+                        style="@style/RoomKitFormEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRoomType"
+                style="@style/RoomKitFormDropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Room type">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/actvRoomType"
+                    style="@style/RoomKitFormEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNotes"
+                style="@style/RoomKitFormInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Notes · optional">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNotes"
+                    style="@style/RoomKitFormEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|start"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:minLines="3" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Private notes for your reference."
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Default pricing"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"
+                android:text="Used when creating a new tenancy."
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="13sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilMonthlyRent"
+                style="@style/RoomKitFormInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Monthly rent *"
+                app:suffixText="KHR"
+                app:suffixTextColor="@color/roomkit_text_secondary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMonthlyRent"
+                    style="@style/RoomKitFormEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Read-only status -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:cardBackgroundColor="@color/roomkit_surface"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Occupancy"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Managed by tenancy"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/etOccupancy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/roomkit_success_dark"
+                        android:textSize="14sp"
+                        tools:text="Occupied" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Room management"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="12dp"
+                android:lineSpacingExtra="3dp"
+                android:text="Archive to keep the room’s history. Rooms with tenancy or billing history cannot be deleted."
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="13sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnArchiveRoom"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:letterSpacing="0"
+                android:text="Archive room"
+                android:textAllCaps="false"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="14sp"
+                app:backgroundTint="@color/roomkit_surface"
+                app:cornerRadius="14dp"
+                app:strokeColor="@color/roomkit_border" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDeleteRoom"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_marginTop="8dp"
+                android:letterSpacing="0"
+                android:text="Delete room"
+                android:textAllCaps="false"
+                android:textColor="@color/roomkit_error_dark"
+                android:textSize="14sp"
+                app:backgroundTint="@color/roomkit_surface"
+                app:cornerRadius="14dp" />
+
             <TextView
                 android:id="@+id/tvErrorMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/bg_badge_overdue_pill"
-                android:padding="12dp"
-                android:textColor="#DC2626"
-                android:textSize="13sp"
-                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:accessibilityLiveRegion="polite"
+                android:lineSpacingExtra="3dp"
+                android:textColor="@color/roomkit_error_dark"
+                android:textSize="14sp"
                 android:visibility="gone"
-                tools:text="Room 102 already exists in this building."
+                tools:text="Please check the room details."
                 tools:visibility="visible" />
-
-            <!-- Occupied Informational Notice -->
-            <LinearLayout
-                android:id="@+id/layoutOccupiedNotice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="#EFF6FF"
-                android:orientation="vertical"
-                android:padding="12dp"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Active Tenancy in Progress"
-                    android:textColor="#1D4ED8"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Changes to default pricing apply to future rental agreements only. Current tenant rates and historical invoices will not be modified."
-                    android:textColor="#3B82F6"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- SECTION 1: ROOM INFORMATION -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:letterSpacing="0.04"
-                android:text="ROOM INFORMATION"
-                android:textColor="#6B7280"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <!-- Room Number -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilRoomNumber"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="Room Number *"
-                app:boxStrokeColor="#111827">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etRoomNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapCharacters" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Building (Read-Only) -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilBuilding"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:enabled="false"
-                android:hint="Building"
-                app:boxStrokeColor="#E5E7EB">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etBuilding"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:textColor="#4B5563" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Floor -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilFloor"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:hint="Floor"
-                app:boxStrokeColor="#111827">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etFloor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Room Type -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilRoomType"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:hint="Room Type"
-                app:boxStrokeColor="#111827">
-
-                <AutoCompleteTextView
-                    android:id="@+id/actvRoomType"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Private Notes -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilNotes"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:hint="Notes (Internal Only)"
-                app:boxStrokeColor="#111827">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etNotes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:inputType="textMultiLine"
-                    android:lines="3" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- SECTION 2: DEFAULT PRICING -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:letterSpacing="0.04"
-                android:text="DEFAULT PRICING (KHR)"
-                android:textColor="#6B7280"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Defaults for future tenancies. Does not modify active tenancy."
-                android:textColor="#9CA3AF"
-                android:textSize="12sp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilMonthlyRent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="Default Monthly Rent (KHR) *"
-                app:boxStrokeColor="#111827"
-                app:prefixText="៛ ">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etMonthlyRent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- SECTION 3: STATUS -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:letterSpacing="0.04"
-                android:text="ROOM STATUS"
-                android:textColor="#6B7280"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilOccupancy"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:enabled="false"
-                android:hint="Occupancy (Read-Only)">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etOccupancy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:textColor="#111827" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- DANGER ZONE -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:letterSpacing="0.04"
-                android:text="DANGER ZONE"
-                android:textColor="#DC2626"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnArchiveRoom"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_weight="1"
-                    android:text="Archive Room"
-                    android:textAllCaps="false"
-                    android:textColor="#4B5563"
-                    app:strokeColor="#D1D5DB" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnDeleteRoom"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="6dp"
-                    android:layout_weight="1"
-                    android:text="Delete Room"
-                    android:textAllCaps="false"
-                    android:textColor="#DC2626"
-                    app:strokeColor="#FCA5A5" />
-            </LinearLayout>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom Save Action Button -->
+    <!-- Save stays visible while the form scrolls -->
     <LinearLayout
         android:id="@+id/layoutBottomAction"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:elevation="8dp"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:background="@color/roomkit_surface"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/roomkit_divider" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveChanges"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:backgroundTint="#111827"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="12dp"
+            android:fontFamily="sans-serif-medium"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Save Changes"
+            android:letterSpacing="0"
+            android:text="Save changes"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/roomkit_on_primary"
             android:textSize="16sp"
-            android:textStyle="bold"
-            app:cornerRadius="16dp" />
+            app:backgroundTint="@color/roomkit_primary"
+            app:cornerRadius="16dp"
+            app:elevation="0dp" />
     </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -630,4 +630,39 @@ Payments received are not profit. Expenses and deposit refunds are not deducted 
     <string name="dm_rooms_now">Rooms now</string>
     <string name="dm_attention_period">%1$s invoices · current balances</string>
     <string name="search">Search</string>
+    <string name="rk_property_setup">Set up property</string>
+    <string name="rk_property_edit">Edit property</string>
+    <string name="rk_property_subtitle">Property details and room capacity.</string>
+    <string name="rk_property_close">Close</string>
+
+    <string name="rk_property_details">PROPERTY DETAILS</string>
+    <string name="rk_property_location">LOCATION</string>
+    <string name="rk_property_capacity">CAPACITY</string>
+
+    <string name="rk_property_name">Property name *</string>
+    <string name="rk_property_street">Street address *</string>
+    <string name="rk_property_district">District / Khan *</string>
+    <string name="rk_property_city">City</string>
+    <string name="rk_property_default_city">Phnom Penh</string>
+    <string name="rk_property_floors">Floors</string>
+    <string name="rk_property_room_capacity">Room capacity *</string>
+    <string name="rk_property_phone">Manager phone (optional)</string>
+
+    <string name="rk_property_capacity_hint">Maximum number of rooms you can add. Fields marked * are required.</string>
+    <string name="rk_property_create">Create property</string>
+    <string name="rk_property_save">Save changes</string>
+    <string name="rk_property_saving">Saving…</string>
+    <string name="rk_manage_tenancy_context">Room %1$s · %2$s</string>
+    <string name="rk_manage_profile_description">Contact details and tenancy history</string>
+    <string name="rk_manage_move_out_description">Review final charges and settle the deposit</string>
+    <string name="rk_pdf_ready_title">Invoice PDF ready</string>
+    <string name="rk_pdf_ready_description">Open your invoice to review it, or print a copy.</string>
+    <string name="rk_pdf_print_invoice">Print invoice</string>
+    <string name="rk_pdf_invoice_context">Room %1$s · %2$s</string>
+    <string name="dm_meter_month_label">Month</string>
+    <string name="dm_meter_year_label">Year</string>
+    <string name="rb_search_invoices">Search invoices</string>
+    <string name="rb_search_no_results">No matching invoices</string>
+    <string name="refresh">Refresh</string>
+    <string name="your_property_at_a_glance">Your property, at a glance</string>
 </resources>

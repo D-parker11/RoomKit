@@ -1,0 +1,43 @@
+{
+  "all_database_tables_unchanged": true,
+  "table_row_counts": {
+    "android_metadata": 1,
+    "billing_draft_adjustments": 0,
+    "billing_period_events": 0,
+    "billing_periods": 0,
+    "buildings": 1,
+    "invoice_items": 0,
+    "invoices": 0,
+    "meter_readings": 10,
+    "move_out_settlements": 0,
+    "payments": 0,
+    "room_master_table": 1,
+    "rooms": 4,
+    "sqlite_sequence": 5,
+    "tenancies": 4,
+    "tenants": 6
+  },
+  "tests": [
+    {
+      "name": "com.example.roomkit.RoomDetailUsageTest",
+      "tests": "3",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-10T13:01:27.489Z",
+      "hostname": "MacBooks-MacBook-Pro-2.local",
+      "time": "0.034"
+    },
+    {
+      "name": "com.example.roomkit.Phase3DatabaseTest",
+      "tests": "16",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-10T13:01:22.971Z",
+      "hostname": "MacBooks-MacBook-Pro-2.local",
+      "time": "4.515"
+    }
+  ],
+  "apk_sha256": "49956e524906eae18e5703a1373aadc95e8e375116aa5328bd304ed9b0833942"
+}

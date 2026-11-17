@@ -1,0 +1,516 @@
+{
+  "integrity_check": "ok",
+  "tenancy": [
+    {
+      "tenancyId": 2,
+      "tenantId": 3,
+      "roomId": 2,
+      "moveInDate": 1794312780243,
+      "moveOutDate": 1798709498083,
+      "currency": "KHR",
+      "monthlyRent": 400000,
+      "deposit": 400000,
+      "billingDay": 1,
+      "dueDay": 5,
+      "electricityRate": 1000,
+      "waterBillingMethod": "FIXED",
+      "waterRate": 20000,
+      "rubbishFee": 10000,
+      "status": "ENDED"
+    }
+  ],
+  "room": [
+    {
+      "roomId": 2,
+      "buildingId": 1,
+      "roomNumber": "QA-301",
+      "floor": null,
+      "monthlyRent": 400000,
+      "description": null,
+      "roomType": null,
+      "initialElectricityReading": 100.0,
+      "initialWaterReading": 0.0,
+      "createdAt": 1794312332918,
+      "status": "VACANT"
+    }
+  ],
+  "room_counts": [
+    {
+      "status": "OCCUPIED",
+      "count": 3
+    },
+    {
+      "status": "VACANT",
+      "count": 1
+    }
+  ],
+  "invoices": [
+    {
+      "invoiceId": 2,
+      "invoiceKind": "REGULAR",
+      "tenancyId": 2,
+      "billingMonth": 11,
+      "billingYear": 2026,
+      "totalKhr": 445000,
+      "amountPaidKhr": 445000,
+      "balanceKhr": 0,
+      "status": "PAID",
+      "dueDate": 1796489999999
+    },
+    {
+      "invoiceId": 3,
+      "invoiceKind": "REGULAR",
+      "tenancyId": 2,
+      "billingMonth": 12,
+      "billingYear": 2026,
+      "totalKhr": 440000,
+      "amountPaidKhr": 240000,
+      "balanceKhr": 200000,
+      "status": "PARTIALLY_PAID",
+      "dueDate": 1799168399999
+    },
+    {
+      "invoiceId": 4,
+      "invoiceKind": "FINAL",
+      "tenancyId": 2,
+      "billingMonth": 12,
+      "billingYear": 2026,
+      "totalKhr": 0,
+      "amountPaidKhr": 0,
+      "balanceKhr": 0,
+      "status": "ISSUED",
+      "dueDate": 1798709498083
+    }
+  ],
+  "invoice_items": [
+    {
+      "invoiceId": 2,
+      "itemCode": "RENT",
+      "description": "Monthly Rent",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 400000,
+      "amountKhr": 400000,
+      "sortOrder": 0
+    },
+    {
+      "invoiceId": 2,
+      "itemCode": "ELECTRICITY",
+      "description": "Electricity",
+      "quantity": 15,
+      "unit": "kWh",
+      "unitPriceKhr": 1000,
+      "amountKhr": 15000,
+      "sortOrder": 1
+    },
+    {
+      "invoiceId": 2,
+      "itemCode": "WATER",
+      "description": "Water \u2014 Fixed",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 20000,
+      "amountKhr": 20000,
+      "sortOrder": 2
+    },
+    {
+      "invoiceId": 2,
+      "itemCode": "RUBBISH",
+      "description": "Rubbish / Waste",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 10000,
+      "amountKhr": 10000,
+      "sortOrder": 3
+    },
+    {
+      "invoiceId": 2,
+      "itemCode": "OTHER",
+      "description": "Other charges",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 0,
+      "amountKhr": 0,
+      "sortOrder": 4
+    },
+    {
+      "invoiceId": 2,
+      "itemCode": "DISCOUNT",
+      "description": "Discount",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 0,
+      "amountKhr": 0,
+      "sortOrder": 5
+    },
+    {
+      "invoiceId": 3,
+      "itemCode": "RENT",
+      "description": "Monthly Rent",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 400000,
+      "amountKhr": 400000,
+      "sortOrder": 0
+    },
+    {
+      "invoiceId": 3,
+      "itemCode": "ELECTRICITY",
+      "description": "Electricity",
+      "quantity": 10,
+      "unit": "kWh",
+      "unitPriceKhr": 1000,
+      "amountKhr": 10000,
+      "sortOrder": 1
+    },
+    {
+      "invoiceId": 3,
+      "itemCode": "WATER",
+      "description": "Water \u2014 Fixed",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 20000,
+      "amountKhr": 20000,
+      "sortOrder": 2
+    },
+    {
+      "invoiceId": 3,
+      "itemCode": "RUBBISH",
+      "description": "Rubbish / Waste",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 10000,
+      "amountKhr": 10000,
+      "sortOrder": 3
+    },
+    {
+      "invoiceId": 3,
+      "itemCode": "OTHER",
+      "description": "Other charges",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 0,
+      "amountKhr": 0,
+      "sortOrder": 4
+    },
+    {
+      "invoiceId": 3,
+      "itemCode": "DISCOUNT",
+      "description": "Discount",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 0,
+      "amountKhr": 0,
+      "sortOrder": 5
+    },
+    {
+      "invoiceId": 4,
+      "itemCode": "RENT",
+      "description": "Additional rent",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 0,
+      "amountKhr": 0,
+      "sortOrder": 0
+    },
+    {
+      "invoiceId": 4,
+      "itemCode": "ELECTRICITY",
+      "description": "Electricity",
+      "quantity": 0,
+      "unit": "kWh",
+      "unitPriceKhr": 1000,
+      "amountKhr": 0,
+      "sortOrder": 1
+    },
+    {
+      "invoiceId": 4,
+      "itemCode": "WATER",
+      "description": "Water \u2014 Fixed",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 0,
+      "amountKhr": 0,
+      "sortOrder": 2
+    },
+    {
+      "invoiceId": 4,
+      "itemCode": "RUBBISH",
+      "description": "Rubbish / Waste",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 0,
+      "amountKhr": 0,
+      "sortOrder": 3
+    },
+    {
+      "invoiceId": 4,
+      "itemCode": "OTHER",
+      "description": "Other charges",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 0,
+      "amountKhr": 0,
+      "sortOrder": 4
+    },
+    {
+      "invoiceId": 4,
+      "itemCode": "DISCOUNT",
+      "description": "Discount",
+      "quantity": 1,
+      "unit": "FIXED",
+      "unitPriceKhr": 0,
+      "amountKhr": 0,
+      "sortOrder": 5
+    }
+  ],
+  "payments": [
+    {
+      "paymentId": 1,
+      "invoiceId": 2,
+      "amountKhr": 100000,
+      "paymentDate": 1794366328587,
+      "paymentMethod": "CASH",
+      "note": null,
+      "status": "ACTIVE",
+      "voidedAt": null,
+      "voidReason": null,
+      "referenceNumber": null
+    },
+    {
+      "paymentId": 2,
+      "invoiceId": 2,
+      "amountKhr": 45000,
+      "paymentDate": 1794366503801,
+      "paymentMethod": "BANK_TRANSFER",
+      "note": null,
+      "status": "ACTIVE",
+      "voidedAt": null,
+      "voidReason": null,
+      "referenceNumber": "TEST-PAY-002"
+    },
+    {
+      "paymentId": 3,
+      "invoiceId": 2,
+      "amountKhr": 300000,
+      "paymentDate": 1794366612619,
+      "paymentMethod": "CASH",
+      "note": null,
+      "status": "VOIDED",
+      "voidedAt": 1794366754545,
+      "voidReason": "Test payment entered incorrectly.",
+      "referenceNumber": null
+    },
+    {
+      "paymentId": 4,
+      "invoiceId": 2,
+      "amountKhr": 100000,
+      "paymentDate": 1796096114186,
+      "paymentMethod": "BANK_TRANSFER",
+      "note": null,
+      "status": "ACTIVE",
+      "voidedAt": null,
+      "voidReason": null,
+      "referenceNumber": "TEST-OLD-DEBT-001"
+    },
+    {
+      "paymentId": 5,
+      "invoiceId": 3,
+      "amountKhr": 40000,
+      "paymentDate": 1796096230370,
+      "paymentMethod": "CASH",
+      "note": null,
+      "status": "ACTIVE",
+      "voidedAt": null,
+      "voidReason": null,
+      "referenceNumber": null
+    },
+    {
+      "paymentId": 6,
+      "invoiceId": 2,
+      "amountKhr": 200000,
+      "paymentDate": 1798710162569,
+      "paymentMethod": "DEPOSIT",
+      "note": "Move-out deposit allocation",
+      "status": "ACTIVE",
+      "voidedAt": null,
+      "voidReason": null,
+      "referenceNumber": null
+    },
+    {
+      "paymentId": 7,
+      "invoiceId": 3,
+      "amountKhr": 200000,
+      "paymentDate": 1798710162569,
+      "paymentMethod": "DEPOSIT",
+      "note": "Move-out deposit allocation",
+      "status": "ACTIVE",
+      "voidedAt": null,
+      "voidReason": null,
+      "referenceNumber": null
+    }
+  ],
+  "settlements": [
+    {
+      "tenancyId": 2,
+      "roomId": 2,
+      "moveOutDate": 1798709498083,
+      "electricityFinal": 125,
+      "waterFinal": null,
+      "depositHeldKhr": 400000,
+      "appliedKhr": 400000,
+      "deductionsKhr": 0,
+      "deductionReason": "Charges: \nDeductions: -1",
+      "refundKhr": 0,
+      "refundPaid": 0,
+      "debtKhr": 200000,
+      "finalInvoiceId": 4,
+      "createdAt": 1798710162569
+    }
+  ],
+  "readings": [
+    {
+      "readingId": 2,
+      "tenancyId": 2,
+      "roomId": 2,
+      "meterType": "ELECTRICITY",
+      "previousReading": 100,
+      "currentReading": 100,
+      "readingDate": 1794312780243,
+      "billingMonth": 11,
+      "billingYear": 2026,
+      "readingType": "INITIAL",
+      "eventOrdinal": 0,
+      "meterSequence": 0,
+      "carriedUsage": 0,
+      "reason": null
+    },
+    {
+      "readingId": 3,
+      "tenancyId": 2,
+      "roomId": 2,
+      "meterType": "ELECTRICITY",
+      "previousReading": 100,
+      "currentReading": 115,
+      "readingDate": 1794314109505,
+      "billingMonth": 11,
+      "billingYear": 2026,
+      "readingType": "MONTHLY",
+      "eventOrdinal": 0,
+      "meterSequence": 0,
+      "carriedUsage": 0,
+      "reason": null
+    },
+    {
+      "readingId": 11,
+      "tenancyId": 2,
+      "roomId": 2,
+      "meterType": "ELECTRICITY",
+      "previousReading": 115,
+      "currentReading": 125,
+      "readingDate": 1796095942191,
+      "billingMonth": 12,
+      "billingYear": 2026,
+      "readingType": "MONTHLY",
+      "eventOrdinal": 0,
+      "meterSequence": 0,
+      "carriedUsage": 0,
+      "reason": null
+    },
+    {
+      "readingId": 12,
+      "tenancyId": 2,
+      "roomId": 2,
+      "meterType": "ELECTRICITY",
+      "previousReading": 125,
+      "currentReading": 125,
+      "readingDate": 1798709498083,
+      "billingMonth": 12,
+      "billingYear": 2026,
+      "readingType": "FINAL",
+      "eventOrdinal": 0,
+      "meterSequence": 0,
+      "carriedUsage": 0,
+      "reason": null
+    }
+  ],
+  "other_room_rows": [
+    {
+      "roomId": 1,
+      "roomNumber": "01",
+      "status": "OCCUPIED"
+    },
+    {
+      "roomId": 3,
+      "roomNumber": "QA-302",
+      "status": "OCCUPIED"
+    },
+    {
+      "roomId": 4,
+      "roomNumber": "QA-303",
+      "status": "OCCUPIED"
+    }
+  ],
+  "other_tenancies": [
+    {
+      "tenancyId": 1,
+      "tenantId": 2,
+      "roomId": 1,
+      "moveInDate": 1794287937444,
+      "moveOutDate": null,
+      "currency": "KHR",
+      "monthlyRent": 300000,
+      "deposit": 300000,
+      "billingDay": 1,
+      "dueDay": 5,
+      "electricityRate": 1000,
+      "waterBillingMethod": "FIXED",
+      "waterRate": 20000,
+      "rubbishFee": 10000,
+      "status": "ACTIVE"
+    },
+    {
+      "tenancyId": 3,
+      "tenantId": 5,
+      "roomId": 3,
+      "moveInDate": 1794314726147,
+      "moveOutDate": null,
+      "currency": "KHR",
+      "monthlyRent": 400000,
+      "deposit": 400000,
+      "billingDay": 1,
+      "dueDay": 5,
+      "electricityRate": 1000,
+      "waterBillingMethod": "METER",
+      "waterRate": 2000,
+      "rubbishFee": 10000,
+      "status": "ACTIVE"
+    },
+    {
+      "tenancyId": 4,
+      "tenantId": 6,
+      "roomId": 4,
+      "moveInDate": 1794315022877,
+      "moveOutDate": null,
+      "currency": "KHR",
+      "monthlyRent": 400000,
+      "deposit": 400000,
+      "billingDay": 1,
+      "dueDay": 5,
+      "electricityRate": 1000,
+      "waterBillingMethod": "FIXED",
+      "waterRate": 20000,
+      "rubbishFee": 10000,
+      "status": "ACTIVE"
+    }
+  ],
+  "preservation": {
+    "november_invoice_snapshot_unchanged": true,
+    "december_invoice_snapshot_unchanged": true,
+    "november_items_unchanged": true,
+    "december_items_unchanged": true,
+    "original_payments_unchanged": true,
+    "non_target_rooms_unchanged": true,
+    "non_target_tenancies_unchanged": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "invoice_items_unchanged": true,
+  "meter_readings_unchanged": true,
+  "tenancies_unchanged": true,
+  "tenants_unchanged": true,
+  "rooms_unchanged": true,
+  "invalid_attempts_no_writes": true,
+  "paid_restart_identical": true,
+  "final_restart_identical": true,
+  "invoice_snapshot_fields_unchanged": true,
+  "active_payments": 2,
+  "voided_payments": 1,
+  "invoice_count": 1,
+  "integrity": "ok",
+  "stored_status": "PARTIALLY_PAID",
+  "production_diff_matches_stage5": true
+}

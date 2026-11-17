@@ -16,7 +16,7 @@
         android:orientation="vertical"
         android:padding="@dimen/roomkit_card_padding">
 
-        <!-- Top Header: Room Number, Chevron, and Occupied Badge -->
+        <!-- Top Header: Room Number, Occupied Badge, and Chevron -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,16 +32,23 @@
                 android:textSize="18sp"
                 tools:text="ROOM 01" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 style="@style/TextAppearance.RoomKit.Status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_btn_black_rounded"
-                android:backgroundTint="@color/roomkit_primary"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
+                android:background="@drawable/bg_rd_badge_green"
+                android:drawablePadding="6dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
                 android:text="Occupied"
-                android:textColor="@color/roomkit_on_primary" />
+                android:textColor="#15803D"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_rd_status_dot"
+                app:drawableTint="#15803D" />
 
             <ImageView
                 android:layout_width="18dp"
@@ -195,16 +202,24 @@
                 android:textColor="@color/roomkit_text_secondary"
                 tools:text="Due on day 5" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvInvoiceStatusBadge"
                 style="@style/TextAppearance.RoomKit.Status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="3dp"
-                tools:background="@drawable/bg_badge_unpaid_pill"
-                tools:text="Unpaid"
-                tools:textColor="@color/roomkit_warning_dark" />
+                android:background="@drawable/bg_rd_badge_green"
+                android:drawablePadding="6dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:textColor="#15803D"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_rd_status_dot"
+                app:drawableTint="#15803D"
+                tools:text="Occupied" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

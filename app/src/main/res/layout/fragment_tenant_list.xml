@@ -71,45 +71,46 @@
                 app:iconTint="@color/roomkit_on_primary" />
         </RelativeLayout>
 
-        <!-- Search Bar -->
+        <!-- Search Field Card -->
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.RoomKit.Card"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_marginTop="18dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:cardBackgroundColor="@color/rpay_surface"
             app:cardCornerRadius="18dp"
             app:cardElevation="0dp"
-            app:strokeColor="@color/roomkit_border"
+            app:strokeColor="@color/rpay_border"
             app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="16dp">
+                android:paddingHorizontal="14dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:contentDescription="Search"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/ic_search"
-                    app:tint="@color/roomkit_text_muted" />
+                    app:tint="@color/rpay_ink" />
 
                 <EditText
                     android:id="@+id/etSearchTenant"
-                    style="@style/TextAppearance.RoomKit.Body"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="12dp"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
                     android:background="@null"
-                    android:hint="@string/qa_tenant_search"
+                    android:hint="@string/search"
                     android:imeOptions="actionSearch"
+                    android:importantForAutofill="no"
                     android:inputType="text"
-                    android:maxLines="1"
-                    android:textColor="@color/roomkit_text_primary"
-                    android:textColorHint="@color/roomkit_text_muted"
-                    android:textSize="14sp" />
+                    android:singleLine="true"
+                    android:textColor="@color/rpay_ink"
+                    android:textColorHint="@color/rpay_muted"
+                    android:textSize="15sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

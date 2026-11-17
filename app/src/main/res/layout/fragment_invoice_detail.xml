@@ -87,25 +87,38 @@
                         style="@style/TextAppearance.RoomKit.Status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingHorizontal="14dp"
-                        android:paddingVertical="4dp"
-                        tools:background="@drawable/bg_badge_paid_pill"
+                        android:drawablePadding="6dp"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/ic_rd_status_dot"
+                        tools:background="@drawable/bg_rd_badge_green"
+                        tools:drawableTint="@color/roomkit_success_dark"
                         tools:text="Paid"
                         tools:textColor="@color/roomkit_success_dark" />
 
                     <TextView
                         android:id="@+id/tvInvoiceOverdueBadge"
+                        style="@style/TextAppearance.RoomKit.Status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:background="@drawable/bg_badge_overdue_pill"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="4dp"
+                        android:background="@drawable/bg_rd_badge_red"
+                        android:drawablePadding="6dp"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
                         android:text="@string/invoice_status_overdue"
                         android:textColor="@color/roomkit_error_dark"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:visibility="gone"
+                        app:drawableStartCompat="@drawable/ic_rd_status_dot"
+                        app:drawableTint="@color/roomkit_error_dark"
                         tools:visibility="visible" />
                 </LinearLayout>
             </RelativeLayout>
@@ -992,25 +1005,94 @@
                         app:icon="@drawable/ic_send" />
                 </LinearLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnOriginalInvoice"
-                    style="@style/InvoiceActionLink"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardInvoiceManagement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/ia_original"
+                    android:layout_marginTop="20dp"
                     android:visibility="gone"
-                    app:icon="@drawable/ic_link" />
+                    app:cardBackgroundColor="@color/roomkit_surface"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/roomkit_border"
+                    app:strokeWidth="1dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnVoidInvoice"
-                    style="@style/InvoiceActionDanger"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/ia_void"
-                    android:visibility="gone"
-                    app:icon="@drawable/ic_void" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnOriginalInvoice"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="72dp"
+                            android:gravity="start|center_vertical"
+                            android:fontFamily="sans-serif-medium"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:letterSpacing="0"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp"
+                            android:text="@string/ia_original"
+                            android:textAllCaps="false"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="15sp"
+                            android:visibility="gone"
+                            app:backgroundTint="@color/roomkit_surface"
+                            app:cornerRadius="0dp"
+                            app:icon="@drawable/ic_link"
+                            app:iconGravity="start"
+                            app:iconPadding="16dp"
+                            app:iconSize="22dp"
+                            app:iconTint="@color/roomkit_text_secondary"
+                            app:rippleColor="@color/roomkit_border"
+                            app:strokeWidth="0dp" />
+
+                        <View
+                            android:id="@+id/dividerInvoiceManagement"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="58dp"
+                            android:layout_marginEnd="20dp"
+                            android:background="@color/roomkit_divider"
+                            android:visibility="gone" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnVoidInvoice"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="72dp"
+                            android:gravity="start|center_vertical"
+                            android:fontFamily="sans-serif-medium"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:letterSpacing="0"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp"
+                            android:text="@string/ia_void"
+                            android:textAllCaps="false"
+                            android:textColor="@color/roomkit_error_dark"
+                            android:textSize="15sp"
+                            android:visibility="gone"
+                            app:backgroundTint="@color/roomkit_surface"
+                            app:cornerRadius="0dp"
+                            app:icon="@drawable/ic_void"
+                            app:iconGravity="start"
+                            app:iconPadding="16dp"
+                            app:iconSize="22dp"
+                            app:iconTint="@color/roomkit_error_dark"
+                            app:rippleColor="@color/roomkit_error_bg"
+                            app:strokeWidth="0dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
         </LinearLayout>

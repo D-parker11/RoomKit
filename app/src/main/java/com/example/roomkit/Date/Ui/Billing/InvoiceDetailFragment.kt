@@ -1,25 +1,35 @@
-@file:Suppress("PackageNaming")
+@file:Suppress("PackageNaming", "PackageName")
+
 package com.example.roomkit.Date.Ui.Billing
 
-import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.print.PrintAttributes
 import android.print.PrintManager
+import android.provider.OpenableColumns
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.TextViewCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,27 +39,37 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.roomkit.Date.Billing.CurrencyFormatter
+import com.example.roomkit.Date.Billing.InvoicePaperSize
 import com.example.roomkit.Date.Billing.InvoicePrintAdapter
 import com.example.roomkit.Date.Local.Entity.PaymentEntity
 import com.example.roomkit.Date.Ui.Factory.ViewModelFactory
 import com.example.roomkit.R
+import com.example.roomkit.databinding.BottomSheetPaperSizeBinding
+import com.example.roomkit.databinding.BottomSheetPdfExportedBinding
+import com.example.roomkit.databinding.BottomSheetVoidPaymentBinding
+import com.example.roomkit.databinding.DialogVoidInvoiceBinding
 import com.example.roomkit.databinding.FragmentInvoiceDetailBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import com.example.roomkit.databinding.BottomSheetVoidPaymentBinding
+import kotlin.math.roundToInt
+import kotlinx.coroutines.launch
 
 class InvoiceDetailFragment : Fragment() {
 
     private var _binding: FragmentInvoiceDetailBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentInvoiceDetailBinding
+        get() = requireNotNull(_binding)
+
     private var voidDialog: android.app.Dialog? = null
+    private var pdfExportDialog: BottomSheetDialog? = null
+    private var paperDialog: BottomSheetDialog? = null
+    private var exportedPaper = InvoicePaperSize.A4
+
     private val invoiceId: Long by lazy {
         arguments?.getLong("invoiceId") ?: 0L
     }
@@ -115,6 +135,33 @@ class InvoiceDetailFragment : Fragment() {
         }
     }
 
+    private fun styleStatusBadge(
+        view: TextView,
+        color: Int,
+        @DrawableRes backgroundRes: Int
+    ) {
+        val density = resources.displayMetrics.density
+        val padH = (10 * density).roundToInt()
+        val padV = (5 * density).roundToInt()
+
+        view.gravity = Gravity.CENTER_VERTICAL
+        view.includeFontPadding = false
+        view.textSize = 12f
+        view.setTypeface(view.typeface, Typeface.BOLD)
+        view.setTextColor(color)
+        view.backgroundTintList = null
+        view.setBackgroundResource(backgroundRes)
+        view.setPadding(padH, padV, padH, padV)
+        view.compoundDrawablePadding = (6 * density).roundToInt()
+        TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            view,
+            R.drawable.ic_rd_status_dot,
+            0,
+            0,
+            0
+        )
+        TextViewCompat.setCompoundDrawableTintList(view, ColorStateList.valueOf(color))
+    }
 
     private fun showVoidPaymentDialog(payment: PaymentEntity) {
         if (voidDialog?.isShowing == true) return
@@ -309,6 +356,7 @@ class InvoiceDetailFragment : Fragment() {
                 )
             )
         }
+
         binding.btnVoidInvoice.setOnClickListener {
             showVoidInvoiceDialog()
         }
@@ -318,15 +366,7 @@ class InvoiceDetailFragment : Fragment() {
         }
 
         binding.btnSendTelegram.setOnClickListener {
-            if (exportInProgress) return@setOnClickListener
-
-            val uri = viewModel.lastExportedUri.value
-
-            if (uri != null) {
-                sharePdf(uri)
-            } else {
-                exportPdf(shareAfterExport = true)
-            }
+            exportPdf(shareAfterExport = true)
         }
     }
 
@@ -365,8 +405,19 @@ class InvoiceDetailFragment : Fragment() {
     }
 
     private fun renderUi(state: InvoiceDetailUiState) {
-        binding.tvInvoiceOverdueBadge.isVisible = !state.isLoading &&
-                state.errorMessage == null && state.invoiceId > 0L && state.isOverdue
+        val showOverdueBadge = !state.isLoading &&
+                state.errorMessage == null &&
+                state.invoiceId > 0L &&
+                state.isOverdue
+        binding.tvInvoiceOverdueBadge.isVisible = showOverdueBadge
+        if (showOverdueBadge) {
+            styleStatusBadge(
+                view = binding.tvInvoiceOverdueBadge,
+                color = ContextCompat.getColor(requireContext(), R.color.roomkit_error_dark),
+                backgroundRes = R.drawable.bg_rd_badge_red
+            )
+        }
+
         renderVoidHistory(state)
         renderReplacementAction(state)
 
@@ -382,7 +433,7 @@ class InvoiceDetailFragment : Fragment() {
                 "UNPAID",
                 "OVERDUE"
             )
-
+        updateInvoiceManagementVisibility()
         val error = state.errorMessage
 
         if (error != null) {
@@ -459,8 +510,6 @@ class InvoiceDetailFragment : Fragment() {
             ?.takeIf { it.isNotBlank() }
             ?: getString(R.string.invoice_void_history_reason_missing)
         binding.tvInvoiceVoidedAt.text = state.voidedAt?.let { timestamp ->
-            // Use the saved timestamp in milliseconds, never the current time.
-            // Display in the device's local time zone and date/time preferences.
             val date = Date(timestamp)
             val dateText = android.text.format.DateFormat.getMediumDateFormat(requireContext()).format(date)
             val timeText = android.text.format.DateFormat.getTimeFormat(requireContext()).format(date)
@@ -470,7 +519,6 @@ class InvoiceDetailFragment : Fragment() {
 
     private fun renderCharges(state: InvoiceDetailUiState) {
         val items = state.items.associateBy { it.itemCode }
-        // The ViewModel verifies all six records before exposing a ready state.
         binding.tvRentLabel.text = items.getValue("RENT").description
         binding.tvElectricityLabel.text = items.getValue("ELECTRICITY").description
         binding.tvRubbishLabel.text = items.getValue("RUBBISH").description
@@ -500,7 +548,8 @@ class InvoiceDetailFragment : Fragment() {
 
         binding.tvWaterLabel.text =
             if (state.isWaterMetered && items.getValue("WATER").quantity != null &&
-                items.getValue("WATER").unitPriceKhr != null) {
+                items.getValue("WATER").unitPriceKhr != null
+            ) {
                 getString(
                     R.string.invoice_detail_water_metered,
                     khrFormat.format(state.waterUsage),
@@ -570,54 +619,52 @@ class InvoiceDetailFragment : Fragment() {
 
         val label: Int
         val background: Int
-        val color: Int
+        val colorValue: Int
 
         when (status) {
             "PAID" -> {
                 label = R.string.invoice_detail_paid
-                background = R.drawable.bg_badge_paid_pill
-                color = R.color.roomkit_success_dark
+                background = R.drawable.bg_rd_badge_green
+                colorValue = ContextCompat.getColor(requireContext(), R.color.roomkit_success_dark)
             }
 
             "PARTIAL", "PARTIALLY_PAID" -> {
                 label = R.string.invoice_detail_partial
-                background = R.drawable.bg_badge_partial_pill
-                color = R.color.roomkit_warning_dark
+                background = R.drawable.bg_rd_badge_blue
+                colorValue = Color.parseColor("#1D4ED8")
             }
 
             "OVERDUE" -> {
                 label = R.string.invoice_detail_overdue
-                background = R.drawable.bg_badge_overdue_pill
-                color = R.color.roomkit_error_dark
+                background = R.drawable.bg_rd_badge_red
+                colorValue = ContextCompat.getColor(requireContext(), R.color.roomkit_error_dark)
             }
 
             "VOID" -> {
                 label = R.string.invoice_detail_void
-                background = R.drawable.bg_badge_draft_pill
-                color = R.color.roomkit_text_muted
+                background = R.drawable.bg_rd_badge_neutral
+                colorValue = ContextCompat.getColor(requireContext(), R.color.roomkit_text_muted)
             }
 
             "DRAFT" -> {
                 label = R.string.invoice_detail_draft
-                background = R.drawable.bg_badge_draft_pill
-                color = R.color.roomkit_text_muted
+                background = R.drawable.bg_rd_badge_neutral
+                colorValue = ContextCompat.getColor(requireContext(), R.color.roomkit_text_muted)
             }
 
             else -> {
                 label = R.string.invoice_detail_unpaid
-                background = R.drawable.bg_badge_unpaid_pill
-                color = R.color.roomkit_warning_dark
+                background = R.drawable.bg_rd_badge_amber
+                colorValue = ContextCompat.getColor(requireContext(), R.color.roomkit_warning_dark)
             }
         }
 
-        binding.tvInvoiceStatusBadge.apply {
-            setText(label)
-            setBackgroundResource(background)
-
-            setTextColor(
-                ContextCompat.getColor(requireContext(), color)
-            )
-        }
+        binding.tvInvoiceStatusBadge.setText(label)
+        styleStatusBadge(
+            view = binding.tvInvoiceStatusBadge,
+            color = colorValue,
+            backgroundRes = background
+        )
 
         binding.containerPayableActions.isVisible =
             state.balanceKhr > 0L &&
@@ -631,6 +678,70 @@ class InvoiceDetailFragment : Fragment() {
     }
 
     private fun exportPdf(shareAfterExport: Boolean) {
+        if (exportInProgress || paperDialog?.isShowing == true) return
+        if (_binding == null || !isAdded || parentFragmentManager.isStateSaved) return
+
+        val state = viewModel.uiState.value
+        if (state.isLoading || state.invoiceId <= 0L || state.errorMessage != null) {
+            showMessage(getString(R.string.invoice_detail_not_ready))
+            return
+        }
+
+        val sheet = BottomSheetPaperSizeBinding.inflate(layoutInflater)
+        val dialog = BottomSheetDialog(requireContext())
+        dialog.setContentView(sheet.root)
+        dialog.setCanceledOnTouchOutside(true)
+
+        sheet.tvPaperSizeContext.text =
+            "Room ${state.roomNumber} · ${state.billingPeriodFormatted}"
+
+        var selected = InvoicePaperSize.selected(requireContext())
+        fun updateSelection(choice: InvoicePaperSize) {
+            selected = choice
+            sheet.ivCheckA4.visibility =
+                if (choice == InvoicePaperSize.A4) View.VISIBLE else View.INVISIBLE
+            sheet.ivCheckA5.visibility =
+                if (choice == InvoicePaperSize.A5) View.VISIBLE else View.INVISIBLE
+        }
+        updateSelection(selected)
+
+        sheet.optionA4.setOnClickListener { updateSelection(InvoicePaperSize.A4) }
+        sheet.optionA5.setOnClickListener { updateSelection(InvoicePaperSize.A5) }
+        sheet.btnCancelPaperSize.setOnClickListener { dialog.dismiss() }
+
+        sheet.btnConfirmPaperSize.setOnClickListener {
+            if (!dialog.isShowing) return@setOnClickListener
+            selected.remember(requireContext())
+            exportedPaper = selected
+            dialog.dismiss()
+            if (isAdded && _binding != null) {
+                createPdf(shareAfterExport)
+            }
+        }
+
+        dialog.setOnShowListener {
+            dialog.findViewById<View>(
+                com.google.android.material.R.id.design_bottom_sheet
+            )?.background = ColorDrawable(Color.TRANSPARENT)
+
+            dialog.behavior.apply {
+                isFitToContents = true
+                skipCollapsed = true
+                this.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+
+        dialog.setOnDismissListener {
+            if (paperDialog === dialog) {
+                paperDialog = null
+            }
+        }
+
+        paperDialog = dialog
+        dialog.show()
+    }
+
+    private fun createPdf(shareAfterExport: Boolean) {
         if (exportInProgress) return
 
         val state = viewModel.uiState.value
@@ -684,31 +795,79 @@ class InvoiceDetailFragment : Fragment() {
     }
 
     private fun showExportSuccess(uri: Uri) {
-        val state = viewModel.uiState.value
-        val documentName =
-            "RoomKit_Invoice_${state.roomNumber}_${state.billingPeriodFormatted}"
+        if (_binding == null || !isAdded) return
+        if (parentFragmentManager.isStateSaved) return
 
-        Snackbar.make(
-            binding.root,
-            R.string.invoice_detail_pdf_saved,
-            Snackbar.LENGTH_LONG
+        pdfExportDialog?.dismiss()
+
+        val invoiceState = viewModel.uiState.value
+
+        val documentName = exportedDocumentName(uri)
+
+        val sheetBinding = BottomSheetPdfExportedBinding.inflate(
+            layoutInflater
         )
-            .setAction(R.string.invoice_detail_open) {
+
+        val dialog = BottomSheetDialog(requireContext())
+        dialog.setContentView(sheetBinding.root)
+        dialog.setCanceledOnTouchOutside(true)
+
+        sheetBinding.tvInvoiceContext.text =
+            "${if (documentName.contains("_Receipt_")) "Receipt" else "Invoice"} · ${exportedPaper.name}\n" +
+                    "Room ${invoiceState.roomNumber} · ${invoiceState.billingPeriodFormatted}"
+
+        var actionHandled = false
+
+        sheetBinding.btnOpenPdf.setOnClickListener {
+            if (actionHandled || !dialog.isShowing) {
+                return@setOnClickListener
+            }
+
+            actionHandled = true
+            dialog.dismiss()
+
+            if (isAdded && _binding != null) {
                 openPdf(uri)
             }
-            .show()
+        }
 
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.invoice_detail_pdf_exported)
-            .setMessage(R.string.invoice_detail_pdf_export_message)
-            .setPositiveButton(R.string.invoice_detail_print) { _, _ ->
+        sheetBinding.btnPrintPdf.setOnClickListener {
+            if (actionHandled || !dialog.isShowing) {
+                return@setOnClickListener
+            }
+
+            actionHandled = true
+            dialog.dismiss()
+
+            if (isAdded && _binding != null) {
                 printPdf(uri, documentName)
             }
-            .setNeutralButton(R.string.invoice_detail_open_pdf) { _, _ ->
-                openPdf(uri)
+        }
+
+        sheetBinding.btnDone.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.setOnShowListener {
+            dialog.findViewById<View>(
+                com.google.android.material.R.id.design_bottom_sheet
+            )?.background = ColorDrawable(Color.TRANSPARENT)
+
+            dialog.behavior.apply {
+                isFitToContents = true
+                skipCollapsed = true
+                this.state = BottomSheetBehavior.STATE_EXPANDED
             }
-            .setNegativeButton(R.string.invoice_detail_done, null)
-            .show()
+        }
+
+        dialog.setOnDismissListener {
+            if (pdfExportDialog === dialog) {
+                pdfExportDialog = null
+            }
+        }
+
+        pdfExportDialog = dialog
+        dialog.show()
     }
 
     private fun openPdf(uri: Uri) {
@@ -739,27 +898,24 @@ class InvoiceDetailFragment : Fragment() {
             documentName
         )
 
-        printManager.print(documentName, adapter, null)
+        val media = if (exportedPaper == InvoicePaperSize.A5)
+            PrintAttributes.MediaSize.ISO_A5 else PrintAttributes.MediaSize.ISO_A4
+        printManager.print(
+            documentName,
+            adapter,
+            PrintAttributes.Builder()
+                .setMediaSize(media)
+                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
+                .build()
+        )
     }
 
     private fun sharePdf(uri: Uri) {
-        val state = viewModel.uiState.value
-        val invoiceNumber = state.invoiceNumberFormatted
-            .trim()
-            .trimStart('#')
-
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "application/pdf"
 
             putExtra(Intent.EXTRA_STREAM, uri)
-            putExtra(
-                Intent.EXTRA_SUBJECT,
-                getString(
-                    R.string.invoice_detail_share_subject,
-                    invoiceNumber,
-                    state.roomNumber
-                )
-            )
+            putExtra(Intent.EXTRA_SUBJECT, exportedDocumentName(uri))
 
             clipData = ClipData.newRawUri(
                 getString(R.string.invoice_detail_pdf_label),
@@ -781,6 +937,13 @@ class InvoiceDetailFragment : Fragment() {
         }
     }
 
+    private fun exportedDocumentName(uri: Uri): String {
+        return runCatching {
+            requireContext().contentResolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)
+                ?.use { cursor -> if (cursor.moveToFirst()) cursor.getString(0) else null }
+        }.getOrNull() ?: "RoomKit document"
+    }
+
     private fun showMessage(message: String) {
         val currentContext = context ?: return
 
@@ -792,21 +955,29 @@ class InvoiceDetailFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        paperDialog?.dismiss()
+        paperDialog = null
+        pdfExportDialog?.dismiss()
+        pdfExportDialog = null
+
         voidDialog?.dismiss()
         voidDialog = null
-        binding.rvPaymentHistory.adapter = null
+
+        _binding?.rvPaymentHistory?.adapter = null
         _binding = null
+
         super.onDestroyView()
     }
+
     private fun showVoidInvoiceDialog() {
         if (voidDialog?.isShowing == true) return
         val state = viewModel.uiState.value
         if (state.invoiceId <= 0L || state.errorMessage != null || state.isLoading) return
 
-        val content = com.example.roomkit.databinding.DialogVoidInvoiceBinding.inflate(layoutInflater)
+        val content = DialogVoidInvoiceBinding.inflate(layoutInflater)
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(content.root)
-            .setBackground(android.graphics.drawable.GradientDrawable().apply {
+            .setBackground(GradientDrawable().apply {
                 setColor(ContextCompat.getColor(requireContext(), R.color.rvi_surface))
                 cornerRadius = 24f * resources.displayMetrics.density
             })
@@ -817,6 +988,7 @@ class InvoiceDetailFragment : Fragment() {
         fun updateConfirm() {
             content.btnVoidInvoice.isEnabled = !saving && !content.etVoidReason.text.isNullOrBlank()
         }
+
         fun setSaving(value: Boolean) {
             saving = value
             content.btnKeepInvoice.isEnabled = !value
@@ -826,6 +998,7 @@ class InvoiceDetailFragment : Fragment() {
             dialog.setCanceledOnTouchOutside(!value)
             updateConfirm()
         }
+
         content.etVoidReason.doAfterTextChanged {
             content.tilVoidReason.error = null
             content.tvVoidError.isVisible = false
@@ -842,8 +1015,6 @@ class InvoiceDetailFragment : Fragment() {
             }
             content.tvVoidError.isVisible = false
             setSaving(true)
-            // The existing ViewModel/repository remains responsible for the
-            // transaction and for rejecting invoices with active payments.
             viewModel.voidInvoice(invoiceId = state.invoiceId, reason = reason) { result ->
                 if (_binding != null && voidDialog === dialog) {
                     result.onSuccess {
@@ -865,8 +1036,16 @@ class InvoiceDetailFragment : Fragment() {
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
+    private fun updateInvoiceManagementVisibility() {
+        val showOriginal = binding.btnOriginalInvoice.isVisible
+        val showVoid = binding.btnVoidInvoice.isVisible
+
+        binding.cardInvoiceManagement.isVisible = showOriginal || showVoid
+        binding.dividerInvoiceManagement.isVisible = showOriginal && showVoid
+    }
+
     private fun renderReplacementAction(state: InvoiceDetailUiState) {
-        val status = state.status.trim().uppercase(java.util.Locale.ROOT)
+        val status = state.status.trim().uppercase(Locale.ROOT)
         val ready = !state.isLoading && state.errorMessage == null && state.invoiceId > 0L
         binding.btnReplacementAction.isVisible = ready && status in setOf("VOID", "VOIDED", "DRAFT")
         binding.btnReplacementAction.setText(
@@ -874,14 +1053,18 @@ class InvoiceDetailFragment : Fragment() {
         )
         binding.btnReplacementAction.setOnClickListener {
             val latest = viewModel.uiState.value
-            val currentStatus = latest.status.trim().uppercase(java.util.Locale.ROOT)
+            val currentStatus = latest.status.trim().uppercase(Locale.ROOT)
             if (!latest.isLoading && latest.invoiceId > 0L && latest.errorMessage == null &&
-                currentStatus in setOf("DRAFT", "VOID", "VOIDED")) {
+                currentStatus in setOf("DRAFT", "VOID", "VOIDED")
+            ) {
                 val draft = currentStatus == "DRAFT"
-                findNavController().navigate(R.id.replacementInvoiceFragment, bundleOf(
-                    "originalInvoiceId" to if (draft) 0L else latest.invoiceId,
-                    "draftInvoiceId" to if (draft) latest.invoiceId else 0L
-                ))
+                findNavController().navigate(
+                    R.id.replacementInvoiceFragment,
+                    bundleOf(
+                        "originalInvoiceId" to if (draft) 0L else latest.invoiceId,
+                        "draftInvoiceId" to if (draft) latest.invoiceId else 0L
+                    )
+                )
             }
         }
         val originalId = state.replacesInvoiceId

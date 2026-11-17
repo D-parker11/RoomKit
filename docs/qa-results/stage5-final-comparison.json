@@ -1,0 +1,13 @@
+{
+  "meter_readings_unchanged": true,
+  "tenancies_unchanged": true,
+  "tenants_unchanged": true,
+  "rooms_unchanged": true,
+  "payments_unchanged": true,
+  "issued_row_and_items_unchanged_after_restart": true,
+  "exactly_one_regular_invoice": true,
+  "meter_history_count": 10,
+  "payments_count": 0,
+  "integrity": "ok",
+  "due_date_local": "2026-12-05T23:59:59.999000+07:00"
+}

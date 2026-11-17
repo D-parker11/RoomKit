@@ -1,10 +1,17 @@
-@file:Suppress("PackageNaming")
+@file:Suppress("PackageNaming", "PackageName")
+
 package com.example.roomkit.Date.Ui.Room
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.Typeface
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +21,7 @@ import com.example.roomkit.databinding.ItemRoomOccupiedBinding
 import com.example.roomkit.databinding.ItemRoomVacantBinding
 import com.roomkit.data.local.model.RoomItemDetails
 import java.util.Locale
+import kotlin.math.roundToInt
 
 class RoomsAdapter(
     private val onRoomClick: (Long) -> Unit,
@@ -57,9 +65,36 @@ class RoomsAdapter(
         }
     }
 
+    private fun styleStatusBadge(
+        view: TextView,
+        textColorHex: String,
+        @DrawableRes backgroundRes: Int
+    ) {
+        val color = Color.parseColor(textColorHex)
+        val density = view.resources.displayMetrics.density
+        val padH = (10 * density).roundToInt()
+        val padV = (5 * density).roundToInt()
+
+        view.gravity = Gravity.CENTER_VERTICAL
+        view.includeFontPadding = false
+        view.textSize = 12f
+        view.setTypeface(view.typeface, Typeface.BOLD)
+        view.setTextColor(color)
+        view.setBackgroundResource(backgroundRes)
+        view.setPadding(padH, padV, padH, padV)
+        view.compoundDrawablePadding = (6 * density).roundToInt()
+        TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            view,
+            R.drawable.ic_rd_status_dot,
+            0,
+            0,
+            0
+        )
+        TextViewCompat.setCompoundDrawableTintList(view, ColorStateList.valueOf(color))
+    }
+
     inner class OccupiedViewHolder(private val b: ItemRoomOccupiedBinding) : RecyclerView.ViewHolder(b.root) {
         fun bind(item: RoomItemDetails) {
-            val context = b.root.context
             b.tvRoomNumber.text = "ROOM ${item.roomNumber.uppercase(Locale.US)}"
             b.tvTenantName.text = item.tenantName ?: "Active Tenant"
 
@@ -69,13 +104,18 @@ class RoomsAdapter(
             b.tvElectricityUsage.text = item.electricityReading?.let { "Reading: $it kWh" } ?: "—"
             b.tvWaterUsage.text = if (item.waterBillingMethod.equals("FIXED", true)) {
                 "Fixed fee"
-            } else item.waterReading?.let { "Reading: $it m³" } ?: "—"
+            } else {
+                item.waterReading?.let { "Reading: $it m³" } ?: "—"
+            }
             b.tvDueDay.text = item.dueDateText ?: "No due date"
 
             b.tvInvoiceStatusBadge.visibility = View.VISIBLE
             b.tvInvoiceStatusBadge.text = "Occupied"
-            b.tvInvoiceStatusBadge.setBackgroundResource(R.drawable.bg_badge_paid_pill)
-            b.tvInvoiceStatusBadge.setTextColor(ContextCompat.getColor(context, R.color.roomkit_success_dark))
+            styleStatusBadge(
+                view = b.tvInvoiceStatusBadge,
+                textColorHex = "#15803D",
+                backgroundRes = R.drawable.bg_rd_badge_green
+            )
 
             b.root.setOnClickListener { onRoomClick(item.roomId) }
         }
@@ -92,5 +132,4 @@ class RoomsAdapter(
             b.root.setOnClickListener { onRoomClick(item.roomId) }
         }
     }
-
 }

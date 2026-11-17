@@ -1,0 +1,14 @@
+{
+  "tenancy": {
+    "tenancyId": 2,
+    "status": "ACTIVE",
+    "moveOutDate": null
+  },
+  "room": {
+    "roomId": 2,
+    "status": "OCCUPIED"
+  },
+  "move_out_settlement_count": 0,
+  "final_invoice_count": 0,
+  "final_reading_count": 0
+}

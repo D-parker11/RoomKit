@@ -1,50 +1,248 @@
-<?xml version='1.0' encoding='utf-8'?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@color/rks2_bg">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="12dp" android:background="@color/rks2_surface">
-        <ImageButton android:id="@+id/settingsBack" android:layout_width="48dp" android:layout_height="48dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_arrow_back" android:contentDescription="@string/rks2_back" app:tint="@color/rks2_text" />
-        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:paddingStart="8dp">
-            <TextView android:id="@+id/pageTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_settings" android:textColor="@color/rks2_text" android:textSize="26sp" android:textStyle="bold" android:accessibilityHeading="true" />
-            <TextView android:id="@+id/pageSubtitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/rks2_subtitle" android:textColor="@color/rks2_muted" android:textSize="12sp" />
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/rks2_bg">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="@color/rks2_surface">
+
+        <ImageButton
+            android:id="@+id/settingsBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/rks2_back"
+            app:tint="@color/rks2_text" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="0dp">
+
+            <TextView
+                android:id="@+id/pageTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rks2_settings"
+                android:textColor="@color/rks2_text"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:accessibilityHeading="true" />
+
+            <TextView
+                android:id="@+id/pageSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/rks2_subtitle"
+                android:textColor="@color/rks2_muted"
+                android:textSize="12sp" />
+
         </LinearLayout>
+
     </LinearLayout>
-    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:fillViewport="true" android:clipToPadding="false">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp" android:paddingBottom="40dp">
-            <TextView style="@style/Rks2Section" android:text="@string/rks2_property_section" />
-            <com.google.android.material.card.MaterialCardView style="@style/Rks2Card">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                    <include android:id="@+id/settingsProperty" layout="@layout/item_settings_row" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="40dp">
+
+            <!-- Property -->
+            <TextView
+                style="@style/Rks2Section"
+                android:text="@string/rks2_property_section" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Rks2Card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/settingsProperty"
+                        layout="@layout/item_settings_row" />
+
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
-            <TextView style="@style/Rks2Section" android:text="@string/rks2_billing_section" />
-            <com.google.android.material.card.MaterialCardView style="@style/Rks2Card">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                    <include android:id="@+id/settingsDefaults" layout="@layout/item_settings_row" />
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="54dp" android:background="@color/rks2_border" />
-                    <include android:id="@+id/settingsMonthClose" layout="@layout/item_settings_row" />
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="54dp" android:background="@color/rks2_border" />
-                    <include android:id="@+id/settingsCurrency" layout="@layout/item_settings_row" />
+
+            <!-- Billing and payment settings -->
+            <TextView
+                style="@style/Rks2Section"
+                android:text="@string/rks2_billing_section" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Rks2Card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/settingsDefaults"
+                        layout="@layout/item_settings_row" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="54dp"
+                        android:background="@color/rks2_border" />
+
+                    <include
+                        android:id="@+id/settingsPayment"
+                        layout="@layout/item_settings_row" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="54dp"
+                        android:background="@color/rks2_border" />
+
+                    <include
+                        android:id="@+id/settingsMonthClose"
+                        layout="@layout/item_settings_row" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="54dp"
+                        android:background="@color/rks2_border" />
+
+                    <include
+                        android:id="@+id/settingsCurrency"
+                        layout="@layout/item_settings_row" />
+
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
-            <TextView style="@style/Rks2Section" android:text="@string/rks2_reminder_section" />
-            <com.google.android.material.card.MaterialCardView style="@style/Rks2Card">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                    <include android:id="@+id/settingsNotifications" layout="@layout/item_settings_row" />
+
+            <!-- Reminders -->
+            <TextView
+                style="@style/Rks2Section"
+                android:text="@string/rks2_reminder_section" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Rks2Card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/settingsNotifications"
+                        layout="@layout/item_settings_row" />
+
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rks2_schedule" android:textColor="@color/rks2_muted" android:textSize="12sp" android:lineSpacingExtra="3dp" android:layout_marginBottom="12dp" />
-            <TextView style="@style/Rks2Section" android:text="@string/rks2_data_section" />
-            <com.google.android.material.card.MaterialCardView style="@style/Rks2Card">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                    <include android:id="@+id/settingsBackup" layout="@layout/item_settings_row" />
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="54dp" android:background="@color/rks2_border" />
-                    <include android:id="@+id/settingsPrivacy" layout="@layout/item_settings_row" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/rks2_schedule"
+                android:textColor="@color/rks2_muted"
+                android:textSize="12sp"
+                android:lineSpacingExtra="3dp" />
+
+            <!-- Data and privacy -->
+            <TextView
+                style="@style/Rks2Section"
+                android:text="@string/rks2_data_section" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Rks2Card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/settingsBackup"
+                        layout="@layout/item_settings_row" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="54dp"
+                        android:background="@color/rks2_border" />
+
+                    <include
+                        android:id="@+id/settingsPrivacy"
+                        layout="@layout/item_settings_row" />
+
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="32dp" android:padding="24dp" android:orientation="vertical" android:gravity="center">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="RoomKit" android:textColor="@color/rks2_text" android:textSize="22sp" android:textStyle="bold" />
-                <TextView android:id="@+id/settingsVersion" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="@color/rks2_muted" android:textSize="12sp" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="@string/rks2_local" android:textColor="@color/rks2_muted" android:textSize="12sp" android:gravity="center" />
+
+            <!-- App information -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:padding="24dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RoomKit"
+                    android:textColor="@color/rks2_text"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/settingsVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/rks2_muted"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/rks2_local"
+                    android:textColor="@color/rks2_muted"
+                    android:textSize="12sp"
+                    android:gravity="center" />
+
             </LinearLayout>
+
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
+
 </LinearLayout>

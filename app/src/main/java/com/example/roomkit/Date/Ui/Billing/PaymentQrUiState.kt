@@ -14,8 +14,11 @@ data class PaymentQrUiState(
     val invoiceTotalKhr: Long = 0L,
     val totalPaidKhr: Long = 0L,
     val remainingBalanceKhr: Long = 0L,
-    val status: String = "ISSUED",
+    val status: String = "",
     val qrBitmap: Bitmap? = null,
-    val isPayable: Boolean = true,
+    val receiverName: String = "",
+    val accountId: String = "",
+    val isConfigured: Boolean = false,
+    val isPayable: Boolean = false,
     val errorMessage: String? = null
 )

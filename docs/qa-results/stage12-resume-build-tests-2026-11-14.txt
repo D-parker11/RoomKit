@@ -1,0 +1,8 @@
+Stage 12 follow-up build and tests
+Source commit: 167b552419e2d4852356cc2eb2f5a91a7c9bd25f
+Command: ./gradlew :app:testDebugUnitTest :app:assembleDebug --rerun-tasks --console=plain
+Result: BUILD SUCCESSFUL
+Unit tests: 54 total, 0 failures, 0 errors, 0 skipped
+APK: app/build/outputs/apk/debug/app-debug.apk
+
+The build emitted existing Room KSP unused-column warnings and Android deprecation warnings.

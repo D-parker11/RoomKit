@@ -4,6 +4,7 @@ package com.example.roomkit.Date.Ui.Factory
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.roomkit.Date.Payment.PaymentSettingsRepository
 import com.example.roomkit.Date.Repositories.BillingRepository
 import com.example.roomkit.Date.Repositories.DashboardRepository
 import com.example.roomkit.Date.Repositories.MeterReadingRepository
@@ -28,6 +29,7 @@ import com.roomkit.data.local.AppDatabase
 import com.roomkit.data.repository.BuildingRepository
 import com.roomkit.data.repository.RoomRepository
 import com.roomkit.ui.buildings.BuildingsViewModel
+import com.example.roomkit.Date.Settings.SettingsRepository
 
 class ViewModelFactory(
     private val context: Context,
@@ -95,8 +97,13 @@ class ViewModelFactory(
                 DashboardViewModel(dashboardRepo) as T
             }
             modelClass.isAssignableFrom(PaymentQrViewModel::class.java) -> {
-                val validInvoiceId = targetId ?: 0L
-                PaymentQrViewModel(validInvoiceId, billingRepo) as T
+                PaymentQrViewModel(
+                    invoiceId = targetId ?: 0L,
+                    repository = billingRepo,
+                    paymentSettings = PaymentSettingsRepository(
+                        context.applicationContext
+                    )
+                ) as T
             }
             modelClass.isAssignableFrom(EditRoomViewModel::class.java) -> {
                 requireNotNull(targetId) { "roomId is required for EditRoomViewModel" }
@@ -112,7 +119,16 @@ class ViewModelFactory(
                 TenantDetailsViewModel(targetId, tenantRepo, tenancyRepo) as T
             }
             modelClass.isAssignableFrom(MoveInViewModel::class.java) -> {
-                MoveInViewModel(targetId ?: 0L, secondTargetId ?: 0L, tenancyRepo) as T
+                val defaults = SettingsRepository(
+                    context.applicationContext
+                ).load()
+
+                MoveInViewModel(
+                    presetRoomId = targetId ?: 0L,
+                    presetTenantId = secondTargetId ?: 0L,
+                    tenancyRepository = tenancyRepo,
+                    billingDefaults = defaults
+                ) as T
             }
             modelClass.isAssignableFrom(InvoicePreviewViewModel::class.java) -> {
                 requireNotNull(targetId) { "roomId is required for InvoicePreviewViewModel" }

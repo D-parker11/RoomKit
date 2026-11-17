@@ -1,0 +1,76 @@
+{
+  "target": "RoomKit-Test / emulator-5554",
+  "method": "adb exec-out run-as tar read-only copy of database/WAL files; queried local snapshot with SQLite mode=ro and PRAGMA query_only=ON. No SQL executed on emulator.",
+  "integrity_check": "ok",
+  "query": "SELECT t.*,r.roomNumber,r.status AS roomStatus,r.initialElectricityReading,n.fullName,n.phoneNumber FROM tenancies t JOIN rooms r ON r.roomId=t.roomId JOIN tenants n ON n.tenantId=t.tenantId WHERE r.roomNumber=? AND t.status=?",
+  "parameters": [
+    "QA-301",
+    "ACTIVE"
+  ],
+  "rows": [
+    {
+      "tenancyId": 2,
+      "tenantId": 3,
+      "roomId": 2,
+      "moveInDate": 1794312780243,
+      "moveOutDate": null,
+      "currency": "KHR",
+      "monthlyRent": 400000,
+      "deposit": 400000,
+      "billingDay": 1,
+      "dueDay": 5,
+      "electricityRate": 1000,
+      "waterBillingMethod": "FIXED",
+      "waterRate": 20000,
+      "rubbishFee": 10000,
+      "status": "ACTIVE",
+      "roomNumber": "QA-301",
+      "roomStatus": "OCCUPIED",
+      "initialElectricityReading": 100.0,
+      "fullName": "Test Tenant Alpha",
+      "phoneNumber": "012345671"
+    }
+  ],
+  "checks": {
+    "monthlyRent": {
+      "expected": 400000,
+      "actual": 400000,
+      "pass": true
+    },
+    "deposit": {
+      "expected": 400000,
+      "actual": 400000,
+      "pass": true
+    },
+    "billingDay": {
+      "expected": 1,
+      "actual": 1,
+      "pass": true
+    },
+    "dueDay": {
+      "expected": 5,
+      "actual": 5,
+      "pass": true
+    },
+    "electricityRate": {
+      "expected": 1000,
+      "actual": 1000,
+      "pass": true
+    },
+    "waterBillingMethod": {
+      "expected": "FIXED",
+      "actual": "FIXED",
+      "pass": true
+    },
+    "waterRate": {
+      "expected": 20000,
+      "actual": 20000,
+      "pass": true
+    },
+    "rubbishFee": {
+      "expected": 10000,
+      "actual": 10000,
+      "pass": true
+    }
+  }
+}

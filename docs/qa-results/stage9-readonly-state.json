@@ -1,0 +1,31 @@
+{
+  "device": {
+    "avd": "RoomKit-Test",
+    "serial": "emulator-5554",
+    "lastVerifiedLocal": "2026-11-12T12:14:07+07:00",
+    "automaticTime": true,
+    "automaticTimeZone": true
+  },
+  "stage9Fixtures": {
+    "building": {"buildingId": 1, "name": "Suzuki", "configuredCapacity": 6},
+    "room": {"roomId": 6, "buildingId": 1, "roomNumber": "QA-901", "status": "VACANT", "monthlyRentKhr": 140000},
+    "tenants": [
+      {"tenantId": 8, "fullName": "Test Tenant Nine A", "phoneNumber": "019990901", "idOrPassport": "STG9-A-901", "tenancyCreated": false},
+      {"tenantId": 9, "fullName": "Test Tenant Nine B", "phoneNumber": "019990902", "idOrPassport": "STG9-B-901", "tenancyCreated": false}
+    ]
+  },
+  "alphaPreservation": {
+    "tenancyId": 2,
+    "roomId": 2,
+    "roomNumber": "QA-301",
+    "status": "ENDED",
+    "moveOut": "2026-12-31",
+    "settlement": {"depositHeldKhr": 400000, "appliedKhr": 400000, "deductionsKhr": 0, "refundKhr": 0, "debtKhr": 200000},
+    "invoices": [
+      {"id": 2, "kind": "REGULAR", "month": "2026-11", "totalKhr": 445000, "paidKhr": 445000, "balanceKhr": 0},
+      {"id": 3, "kind": "REGULAR", "month": "2026-12", "totalKhr": 440000, "paidKhr": 240000, "balanceKhr": 200000},
+      {"id": 4, "kind": "FINAL", "month": "2026-12", "totalKhr": 0, "paidKhr": 0, "balanceKhr": 0}
+    ]
+  },
+  "readOnlyMethod": "Fresh emulator DB copy; SQLite mode=ro and PRAGMA query_only=ON"
+}

@@ -1,0 +1,19 @@
+Stage 12 verification build (working tree)
+Source commit: 167b552419e2d4852356cc2eb2f5a91a7c9bd25f
+Working-tree source changes include previous QA work. Stage 12 changes:
+- app/src/main/java/com/example/roomkit/Date/Backup/JsonBackupRepository.kt
+- app/src/testShared/java/com/example/roomkit/Phase3Checks.kt
+
+Command:
+./gradlew :app:testDebugUnitTest :app:assembleDebug --console=plain
+Result: BUILD SUCCESSFUL
+JUnit XML aggregate: 54 tests, 0 failures, 0 errors.
+Relevant tests passed:
+- migration10To11PreservesExistingRows (exercises schema 10 -> 11 -> 12)
+- schema11BackupRestoresIntoCurrentSchema12WithSettlementDefaults
+
+APK: app/build/outputs/apk/debug/app-debug.apk
+In-place install succeeded on RoomKit-Test/emulator-5554.
+Separate actual older-build upgrade: schema-11 APK built from source commit above,
+then updated in place to current schema-12 APK on RoomKit-Migration-Test/emulator-5558.
+See stage12-migration-upgrade-schema.txt and stage12-migration-upgrade-crashes.txt.

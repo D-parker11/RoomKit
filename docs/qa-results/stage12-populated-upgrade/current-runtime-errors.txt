@@ -1,0 +1,27 @@
+--------- beginning of crash
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: FATAL EXCEPTION: main
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: Process: com.example.roomkit, PID: 3529
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: android.view.InflateException: Binary XML file line #9 in com.example.roomkit:layout/item_rooms_header: RecyclerView has no LayoutManager androidx.recyclerview.widget.RecyclerView{29de565 VFED..... ......ID 0,0-0,0 #7f0802d0 app:id/rvRooms}, adapter:null, layout:null, context:com.example.roomkit.MainActivity@c7405d1
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: Caused by: java.lang.IllegalStateException: RecyclerView has no LayoutManager androidx.recyclerview.widget.RecyclerView{29de565 VFED..... ......ID 0,0-0,0 #7f0802d0 app:id/rvRooms}, adapter:null, layout:null, context:com.example.roomkit.MainActivity@c7405d1
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at androidx.recyclerview.widget.RecyclerView.generateLayoutParams(RecyclerView.java:5029)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at android.view.ViewGroup.generateLayoutParams(ViewGroup.java:6987)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at android.view.LayoutInflater.inflate(LayoutInflater.java:558)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at android.view.LayoutInflater.inflate(LayoutInflater.java:462)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at com.example.roomkit.databinding.ItemRoomsHeaderBinding.inflate(ItemRoomsHeaderBinding.java:112)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at com.example.roomkit.Date.Ui.Room.RoomsFragment.onViewCreated(RoomsFragment.kt:55)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at androidx.fragment.app.Fragment.performViewCreated(Fragment.java:3147)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at androidx.fragment.app.FragmentStateManager.createView(FragmentStateManager.java:588)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at androidx.fragment.app.FragmentStateManager.moveToExpectedState(FragmentStateManager.java:272)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at androidx.fragment.app.FragmentManager.executeOpsTogether(FragmentManager.java:1943)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at androidx.fragment.app.FragmentManager.removeRedundantOperationsAndExecute(FragmentManager.java:1845)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at androidx.fragment.app.FragmentManager.execPendingActions(FragmentManager.java:1782)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at androidx.fragment.app.FragmentManager$5.run(FragmentManager.java:565)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at android.os.Handler.handleCallback(Handler.java:1095)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at android.os.Handler.dispatchMessageImpl(Handler.java:135)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:125)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:296)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:397)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:9523)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:575)
+11-14 13:35:08.155  3529  3529 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:939)

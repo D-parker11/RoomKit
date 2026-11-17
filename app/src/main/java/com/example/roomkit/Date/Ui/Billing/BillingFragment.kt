@@ -20,7 +20,8 @@ import com.example.roomkit.R
 import com.example.roomkit.databinding.FragmentBillingBinding
 import kotlinx.coroutines.launch
 import java.util.Locale
-
+import com.example.roomkit.Date.Ui.Dashboard.DashboardMonthPickerDialog
+import androidx.core.widget.doAfterTextChanged
 class BillingFragment : Fragment() {
     private var _binding: FragmentBillingBinding? = null
     private val binding get() = _binding!!
@@ -47,6 +48,11 @@ class BillingFragment : Fragment() {
             itemAnimator = null
         }
         binding.billingPage.requestFocus()
+        binding.etSearchInvoices.setText(viewModel.currentSearchQuery)
+
+        binding.etSearchInvoices.doAfterTextChanged { text ->
+            viewModel.onSearchQueryChanged(text?.toString().orEmpty())
+        }
         binding.btnPrevMonth.setOnClickListener { viewModel.onPreviousMonthClicked() }
         binding.btnNextMonth.setOnClickListener { viewModel.onNextMonthClicked() }
         binding.chipAll.setOnClickListener {
@@ -67,6 +73,48 @@ class BillingFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.screenState.collect { renderUi(it) }
+            }
+        }
+        setupMonthPicker()
+    }
+    private fun setupMonthPicker() {
+        childFragmentManager.setFragmentResultListener(
+            DashboardMonthPickerDialog.RESULT,
+            viewLifecycleOwner
+        ) { _, result ->
+            viewModel.onMonthChanged(
+                month = result.getInt("month"),
+                year = result.getInt("year")
+            )
+        }
+
+        binding.tvSelectedMonth.apply {
+            isClickable = true
+            isFocusable = true
+            contentDescription = getString(R.string.dm_choose_month)
+
+            setOnClickListener {
+                val manager = childFragmentManager
+
+                if (manager.isStateSaved) return@setOnClickListener
+
+                if (
+                    manager.findFragmentByTag(
+                        DashboardMonthPickerDialog.TAG
+                    ) != null
+                ) {
+                    return@setOnClickListener
+                }
+
+                val period = viewModel.currentPeriod
+
+                DashboardMonthPickerDialog.newInstance(
+                    month = period.monthValue,
+                    year = period.year
+                ).show(
+                    manager,
+                    DashboardMonthPickerDialog.TAG
+                )
             }
         }
     }
@@ -105,9 +153,12 @@ class BillingFragment : Fragment() {
         binding.tvSummaryPaidCount.text = s.paidCount.toString()
         binding.tvSummaryVoidCount.text = state.voidCount.toString()
         binding.tvSummaryNote.setText(if (state.draftCount > 0) R.string.rb_exclusions_with_drafts else R.string.rb_exclusions)
-        binding.chipAll.text = getString(R.string.rb_filter_count, getString(R.string.rb_all), s.totalCount)
-        binding.chipUnpaid.text = getString(R.string.rb_filter_count, getString(R.string.rb_unpaid), s.unpaidCount)
-        binding.chipPaid.text = getString(R.string.rb_filter_count, getString(R.string.rb_paid), s.paidCount)
+        binding.chipAll.text =
+            getString(R.string.rb_filter_count, getString(R.string.rb_all), s.totalCount)
+        binding.chipUnpaid.text =
+            getString(R.string.rb_filter_count, getString(R.string.rb_unpaid), s.unpaidCount)
+        binding.chipPaid.text =
+            getString(R.string.rb_filter_count, getString(R.string.rb_paid), s.paidCount)
         val moreLabel = when (state.documentFilter) {
             BillingDocumentFilter.VOID -> getString(R.string.rb_void)
             BillingDocumentFilter.DRAFT -> getString(R.string.rb_draft)
@@ -118,18 +169,29 @@ class BillingFragment : Fragment() {
             }
         }
         binding.chipMore.text = moreLabel
-        val extra = state.documentFilter != null || s.selectedFilter == BillingFilter.PARTIAL || s.selectedFilter == BillingFilter.OVERDUE
+        val extra =
+            state.documentFilter != null || s.selectedFilter == BillingFilter.PARTIAL || s.selectedFilter == BillingFilter.OVERDUE
         binding.chipAll.isChecked = !extra && s.selectedFilter == BillingFilter.ALL
         binding.chipUnpaid.isChecked = !extra && s.selectedFilter == BillingFilter.UNPAID
         binding.chipPaid.isChecked = !extra && s.selectedFilter == BillingFilter.PAID
         binding.chipMore.isChecked = extra
-        binding.tvRecordCount.text = resources.getQuantityString(R.plurals.rb_records, s.invoices.size, s.invoices.size)
+        binding.tvRecordCount.text =
+            resources.getQuantityString(R.plurals.rb_records, s.invoices.size, s.invoices.size)
         binding.layoutEmptyState.isVisible = s.invoices.isEmpty()
         binding.rvInvoices.isVisible = s.invoices.isNotEmpty()
-        binding.tvEmptyTitle.text = getString(R.string.rb_empty_title, s.monthYearFormatted)
+
+        binding.tvEmptyTitle.text =
+            if (viewModel.currentSearchQuery.isNotBlank()) {
+                getString(R.string.rb_search_no_results)
+            } else {
+                getString(
+                    R.string.rb_empty_title,
+                    s.monthYearFormatted
+                )
+            }
+
         invoiceAdapter.submitList(s.invoices)
     }
-
     override fun onDestroyView() {
         binding.rvInvoices.adapter = null
         _binding = null

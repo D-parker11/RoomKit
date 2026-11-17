@@ -316,6 +316,25 @@
                             android:textSize="13sp" />
                     </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/tvRemindersBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_rd_badge_red"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:minWidth="24dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp"
+                        android:textColor="@color/rr_red"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tools:text="3"
+                        tools:visibility="visible" />
+
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -410,35 +429,6 @@
                     app:tint="@color/rm_ink" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- Version & Footer Section -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingTop="28dp"
-            android:paddingBottom="16dp">
-
-            <TextView
-                android:id="@+id/tvAppVersion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="@string/rm_version_preview"
-                android:textColor="@color/rm_muted"
-                android:textSize="12sp"
-                tools:text="RoomKit v1.0.0" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:fontFamily="sans-serif"
-                android:text="@string/rm_footer"
-                android:textColor="@color/rm_muted"
-                android:textSize="12sp" />
-        </LinearLayout>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

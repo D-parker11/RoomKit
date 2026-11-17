@@ -1,4 +1,5 @@
 @file:Suppress("PackageNaming")
+
 package com.example.roomkit.Date.Ui.Billing
 
 import android.app.DatePickerDialog
@@ -8,21 +9,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
+import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.fragment.app.viewModels
-import kotlinx.coroutines.CancellationException
 import com.example.roomkit.Date.Billing.CurrencyFormatter
 import com.example.roomkit.Date.Repositories.BillingRepository
 import com.example.roomkit.databinding.BottomSheetRecordPaymentBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.roomkit.data.local.AppDatabase
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.YearMonth
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -30,24 +37,22 @@ import java.util.Locale
 class RecordPaymentBottomSheet : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetRecordPaymentBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = requireNotNull(_binding)
 
+    private var invoiceId = -1L
     private var loaded = false
-    private val paymentVm: RecordPaymentViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T = RecordPaymentViewModel(repository) as T
-        }
-    }
-    private var invoiceId: Long = -1L
-    private var remainingBalanceKhr: Long = 0L
+    private var remainingBalanceKhr = 0L
     private var selectedDateTimestamp = System.currentTimeMillis()
+    private var datePicker: DatePickerDialog? = null
+
     private val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.US)
 
     private val repository: BillingRepository by lazy {
-        val db = AppDatabase.getInstance(requireContext())
+        val appContext = requireContext().applicationContext
+        val db = AppDatabase.getInstance(appContext)
+
         BillingRepository(
-            context = requireContext().applicationContext,
+            context = appContext,
             db = db,
             buildingDao = db.buildingDao(),
             invoiceDao = db.invoiceDao(),
@@ -59,10 +64,28 @@ class RecordPaymentBottomSheet : BottomSheetDialogFragment() {
         )
     }
 
+    private val paymentVm: RecordPaymentViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                require(
+                    modelClass.isAssignableFrom(RecordPaymentViewModel::class.java)
+                ) {
+                    "Unknown ViewModel: ${modelClass.name}"
+                }
+
+                return RecordPaymentViewModel(repository) as T
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         invoiceId = arguments?.getLong("invoiceId") ?: -1L
-        selectedDateTimestamp = savedInstanceState?.getLong("paymentDate") ?: selectedDateTimestamp
+        selectedDateTimestamp =
+            savedInstanceState?.getLong(KEY_DATE)
+                ?: System.currentTimeMillis()
     }
 
     override fun onCreateView(
@@ -70,152 +93,496 @@ class RecordPaymentBottomSheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = BottomSheetRecordPaymentBinding.inflate(inflater, container, false)
+        _binding = BottomSheetRecordPaymentBinding.inflate(
+            inflater,
+            container,
+            false
+        )
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupPaymentMethodDropdown()
+        loaded = false
+
+        setupPaymentMethod()
+        restoreForm(savedInstanceState)
         setupDatePicker()
-        loadInvoiceDetails()
+        setupAmountInput()
+        setupAdditionalDetails(savedInstanceState)
         setupSaveButton()
-        savedInstanceState?.let { saved ->
-            binding.etPaymentAmount.setText(saved.getString("paymentAmount"))
-            binding.actvPaymentMethod.setText(saved.getString("paymentMethod") ?: "Cash", false)
-            binding.etPaymentReference.setText(saved.getString("paymentReference"))
-            binding.etPaymentNote.setText(saved.getString("paymentNote"))
+        observePaymentState()
+
+        updateMethodNotice()
+        updateBalancePreview()
+        updateControls()
+
+        // Preserve a deliberately empty amount after rotation.
+        val prefillAmount =
+            savedInstanceState?.containsKey(KEY_AMOUNT) != true
+
+        loadInvoiceDetails(prefillAmount)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        (dialog as? BottomSheetDialog)?.behavior?.apply {
+            state = BottomSheetBehavior.STATE_EXPANDED
+            skipCollapsed = true
         }
+
+        updateControls()
+    }
+
+    private fun setupPaymentMethod() {
+        val methods = listOf("Cash" , "KHQR")
+
+        binding.actvPaymentMethod.setAdapter(
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                methods
+            )
+        )
+
+        binding.actvPaymentMethod.setText("Cash", false)
+
+        binding.actvPaymentMethod.doAfterTextChanged {
+            binding.tilPaymentMethod.error = null
+            updateMethodNotice()
+        }
+    }
+
+    private fun restoreForm(saved: Bundle?) {
+        if (saved == null) return
+
+        binding.etPaymentAmount.setText(saved.getString(KEY_AMOUNT))
+        binding.actvPaymentMethod.setText(
+            saved.getString(KEY_METHOD) ?: "Cash",
+            false
+        )
+        binding.etPaymentReference.setText(saved.getString(KEY_REFERENCE))
+        binding.etPaymentNote.setText(saved.getString(KEY_NOTE))
+    }
+
+    private fun setupDatePicker() {
+        updateDateLabel()
+
+        binding.etPaymentDate.setOnClickListener {
+            showDatePicker()
+        }
+
+        binding.tilPaymentDate.setEndIconOnClickListener {
+            showDatePicker()
+        }
+    }
+
+    private fun showDatePicker() {
+        if (!canEdit() || datePicker?.isShowing == true) return
+
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = selectedDateTimestamp
+        }
+
+        datePicker = DatePickerDialog(
+            requireContext(),
+            { _, year, month, day ->
+                if (_binding != null && canEdit()) {
+                    calendar.set(year, month, day)
+                    selectedDateTimestamp = calendar.timeInMillis
+                    updateDateLabel()
+                }
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).also { picker ->
+            picker.setOnDismissListener {
+                datePicker = null
+            }
+            picker.show()
+        }
+    }
+
+    private fun updateDateLabel() {
+        _binding?.etPaymentDate?.setText(
+            dateFormat.format(Date(selectedDateTimestamp))
+        )
+    }
+
+    private fun setupAmountInput() {
+        binding.etPaymentAmount.doAfterTextChanged {
+            binding.tilPaymentAmount.error = null
+            updateBalancePreview()
+        }
+
+        binding.btnFullBalance.setOnClickListener {
+            if (!canEdit()) return@setOnClickListener
+
+            binding.etPaymentAmount.setText(
+                remainingBalanceKhr.toString()
+            )
+            binding.etPaymentAmount.setSelection(
+                binding.etPaymentAmount.text?.length ?: 0
+            )
+        }
+    }
+
+    private fun setupAdditionalDetails(saved: Bundle?) {
+        val expanded =
+            saved?.getBoolean(KEY_DETAILS_EXPANDED) == true ||
+                    !binding.etPaymentReference.text.isNullOrBlank() ||
+                    !binding.etPaymentNote.text.isNullOrBlank()
+
+        showAdditionalDetails(expanded)
+
+        binding.btnAdditionalDetails.setOnClickListener {
+            showAdditionalDetails(
+                !binding.additionalDetails.isVisible
+            )
+        }
+    }
+
+    private fun showAdditionalDetails(expanded: Boolean) {
+        binding.additionalDetails.isVisible = expanded
+        binding.btnAdditionalDetails.text =
+            if (expanded) {
+                "Hide additional details"
+            } else {
+                "Add reference or note"
+            }
+    }
+
+    private fun updateMethodNotice() {
+        val b = _binding ?: return
+        val method = b.actvPaymentMethod.text.toString()
+
+        b.tvBankNotice.isVisible =
+            method == "Bank Transfer" || method == "KHQR"
+    }
+
+    private fun updateBalancePreview() {
+        val b = _binding ?: return
+
+        if (!loaded) {
+            b.tvBalanceAfterPayment.text = ""
+            return
+        }
+
+        val amount = CurrencyFormatter.parseKhrInput(
+            b.etPaymentAmount.text?.toString().orEmpty()
+        )
+
+        b.tvBalanceAfterPayment.text = when {
+            amount == null || amount <= 0L ->
+                "Enter the amount you received."
+
+            amount > remainingBalanceKhr ->
+                "Payment exceeds this invoice’s remaining balance."
+
+            amount == remainingBalanceKhr ->
+                "This payment will settle the invoice."
+
+            else -> {
+                val balanceAfter = remainingBalanceKhr - amount
+                "Balance after payment: ${
+                    CurrencyFormatter.formatKhr(balanceAfter)
+                }"
+            }
+        }
+    }
+
+    private fun loadInvoiceDetails(prefillAmount: Boolean) {
+        if (invoiceId <= 0L) {
+            showLoadError("Unable to open payment: invalid invoice.")
+            return
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val saved =
+                    repository.observeInvoiceDetailWithItems(invoiceId)
+                        .firstOrNull()
+                        ?: error("Invoice not found.")
+
+                val detail = saved.detail
+                val invoice = detail.invoice
+
+                require(invoice.currency == "KHR") {
+                    "Unsupported invoice currency."
+                }
+
+                val status = invoice.status.trim().uppercase(Locale.ROOT)
+
+                require(
+                    status in setOf(
+                        "ISSUED",
+                        "UNPAID",
+                        "PARTIAL",
+                        "PARTIALLY_PAID",
+                        "PAID",
+                        "OVERDUE"
+                    )
+                ) {
+                    "Payments cannot be recorded for this invoice status."
+                }
+
+                val payments = saved.accountInvoices
+                    .single { it.invoice.invoiceId == invoiceId }
+                    .payments
+
+                val totalPaid = payments
+                    .filter {
+                        it.status.trim().equals(
+                            "ACTIVE",
+                            ignoreCase = true
+                        )
+                    }
+                    .fold(0L) { total, payment ->
+                        Math.addExact(total, payment.amountKhr)
+                    }
+
+                val invoiceTotal = invoice.totalKhr
+
+                remainingBalanceKhr =
+                    Math.subtractExact(invoiceTotal, totalPaid)
+                        .coerceAtLeast(0L)
+
+                val periodText = YearMonth.of(
+                    invoice.billingYear,
+                    invoice.billingMonth
+                ).format(
+                    DateTimeFormatter.ofPattern("MMM yyyy", Locale.US)
+                )
+
+                binding.tvPaymentHeaderSubtitle.text =
+                    "Room ${detail.roomNumber} · $periodText"
+
+                binding.tvPaymentTotalAmount.text =
+                    CurrencyFormatter.formatKhr(invoiceTotal)
+
+                binding.tvPaymentAlreadyPaid.text =
+                    CurrencyFormatter.formatKhr(totalPaid)
+
+                binding.tvPaymentRemaining.text =
+                    CurrencyFormatter.formatKhr(remainingBalanceKhr)
+
+                require(remainingBalanceKhr > 0L) {
+                    "This invoice has no remaining balance."
+                }
+
+                if (
+                    prefillAmount &&
+                    binding.etPaymentAmount.text.isNullOrBlank()
+                ) {
+                    binding.etPaymentAmount.setText(
+                        remainingBalanceKhr.toString()
+                    )
+                }
+
+                loaded = true
+                updateBalancePreview()
+                updateControls()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                showLoadError(
+                    e.message ?: "Unable to load invoice. Reopen this form."
+                )
+            }
+        }
+    }
+
+    private fun showLoadError(message: String) {
+        loaded = false
+
+        _binding?.apply {
+            tvBalanceAfterPayment.text = message
+            tvBalanceAfterPayment.isVisible = true
+        }
+
+        updateControls()
+    }
+
+    private fun setupSaveButton() {
+        binding.btnSavePayment.setOnClickListener {
+            savePayment()
+        }
+    }
+
+    private fun savePayment() {
+        if (!canEdit()) return
+
+        val amount = CurrencyFormatter.parseKhrInput(
+            binding.etPaymentAmount.text?.toString().orEmpty()
+        )
+
+        when {
+            amount == null || amount <= 0L -> {
+                binding.tilPaymentAmount.error =
+                    "Enter a valid payment amount."
+                binding.etPaymentAmount.requestFocus()
+                return
+            }
+
+            amount > remainingBalanceKhr -> {
+                binding.tilPaymentAmount.error =
+                    "Amount cannot exceed ${
+                        CurrencyFormatter.formatKhr(remainingBalanceKhr)
+                    }."
+                binding.etPaymentAmount.requestFocus()
+                return
+            }
+        }
+
+        binding.tilPaymentAmount.error = null
+
+        val method = when (
+            binding.actvPaymentMethod.text
+                .toString()
+                .trim()
+                .uppercase(Locale.ROOT)
+        ) {
+            "CASH" -> "CASH"
+            "BANK", "BANK TRANSFER" -> "BANK_TRANSFER"
+            "KHQR" -> "KHQR"
+
+            else -> {
+                binding.tilPaymentMethod.error =
+                    "Choose a payment method."
+                return
+            }
+        }
+
+        binding.tilPaymentMethod.error = null
+
+        val note = binding.etPaymentNote.text
+            ?.toString()
+            ?.trim()
+            ?.takeIf { it.isNotEmpty() }
+
+        val reference = binding.etPaymentReference.text
+            ?.toString()
+            ?.trim()
+
+        paymentVm.save(
+            invoiceId,
+            amount,
+            selectedDateTimestamp,
+            method,
+            note,
+            reference
+        )
+
+        updateControls()
+    }
+
+    private fun observePaymentState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 paymentVm.state.collect { state ->
-                    binding.btnSavePayment.isEnabled = loaded && !state.saving && !state.saved
-                    isCancelable = !state.saving
-                    if (state.saved) {
-                        Toast.makeText(requireContext(), "Payment recorded successfully", Toast.LENGTH_SHORT).show()
-                        dismiss()
-                    } else if (state.error != null) {
-                        Toast.makeText(requireContext(), state.error, Toast.LENGTH_LONG).show()
-                        paymentVm.clearError()
+                    updateControls()
+
+                    when {
+                        state.saved -> {
+                            Toast.makeText(
+                                requireContext(),
+                                "Payment recorded successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            dismiss()
+                        }
+
+                        state.error != null -> {
+                            Toast.makeText(
+                                requireContext(),
+                                state.error,
+                                Toast.LENGTH_LONG
+                            ).show()
+
+                            paymentVm.clearError()
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun setupPaymentMethodDropdown() {
-        val methods = listOf("Cash", "Bank Transfer", "KHQR")
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, methods)
-        binding.actvPaymentMethod.setAdapter(adapter)
-        binding.actvPaymentMethod.setText("Cash", false)
+    private fun canEdit(): Boolean {
+        val state = paymentVm.state.value
+        return loaded && !state.saving && !state.saved
     }
 
-    private fun setupDatePicker() {
-        binding.etPaymentDate.setText(dateFormat.format(Date(selectedDateTimestamp)))
-        binding.etPaymentDate.setOnClickListener {
-            val cal = Calendar.getInstance().apply { timeInMillis = selectedDateTimestamp }
-            DatePickerDialog(
-                requireContext(),
-                { _, y, m, d ->
-                    cal.set(y, m, d)
-                    selectedDateTimestamp = cal.timeInMillis
-                    binding.etPaymentDate.setText(dateFormat.format(Date(selectedDateTimestamp)))
-                },
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
-        }
-    }
+    private fun updateControls() {
+        val b = _binding ?: return
+        val state = paymentVm.state.value
+        val editable = canEdit()
 
-    private fun loadInvoiceDetails() {
-        binding.btnSavePayment.isEnabled = false
-        if (invoiceId <= 0L) return
+        b.etPaymentAmount.isEnabled = editable
+        b.actvPaymentMethod.isEnabled = editable
+        b.tilPaymentMethod.isEnabled = editable
+        b.etPaymentDate.isEnabled = editable
+        b.tilPaymentDate.isEnabled = editable
+        b.etPaymentReference.isEnabled = editable
+        b.etPaymentNote.isEnabled = editable
+        b.btnFullBalance.isEnabled = editable
+        b.btnAdditionalDetails.isEnabled = editable
+        b.btnSavePayment.isEnabled = editable
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                val saved = repository.observeInvoiceDetailWithItems(invoiceId).firstOrNull() ?: error("Invoice not found.")
-                val detail = saved.detail
-                require(detail.invoice.currency == "KHR") { "Unsupported invoice currency." }
-                val payments = saved.accountInvoices.single { it.invoice.invoiceId == invoiceId }.payments
+        b.btnSavePayment.text =
+            if (state.saving) "Saving…" else "Save payment"
 
-                val totalPaid = payments.filter { it.status == "ACTIVE" }.sumOf { it.amountKhr }
-                val invoiceTotal = detail.invoice.totalKhr
-                remainingBalanceKhr = (invoiceTotal - totalPaid).coerceAtLeast(0L)
+        isCancelable = !state.saving
 
-                val periodCal = Calendar.getInstance().apply {
-                    set(Calendar.DAY_OF_MONTH, 1)
-                    set(Calendar.MONTH, detail.invoice.billingMonth - 1)
-                    set(Calendar.YEAR, detail.invoice.billingYear)
-                }
-                val periodText = SimpleDateFormat("MMM yyyy", Locale.US).format(periodCal.time)
-
-                binding.tvPaymentHeaderSubtitle.text = "Room ${detail.roomNumber} · $periodText"
-                binding.tvPaymentTotalAmount.text = CurrencyFormatter.formatKhr(invoiceTotal)
-                binding.tvPaymentAlreadyPaid.text = CurrencyFormatter.formatKhr(totalPaid)
-                binding.tvPaymentRemaining.text = CurrencyFormatter.formatKhr(remainingBalanceKhr)
-
-                // Pre-fill amount input with remaining balance
-                val defaultAmountText = remainingBalanceKhr.toString()
-                if (binding.etPaymentAmount.text.isNullOrBlank()) binding.etPaymentAmount.setText(defaultAmountText)
-                loaded = true
-                binding.btnSavePayment.isEnabled = !paymentVm.state.value.saving && !paymentVm.state.value.saved
-            } catch (e: CancellationException) { throw e }
-            catch (e: Exception) {
-                Toast.makeText(requireContext(), e.message ?: "Unable to load invoice. Reopen this form.", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
-
-    private fun setupSaveButton() {
-        binding.btnSavePayment.setOnClickListener {
-            if (!loaded || paymentVm.state.value.saving || paymentVm.state.value.saved) return@setOnClickListener
-            val amountInput = binding.etPaymentAmount.text?.toString().orEmpty()
-            val enteredKhr = CurrencyFormatter.parseKhrInput(amountInput)
-
-            if (enteredKhr == null || enteredKhr <= 0L) {
-                binding.tilPaymentAmount.error = "Enter a valid payment amount"
-                return@setOnClickListener
-            }
-
-            if (enteredKhr > remainingBalanceKhr) {
-                binding.tilPaymentAmount.error =
-                    "Amount cannot exceed balance of ${CurrencyFormatter.formatKhr(remainingBalanceKhr)}"
-                return@setOnClickListener
-            }
-
-            binding.tilPaymentAmount.error = null
-
-            val rawMethod = binding.actvPaymentMethod.text.toString().trim()
-            val methodEnum = when (rawMethod.uppercase(Locale.US)) {
-                "KHQR" -> "KHQR"
-                "BANK TRANSFER", "BANK" -> "BANK_TRANSFER"
-                else -> "CASH"
-            }
-
-            val note = binding.etPaymentNote.text?.toString()?.trim()
-
-            val reference = binding.etPaymentReference.text?.toString()
-            paymentVm.save(invoiceId, enteredKhr, selectedDateTimestamp, methodEnum,
-                note?.ifEmpty { null }, reference)
-        }
+        (dialog as? BottomSheetDialog)?.behavior?.isDraggable =
+            !state.saving
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         _binding?.let { b ->
-            outState.putString("paymentAmount", b.etPaymentAmount.text?.toString())
-            outState.putString("paymentMethod", b.actvPaymentMethod.text?.toString())
-            outState.putString("paymentReference", b.etPaymentReference.text?.toString())
-            outState.putString("paymentNote", b.etPaymentNote.text?.toString())
+            outState.putString(
+                KEY_AMOUNT,
+                b.etPaymentAmount.text?.toString()
+            )
+            outState.putString(
+                KEY_METHOD,
+                b.actvPaymentMethod.text?.toString()
+            )
+            outState.putString(
+                KEY_REFERENCE,
+                b.etPaymentReference.text?.toString()
+            )
+            outState.putString(
+                KEY_NOTE,
+                b.etPaymentNote.text?.toString()
+            )
+            outState.putBoolean(
+                KEY_DETAILS_EXPANDED,
+                b.additionalDetails.isVisible
+            )
         }
-        outState.putLong("paymentDate", selectedDateTimestamp)
+
+        outState.putLong(KEY_DATE, selectedDateTimestamp)
         super.onSaveInstanceState(outState)
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        datePicker?.dismiss()
+        datePicker = null
         loaded = false
         _binding = null
+        super.onDestroyView()
+    }
+
+    private companion object {
+        const val KEY_AMOUNT = "paymentAmount"
+        const val KEY_METHOD = "paymentMethod"
+        const val KEY_REFERENCE = "paymentReference"
+        const val KEY_NOTE = "paymentNote"
+        const val KEY_DATE = "paymentDate"
+        const val KEY_DETAILS_EXPANDED = "detailsExpanded"
     }
 }

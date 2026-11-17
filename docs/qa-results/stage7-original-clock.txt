@@ -1,0 +1,5 @@
+Observed before interaction: Wed Nov 11 10:27:44 +07 2026
+auto_time=1
+auto_time_zone=1
+persist.sys.timezone=Asia/Phnom_Penh
+Android Settings screenshot stage7-13-original-time-settings.png also records original toggles.

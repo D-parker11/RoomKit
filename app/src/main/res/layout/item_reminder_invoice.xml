@@ -64,11 +64,18 @@
                         style="@style/RRCaption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="4dp"
-                        android:textSize="10sp"
+                        android:drawablePadding="6dp"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        tools:text="Unpaid" />
+                        app:drawableStartCompat="@drawable/ic_rd_status_dot"
+                        tools:background="@drawable/bg_rd_badge_amber"
+                        tools:drawableTint="@color/rr_amber"
+                        tools:text="Unpaid"
+                        tools:textColor="@color/rr_amber" />
 
                     <TextView
                         android:id="@+id/tvReminderDueBadge"
@@ -76,11 +83,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="4dp"
-                        android:textSize="10sp"
+                        android:drawablePadding="6dp"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        tools:text="Upcoming" />
+                        app:drawableStartCompat="@drawable/ic_rd_status_dot"
+                        tools:background="@drawable/bg_rd_badge_red"
+                        tools:drawableTint="@color/rr_red"
+                        tools:text="Overdue"
+                        tools:textColor="@color/rr_red" />
                 </LinearLayout>
             </LinearLayout>
 

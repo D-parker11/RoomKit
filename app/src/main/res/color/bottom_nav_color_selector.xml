@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Selected tab: solid dark black -->
-    <item android:color="#111827" android:state_checked="true" />
 
-    <!-- Unselected tabs: muted gray -->
-    <item android:color="#9CA3AF" />
+    <item
+        android:state_enabled="false"
+        android:color="@color/roomkit_text_muted" />
+
+    <item
+        android:state_checked="true"
+        android:color="@color/roomkit_primary" />
+
+    <item android:color="@color/roomkit_text_secondary" />
+
 </selector>

@@ -465,7 +465,10 @@ class BillingRepository(
                 billingPeriodDates = BillingPeriod.label(inv.billingPeriodStart, inv.billingPeriodEnd)
             )
 
-            val uri = InvoicePdfGenerator.generateAndSavePdf(context, model)
+            val paper = com.example.roomkit.Date.Billing.InvoicePaperSize.selected(context)
+            val uri = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                InvoicePdfGenerator.generateAndSavePdf(context, model, paper)
+            }
             Result.success(uri)
         } catch (e: CancellationException) {
             throw e

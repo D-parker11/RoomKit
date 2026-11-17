@@ -1,6 +1,8 @@
 @file:Suppress("PackageNaming")
 package com.example.roomkit.Date.Ui.Meter
 
+import android.R.attr.descendantFocusability
+import android.R.attr.value
 import android.app.Dialog
 import android.os.Bundle
 import android.widget.NumberPicker
@@ -13,13 +15,14 @@ import java.time.YearMonth
 import java.time.Month
 import java.time.format.TextStyle
 import java.util.Locale
+import com.example.roomkit.databinding.DialogMeterMonthBinding
 
 class MeterMonthPickerDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val now = YearMonth.now(java.time.ZoneId.of("Asia/Phnom_Penh"))
         val selectedMonth = savedInstanceState?.getInt("month") ?: arguments?.getInt("month") ?: now.monthValue
         val selectedYear = savedInstanceState?.getInt("year") ?: arguments?.getInt("year") ?: now.year
-        val b = DialogDashboardMonthBinding.inflate(layoutInflater)
+        val b = DialogMeterMonthBinding.inflate(layoutInflater)
         b.monthPicker.apply {
             minValue = 1
             maxValue = 12

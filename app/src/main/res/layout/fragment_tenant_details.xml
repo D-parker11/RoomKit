@@ -88,8 +88,29 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEditTenant"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:minHeight="48dp" android:text="@string/qa_edit_tenant" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-medium"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:letterSpacing="0"
+                android:minHeight="50dp"
+                android:text="@string/qa_edit_tenant"
+                android:textAllCaps="false"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/roomkit_surface"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_edit"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconSize="18dp"
+                app:iconTint="@color/roomkit_text_primary"
+                app:rippleColor="@color/roomkit_border"
+                app:strokeColor="@color/roomkit_border"
+                app:strokeWidth="1dp" />
 
             <!-- Current Tenancy Section -->
             <TextView

@@ -32,6 +32,7 @@ import java.util.Calendar
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import com.example.roomkit.R
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 class MoveInFragment : Fragment() {
@@ -40,12 +41,13 @@ class MoveInFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var isBindingState = false
+
+    private val _uiState = MutableStateFlow(MoveInUiState())
     private var tenantPicker: TenantPickerDialog? = null
     private var confirmationDialog: AlertDialog? = null
 
     private var lastShownError: String? = null
     private var moveInErrorDialog: AlertDialog? = null
-
     private val presetRoomId: Long by lazy {
         arguments
             ?.getLong("presetRoomId", -1L)

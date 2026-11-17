@@ -22,6 +22,7 @@ import com.example.roomkit.R
 import com.example.roomkit.databinding.FragmentPaymentsBinding
 import kotlinx.coroutines.launch
 import java.util.Locale
+import com.example.roomkit.Date.Ui.Dashboard.DashboardMonthPickerDialog
 
 class PaymentsFragment : Fragment() {
     private var _binding: FragmentPaymentsBinding? = null
@@ -63,6 +64,48 @@ class PaymentsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.screenState.collect { render(it) }
+            }
+        }
+        setupMonthPicker()
+    }
+    private fun setupMonthPicker() {
+        childFragmentManager.setFragmentResultListener(
+            DashboardMonthPickerDialog.RESULT,
+            viewLifecycleOwner
+        ) { _, result ->
+            viewModel.onMonthChanged(
+                month = result.getInt("month"),
+                year = result.getInt("year")
+            )
+        }
+
+        binding.tvSelectedMonth.apply {
+            isClickable = true
+            isFocusable = true
+            contentDescription = getString(R.string.dm_choose_month)
+
+            setOnClickListener {
+                val manager = childFragmentManager
+
+                if (manager.isStateSaved) return@setOnClickListener
+
+                if (
+                    manager.findFragmentByTag(
+                        DashboardMonthPickerDialog.TAG
+                    ) != null
+                ) {
+                    return@setOnClickListener
+                }
+
+                val period = viewModel.currentPeriod
+
+                DashboardMonthPickerDialog.newInstance(
+                    month = period.monthValue,
+                    year = period.year
+                ).show(
+                    manager,
+                    DashboardMonthPickerDialog.TAG
+                )
             }
         }
     }

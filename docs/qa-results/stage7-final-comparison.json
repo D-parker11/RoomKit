@@ -1,0 +1,61 @@
+{
+  "tenancies_unchanged": true,
+  "tenants_unchanged": true,
+  "rooms_unchanged": true,
+  "original_meter_rows_preserved": true,
+  "new_readings": [
+    {
+      "readingId": 11,
+      "tenancyId": 2,
+      "roomId": 2,
+      "meterType": "ELECTRICITY",
+      "previousReading": 115,
+      "currentReading": 125,
+      "readingDate": 1796095942191,
+      "billingMonth": 12,
+      "billingYear": 2026,
+      "readingType": "MONTHLY",
+      "eventOrdinal": 0,
+      "meterSequence": 0,
+      "carriedUsage": 0,
+      "reason": null
+    }
+  ],
+  "all_readings_unchanged_after_december_save": true,
+  "existing_payments_unchanged": true,
+  "final_matches_post_payment_snapshot": true,
+  "issued_items_unchanged": true,
+  "november_items_unchanged": true,
+  "invoice_snapshots_preserved": true,
+  "invoices": [
+    {
+      "invoiceId": 2,
+      "billingMonth": 11,
+      "status": "PARTIALLY_PAID",
+      "totalKhr": 445000,
+      "amountPaidKhr": 245000,
+      "balanceKhr": 200000,
+      "dueDate": 1796489999999
+    },
+    {
+      "invoiceId": 3,
+      "billingMonth": 12,
+      "status": "PARTIALLY_PAID",
+      "totalKhr": 440000,
+      "amountPaidKhr": 40000,
+      "balanceKhr": 400000,
+      "dueDate": 1799168399999
+    }
+  ],
+  "active_account_balance": 600000,
+  "payment_ids": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "integrity": "ok",
+  "production_changes_preserved": true,
+  "pdf_sha256": "be3f05b102f78033733670dd9fa59036e7f76a7f85d6b9f9dab2fc192b7d429c"
+}

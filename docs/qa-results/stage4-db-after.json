@@ -1,0 +1,247 @@
+{
+  "saved": {
+    "tenancies": [
+      {
+        "tenancyId": 1,
+        "tenantId": 2,
+        "roomId": 1,
+        "moveInDate": 1794287937444,
+        "moveOutDate": null,
+        "currency": "KHR",
+        "monthlyRent": 300000,
+        "deposit": 300000,
+        "billingDay": 1,
+        "dueDay": 5,
+        "electricityRate": 1000,
+        "waterBillingMethod": "FIXED",
+        "waterRate": 20000,
+        "rubbishFee": 10000,
+        "status": "ACTIVE"
+      },
+      {
+        "tenancyId": 2,
+        "tenantId": 3,
+        "roomId": 2,
+        "moveInDate": 1794312780243,
+        "moveOutDate": null,
+        "currency": "KHR",
+        "monthlyRent": 400000,
+        "deposit": 400000,
+        "billingDay": 1,
+        "dueDay": 5,
+        "electricityRate": 1000,
+        "waterBillingMethod": "FIXED",
+        "waterRate": 20000,
+        "rubbishFee": 10000,
+        "status": "ACTIVE"
+      }
+    ],
+    "rooms": [
+      {
+        "roomId": 1,
+        "buildingId": 1,
+        "roomNumber": "01",
+        "floor": null,
+        "monthlyRent": 300000,
+        "description": null,
+        "roomType": null,
+        "initialElectricityReading": 0.0,
+        "initialWaterReading": 0.0,
+        "createdAt": 1794230491718,
+        "status": "OCCUPIED"
+      },
+      {
+        "roomId": 2,
+        "buildingId": 1,
+        "roomNumber": "QA-301",
+        "floor": null,
+        "monthlyRent": 400000,
+        "description": null,
+        "roomType": null,
+        "initialElectricityReading": 100.0,
+        "initialWaterReading": 0.0,
+        "createdAt": 1794312332918,
+        "status": "OCCUPIED"
+      }
+    ],
+    "meter_readings": [
+      {
+        "readingId": 1,
+        "tenancyId": 1,
+        "roomId": 1,
+        "meterType": "ELECTRICITY",
+        "previousReading": 0,
+        "currentReading": 0,
+        "readingDate": 1794287937444,
+        "billingMonth": 11,
+        "billingYear": 2026,
+        "readingType": "INITIAL",
+        "eventOrdinal": 0,
+        "meterSequence": 0,
+        "carriedUsage": 0,
+        "reason": null
+      },
+      {
+        "readingId": 2,
+        "tenancyId": 2,
+        "roomId": 2,
+        "meterType": "ELECTRICITY",
+        "previousReading": 100,
+        "currentReading": 100,
+        "readingDate": 1794312780243,
+        "billingMonth": 11,
+        "billingYear": 2026,
+        "readingType": "INITIAL",
+        "eventOrdinal": 0,
+        "meterSequence": 0,
+        "carriedUsage": 0,
+        "reason": null
+      },
+      {
+        "readingId": 3,
+        "tenancyId": 2,
+        "roomId": 2,
+        "meterType": "ELECTRICITY",
+        "previousReading": 100,
+        "currentReading": 115,
+        "readingDate": 1794314109505,
+        "billingMonth": 11,
+        "billingYear": 2026,
+        "readingType": "MONTHLY",
+        "eventOrdinal": 0,
+        "meterSequence": 0,
+        "carriedUsage": 0,
+        "reason": null
+      }
+    ],
+    "invoices": [],
+    "integrity_check": "ok"
+  },
+  "restarted": {
+    "tenancies": [
+      {
+        "tenancyId": 1,
+        "tenantId": 2,
+        "roomId": 1,
+        "moveInDate": 1794287937444,
+        "moveOutDate": null,
+        "currency": "KHR",
+        "monthlyRent": 300000,
+        "deposit": 300000,
+        "billingDay": 1,
+        "dueDay": 5,
+        "electricityRate": 1000,
+        "waterBillingMethod": "FIXED",
+        "waterRate": 20000,
+        "rubbishFee": 10000,
+        "status": "ACTIVE"
+      },
+      {
+        "tenancyId": 2,
+        "tenantId": 3,
+        "roomId": 2,
+        "moveInDate": 1794312780243,
+        "moveOutDate": null,
+        "currency": "KHR",
+        "monthlyRent": 400000,
+        "deposit": 400000,
+        "billingDay": 1,
+        "dueDay": 5,
+        "electricityRate": 1000,
+        "waterBillingMethod": "FIXED",
+        "waterRate": 20000,
+        "rubbishFee": 10000,
+        "status": "ACTIVE"
+      }
+    ],
+    "rooms": [
+      {
+        "roomId": 1,
+        "buildingId": 1,
+        "roomNumber": "01",
+        "floor": null,
+        "monthlyRent": 300000,
+        "description": null,
+        "roomType": null,
+        "initialElectricityReading": 0.0,
+        "initialWaterReading": 0.0,
+        "createdAt": 1794230491718,
+        "status": "OCCUPIED"
+      },
+      {
+        "roomId": 2,
+        "buildingId": 1,
+        "roomNumber": "QA-301",
+        "floor": null,
+        "monthlyRent": 400000,
+        "description": null,
+        "roomType": null,
+        "initialElectricityReading": 100.0,
+        "initialWaterReading": 0.0,
+        "createdAt": 1794312332918,
+        "status": "OCCUPIED"
+      }
+    ],
+    "meter_readings": [
+      {
+        "readingId": 1,
+        "tenancyId": 1,
+        "roomId": 1,
+        "meterType": "ELECTRICITY",
+        "previousReading": 0,
+        "currentReading": 0,
+        "readingDate": 1794287937444,
+        "billingMonth": 11,
+        "billingYear": 2026,
+        "readingType": "INITIAL",
+        "eventOrdinal": 0,
+        "meterSequence": 0,
+        "carriedUsage": 0,
+        "reason": null
+      },
+      {
+        "readingId": 2,
+        "tenancyId": 2,
+        "roomId": 2,
+        "meterType": "ELECTRICITY",
+        "previousReading": 100,
+        "currentReading": 100,
+        "readingDate": 1794312780243,
+        "billingMonth": 11,
+        "billingYear": 2026,
+        "readingType": "INITIAL",
+        "eventOrdinal": 0,
+        "meterSequence": 0,
+        "carriedUsage": 0,
+        "reason": null
+      },
+      {
+        "readingId": 3,
+        "tenancyId": 2,
+        "roomId": 2,
+        "meterType": "ELECTRICITY",
+        "previousReading": 100,
+        "currentReading": 115,
+        "readingDate": 1794314109505,
+        "billingMonth": 11,
+        "billingYear": 2026,
+        "readingType": "MONTHLY",
+        "eventOrdinal": 0,
+        "meterSequence": 0,
+        "carriedUsage": 0,
+        "reason": null
+      }
+    ],
+    "invoices": [],
+    "integrity_check": "ok"
+  },
+  "checks": {
+    "one_monthly": true,
+    "initial_unchanged": true,
+    "no_pre_tenancy_monthly": true,
+    "no_invoices": true,
+    "unchanged_after_restart": true,
+    "tenancy_terms_unchanged": true,
+    "expected_later_electricity_charge_khr": 15000
+  }
+}

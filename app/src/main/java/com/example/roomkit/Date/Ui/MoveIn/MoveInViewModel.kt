@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import kotlinx.coroutines.Job
+import com.example.roomkit.Date.Settings.BillingDefaults
 import kotlinx.coroutines.CancellationException
 import com.example.roomkit.Date.Local.Model.TenantAssignmentOption
 
@@ -22,10 +23,29 @@ class MoveInViewModel(
     private val presetRoomId: Long = 0L,
     private val presetTenantId: Long = 0L,
     private val tenancyRepository: TenancyRepository,
+    private val billingDefaults: BillingDefaults,
     private var availableRoomsJob: Job? = null
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(MoveInUiState())
+    // Retain separate amounts when switching between water methods.
+    private var fixedWaterInput = billingDefaults.fixedWaterFee.toString()
+    private var meteredWaterInput = billingDefaults.waterRate.toString()
+
+    // Apply saved settings once when this move-in ViewModel is created.
+    private val _uiState = MutableStateFlow(
+        MoveInUiState(
+            dueDayInput = billingDefaults.dueDay.toString(),
+            electricityRateKhrInput = billingDefaults.electricityRate.toString(),
+            isWaterMetered = billingDefaults.waterMetered,
+            waterFeeOrRateKhrInput = if (billingDefaults.waterMetered) {
+                meteredWaterInput
+            } else {
+                fixedWaterInput
+            },
+            rubbishFeeKhrInput = billingDefaults.rubbishFee.toString()
+        )
+    )
+
     val uiState: StateFlow<MoveInUiState> = _uiState.asStateFlow()
 
     private val _tenantPickerState = MutableStateFlow(TenantPickerState())
@@ -233,14 +253,45 @@ class MoveInViewModel(
     fun onElectricityRateChanged(value: String) = _uiState.update { it.copy(electricityRateKhrInput = value) }
     fun onRubbishFeeChanged(value: String) = _uiState.update { it.copy(rubbishFeeKhrInput = value) }
     fun onWaterMethodChanged(isMetered: Boolean) {
+        val current = _uiState.value
+
+        if (current.isSaving || current.isSuccess) return
+        if (current.isWaterMetered == isMetered) return
+
+        // Remember the amount for the method being left.
+        if (current.isWaterMetered) {
+            meteredWaterInput = current.waterFeeOrRateKhrInput
+        } else {
+            fixedWaterInput = current.waterFeeOrRateKhrInput
+        }
+
         _uiState.update {
             it.copy(
                 isWaterMetered = isMetered,
-                waterFeeOrRateKhrInput = if (isMetered) "1500" else "20000"
+                waterFeeOrRateKhrInput = if (isMetered) {
+                    meteredWaterInput
+                } else {
+                    fixedWaterInput
+                }
             )
         }
     }
-    fun onWaterFeeOrRateChanged(value: String) = _uiState.update { it.copy(waterFeeOrRateKhrInput = value) }
+
+    fun onWaterFeeOrRateChanged(value: String) {
+        val current = _uiState.value
+
+        if (current.isSaving || current.isSuccess) return
+
+        if (current.isWaterMetered) {
+            meteredWaterInput = value
+        } else {
+            fixedWaterInput = value
+        }
+
+        _uiState.update {
+            it.copy(waterFeeOrRateKhrInput = value)
+        }
+    }
     fun onInitialElecReadingChanged(value: String) = _uiState.update { it.copy(initialElecReadingInput = value) }
     fun onInitialWaterReadingChanged(value: String) = _uiState.update { it.copy(initialWaterReadingInput = value) }
 

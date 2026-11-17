@@ -1,19 +1,24 @@
-
-@file:Suppress("PackageNaming")
+@file:Suppress("PackageNaming", "PackageName")
 
 package com.example.roomkit.Date.Ui.Room
 
-import android.content.DialogInterface
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.os.ConfigurationCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -24,19 +29,24 @@ import com.example.roomkit.Date.Billing.CurrencyFormatter
 import com.example.roomkit.Date.Local.Model.RoomDetailUiState
 import com.example.roomkit.Date.Ui.Factory.ViewModelFactory
 import com.example.roomkit.R
+import com.example.roomkit.databinding.BottomSheetManageTenancyBinding
 import com.example.roomkit.databinding.FragmentRoomDetailBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlin.math.roundToInt
 import kotlinx.coroutines.launch
 
 class RoomDetailFragment : Fragment() {
 
     private var _binding: FragmentRoomDetailBinding? = null
     private val binding get() = _binding!!
+
+    private var pdfExportDialog: BottomSheetDialog? = null
 
     private val roomId: Long by lazy {
         arguments?.getLong("roomId") ?: -1L
@@ -47,7 +57,7 @@ class RoomDetailFragment : Fragment() {
     }
 
     private var latestState: RoomDetailUiState? = null
-    private var tenancyDialog: AlertDialog? = null
+    private var tenancyDialog: BottomSheetDialog? = null
     private var moveOutInProgress = false
 
     override fun onCreateView(
@@ -141,6 +151,34 @@ class RoomDetailFragment : Fragment() {
         }
     }
 
+    private fun styleStatusBadge(
+        view: TextView,
+        color: Int,
+        @DrawableRes backgroundRes: Int
+    ) {
+        val density = resources.displayMetrics.density
+        val padH = (10 * density).roundToInt()
+        val padV = (5 * density).roundToInt()
+
+        view.gravity = Gravity.CENTER_VERTICAL
+        view.includeFontPadding = false
+        view.textSize = 12f
+        view.setTypeface(view.typeface, Typeface.BOLD)
+        view.setTextColor(color)
+        view.backgroundTintList = null
+        view.setBackgroundResource(backgroundRes)
+        view.setPadding(padH, padV, padH, padV)
+        view.compoundDrawablePadding = (6 * density).roundToInt()
+        TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            view,
+            R.drawable.ic_rd_status_dot,
+            0,
+            0,
+            0
+        )
+        TextViewCompat.setCompoundDrawableTintList(view, ColorStateList.valueOf(color))
+    }
+
     private fun renderUi(state: RoomDetailUiState) {
         latestState = state
 
@@ -173,43 +211,29 @@ class RoomDetailFragment : Fragment() {
         binding.layoutOccupiedDetails.isVisible = occupied
         binding.layoutVacantDetails.isVisible = !occupied
 
-        binding.tvOccupancyBadge.apply {
-            setText(
-                if (occupied) {
-                    R.string.rk_room_detail_occupied
-                } else {
-                    R.string.rk_room_detail_vacant
-                }
-            )
-
-            setBackgroundResource(
-                if (occupied) {
-                    R.drawable.bg_badge_paid_pill
-                } else {
-                    R.drawable.bg_badge_unpaid_pill
-                }
-            )
-
-            backgroundTintList = ContextCompat.getColorStateList(
+        binding.tvOccupancyBadge.setText(
+            if (occupied) {
+                R.string.rk_room_detail_occupied
+            } else {
+                R.string.rk_room_detail_vacant
+            }
+        )
+        styleStatusBadge(
+            view = binding.tvOccupancyBadge,
+            color = ContextCompat.getColor(
                 requireContext(),
                 if (occupied) {
-                    R.color.roomkit_primary
+                    R.color.roomkit_success_dark
                 } else {
-                    R.color.roomkit_surface
+                    R.color.roomkit_text_secondary
                 }
-            )
-
-            setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    if (occupied) {
-                        R.color.roomkit_on_primary
-                    } else {
-                        R.color.roomkit_text_secondary
-                    }
-                )
-            )
-        }
+            ),
+            backgroundRes = if (occupied) {
+                R.drawable.bg_rd_badge_green
+            } else {
+                R.drawable.bg_rd_badge_neutral
+            }
+        )
 
         binding.tvTenantName.text =
             state.tenantName?.takeIf { it.isNotBlank() }
@@ -352,8 +376,6 @@ class RoomDetailFragment : Fragment() {
             R.string.rk_room_detail_invoice_value_hint
         )
 
-
-
         binding.tvInvoiceTotalKhr.text =
             state.totalInvoiceAmount?.let {
                 CurrencyFormatter.formatKhr(it)
@@ -396,15 +418,21 @@ class RoomDetailFragment : Fragment() {
         val id = state.invoiceId ?: 0L
         if (id > 0L) {
             if (state.invoiceStatus?.trim()?.equals("DRAFT", true) == true) {
-                findNavController().navigate(R.id.replacementInvoiceFragment,
-                    androidx.core.os.bundleOf("draftInvoiceId" to id))
+                findNavController().navigate(
+                    R.id.replacementInvoiceFragment,
+                    bundleOf("draftInvoiceId" to id)
+                )
             } else {
-                findNavController().navigate(R.id.invoiceDetailFragment,
-                    androidx.core.os.bundleOf("invoiceId" to id))
+                findNavController().navigate(
+                    R.id.invoiceDetailFragment,
+                    bundleOf("invoiceId" to id)
+                )
             }
         } else {
-            findNavController().navigate(R.id.invoicePreviewFragment,
-                androidx.core.os.bundleOf("roomId" to state.roomId))
+            findNavController().navigate(
+                R.id.invoicePreviewFragment,
+                bundleOf("roomId" to state.roomId)
+            )
         }
     }
 
@@ -423,70 +451,123 @@ class RoomDetailFragment : Fragment() {
 
         val labelResource: Int
         val backgroundResource: Int
-        val colorResource: Int
+        val colorValue: Int
 
         when (normalized) {
             "PAID" -> {
                 labelResource = R.string.rk_room_detail_paid
-                backgroundResource = R.drawable.bg_badge_paid_pill
-                colorResource = R.color.roomkit_success_dark
+                backgroundResource = R.drawable.bg_rd_badge_green
+                colorValue = ContextCompat.getColor(requireContext(), R.color.roomkit_success_dark)
             }
 
             "PARTIAL", "PARTIALLY_PAID" -> {
                 labelResource = R.string.rk_room_detail_partial
-                backgroundResource = R.drawable.bg_badge_partial_pill
-                colorResource = R.color.roomkit_warning_dark
+                backgroundResource = R.drawable.bg_rd_badge_blue
+                colorValue = Color.parseColor("#1D4ED8")
             }
 
             "OVERDUE" -> {
                 labelResource = R.string.rk_room_detail_overdue
-                backgroundResource = R.drawable.bg_badge_overdue_pill
-                colorResource = R.color.roomkit_error_dark
+                backgroundResource = R.drawable.bg_rd_badge_red
+                colorValue = ContextCompat.getColor(requireContext(), R.color.roomkit_error_dark)
+            }
+
+            "UNPAID", "ISSUED" -> {
+                labelResource = if (normalized == "ISSUED") {
+                    R.string.rk_room_detail_issued
+                } else {
+                    R.string.rk_room_detail_unpaid
+                }
+                backgroundResource = R.drawable.bg_rd_badge_amber
+                colorValue = ContextCompat.getColor(requireContext(), R.color.roomkit_warning_dark)
             }
 
             else -> {
                 labelResource = when (normalized) {
                     "DRAFT" -> R.string.rk_room_detail_draft
-                    "ISSUED" -> R.string.rk_room_detail_issued
                     "VOID" -> R.string.rk_room_detail_void
-                    "UNPAID" -> R.string.rk_room_detail_unpaid
                     else -> R.string.rk_room_detail_unknown
                 }
-
-                backgroundResource = R.drawable.bg_badge_unpaid_pill
-                colorResource = R.color.roomkit_text_secondary
+                backgroundResource = R.drawable.bg_rd_badge_neutral
+                colorValue = ContextCompat.getColor(requireContext(), R.color.roomkit_text_secondary)
             }
         }
 
-        binding.tvInvoiceStatusBadge.apply {
-            setText(labelResource)
-            setBackgroundResource(backgroundResource)
-            setTextColor(
-                ContextCompat.getColor(requireContext(), colorResource)
-            )
-        }
+        binding.tvInvoiceStatusBadge.setText(labelResource)
+        styleStatusBadge(
+            view = binding.tvInvoiceStatusBadge,
+            color = colorValue,
+            backgroundRes = backgroundResource
+        )
     }
 
     private fun showManageTenancyDialog(state: RoomDetailUiState) {
         if (tenancyDialog?.isShowing == true) return
+        if (childFragmentManager.isStateSaved) return
 
-        val dialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.rk_room_detail_manage)
-            .setItems(
-                arrayOf(
-                    getString(R.string.rk_room_detail_profile),
-                    getString(R.string.rk_room_detail_move_out)
-                )
-            ) { _, selected ->
-                when (selected) {
-                    0 -> openTenantProfile(state)
-                    1 -> confirmMoveOut(state)
-                }
+        val sheetBinding = BottomSheetManageTenancyBinding.inflate(
+            layoutInflater
+        )
+
+        val dialog = BottomSheetDialog(requireContext())
+        dialog.setContentView(sheetBinding.root)
+        dialog.setCanceledOnTouchOutside(true)
+
+        sheetBinding.tvTenancyContext.text = getString(
+            R.string.rk_manage_tenancy_context,
+            state.roomNumber,
+            state.tenantName
+                ?.takeIf { it.isNotBlank() }
+                ?: getString(R.string.rk_room_detail_tenant_fallback)
+        )
+
+        sheetBinding.btnClose.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Use the latest state so the actions target the current tenancy.
+        sheetBinding.actionViewProfile.setOnClickListener {
+            if (!dialog.isShowing) return@setOnClickListener
+
+            val currentState = latestState ?: state
+            dialog.dismiss()
+
+            if (_binding != null && !parentFragmentManager.isStateSaved) {
+                openTenantProfile(currentState)
             }
-            .setNegativeButton(R.string.rk_room_detail_cancel, null)
-            .create()
+        }
 
-        tenancyDialog = dialog
+        sheetBinding.actionMoveOut.setOnClickListener {
+            if (!dialog.isShowing || moveOutInProgress) {
+                return@setOnClickListener
+            }
+
+            val currentState = latestState ?: state
+            dialog.dismiss()
+
+            if (
+                _binding != null &&
+                !parentFragmentManager.isStateSaved &&
+                currentState.isOccupied
+            ) {
+                confirmMoveOut(currentState)
+            }
+        }
+
+        dialog.setOnShowListener {
+            val bottomSheet = dialog.findViewById<View>(
+                com.google.android.material.R.id.design_bottom_sheet
+            )
+
+            // Let our rounded layout provide the visible surface.
+            bottomSheet?.background = ColorDrawable(Color.TRANSPARENT)
+
+            dialog.behavior.apply {
+                isFitToContents = true
+                skipCollapsed = true
+                this.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
 
         dialog.setOnDismissListener {
             if (tenancyDialog === dialog) {
@@ -494,6 +575,7 @@ class RoomDetailFragment : Fragment() {
             }
         }
 
+        tenancyDialog = dialog
         dialog.show()
     }
 

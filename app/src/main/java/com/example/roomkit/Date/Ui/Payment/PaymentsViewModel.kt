@@ -152,4 +152,11 @@ class PaymentsViewModel(private val repository: BillingRepository) : ViewModel()
             else -> PaymentsScreenFilter.ALL
         }
     }
+    val currentPeriod: YearMonth
+        get() = month.value
+
+    fun onMonthChanged(month: Int, year: Int) {
+        if (month !in 1..12 || year !in 1900..9999) return
+        this.month.value = YearMonth.of(year, month)
+    }
 }

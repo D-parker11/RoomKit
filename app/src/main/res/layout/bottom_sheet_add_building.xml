@@ -2,284 +2,291 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_bottom_sheet_rounded">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_roomkit_property_sheet"
+    android:focusableInTouchMode="true">
 
-    <!-- Top Drag Handle -->
     <View
         android:id="@+id/dragHandle"
-        android:layout_width="40dp"
+        android:layout_width="36dp"
         android:layout_height="4dp"
-        android:layout_marginTop="10dp"
-        android:background="#D1D5DB"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:importantForAccessibility="no"
+        android:background="@drawable/bg_roomkit_sheet_handle"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Top Bar: Cancel, Title, Save -->
-    <RelativeLayout
-        android:id="@+id/layoutHeader"
+    <TextView
+        android:id="@+id/tvBuildingTitle"
         android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:paddingHorizontal="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/rk_property_setup"
+        android:textColor="@color/roomkit_text_primary"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/dragHandle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dragHandle">
+        app:layout_constraintEnd_toStartOf="@id/btnCloseAddBuilding" />
 
-        <ImageButton
-            android:id="@+id/btnCloseAddBuilding"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Close"
-            android:src="@drawable/ic_close"
-            app:tint="#111827" />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnCloseAddBuilding"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/rk_property_close"
+        android:padding="12dp"
+        android:src="@drawable/ic_close"
+        app:tint="@color/roomkit_text_primary"
+        app:layout_constraintTop_toTopOf="@id/tvBuildingTitle"
+        app:layout_constraintBottom_toBottomOf="@id/tvBuildingTitle"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/tvBuildingTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Set Up Property"
-            android:textColor="#111827"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/btnHeaderSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="8dp"
-            android:text="Save"
-            android:textColor="#111827"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/dividerTop"
+    <TextView
+        android:id="@+id/tvBuildingSubtitle"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#F3F4F6"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/rk_property_subtitle"
+        android:textColor="@color/roomkit_text_secondary"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvBuildingTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Scrollable Form Body -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollForm"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:maxHeight="540dp"
-        app:layout_constrainedHeight="true"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/tvBuildingSubtitle"
         app:layout_constraintBottom_toTopOf="@id/layoutBottomAction"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dividerTop">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="18dp"
-            android:paddingBottom="16dp">
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="24dp">
 
-            <!-- SECTION 1: Basic Info -->
             <TextView
-                android:layout_width="wrap_content"
+                style="@style/RoomKitFormSection"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:letterSpacing="0.04"
-                android:text="BASIC INFO"
-                android:textColor="#6B7280"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:text="@string/rk_property_details" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilBuildingName"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/RoomKitFormInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="Building Name *">
+                android:layout_marginTop="12dp"
+                android:hint="@string/rk_property_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etBuildingName"
+                    style="@style/RoomKitFormEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords" />
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- SECTION 2: Location -->
             <TextView
-                android:layout_width="wrap_content"
+                style="@style/RoomKitFormSection"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:letterSpacing="0.04"
-                android:text="LOCATION"
-                android:textColor="#6B7280"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="24dp"
+                android:text="@string/rk_property_location" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilStreetAddress"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/RoomKitFormInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="Street Address *">
+                android:layout_marginTop="12dp"
+                android:hint="@string/rk_property_street">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etStreetAddress"
+                    style="@style/RoomKitFormEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="e.g. St. 271"
-                    android:inputType="textPostalAddress" />
+                    android:imeOptions="actionNext"
+                    android:inputType="textPostalAddress"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDistrict"
+                style="@style/RoomKitFormDropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/rk_property_district">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/actvDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="56dp"
+                    android:fontFamily="sans-serif"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilCity"
+                style="@style/RoomKitFormInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/rk_property_city">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etCity"
+                    style="@style/RoomKitFormEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:text="@string/rk_property_default_city" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                style="@style/RoomKitFormSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/rk_property_capacity" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:orientation="horizontal">
-
-                <!-- District Dropdown -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilDistrict"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    android:layout_weight="1"
-                    android:hint="District / Khan *">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/actvDistrict"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- City / Province (Default: Phnom Penh) -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilCity"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_weight="1"
-                    android:hint="City">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etCity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Phnom Penh" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <!-- SECTION 3: Capacity -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:letterSpacing="0.04"
-                android:text="CAPACITY"
-                android:textColor="#6B7280"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilFloors"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/RoomKitFormInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="12dp"
                     android:layout_weight="1"
-                    android:hint="Floors">
+                    android:hint="@string/rk_property_floors">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etFloors"
+                        style="@style/RoomKitFormEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number" />
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilTotalRooms"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/RoomKitFormInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
                     android:layout_weight="1"
-                    android:hint="Total Rooms *">
+                    android:hint="@string/rk_property_room_capacity">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etTotalRooms"
+                        style="@style/RoomKitFormEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number" />
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
-            <!-- Optional Manager Phone -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilContactPhone"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <TextView
+                android:id="@+id/tvCapacityHint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:hint="Manager Contact (Optional)">
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="3dp"
+                android:text="@string/rk_property_capacity_hint"
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="12sp" />
+
+            <!-- Enable only after phone persistence is implemented. -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilContactPhone"
+                style="@style/RoomKitFormInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/rk_property_phone"
+                android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etContactPhone"
+                    style="@style/RoomKitFormEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="e.g. +855 12 345 678"
-                    android:inputType="phone" />
+                    android:imeOptions="actionDone"
+                    android:inputType="phone"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom Pinned Action Button -->
     <LinearLayout
         android:id="@+id/layoutBottomAction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="24dp"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCreateBuilding"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:backgroundTint="#111827"
+            android:layout_height="wrap_content"
+            android:minHeight="56dp"
+            android:fontFamily="sans-serif-medium"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Create Building"
+            android:letterSpacing="0"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="@string/rk_property_create"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/roomkit_on_primary"
             android:textSize="16sp"
-            android:textStyle="bold"
+            app:backgroundTint="@color/roomkit_form_button"
             app:cornerRadius="16dp" />
     </LinearLayout>
 

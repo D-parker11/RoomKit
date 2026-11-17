@@ -30,5 +30,16 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <provider
+            android:name="com.example.roomkit.Date.Payment.PaymentFileProvider"
+            android:authorities="${applicationId}.paymentfiles"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/roomkit_payment_paths" />
+
+        </provider>
     </application>
 </manifest>

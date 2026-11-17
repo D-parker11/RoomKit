@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.roomkit.Phase3DatabaseTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-10T13:01:22.971Z" hostname="MacBooks-MacBook-Pro-2.local" time="4.515">
+  <properties/>
+  <testcase name="tenantEditPreservesLinksAndAllowsUnchangedIdentity" classname="com.example.roomkit.Phase3DatabaseTest" time="2.565"/>
+  <testcase name="missingReadingRollsBackEveryInvoiceAndPeriod" classname="com.example.roomkit.Phase3DatabaseTest" time="0.034"/>
+  <testcase name="migration10To11PreservesExistingRows" classname="com.example.roomkit.Phase3DatabaseTest" time="0.046"/>
+  <testcase name="wrongPasswordDoesNotChangeExistingData" classname="com.example.roomkit.Phase3DatabaseTest" time="0.47"/>
+  <testcase name="malformedJsonDoesNotChangeExistingData" classname="com.example.roomkit.Phase3DatabaseTest" time="0.017"/>
+  <testcase name="monthlyReadingCannotChangeBeforeIssue" classname="com.example.roomkit.Phase3DatabaseTest" time="0.014"/>
+  <testcase name="tenantSearchIncludesIdentity" classname="com.example.roomkit.Phase3DatabaseTest" time="0.025"/>
+  <testcase name="zeroChargeMoveOutCreatesFinalDocumentWithoutPayment" classname="com.example.roomkit.Phase3DatabaseTest" time="0.028"/>
+  <testcase name="backupRoundTripRetainsAuditAndAmounts" classname="com.example.roomkit.Phase3DatabaseTest" time="0.428"/>
+  <testcase name="authenticatedButInconsistentBackupCannotReplaceData" classname="com.example.roomkit.Phase3DatabaseTest" time="0.79"/>
+  <testcase name="tenantCreateAndEditBlockNormalizedDuplicates" classname="com.example.roomkit.Phase3DatabaseTest" time="0.016"/>
+  <testcase name="closedMonthStillAcceptsPayments" classname="com.example.roomkit.Phase3DatabaseTest" time="0.017"/>
+  <testcase name="closeIsIdempotentAndRetainsIds" classname="com.example.roomkit.Phase3DatabaseTest" time="0.016"/>
+  <testcase name="replacementAfterSavedMonthlyCarriesOnlyUnbilledUsage" classname="com.example.roomkit.Phase3DatabaseTest" time="0.013"/>
+  <testcase name="reopenRequiresReasonAndPreservesIssuedSnapshots" classname="com.example.roomkit.Phase3DatabaseTest" time="0.017"/>
+  <testcase name="competingCloseCallsReturnOneResult" classname="com.example.roomkit.Phase3DatabaseTest" time="0.018"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

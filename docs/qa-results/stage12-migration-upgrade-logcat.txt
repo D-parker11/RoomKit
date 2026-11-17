@@ -1,0 +1,90 @@
+11-13 21:31:57.051   631   686 I AppsFilter: interaction: PackageSetting{e27f720 com.example.roomkit/10232} -> PackageSetting{bb940a3 com.google.android.as/10149} BLOCKED
+11-13 21:31:57.051   631   686 I AppsFilter: interaction: PackageSetting{e27f720 com.example.roomkit/10232} -> PackageSetting{a45fa0 com.google.android.as.oss/10148} BLOCKED
+11-13 21:31:57.052   631   686 I AppsFilter: interaction: PackageSetting{e27f720 com.example.roomkit/10232} -> PackageSetting{dfa759 com.google.android.photopicker/10230} BLOCKED
+11-13 21:32:10.907  1077  1077 I GrantPermissionsViewModel: Logged buttons presented and clicked permissionGroupName=android.permission-group.NOTIFICATIONS uid=10232 package=com.example.roomkit presentedButtons=9 clickedButton=8 isPermissionRationaleShown=false sessionId=8692112921318066468 targetSdk=35 prompt=BASIC initialLocationPrecision=0 selectedLocationPrecision=0 locationAccuracyButtonClicked= false
+11-13 21:32:11.033  1077  1077 I GrantPermissionsViewModel: Permission grant result requestId=8692112921318066468 callingUid=10232 callingPackage=com.example.roomkit permission=android.permission.POST_NOTIFICATIONS isImplicit=false result=6 isPermissionRationaleShown=falseisPackageRestrictedByEnhancedConfirmation=false
+11-13 21:32:11.167   631   750 I ImeTracker: com.example.roomkit:1b900b59: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false userId 0 displayId 0
+11-13 21:32:11.195  1652  1652 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1446 onStartInput(EditorInfo{EditorInfo{packageName=com.example.roomkit, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-13 21:32:11.259   631  2035 W PackageConfigPersister: App-specific configuration not found for packageName: com.example.roomkit and userId: 0
+11-13 21:32:11.278  3833  3833 I ImeTracker: com.example.roomkit:1b900b59: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-13 21:32:11.310  3833  3942 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=79998860-15bf-4639-881b-be8b025d07e9, tags={ com.example.roomkit.Date.Workers.InvoiceReminderWorker } ]
+11-13 21:32:25.266  1830  1830 I adbd    : adbd service requested 'shell,v2,TERM=xterm-256color,raw:run-as com.example.roomkit cat databases/roomkit_khr_mvp.db'
+11-13 21:32:25.304  1830  1830 I adbd    : adbd service requested 'shell,v2,TERM=xterm-256color,raw:run-as com.example.roomkit cat databases/roomkit_khr_mvp.db-wal'
+11-13 21:32:25.339  1830  1830 I adbd    : adbd service requested 'shell,v2,TERM=xterm-256color,raw:run-as com.example.roomkit cat databases/roomkit_khr_mvp.db-shm'
+11-13 21:32:36.772  3706  3751 I VerificationCheck: Verifying com.example.roomkit (id: 967d0e2dae1bf3e8e26a2d4bae6ad58b)
+11-13 21:32:36.772  3706  3751 I VerificationCheck: Verification finished for com.example.roomkit. Result: Pass(reason=UNSPECIFIED, message=null)
+11-13 21:32:36.797   631  4904 D CorePackageUpdate: Found process 3833 belonging to package: com.example.roomkit
+11-13 21:32:36.797   631  4904 D CorePackageUpdate: Going ahead with stop and kill for com.example.roomkit
+11-13 21:32:36.797   631  4904 W CorePackageUpdate: Found activity ActivityRecord{164683923 u0 com.example.roomkit/.MainActivity t9} for the process
+11-13 21:32:36.798   631  4904 D CorePackageUpdate: Adding updating tasks for pkg= com.example.roomkit
+11-13 21:32:36.798   631  4904 D KillAppBlocker: Adding uid 10232 for package com.example.roomkit
+11-13 21:32:36.809   631   653 V ActivityTaskManager: TaskLaunchParamsModifier: phase=3 task=Task{1ef8085 #9 type=standard A=10232:com.example.roomkit} activity=ActivityRecord{233847815 u0 com.android.systemui/com.android.wm.shell.packageupdate.PackageUpdateActivity t-1} display-from-task=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@34038672 inherit-from-task=fullscreen non-freeform-task-display-area display-area=DefaultTaskDisplayArea@34038672 skip-bounds-fullscreen
+11-13 21:32:36.810   631   653 I ActivityManager: Force stopping com.example.roomkit appid=10232 user=0: killDueToPackageUpdate
+11-13 21:32:36.813   631   653 I ActivityManager: Killing 3833:com.example.roomkit/u0a232 (adj 0): stop com.example.roomkit due to killDueToPackageUpdate
+11-13 21:32:36.815   631   686 I PackageManager: Update package com.example.roomkit code path from /data/app/~~shrzQh6Xktf1f3gj_9Feag==/com.example.roomkit-KVux7-twOM5ZYA6jEbClxQ== to /data/app/~~nlbhPFbvvEvA0VljEBZ-DA==/com.example.roomkit-nltdvAEWkTwcqu0U7EkLWw==; Retain data and using new
+11-13 21:32:36.831   631   740 W InputDispatcher: channel 'd30b2f1 com.example.roomkit/com.example.roomkit.MainActivity' ~ Consumer closed input channel or an error occurred.  events=0x9
+11-13 21:32:36.831   631   740 E InputDispatcher: channel 'd30b2f1 com.example.roomkit/com.example.roomkit.MainActivity' ~ Channel is unrecoverably broken and will be disposed!
+11-13 21:32:36.845   631   645 I ImeTracker: com.example.roomkit:c43e2890: onRequestHide at ORIGIN_SERVER reason HIDE_REMOVE_CLIENT fromUser false userId 0 displayId 0
+11-13 21:32:36.845   631   645 I ImeTracker: com.example.roomkit:c43e2890: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-13 21:32:36.855   631   740 I WindowManager: WINDOW DIED Window{d30b2f1 u0 com.example.roomkit/com.example.roomkit.MainActivity}
+11-13 21:32:36.856   631   686 I PackageManager: installation completed for package:com.example.roomkit. Final code path: /data/app/~~nlbhPFbvvEvA0VljEBZ-DA==/com.example.roomkit-nltdvAEWkTwcqu0U7EkLWw==
+11-13 21:32:36.858   631  1351 I WindowManager: WIN DEATH: Window{d30b2f1 u0 com.example.roomkit/com.example.roomkit.MainActivity EXITING}
+11-13 21:32:36.861   631   653 W ActivityTaskManager: Force removing ActivityRecord{164683923 u0 com.example.roomkit/.MainActivity t9 f}}: app died, no saved state
+11-13 21:32:36.865   631   686 I ActivityManager: Force stopping com.example.roomkit appid=10232 user=0: pkg removed
+11-13 21:32:36.865   631   686 I WindowManager:   Force removing ActivityRecord{164683923 u0 com.example.roomkit/.MainActivity t9 f} isExiting}
+11-13 21:32:36.865   631   686 W WindowManager: removeAppToken: Attempted to remove non-existing token: Token{8006eda ActivityRecord{164683923 u0 com.example.roomkit/.MainActivity t9 f} isExiting}}
+11-13 21:32:36.906   631  2035 V ActivityManager: Got obituary of 3833:com.example.roomkit
+11-13 21:32:36.926   631  1037 I SdkSandboxManager: No SDKs used. Skipping SDK data reconcilation for CallingInfo{mUid=10232, mPackageName='com.example.roomkit, mAppProcessToken='null'}
+11-13 21:32:36.926   631  1027 D ShortcutService: replacing package: com.example.roomkit userId=0
+11-13 21:32:36.939  1212  1358 I SatelliteAppTracker: onPackageUpdateFinished : com.example.roomkit
+11-13 21:32:36.939  1212  1358 I SatelliteAppTracker: onPackageModified : com.example.roomkit
+11-13 21:32:36.959  1212  1318 V MessagingReadRestrictionAllowlistMonitor: onBroadcastReceived: No AppOp changes for package: com.example.roomkit
+11-13 21:32:37.000  1830  1830 I adbd    : adbd service requested 'shell,v2,TERM=xterm-256color,raw:am force-stop com.example.roomkit'
+11-13 21:32:37.013  1212  1212 D CarrierSvcBindHelper: onPackageUpdateFinished: com.example.roomkit
+11-13 21:32:37.014  1212  1212 D CarrierSvcBindHelper: onPackageModified: com.example.roomkit
+11-13 21:32:37.016  1212  1474 D ImsResolver: maybeAddedImsService, packageName: com.example.roomkit
+11-13 21:32:37.016  1212  1474 V ImsResolver: searchForImsServices: package=com.example.roomkit, users=[UserHandle{0}]
+11-13 21:32:37.016  1212  1474 V ImsResolver: searchForImsServices: package=com.example.roomkit, users=[UserHandle{0}]
+11-13 21:32:37.021  1212  1212 W VvmPkgInstalledRcvr: carrierVvmPkgAdded: carrier vvm packages doesn't contain com.example.roomkit
+11-13 21:32:37.048  1212  1212 D SatelliteController: packageStateChanged: package:com.example.roomkit defaultSmsPackageName: com.google.android.apps.messaging satelliteGatewayServicePackageName: 
+11-13 21:32:37.049   631   758 W PackageConfigPersister: App-specific configuration not found for packageName: com.example.roomkit and userId: 0
+11-13 21:32:37.050   631  1037 I SdkSandboxManager: No SDKs used. Skipping SDK data reconcilation for CallingInfo{mUid=10232, mPackageName='com.example.roomkit, mAppProcessToken='null'}
+11-13 21:32:37.051   631   658 D CorePackageUpdate: Package update finished for pkg= com.example.roomkit
+11-13 21:32:37.104  2959  3363 I AiAiEcho: AppIndexer Package:[com.example.roomkit] UserProfile:[0] Enabled:[true].
+11-13 21:32:37.105  2959  3363 I AiAiEcho: AppFetcherImplV2 updateApps package:[com.example.roomkit], userId:[0], reason:[package is updated.].
+11-13 21:32:37.116   631  2069 I ActivityManager: Force stopping com.example.roomkit appid=10232 user=0: from pid 4914
+11-13 21:32:37.117   631  2069 I WindowManager:   Force removing ActivityRecord{164683923 u0 com.example.roomkit/.MainActivity t9 f} isExiting}
+11-13 21:32:37.117   631  2069 W WindowManager: removeAppToken: Attempted to remove non-existing token: Token{8006eda ActivityRecord{164683923 u0 com.example.roomkit/.MainActivity t9 f} isExiting}}
+11-13 21:32:37.118   631   631 I Telecom : CarModeTracker: Package com.example.roomkit is not tracked.: SSH.oR@AT4
+11-13 21:32:37.131   631   631 D AS.AudioService: received android.intent.action.PACKAGE_ADDED replacing: true archival: false for package com.example.roomkit with uid 10232
+11-13 21:32:37.135  1077  1077 I SafetyLabelChangedBroadcastReceiver: received broadcast packageName: com.example.roomkit, current user: UserHandle{0}, packageChangeEvent: UPDATE, intent user: UserHandle{0}
+11-13 21:32:37.139  1212  1212 D CarrierSvcBindHelper: onHandleForceStop: [com.example.roomkit]
+11-13 21:32:37.141  1830  1830 I adbd    : adbd service requested 'shell,v2,TERM=xterm-256color,raw:monkey -p com.example.roomkit 1'
+11-13 21:32:37.161  1076  1173 V WindowManagerShell:         {m=TO_BACK f=FILLS_TASK leash=Surface(name=ActivityRecord{164683923 u0 com.example.roomkit/.MainActivity t9}#112)/@0x337810 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 bc=fffef7ff activity=ActivityTransitionInfo { component = ComponentInfo{com.example.roomkit/com.example.roomkit.MainActivity}, taskId = 9, appCompatTransitionInfo = null } opt={t=FROM_STYLE mUserId=0}}
+11-13 21:32:37.221   631   631 I BackupManagerService: No delayed restore requests for the given dependency: com.example.roomkit
+11-13 21:32:37.301   631   650 V WindowManager:     startWCT=WindowContainerTransaction { changes= {} hops= [{pendingIntent: options=Bundle[{android.activity.splashScreenStyle=-1, android.pendingIntent.backgroundActivityAllowed=3, android.activity.avoidMoveToFront=true, android.activity.launchTaskId=9, android:activity.animAbortListener=null}]}, {setPackageUpdateHandled:  packageUpdateHandled=RemoteToken{fac8ca4 Task{1ef8085 #9 type=standard A=10232:com.example.roomkit}}}] flags= 0 errorCallbackToken=null taskFragmentOrganizer=null }
+11-13 21:32:37.302   631   650 V WindowManager:         {m=TO_BACK f=FILLS_TASK leash=Surface(name=ActivityRecord{164683923 u0 com.example.roomkit/.MainActivity t9}#112)/@0x6bb13f6 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 bc=fffef7ff activity=ActivityTransitionInfo { component = ComponentInfo{com.example.roomkit/com.example.roomkit.MainActivity}, taskId = 9, appCompatTransitionInfo = null } opt={t=FROM_STYLE mUserId=0}}
+11-13 21:32:37.311   631   631 D AS.AudioService: received android.intent.action.PACKAGE_REPLACED replacing: true archival: false for package com.example.roomkit with uid 10232
+11-13 21:32:37.316   631   654 W ActivityTaskManager: startActivity called from non-Activity context; forcing Intent.FLAG_ACTIVITY_NEW_TASK for: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x8000 xflg=0x4 cmp=com.example.roomkit/.MainActivity }
+11-13 21:32:37.322   631   654 V ActivityTaskManager: TaskLaunchParamsModifier: phase=3 task=Task{1ef8085 #9 type=standard A=10232:com.example.roomkit} activity=ActivityRecord{253441643 u0 com.example.roomkit/.MainActivity t-1} display-from-task=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@34038672 inherit-from-task=fullscreen non-freeform-task-display-area display-area=DefaultTaskDisplayArea@34038672 skip-bounds-fullscreen
+11-13 21:32:37.322   631   654 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x8000 xflg=0x4 cmp=com.example.roomkit/.MainActivity} with LAUNCH_SINGLE_TOP from uid 10199 (com.android.systemui) (realCallingUid=1000) (BAL_ALLOW_PERMISSION [realCaller]) result code=0
+11-13 21:32:37.342   631   653 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{164683923 u0 com.example.roomkit/.MainActivity t9 f} isExiting}
+11-13 21:32:37.350   631   631 W AlarmManager: Package com.example.roomkit, uid 10232 lost permission to set exact alarms!
+11-13 21:32:37.525   631  1402 W WindowManager: Exception thrown during dispatchAppVisibility Window{d30b2f1 u0 com.example.roomkit/com.example.roomkit.MainActivity EXITING}
+11-13 21:32:37.535   631   660 I ActivityManager: Start proc 4927:com.example.roomkit/u0a232 for top-activity {com.example.roomkit/com.example.roomkit.MainActivity}
+11-13 21:32:37.625  4927  4927 I Zygote  : Process 4927 created for com.example.roomkit
+11-13 21:32:37.725  4922  4922 W Monkey  : args: [-p, com.example.roomkit, 1]
+11-13 21:32:37.733  4922  4922 W Monkey  :  arg: "com.example.roomkit"
+11-13 21:32:37.734  4922  4922 W Monkey  : data="com.example.roomkit"
+11-13 21:32:37.765  2836  2971 I Finsky:background: [55] IQ:PSL: skipping onPackageRemoved(replacing=true) for untracked package=com.example.roomkit
+11-13 21:32:37.791   631  1258 V ActivityTaskManager: TaskLaunchParamsModifier: phase=3 task=Task{1ef8085 #9 type=standard A=10232:com.example.roomkit} activity=ActivityRecord{252482010 u0 com.example.roomkit/.MainActivity t-1} display-from-task=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@34038672 inherit-from-task=fullscreen non-freeform-task-display-area display-area=DefaultTaskDisplayArea@34038672 skip-bounds-fullscreen
+11-13 21:32:37.791   631  1258 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.example.roomkit/.MainActivity} with LAUNCH_SINGLE_TOP from uid 2000 (com.android.shell) (BAL_ALLOW_PERMISSION) result code=3
+11-13 21:32:37.795  1076  1173 D WindowManagerShell: onActivityRestartAttempt: topActivity=ComponentInfo{com.example.roomkit/com.example.roomkit.MainActivity}, wasVisible=false, displayId=0, pipDisplayLayoutState#displayId=0
+11-13 21:32:37.868  1411  4951 I ProximityAuth: [RecentAppsMediator] Package added: (user=UserHandle{0}) com.example.roomkit
+11-13 21:32:37.906  1830  1830 I adbd    : adbd service requested 'shell,v2,TERM=xterm-256color,raw:run-as com.example.roomkit cat databases/roomkit_khr_mvp.db'
+11-13 21:32:37.968  1830  1830 I adbd    : adbd service requested 'shell,v2,TERM=xterm-256color,raw:run-as com.example.roomkit cat databases/roomkit_khr_mvp.db-wal'
+11-13 21:32:37.982   631  1588 D CoreBackPreview: Window{2ff563b u0 Splash Screen com.example.roomkit}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@3d5a8d2, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+11-13 21:32:37.982   631  1353 D WindowManager: setClientSurface Surface(name=VRI-Splash Screen com.example.roomkit#158)/@0xfd50da3 for 2ff563b Splash Screen com.example.roomkit
+11-13 21:32:37.983  1536  4942 W SQLiteLog: (28) double-quoted string literal: "com.example.roomkit"
+11-13 21:32:38.025  1830  1830 I adbd    : adbd service requested 'shell,v2,TERM=xterm-256color,raw:run-as com.example.roomkit cat databases/roomkit_khr_mvp.db-shm'
+11-13 21:32:38.098  4927  4927 D nativeloader: Configuring clns-9 for other apk /data/app/~~nlbhPFbvvEvA0VljEBZ-DA==/com.example.roomkit-nltdvAEWkTwcqu0U7EkLWw==/base.apk. target_sdk_version=35, uses_libraries=, library_path=/data/app/~~nlbhPFbvvEvA0VljEBZ-DA==/com.example.roomkit-nltdvAEWkTwcqu0U7EkLWw==/lib/arm64, permitted_path=/data:/mnt/expand:/data/user/0/com.example.roomkit

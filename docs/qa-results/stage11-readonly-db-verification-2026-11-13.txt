@@ -1,0 +1,36 @@
+Stage 11 read-only database corroboration
+Date: 2026-11-13 Asia/Phnom_Penh
+Source: current RoomKit-Test database copied with adb run-as cat to /private/tmp; queried with SQLite mode=ro and PRAGMA query_only=on. No database writes.
+
+Invoice results (ID, kind, tenancy ID, month/year, total, amountPaidKhr, balance, due date, status, tenant, room):
+2 | REGULAR | 2 | 11/2026 | 445000 | 445000 | 0 | 2026-12-05 | PAID | Test Tenant Alpha | QA-301
+3 | REGULAR | 2 | 12/2026 | 440000 | 240000 | 200000 | 2027-01-05 | PARTIALLY_PAID | Test Tenant Alpha | QA-301
+4 | FINAL | 2 | 12/2026 | 0 | 0 | 0 | 2026-12-31 | ISSUED | Test Tenant Alpha | QA-301
+9 | REGULAR | 8 | 11/2026 | 140000 | 40000 | 100000 | 2026-12-05 | PARTIALLY_PAID | Stage10ReminderTenant | QA-1001
+11 | REGULAR | 8 | 01/2027 | 130000 | 0 | 0 | 2027-02-05 | VOID | Stage10ReminderTenant | QA-1001
+12 | REGULAR | 9 | 11/2026 | 439000 | 0 | 439000 | 2026-12-05 | ISSUED | Stage10NaturalRun | QA-RF1
+13 | REGULAR | 10 | 11/2026 | 140000 | 40000 | 100000 | 2026-12-05 | PARTIALLY_PAID | Stage11 export Long named test tenantឆ វា | QA-1101
+
+Invoice 13 item snapshots:
+RENT | Monthly Rent | quantity 1 | 100000 KHR | 100000 KHR
+ELECTRICITY | Electricity | quantity 10 | 1000 KHR | 10000 KHR
+WATER | Water — Fixed | quantity 1 | 20000 KHR | 20000 KHR
+RUBBISH | Rubbish / Waste | quantity 1 | 10000 KHR | 10000 KHR
+OTHER | Other charges | quantity 1 | 0 KHR | 0 KHR
+DISCOUNT | Discount | quantity 1 | 0 KHR | 0 KHR
+
+Payment created for this run:
+Payment ID 12 | invoice ID 13 | 40000 KHR | CASH | ACTIVE | no reference stored
+
+Dedicated fixture:
+Tenant ID 12 | Stage11 export Long named test tenantឆ វា | phone 012345680 | ID STG11-PDF-001
+Room ID 8 | QA-1101 | room status OCCUPIED | stored default rent 100000 KHR
+Tenancy ID 10 | tenant ID 12 | room ID 8 | rent 100000 KHR | deposit 0 KHR | billing day 1 | due day 5 | electricity rate 1000 KHR | water FIXED, fee 20000 KHR | rubbish 10000 KHR | ACTIVE
+
+Current database counts: 12 invoices, 12 payments, 8 rooms.
+Protected balances: Alpha 200000 KHR total outstanding; invoice 9 100000 KHR; invoice 12 439000 KHR.
+
+Active-payment reconciliation (invoice ID, total, stored paid, sum of ACTIVE payment rows, balance, status):
+9 | 140000 | 40000 | 40000 | 100000 | PARTIALLY_PAID
+12 | 439000 | 0 | 0 | 439000 | ISSUED (unpaid)
+13 | 140000 | 40000 | 40000 | 100000 | PARTIALLY_PAID

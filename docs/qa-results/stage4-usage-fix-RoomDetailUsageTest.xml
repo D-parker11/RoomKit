@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.roomkit.RoomDetailUsageTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-10T13:01:27.489Z" hostname="MacBooks-MacBook-Pro-2.local" time="0.034">
+  <properties/>
+  <testcase name="missingUsageFallsBackToValidReadingDifference" classname="com.example.roomkit.RoomDetailUsageTest" time="0.026"/>
+  <testcase name="replacementUsageIncludesOldMeterConsumptionForBothUtilities" classname="com.example.roomkit.RoomDetailUsageTest" time="0.005"/>
+  <testcase name="ordinaryReadingsKeepTheirUsageForBothUtilities" classname="com.example.roomkit.RoomDetailUsageTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

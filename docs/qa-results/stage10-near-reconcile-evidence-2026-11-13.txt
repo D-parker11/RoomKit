@@ -1,0 +1,41 @@
+Stage 10 shorter natural-observation attempt — read-only evidence
+
+Emulator
+  AVD: RoomKit-Test
+  Serial: emulator-5554
+  Date/time set through Android Settings before reconciliation: Dec 2, 2026 08:00 Asia/Phnom_Penh
+  Date/time when reconciliation was inspected: Dec 2, 2026 about 08:03 Asia/Phnom_Penh
+
+Normal app flow
+  MainActivity.onPostResume calls InvoiceReminderScheduler.start().
+  start() enqueues the reconciliation worker with ExistingWorkPolicy.KEEP.
+  InvoiceReminderWorker recalculates an invoice's next slot, then enqueueNext() uses a unique name containing invoice ID, due timestamp, and slot with ExistingWorkPolicy.KEEP.
+  Generic reconciliation execution: 73ea13df-d58c-4434-b0e9-06ef955a98b2
+  Logcat: 12-02 08:01:00.723 I/WM-WorkerWrapper: Worker result SUCCESS for that worker.
+
+Invoice 12 scheduled reminder
+  Invoice: #0012 / ID 12; ISSUED, total 439000 KHR, paid 0, balance 439000 KHR; due Dec 5, 2026.
+  Unique work name: invoice_reminder_v2_12_1796489999999_DUE_SOON
+  WorkManager UUID: 62a77b89-d413-42af-bd93-89e6bbae7e6d
+  WorkManager state: ENQUEUED (0); initial_delay 348577727 ms; last_enqueue_time 1795828222281 (Nov 28, 2026 08:10:22.281 +07).
+  Android JobScheduler system ID: 197.
+  JobScheduler after normal reconciliation: Delay=+4d0h33m4s986ms, Deadline=N/A.
+  The clock change made the wall date Dec 2 but did not shorten the existing elapsed-time scheduling delay. Reconciliation retained the same unique work and ID under KEEP. This scheduled execution is too late for the Dec 2 DUE_SOON slot; setup stopped without a natural observation.
+
+Reminder claims and notifications
+  Read-only invoice 9: PARTIALLY_PAID, total 140000, paid 40000, balance 100000 KHR; reminder ledger row count 9.
+  Read-only invoice 12: ISSUED, total and balance 439000 KHR, paid 0.
+  Read-only reminder ledger: invoice 12 has zero rows, including no DUE_SOON claim.
+  Notification permission: POST_NOTIFICATIONS granted.
+  Invoice Reminders channel: importance 4.
+  Notification service showed no active reminder matching Stage10NaturalRun / QA-RF1 / invoice #0012 / 439000. A prior invoice 8 notification was present and is unrelated.
+
+Observation state
+  The previous observation was ended without a delivery result. The prior passive capture was ended before this retry.
+  The Dec 2 setup attempt did not begin an observation window: normal app-open reconciliation ran, but the JobScheduler delay remained about four days. No worker was manually executed, no database was edited, and no reminder claim was cleared.
+
+Restoration
+  Automatic date/time ON; automatic time zone ON; timezone Asia/Phnom_Penh.
+  Effective restored emulator time: Fri Nov 13, 2026 14:25 +07.
+  Airplane mode OFF; notification permission granted; reminder channel importance 4.
+  RoomKit returned to the launcher normally; it was not force-stopped.

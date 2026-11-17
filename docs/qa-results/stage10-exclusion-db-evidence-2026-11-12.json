@@ -1,0 +1,87 @@
+{
+  "evidence_type": "read-only emulator database and WorkManager snapshot",
+  "avd": "RoomKit-Test",
+  "serial": "emulator-5554",
+  "tested_commit": "167b552419e2d4852356cc2eb2f5a91a7c9bd25f",
+  "test_date_used_for_worker": "2027-02-02",
+  "invoices": [
+    {
+      "invoice_id": 9,
+      "tenancy_id": 8,
+      "tenant": "Stage10ReminderTenant",
+      "room": "QA-1001",
+      "billing_period": "2026-11",
+      "status": "PARTIALLY_PAID",
+      "total_khr": 140000,
+      "paid_khr": 40000,
+      "balance_khr": 100000,
+      "due_date": "2026-12-05",
+      "payment_ids": [10, 11],
+      "reminder_claim": "OVERDUE_8"
+    },
+    {
+      "invoice_id": 10,
+      "tenancy_id": 8,
+      "tenant": "Stage10ReminderTenant",
+      "room": "QA-1001",
+      "billing_period": "2026-12",
+      "status": "DRAFT",
+      "total_khr": 130000,
+      "paid_khr": 0,
+      "balance_khr": 0,
+      "due_date": "2027-01-05",
+      "payment_ids": [],
+      "reminder_claims": []
+    },
+    {
+      "invoice_id": 11,
+      "tenancy_id": 8,
+      "tenant": "Stage10ReminderTenant",
+      "room": "QA-1001",
+      "billing_period": "2027-01",
+      "status": "VOID",
+      "void_reason": "Stage10 test exclusion",
+      "total_khr": 130000,
+      "paid_khr": 0,
+      "balance_khr": 0,
+      "due_date": "2027-02-05",
+      "payment_ids": [],
+      "reminder_claims": []
+    }
+  ],
+  "test_supporting_meter_readings": [
+    {"reading_id": 22, "tenancy_id": 8, "period": "2026-12", "previous": 110, "current": 110},
+    {"reading_id": 23, "tenancy_id": 8, "period": "2027-01", "previous": 110, "current": 110}
+  ],
+  "worker_execution": {
+    "worker_class": "com.example.roomkit.Date.Workers.InvoiceReminderWorker",
+    "trigger": "forced production Android JobScheduler work on an otherwise eligible date",
+    "system_job_id": 164,
+    "generic_work_id": "7b0b63cc-8730-4176-aaba-0352bab14192",
+    "logcat_result": "Worker result SUCCESS at 2027-02-02 20:13:39.351 Asia/Phnom_Penh",
+    "additional_generic_work_id": "f38551b9-c3d4-488b-9c4f-02f61b3cc054",
+    "additional_generic_result": "SUCCEEDED; system job 187",
+    "positive_control": "Invoice 9 claimed OVERDUE_8 and appeared as a RoomKit notification with 100000 KHR remaining.",
+    "eligibility_on_worker_date": {
+      "invoice_10": "Its 2027-01-05 due date was past, but DRAFT status is ineligible.",
+      "invoice_11": "2027-02-05 due date was three days away (DUE_SOON), but VOID status is ineligible."
+    },
+    "exclusion_evidence": "No delivery-ledger claims or notification tags for invoice IDs 10 or 11 after the successful generic worker; the worker scans all invoices and applies status eligibility."
+  },
+  "preserved_balances_khr": {
+    "alpha_tenancy_2": 200000,
+    "nine_a_tenancy_6": 145000,
+    "nine_b_tenancy_7": 200000,
+    "nine_b_deposit_held": 50000,
+    "stage10_tenancy_8": 100000
+  },
+  "settings_restored": {
+    "automatic_date_time": true,
+    "automatic_time_zone": true,
+    "timezone": "Asia/Phnom_Penh",
+    "airplane_mode": false,
+    "network": "unchanged; Wi-Fi and mobile data available",
+    "post_notifications_permission": "granted",
+    "invoice_reminder_channel_importance": 4
+  }
+}

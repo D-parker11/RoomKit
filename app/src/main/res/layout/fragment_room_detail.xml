@@ -104,7 +104,7 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <!-- Top Row: Status Pill & Monthly Rent -->
+                    <!-- Top Row: Status Badge & Monthly Rent -->
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -116,11 +116,18 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:paddingHorizontal="14dp"
+                            android:drawablePadding="6dp"
+                            android:gravity="center_vertical"
+                            android:includeFontPadding="false"
+                            android:paddingHorizontal="10dp"
                             android:paddingVertical="5dp"
-                            tools:background="@drawable/bg_badge_paid_pill"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:drawableStartCompat="@drawable/ic_rd_status_dot"
+                            tools:background="@drawable/bg_rd_badge_green"
+                            tools:drawableTint="@color/roomkit_success_dark"
                             tools:text="Occupied"
-                            tools:textColor="@color/roomkit_on_primary" />
+                            tools:textColor="@color/roomkit_success_dark" />
 
                         <TextView
                             android:id="@+id/tvMonthlyRent"
@@ -631,9 +638,16 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:paddingHorizontal="14dp"
-                            android:paddingVertical="4dp"
-                            tools:background="@drawable/bg_badge_paid_pill"
+                            android:drawablePadding="6dp"
+                            android:gravity="center_vertical"
+                            android:includeFontPadding="false"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="5dp"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:drawableStartCompat="@drawable/ic_rd_status_dot"
+                            tools:background="@drawable/bg_rd_badge_green"
+                            tools:drawableTint="@color/roomkit_success_dark"
                             tools:text="Paid"
                             tools:textColor="@color/roomkit_success_dark" />
                     </RelativeLayout>
@@ -908,13 +922,16 @@
                 <!-- 3. TERTIARY: Manage Tenancy -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnManageTenancy"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    style="@style/Widget.RoomKit.Button.NeutralSurface"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
                     android:text="Manage Tenancy"
                     android:textColor="@color/roomkit_text_secondary"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:cornerRadius="16dp"
+                    app:strokeColor="@color/roomkit_border"
+                    app:strokeWidth="1dp" />
             </LinearLayout>
 
         </LinearLayout>

@@ -1,3 +1,5 @@
+@file:Suppress("PackageNaming", "PackageName")
+
 package com.example.roomkit.Date.Reports
 
 import android.content.ActivityNotFoundException
@@ -11,9 +13,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.roomkit.Date.Ui.Dashboard.DashboardMonthPickerDialog
 import com.example.roomkit.R
 import com.example.roomkit.databinding.FragmentReportsBinding
 import com.google.android.material.snackbar.Snackbar
+import java.text.NumberFormat
+import java.time.YearMonth
+import java.time.temporal.ChronoUnit
+import java.util.Locale
 import kotlinx.coroutines.launch
 
 class ReportsFragment : Fragment(R.layout.fragment_reports) {
@@ -25,18 +32,27 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
         super.onViewCreated(view, savedInstanceState)
         val b = FragmentReportsBinding.bind(view)
         binding = b
+
         detailsExpanded = savedInstanceState?.getBoolean("reportDetails") ?: false
         fun showDetails() {
             b.rptDetails.isVisible = detailsExpanded
-            b.rptDetailsToggle.text = if (detailsExpanded) "Hide detailed breakdown" else "View detailed breakdown"
+            b.rptDetailsToggle.text =
+                if (detailsExpanded) "Hide detailed breakdown" else "View detailed breakdown"
         }
         showDetails()
-        b.rptDetailsToggle.setOnClickListener { detailsExpanded = !detailsExpanded; showDetails() }
+
+        b.rptDetailsToggle.setOnClickListener {
+            detailsExpanded = !detailsExpanded
+            showDetails()
+        }
         b.rptBack.setOnClickListener { findNavController().popBackStack() }
-        b.rptPrevious.setOnClickListener { vm.select(-1) }
-        b.rptNext.setOnClickListener { vm.select(1) }
+        b.btnPrevMonth.setOnClickListener { vm.select(-1L) }
+        b.btnNextMonth.setOnClickListener { vm.select(1L) }
         b.rptRefresh.setOnClickListener { vm.refresh() }
         b.rptRetry.setOnClickListener { vm.refresh() }
+
+        setupMonthPicker(b)
+
         b.rptShare.setOnClickListener {
             val state = vm.state.value
             val totals = state.totals ?: return@setOnClickListener
@@ -44,12 +60,15 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
                 putExtra(Intent.EXTRA_SUBJECT, "RoomKit report · " + ReportFormatter.month(state.month))
-                putExtra(Intent.EXTRA_TEXT, ReportFormatter.summary(state.month, totals, state.updatedAt) +
-                        "\n\nBILLED UTILITY USAGE\nElectricity: " + units(totals.electricityUsage, "kWh") +
-                        "\nMetered water: " + units(totals.waterUsage, "m³") +
-                        "\n\nPAYMENT TREND\n" + state.dashboard?.trend.orEmpty().joinToString("\n") {
-                    ReportFormatter.month(it.month) + ": " + ReportFormatter.money(it.amount)
-                })
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    ReportFormatter.summary(state.month, totals, state.updatedAt) +
+                            "\n\nBILLED UTILITY USAGE\nElectricity: " + units(totals.electricityUsage, "kWh") +
+                            "\nMetered water: " + units(totals.waterUsage, "m³") +
+                            "\n\nPAYMENT TREND\n" + state.dashboard?.trend.orEmpty().joinToString("\n") {
+                        ReportFormatter.month(it.month) + ": " + ReportFormatter.money(it.amount)
+                    }
+                )
             }
             try {
                 startActivity(Intent.createChooser(intent, getString(R.string.rpt_share)))
@@ -57,12 +76,13 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
                 Snackbar.make(b.root, R.string.rpt_share_error, Snackbar.LENGTH_LONG).show()
             }
         }
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.state.collect { state ->
-                    b.rptPeriod.text = ReportFormatter.month(state.month)
-                    b.rptNext.isEnabled = state.month < vm.currentMonth()
-                    b.rptPrevious.isEnabled = state.month > java.time.YearMonth.of(1, 6)
+                    b.tvSelectedMonth.text = ReportFormatter.month(state.month)
+                    b.btnNextMonth.isEnabled = state.month < vm.currentMonth()
+                    b.btnPrevMonth.isEnabled = state.month > YearMonth.of(1, 6)
                     b.rptRefresh.isEnabled = !state.loading
                     b.rptLoading.isVisible = state.loading
                     b.rptErrorPanel.isVisible = state.error != null
@@ -71,15 +91,64 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
                     state.totals?.let { render(b, it, state.updatedAt) }
                     state.dashboard?.let { dashboard ->
                         b.rptTrend.submit(dashboard.trend)
-                        b.rptTrendRange.text = ReportFormatter.month(dashboard.trend.first().month) +
-                                " – " + ReportFormatter.month(state.month)
+                        b.rptTrendRange.text =
+                            ReportFormatter.month(dashboard.trend.first().month) +
+                                    " – " + ReportFormatter.month(state.month)
                         b.rptSummaryMonth.text = ReportFormatter.month(state.month)
                         b.rptElectricityUsage.text = units(dashboard.totals.electricityUsage, "kWh")
                         b.rptWaterUsage.text = units(dashboard.totals.waterUsage, "m³")
-                        b.rptElectricityChange.text = comparison(dashboard.totals.electricityUsage, dashboard.previous.electricityUsage, "kWh")
-                        b.rptWaterChange.text = comparison(dashboard.totals.waterUsage, dashboard.previous.waterUsage, "m³")
+                        b.rptElectricityChange.text = comparison(
+                            dashboard.totals.electricityUsage,
+                            dashboard.previous.electricityUsage,
+                            "kWh"
+                        )
+                        b.rptWaterChange.text = comparison(
+                            dashboard.totals.waterUsage,
+                            dashboard.previous.waterUsage,
+                            "m³"
+                        )
                     }
                 }
+            }
+        }
+    }
+
+    private fun setupMonthPicker(b: FragmentReportsBinding) {
+        childFragmentManager.setFragmentResultListener(
+            DashboardMonthPickerDialog.RESULT,
+            viewLifecycleOwner
+        ) { _, result ->
+            val month = result.getInt("month")
+            val year = result.getInt("year")
+            if (month in 1..12 && year > 0) {
+                val target = YearMonth.of(year, month)
+                val delta = ChronoUnit.MONTHS.between(vm.state.value.month, target)
+                if (delta != 0L) {
+                    vm.select(delta)
+                }
+            }
+        }
+
+        b.tvSelectedMonth.apply {
+            isClickable = true
+            isFocusable = true
+            contentDescription = getString(R.string.dm_choose_month)
+
+            setOnClickListener {
+                val manager = childFragmentManager
+                if (manager.isStateSaved) return@setOnClickListener
+                if (manager.findFragmentByTag(DashboardMonthPickerDialog.TAG) != null) {
+                    return@setOnClickListener
+                }
+
+                val current = vm.state.value.month
+                DashboardMonthPickerDialog.newInstance(
+                    month = current.monthValue,
+                    year = current.year
+                ).show(
+                    manager,
+                    DashboardMonthPickerDialog.TAG
+                )
             }
         }
     }
@@ -91,23 +160,37 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
 
     private fun render(b: FragmentReportsBinding, t: ReportTotals, updated: Long) {
         val amounts = listOf(
-            b.rptReceived to t.received, b.rptBilled to t.billed,
-            b.rptRemaining to t.remaining, b.rptRent to t.rent,
-            b.rptElectricity to t.electricity, b.rptWater to t.water,
-            b.rptRubbish to t.rubbish, b.rptOtherCharges to t.otherCharges,
-            b.rptCash to t.cash, b.rptBank to t.bank, b.rptKhqr to t.khqr,
-            b.rptOtherPayments to t.otherPayments, b.rptDepositApplied to t.depositApplied,
-            b.rptAllOutstanding to t.allOutstanding, b.rptAllOverdue to t.allOverdue,
+            b.rptReceived to t.received,
+            b.rptBilled to t.billed,
+            b.rptRemaining to t.remaining,
+            b.rptRent to t.rent,
+            b.rptElectricity to t.electricity,
+            b.rptWater to t.water,
+            b.rptRubbish to t.rubbish,
+            b.rptOtherCharges to t.otherCharges,
+            b.rptCash to t.cash,
+            b.rptBank to t.bank,
+            b.rptKhqr to t.khqr,
+            b.rptOtherPayments to t.otherPayments,
+            b.rptDepositApplied to t.depositApplied,
+            b.rptAllOutstanding to t.allOutstanding,
+            b.rptAllOverdue to t.allOverdue,
             b.rptPendingRefund to t.pendingRefund
         )
         amounts.forEach { (view, value) -> view.text = ReportFormatter.money(value) }
-        b.rptDiscount.text = if (t.discount > 0) "−" + ReportFormatter.money(t.discount) else ReportFormatter.money(0)
+        b.rptDiscount.text =
+            if (t.discount > 0) "−" + ReportFormatter.money(t.discount) else ReportFormatter.money(0)
         val percent = ReportFormatter.settledPercent(t)
-        b.rptCollection.text = if (t.billed == 0L) "No billed amount to settle" else
+        b.rptCollection.text = if (t.billed == 0L) {
+            "No billed amount to settle"
+        } else {
             "$percent% · Includes payments and deposit allocations"
+        }
         b.rptProgress.progress = percent
-        b.rptCounts.text = "${t.invoiceCount} invoices · ${t.paidCount} paid · ${t.partialCount} partially paid"
-        b.rptOverdue.text = "${t.overdueCount} overdue · ${ReportFormatter.money(t.overdueAmount)}\nPartial and overdue counts can overlap."
+        b.rptCounts.text =
+            "${t.invoiceCount} invoices · ${t.paidCount} paid · ${t.partialCount} partially paid"
+        b.rptOverdue.text =
+            "${t.overdueCount} overdue · ${ReportFormatter.money(t.overdueAmount)}\nPartial and overdue counts can overlap."
         b.rptSettled.text = ReportFormatter.money((t.billed - t.remaining).coerceAtLeast(0))
         b.rptRing.submit(t.occupied, t.rooms)
         b.rptOccupied.text = t.occupied.toString()
@@ -120,7 +203,7 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
     }
 
     private fun units(value: Long, unit: String): String =
-        java.text.NumberFormat.getIntegerInstance(java.util.Locale.US).format(value) + " " + unit
+        NumberFormat.getIntegerInstance(Locale.US).format(value) + " " + unit
 
     private fun comparison(current: Long, previous: Long, unit: String): String {
         val delta = current - previous

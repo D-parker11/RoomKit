@@ -1,0 +1,8 @@
+Room1_electricity_rows|1|INITIAL:0->0
+QA302_Nov2026_invoices|0
+QA302_adjustment|0
+NineB_invoice8|8|PARTIALLY_PAID|245000|45000|200000
+invoice8_payment_count|1
+total_rooms|12
+total_invoices|13
+total_payments|13
