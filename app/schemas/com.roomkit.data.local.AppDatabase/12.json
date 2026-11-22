@@ -1,0 +1,1321 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 12,
+    "identityHash": "dc0bd4e3e2682a76ce8263e54cdfaab0",
+    "entities": [
+      {
+        "tableName": "billing_periods",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`billingYear` INTEGER NOT NULL, `billingMonth` INTEGER NOT NULL, `status` TEXT NOT NULL, `invoiceIds` TEXT NOT NULL, `closedAt` INTEGER, PRIMARY KEY(`billingYear`, `billingMonth`))",
+        "fields": [
+          {
+            "fieldPath": "billingYear",
+            "columnName": "billingYear",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingMonth",
+            "columnName": "billingMonth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "invoiceIds",
+            "columnName": "invoiceIds",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "closedAt",
+            "columnName": "closedAt",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "billingYear",
+            "billingMonth"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "billing_period_events",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `billingYear` INTEGER NOT NULL, `billingMonth` INTEGER NOT NULL, `action` TEXT NOT NULL, `reason` TEXT NOT NULL, `createdAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "eventId",
+            "columnName": "eventId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingYear",
+            "columnName": "billingYear",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingMonth",
+            "columnName": "billingMonth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "action",
+            "columnName": "action",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reason",
+            "columnName": "reason",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "eventId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "invoice_items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`invoiceId` INTEGER NOT NULL, `itemCode` TEXT NOT NULL, `description` TEXT NOT NULL, `quantity` INTEGER, `unit` TEXT NOT NULL, `unitPriceKhr` INTEGER, `amountKhr` INTEGER NOT NULL, `sortOrder` INTEGER NOT NULL, PRIMARY KEY(`invoiceId`, `itemCode`), FOREIGN KEY(`invoiceId`) REFERENCES `invoices`(`invoiceId`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "invoiceId",
+            "columnName": "invoiceId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "itemCode",
+            "columnName": "itemCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantity",
+            "columnName": "quantity",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "unit",
+            "columnName": "unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unitPriceKhr",
+            "columnName": "unitPriceKhr",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "amountKhr",
+            "columnName": "amountKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sortOrder",
+            "columnName": "sortOrder",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "invoiceId",
+            "itemCode"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_invoice_items_invoiceId",
+            "unique": false,
+            "columnNames": [
+              "invoiceId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_invoice_items_invoiceId` ON `${TABLE_NAME}` (`invoiceId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "invoices",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "invoiceId"
+            ],
+            "referencedColumns": [
+              "invoiceId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "billing_draft_adjustments",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tenancyId` INTEGER NOT NULL, `billingMonth` INTEGER NOT NULL, `billingYear` INTEGER NOT NULL, `otherChargesKhr` INTEGER NOT NULL, `discountKhr` INTEGER NOT NULL, `billingPeriodStart` TEXT NOT NULL, `billingPeriodEnd` TEXT NOT NULL, PRIMARY KEY(`tenancyId`, `billingMonth`, `billingYear`), FOREIGN KEY(`tenancyId`) REFERENCES `tenancies`(`tenancyId`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "tenancyId",
+            "columnName": "tenancyId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingMonth",
+            "columnName": "billingMonth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingYear",
+            "columnName": "billingYear",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "otherChargesKhr",
+            "columnName": "otherChargesKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discountKhr",
+            "columnName": "discountKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingPeriodStart",
+            "columnName": "billingPeriodStart",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingPeriodEnd",
+            "columnName": "billingPeriodEnd",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "tenancyId",
+            "billingMonth",
+            "billingYear"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "tenancies",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "tenancyId"
+            ],
+            "referencedColumns": [
+              "tenancyId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "buildings",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`buildingId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `address` TEXT, `description` TEXT, `createdAt` INTEGER NOT NULL, `totalRooms` INTEGER NOT NULL DEFAULT 0)",
+        "fields": [
+          {
+            "fieldPath": "buildingId",
+            "columnName": "buildingId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalRooms",
+            "columnName": "totalRooms",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "buildingId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "rooms",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `buildingId` INTEGER NOT NULL, `roomNumber` TEXT NOT NULL, `floor` TEXT, `monthlyRent` INTEGER NOT NULL, `description` TEXT, `roomType` TEXT, `initialElectricityReading` REAL, `initialWaterReading` REAL, `createdAt` INTEGER NOT NULL, `status` TEXT NOT NULL, FOREIGN KEY(`buildingId`) REFERENCES `buildings`(`buildingId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "roomId",
+            "columnName": "roomId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "buildingId",
+            "columnName": "buildingId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "roomNumber",
+            "columnName": "roomNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "floor",
+            "columnName": "floor",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "monthlyRent",
+            "columnName": "monthlyRent",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "roomType",
+            "columnName": "roomType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "initialElectricityReading",
+            "columnName": "initialElectricityReading",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "initialWaterReading",
+            "columnName": "initialWaterReading",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "roomId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_rooms_buildingId_roomNumber",
+            "unique": true,
+            "columnNames": [
+              "buildingId",
+              "roomNumber"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_rooms_buildingId_roomNumber` ON `${TABLE_NAME}` (`buildingId`, `roomNumber`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "buildings",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "buildingId"
+            ],
+            "referencedColumns": [
+              "buildingId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "tenants",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tenantId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fullName` TEXT NOT NULL, `phoneNumber` TEXT NOT NULL, `idOrPassport` TEXT, `note` TEXT, `createdAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "tenantId",
+            "columnName": "tenantId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fullName",
+            "columnName": "fullName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phoneNumber",
+            "columnName": "phoneNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idOrPassport",
+            "columnName": "idOrPassport",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "tenantId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tenancies",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tenancyId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tenantId` INTEGER NOT NULL, `roomId` INTEGER NOT NULL, `moveInDate` INTEGER NOT NULL, `moveOutDate` INTEGER, `currency` TEXT NOT NULL, `monthlyRent` INTEGER NOT NULL, `deposit` INTEGER NOT NULL, `billingDay` INTEGER NOT NULL, `dueDay` INTEGER NOT NULL, `electricityRate` INTEGER NOT NULL, `waterBillingMethod` TEXT NOT NULL, `waterRate` INTEGER NOT NULL, `rubbishFee` INTEGER NOT NULL, `status` TEXT NOT NULL, FOREIGN KEY(`tenantId`) REFERENCES `tenants`(`tenantId`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`roomId`) REFERENCES `rooms`(`roomId`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "tenancyId",
+            "columnName": "tenancyId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tenantId",
+            "columnName": "tenantId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "roomId",
+            "columnName": "roomId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "moveInDate",
+            "columnName": "moveInDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "moveOutDate",
+            "columnName": "moveOutDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "currency",
+            "columnName": "currency",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "monthlyRent",
+            "columnName": "monthlyRent",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deposit",
+            "columnName": "deposit",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingDay",
+            "columnName": "billingDay",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dueDay",
+            "columnName": "dueDay",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "electricityRate",
+            "columnName": "electricityRate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterBillingMethod",
+            "columnName": "waterBillingMethod",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterRate",
+            "columnName": "waterRate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rubbishFee",
+            "columnName": "rubbishFee",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "tenancyId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_tenancies_tenantId",
+            "unique": false,
+            "columnNames": [
+              "tenantId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tenancies_tenantId` ON `${TABLE_NAME}` (`tenantId`)"
+          },
+          {
+            "name": "index_tenancies_roomId",
+            "unique": false,
+            "columnNames": [
+              "roomId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tenancies_roomId` ON `${TABLE_NAME}` (`roomId`)"
+          },
+          {
+            "name": "index_tenancies_status",
+            "unique": false,
+            "columnNames": [
+              "status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tenancies_status` ON `${TABLE_NAME}` (`status`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tenants",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "tenantId"
+            ],
+            "referencedColumns": [
+              "tenantId"
+            ]
+          },
+          {
+            "table": "rooms",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "roomId"
+            ],
+            "referencedColumns": [
+              "roomId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "meter_readings",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`readingId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tenancyId` INTEGER NOT NULL DEFAULT 0, `roomId` INTEGER NOT NULL, `meterType` TEXT NOT NULL, `previousReading` INTEGER NOT NULL, `currentReading` INTEGER NOT NULL, `readingDate` INTEGER NOT NULL, `billingMonth` INTEGER NOT NULL, `billingYear` INTEGER NOT NULL, `readingType` TEXT NOT NULL DEFAULT 'MONTHLY', `eventOrdinal` INTEGER NOT NULL DEFAULT 0, `meterSequence` INTEGER NOT NULL DEFAULT 0, `carriedUsage` INTEGER NOT NULL DEFAULT 0, `reason` TEXT, FOREIGN KEY(`roomId`) REFERENCES `rooms`(`roomId`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "readingId",
+            "columnName": "readingId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tenancyId",
+            "columnName": "tenancyId",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "roomId",
+            "columnName": "roomId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "meterType",
+            "columnName": "meterType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "previousReading",
+            "columnName": "previousReading",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "currentReading",
+            "columnName": "currentReading",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "readingDate",
+            "columnName": "readingDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingMonth",
+            "columnName": "billingMonth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingYear",
+            "columnName": "billingYear",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "readingType",
+            "columnName": "readingType",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'MONTHLY'"
+          },
+          {
+            "fieldPath": "eventOrdinal",
+            "columnName": "eventOrdinal",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "meterSequence",
+            "columnName": "meterSequence",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "carriedUsage",
+            "columnName": "carriedUsage",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "reason",
+            "columnName": "reason",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "readingId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_meter_readings_roomId_tenancyId_meterType_billingMonth_billingYear_readingType_eventOrdinal",
+            "unique": true,
+            "columnNames": [
+              "roomId",
+              "tenancyId",
+              "meterType",
+              "billingMonth",
+              "billingYear",
+              "readingType",
+              "eventOrdinal"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_meter_readings_roomId_tenancyId_meterType_billingMonth_billingYear_readingType_eventOrdinal` ON `${TABLE_NAME}` (`roomId`, `tenancyId`, `meterType`, `billingMonth`, `billingYear`, `readingType`, `eventOrdinal`)"
+          },
+          {
+            "name": "index_meter_readings_roomId",
+            "unique": false,
+            "columnNames": [
+              "roomId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_meter_readings_roomId` ON `${TABLE_NAME}` (`roomId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "rooms",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "roomId"
+            ],
+            "referencedColumns": [
+              "roomId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "invoices",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`invoiceId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `invoiceKind` TEXT NOT NULL DEFAULT 'REGULAR', `tenancyId` INTEGER NOT NULL, `billingMonth` INTEGER NOT NULL, `billingYear` INTEGER NOT NULL, `rentKhr` INTEGER NOT NULL, `electricityPrevious` INTEGER, `electricityCurrent` INTEGER, `electricityUsage` INTEGER NOT NULL, `electricityRateKhrSnapshot` INTEGER NOT NULL, `electricityChargeKhr` INTEGER NOT NULL, `waterBillingMethod` TEXT NOT NULL, `waterPrevious` INTEGER, `waterCurrent` INTEGER, `waterUsage` INTEGER, `waterRateKhrSnapshot` INTEGER, `fixedWaterFeeKhrSnapshot` INTEGER, `waterChargeKhr` INTEGER NOT NULL, `rubbishFeeKhrSnapshot` INTEGER NOT NULL, `otherChargesKhr` INTEGER NOT NULL, `utilitySubtotalKhr` INTEGER NOT NULL, `discountKhr` INTEGER NOT NULL, `totalKhr` INTEGER NOT NULL, `amountPaidKhr` INTEGER NOT NULL, `balanceKhr` INTEGER NOT NULL, `issueDate` INTEGER NOT NULL, `dueDate` INTEGER NOT NULL, `status` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `voidedAt` INTEGER, `voidReason` TEXT, `revision` INTEGER NOT NULL DEFAULT 0, `replacesInvoiceId` INTEGER, `billingPeriodStart` TEXT, `billingPeriodEnd` TEXT, `discountReason` TEXT, `currency` TEXT NOT NULL DEFAULT 'KHR', `electricityCarriedUsage` INTEGER NOT NULL DEFAULT 0, `waterCarriedUsage` INTEGER NOT NULL DEFAULT 0, `electricityMeterSequence` INTEGER NOT NULL DEFAULT 0, `waterMeterSequence` INTEGER NOT NULL DEFAULT 0, FOREIGN KEY(`replacesInvoiceId`) REFERENCES `invoices`(`invoiceId`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`tenancyId`) REFERENCES `tenancies`(`tenancyId`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "invoiceId",
+            "columnName": "invoiceId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "invoiceKind",
+            "columnName": "invoiceKind",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'REGULAR'"
+          },
+          {
+            "fieldPath": "tenancyId",
+            "columnName": "tenancyId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingMonth",
+            "columnName": "billingMonth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "billingYear",
+            "columnName": "billingYear",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rentKhr",
+            "columnName": "rentKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "electricityPrevious",
+            "columnName": "electricityPrevious",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "electricityCurrent",
+            "columnName": "electricityCurrent",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "electricityUsage",
+            "columnName": "electricityUsage",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "electricityRateKhrSnapshot",
+            "columnName": "electricityRateKhrSnapshot",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "electricityChargeKhr",
+            "columnName": "electricityChargeKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterBillingMethod",
+            "columnName": "waterBillingMethod",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterPrevious",
+            "columnName": "waterPrevious",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "waterCurrent",
+            "columnName": "waterCurrent",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "waterUsage",
+            "columnName": "waterUsage",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "waterRateKhrSnapshot",
+            "columnName": "waterRateKhrSnapshot",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fixedWaterFeeKhrSnapshot",
+            "columnName": "fixedWaterFeeKhrSnapshot",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "waterChargeKhr",
+            "columnName": "waterChargeKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rubbishFeeKhrSnapshot",
+            "columnName": "rubbishFeeKhrSnapshot",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "otherChargesKhr",
+            "columnName": "otherChargesKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "utilitySubtotalKhr",
+            "columnName": "utilitySubtotalKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discountKhr",
+            "columnName": "discountKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalKhr",
+            "columnName": "totalKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amountPaidKhr",
+            "columnName": "amountPaidKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "balanceKhr",
+            "columnName": "balanceKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "issueDate",
+            "columnName": "issueDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dueDate",
+            "columnName": "dueDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedAt",
+            "columnName": "voidedAt",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "voidReason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "revision",
+            "columnName": "revision",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "replacesInvoiceId",
+            "columnName": "replacesInvoiceId",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "billingPeriodStart",
+            "columnName": "billingPeriodStart",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "billingPeriodEnd",
+            "columnName": "billingPeriodEnd",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "discountReason",
+            "columnName": "discountReason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "currency",
+            "columnName": "currency",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'KHR'"
+          },
+          {
+            "fieldPath": "electricityCarriedUsage",
+            "columnName": "electricityCarriedUsage",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "waterCarriedUsage",
+            "columnName": "waterCarriedUsage",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "electricityMeterSequence",
+            "columnName": "electricityMeterSequence",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "waterMeterSequence",
+            "columnName": "waterMeterSequence",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "invoiceId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_invoices_tenancyId",
+            "unique": false,
+            "columnNames": [
+              "tenancyId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_invoices_tenancyId` ON `${TABLE_NAME}` (`tenancyId`)"
+          },
+          {
+            "name": "index_invoices_tenancyId_billingMonth_billingYear_invoiceKind_revision",
+            "unique": true,
+            "columnNames": [
+              "tenancyId",
+              "billingMonth",
+              "billingYear",
+              "invoiceKind",
+              "revision"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_invoices_tenancyId_billingMonth_billingYear_invoiceKind_revision` ON `${TABLE_NAME}` (`tenancyId`, `billingMonth`, `billingYear`, `invoiceKind`, `revision`)"
+          },
+          {
+            "name": "index_invoices_replacesInvoiceId",
+            "unique": true,
+            "columnNames": [
+              "replacesInvoiceId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_invoices_replacesInvoiceId` ON `${TABLE_NAME}` (`replacesInvoiceId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "invoices",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "replacesInvoiceId"
+            ],
+            "referencedColumns": [
+              "invoiceId"
+            ]
+          },
+          {
+            "table": "tenancies",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "tenancyId"
+            ],
+            "referencedColumns": [
+              "tenancyId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "payments",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`paymentId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `invoiceId` INTEGER NOT NULL, `amountKhr` INTEGER NOT NULL, `paymentDate` INTEGER NOT NULL, `paymentMethod` TEXT NOT NULL, `note` TEXT, `status` TEXT NOT NULL DEFAULT 'ACTIVE', `voidedAt` INTEGER, `voidReason` TEXT, `referenceNumber` TEXT, FOREIGN KEY(`invoiceId`) REFERENCES `invoices`(`invoiceId`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "paymentId",
+            "columnName": "paymentId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "invoiceId",
+            "columnName": "invoiceId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amountKhr",
+            "columnName": "amountKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "paymentDate",
+            "columnName": "paymentDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "paymentMethod",
+            "columnName": "paymentMethod",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'ACTIVE'"
+          },
+          {
+            "fieldPath": "voidedAt",
+            "columnName": "voidedAt",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "voidReason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "referenceNumber",
+            "columnName": "referenceNumber",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "paymentId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_payments_invoiceId",
+            "unique": false,
+            "columnNames": [
+              "invoiceId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_payments_invoiceId` ON `${TABLE_NAME}` (`invoiceId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "invoices",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "invoiceId"
+            ],
+            "referencedColumns": [
+              "invoiceId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "move_out_settlements",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tenancyId` INTEGER NOT NULL, `roomId` INTEGER NOT NULL, `moveOutDate` INTEGER NOT NULL, `electricityFinal` INTEGER NOT NULL, `waterFinal` INTEGER, `depositHeldKhr` INTEGER NOT NULL, `appliedKhr` INTEGER NOT NULL, `chargeReason` TEXT NOT NULL DEFAULT '', `deductionsKhr` INTEGER NOT NULL, `deductionReason` TEXT NOT NULL, `refundKhr` INTEGER NOT NULL, `refundPaid` INTEGER NOT NULL, `refundPaidAt` INTEGER, `refundReference` TEXT, `debtKhr` INTEGER NOT NULL, `finalInvoiceId` INTEGER, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`tenancyId`), FOREIGN KEY(`tenancyId`) REFERENCES `tenancies`(`tenancyId`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "tenancyId",
+            "columnName": "tenancyId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "roomId",
+            "columnName": "roomId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "moveOutDate",
+            "columnName": "moveOutDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "electricityFinal",
+            "columnName": "electricityFinal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterFinal",
+            "columnName": "waterFinal",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "depositHeldKhr",
+            "columnName": "depositHeldKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appliedKhr",
+            "columnName": "appliedKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chargeReason",
+            "columnName": "chargeReason",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "deductionsKhr",
+            "columnName": "deductionsKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deductionReason",
+            "columnName": "deductionReason",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "refundKhr",
+            "columnName": "refundKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "refundPaid",
+            "columnName": "refundPaid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "refundPaidAt",
+            "columnName": "refundPaidAt",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "refundReference",
+            "columnName": "refundReference",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "debtKhr",
+            "columnName": "debtKhr",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "finalInvoiceId",
+            "columnName": "finalInvoiceId",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "tenancyId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_move_out_settlements_tenancyId",
+            "unique": true,
+            "columnNames": [
+              "tenancyId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_move_out_settlements_tenancyId` ON `${TABLE_NAME}` (`tenancyId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tenancies",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "tenancyId"
+            ],
+            "referencedColumns": [
+              "tenancyId"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dc0bd4e3e2682a76ce8263e54cdfaab0')"
+    ]
+  }
+}

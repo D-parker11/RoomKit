@@ -48,7 +48,7 @@ import com.roomkit.data.local.dao.BuildingDao
         MoveOutSettlementEntity::class
     ],
     version = 12,
-    exportSchema = false
+    exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun billingPeriodDao(): com.example.roomkit.Date.Local.Dao.BillingPeriodDao
