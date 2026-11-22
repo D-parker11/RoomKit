@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     private var pendingReminderInvoiceId: Long? = null
     private var pendingNavigationTab: Int? = null
+    private var permissionRequested = false
 
     private val notificationPermissionLauncher =
         registerForActivityResult(
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
@@ -57,37 +60,12 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
         observeReminderBadge()
 
-        if (savedInstanceState == null &&
-            intent?.action == Intent.ACTION_MAIN
-        ) {
-            openBottomTab(R.id.dashboardFragment)
-        }
-
         pendingReminderInvoiceId = savedInstanceState
             ?.getLong(KEY_PENDING_REMINDER_INVOICE_ID, 0L)
             ?.takeIf { it > 0L }
 
+        permissionRequested = savedInstanceState?.getBoolean("notificationPermissionRequested") ?: false
         consumeReminderIntent(intent)
-        requestNotificationPermissionIfNeeded()
-
-        binding.root.post {
-            val destination = navController.currentDestination
-
-            val screen = when (destination?.id) {
-                R.id.dashboardFragment -> "Dashboard"
-                R.id.buildingsFragment -> "Property"
-                else -> destination?.label?.toString() ?: "Unknown"
-            }
-
-            android.widget.Toast.makeText(
-                this,
-                "NAV CHECK\n" +
-                        "Screen: $screen\n" +
-                        "Restored: ${savedInstanceState != null}\n" +
-                        "Action: ${intent?.action}",
-                android.widget.Toast.LENGTH_LONG
-            ).show()
-        }
     }
 
     private fun observeReminderBadge() {
@@ -139,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { controller, destination, _ ->
 
             binding.bottomNav.visibility =
-                if (destination.id == R.id.moveOutFragment) {
+                if (destination.id in setOf(R.id.moveOutFragment, R.id.startupFragment, R.id.welcomeFragment)) {
                     View.GONE
                 } else {
                     View.VISIBLE
@@ -196,7 +174,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openBottomTab(tabId: Int): Boolean {
-        if (supportFragmentManager.isStateSaved) return false
+        if (supportFragmentManager.isStateSaved || isOpeningScreen()) return false
 
         val currentEntry = navController.currentBackStackEntry
 
@@ -304,11 +282,41 @@ class MainActivity : AppCompatActivity() {
         reconcileReminders()
         remindersViewModel.refresh()
         openPendingReminderInvoice()
+        if (!isOpeningScreen()) requestNotificationPermissionIfNeeded()
+    }
+
+    private fun isOpeningScreen(): Boolean = navController.currentDestination?.id in
+            setOf(R.id.startupFragment, R.id.welcomeFragment)
+
+    // Called only after Room has supplied an authoritative property count.
+    fun finishStartup(hasProperty: Boolean) {
+        if (supportFragmentManager.isStateSaved ||
+            navController.currentDestination?.id != R.id.startupFragment) return
+        navController.navigate(
+            if (hasProperty) R.id.dashboardFragment else R.id.welcomeFragment,
+            null,
+            NavOptions.Builder().setPopUpTo(R.id.startupFragment, true).build()
+        )
+        if (hasProperty) {
+            openPendingReminderInvoice()
+            requestNotificationPermissionIfNeeded()
+        }
+    }
+
+    fun finishPropertySetup() {
+        if (supportFragmentManager.isStateSaved ||
+            navController.currentDestination?.id != R.id.welcomeFragment) return
+        navController.navigate(
+            R.id.dashboardFragment, null,
+            NavOptions.Builder().setPopUpTo(R.id.welcomeFragment, true).build()
+        )
+        openPendingReminderInvoice()
+        requestNotificationPermissionIfNeeded()
     }
 
     private fun openPendingReminderInvoice() {
         val invoiceId = pendingReminderInvoiceId ?: return
-        if (supportFragmentManager.isStateSaved) return
+        if (supportFragmentManager.isStateSaved || isOpeningScreen()) return
 
         val currentEntry = navController.currentBackStackEntry
         val alreadyShowingInvoice =
@@ -340,6 +348,7 @@ class MainActivity : AppCompatActivity() {
             outState.putLong(KEY_PENDING_REMINDER_INVOICE_ID, invoiceId)
         }
 
+        outState.putBoolean("notificationPermissionRequested", permissionRequested)
         super.onSaveInstanceState(outState)
     }
 
@@ -352,7 +361,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestNotificationPermissionIfNeeded() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+        if (permissionRequested || Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+        permissionRequested = true
 
         val permissionGranted = ContextCompat.checkSelfPermission(
             this,

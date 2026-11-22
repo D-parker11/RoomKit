@@ -59,7 +59,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Remaining balance"
+                    android:text="Total to pay"
                     android:textSize="13sp"
                     android:textColor="#526077" />
 
@@ -76,9 +76,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="For this invoice only"
+                    android:text="Includes earlier unpaid invoices. Later months are excluded."
                     android:textSize="12sp"
                     android:textColor="#526077" />
+
+                <TextView
+                    android:id="@+id/tvCarryForwardBreakdown"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" android:textSize="13sp"
+                    android:lineSpacingExtra="4dp" android:textColor="#526077" />
 
                 <View
                     android:layout_width="match_parent"
@@ -101,7 +107,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Invoice total"
+                            android:text="This invoice total"
                             android:textSize="12sp"
                             android:textColor="#526077" />
 
@@ -124,7 +130,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Already paid"
+                            android:text="Paid on this invoice"
                             android:textSize="12sp"
                             android:textColor="#526077" />
 

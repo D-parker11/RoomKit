@@ -25,6 +25,12 @@ import java.util.Locale
 object InvoicePdfGenerator {
     private const val MAX_INLINE_PAYMENTS = 3
 
+    private fun totalToPay(m: InvoicePdfModel): Long {
+        val issued = m.status.trim().uppercase(Locale.ROOT) in
+                setOf("ISSUED", "UNPAID", "PARTIAL", "PARTIALLY_PAID", "OVERDUE", "PAID")
+        return if (issued) Math.addExact(m.accountBalance.previousUnpaidKhr, m.balanceKhr) else 0L
+    }
+
     fun generateAndSavePdf(
         context: Context,
         model: InvoicePdfModel,
@@ -311,7 +317,7 @@ object InvoicePdfGenerator {
                 else -> "មិនស្គាល់ស្ថានភាព"
             }
             val badgeKh = text(khStatus, 103f, 10.5f, orange, true, Layout.Alignment.ALIGN_CENTER)
-            val badgeEn = text(status, 103f, 8.5f, orange, true, Layout.Alignment.ALIGN_CENTER)
+            val badgeEn = text(if (receipt) "THIS INVOICE PAID" else status, 103f, 8.5f, orange, true, Layout.Alignment.ALIGN_CENTER)
             val badgeH = badgeKh.height + badgeEn.height + 8f
             val badgeY = top + title.height + 3
             box(470f, badgeY, 107f, badgeH, warm, 7f, orange)
@@ -505,23 +511,24 @@ object InvoicePdfGenerator {
 
             val totalRows = listOf(
                 InfoRow("ចំនួនសរុបវិក្កយបត្រ", "Invoice total", money(m.totalKhr)),
-                InfoRow("បានទូទាត់", "Paid", money(m.amountPaidKhr))
+                InfoRow("បានទូទាត់", "Paid on this invoice", money(m.amountPaidKhr)),
+                InfoRow("បំណុលមុន", "Previous unpaid", money(m.accountBalance.previousUnpaidKhr))
             )
             val totalsH = infoHeight(totalRows, col)
 
             val dueLabel = pair(
-                if (receipt) "បានទូទាត់រួចរាល់" else "សមតុល្យត្រូវទូទាត់",
-                if (receipt) "Paid in full · Balance" else "Balance due",
+                if (receipt && totalToPay(m) == 0L) "បានទូទាត់រួចរាល់" else "សមតុល្យត្រូវទូទាត់",
+                if (receipt && totalToPay(m) == 0L) "Settled through this invoice" else "Total to pay · incl. previous",
                 col * .49f,
                 12f,
                 Color.WHITE
             )
-            val dueValue = text(money(m.balanceKhr), col * .47f, 17f, Color.WHITE, true, Layout.Alignment.ALIGN_OPPOSITE)
+            val dueValue = text(money(totalToPay(m)), col * .47f, 17f, Color.WHITE, true, Layout.Alignment.ALIGN_OPPOSITE)
             val dueH = maxOf(50f, pairHeight(dueLabel) + 14, dueValue.height + 14f)
 
             // Payment history card directly below Balance due on Page 1
             val inlinePayments = m.payments.take(MAX_INLINE_PAYMENTS)
-            val historyHeading = pair("ប្រវត្តិការទូទាត់", "Payment history", innerW, 12f)
+            val historyHeading = pair("ប្រវត្តិការទូទាត់", "Payments on this invoice", innerW, 12f)
             val historyRows = buildPaymentRows(inlinePayments, innerW)
             val empty = pair("មិនទាន់មានការទូទាត់", "No payments recorded yet.", col - 28, 11f)
 
@@ -585,15 +592,15 @@ object InvoicePdfGenerator {
                 if (hasQr) {
                     add(
                         "បញ្ចូលសមតុល្យវិក្កយបត្រក្នុងកម្មវិធីធនាគារ និងពិនិត្យអ្នកទទួលមុនបង់ប្រាក់។" to
-                                "Enter the invoice balance in your banking app. Confirm the receiver before paying."
+                                "This reusable QR has no app-set amount. Enter the displayed total to pay and confirm the receiver."
                     )
                 }
                 add(
-                    "បំណុលមុនមិនត្រូវបានគិតថ្លៃម្ដងទៀតទេ។ ឯកសារនេះសម្រាប់វិក្កយបត្រនេះប៉ុណ្ណោះ។" to
-                            "Previous debt is not charged again. This document covers this invoice only."
+                    "សមតុល្យត្រូវទូទាត់រួមមានបំណុលមុន។ បំណុលមុនមិនត្រូវបានគិតថ្លៃម្ដងទៀតទេ។" to
+                            "Total to pay includes earlier unpaid invoices. Later months are excluded. Old debt is not charged twice."
                 )
                 if (receipt) {
-                    add("សូមអរគុណសម្រាប់ការទូទាត់។" to "Paid in full. Thank you for your payment.")
+                    add("សូមអរគុណសម្រាប់ការទូទាត់។" to "This invoice is paid. Any remaining earlier debt is shown above. Thank you.")
                 }
             }
             val ls = notes.map { pair(it.first, it.second, width - 118, 9f) }

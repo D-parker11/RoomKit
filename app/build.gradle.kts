@@ -73,6 +73,7 @@ dependencies {
     // WorkManager (Proper Kotlin DSL syntax)
     implementation("androidx.work:work-runtime-ktx:2.9.0")
     implementation("com.google.zxing:core:3.5.3")
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }
 val testJavaToolchains =
     extensions.getByType<

@@ -169,7 +169,20 @@
     <color name="rvi_muted">@color/roomkit_text_secondary</color>
     <color name="rvi_red">@color/roomkit_error</color>
     <color name="rvi_red_surface">@color/roomkit_error_bg</color>
+    <color name="rko_background">#F7F8FA</color>
+    <color name="rko_navy">#10182B</color>
+    <color name="rko_orange">#FF7900</color>
+    <color name="rko_muted">#637087</color>
     <color name="rvi_surface">@color/roomkit_surface</color>
     <!-- Existing ID preserved; this is not a color. Move to ids.xml later if desired. -->
     <item name="cardFoundation" type="id"/>
+    <color name="rkp_background">#F6F7FA</color>
+    <color name="rkp_surface">#FFFFFF</color>
+    <color name="rkp_text">#10182B</color>
+    <color name="rkp_muted">#617087</color>
+    <color name="rkp_border">#DFE5ED</color>
+    <color name="rkp_field">#FCFDFE</color>
+    <color name="rkp_accent">#FF7900</color>
+    <color name="rkp_button">#10182B</color>
+    <color name="rkp_icon_background">#FFF0E4</color>
 </resources>

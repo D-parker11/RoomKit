@@ -3,7 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/dashboardFragment">
+    app:startDestination="@id/startupFragment">
+
+    <fragment android:id="@+id/startupFragment"
+        android:name="com.example.roomkit.Date.Ui.Welcome.StartupFragment"
+        android:label="RoomKit" tools:layout="@layout/fragment_startup" />
+    <fragment android:id="@+id/welcomeFragment"
+        android:name="com.example.roomkit.Date.Ui.Welcome.WelcomeFragment"
+        android:label="Welcome" tools:layout="@layout/fragment_welcome" />
 
     <!-- Dashboard Fragment -->
     <fragment

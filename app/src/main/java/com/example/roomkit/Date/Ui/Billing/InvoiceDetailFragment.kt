@@ -337,7 +337,7 @@ class InvoiceDetailFragment : Fragment() {
 
     private fun setupListeners() {
         binding.btnRecordPayment.setOnClickListener {
-            val state = payableState() ?: return@setOnClickListener
+            val state = payableState(includePrevious = true) ?: return@setOnClickListener
 
             findNavController().navigate(
                 R.id.action_invoiceDetailFragment_to_recordPaymentBottomSheet,
@@ -370,7 +370,7 @@ class InvoiceDetailFragment : Fragment() {
         }
     }
 
-    private fun payableState(): InvoiceDetailUiState? {
+    private fun payableState(includePrevious: Boolean = false): InvoiceDetailUiState? {
         val state = viewModel.uiState.value
 
         if (state.invoiceId <= 0L || state.errorMessage != null) {
@@ -378,14 +378,13 @@ class InvoiceDetailFragment : Fragment() {
             return null
         }
 
-        if (state.status.uppercase(Locale.US) == "VOID") {
+        if (state.status.trim().uppercase(Locale.ROOT) !in setOf("ISSUED", "UNPAID", "PARTIAL", "PARTIALLY_PAID", "PAID", "OVERDUE")) {
             showMessage(getString(R.string.invoice_detail_void_payment))
             return null
         }
 
         if (
-            state.status.uppercase(Locale.US) == "PAID" ||
-            state.balanceKhr <= 0L
+            (if (includePrevious) state.collectibleBalanceKhr else state.balanceKhr) <= 0L
         ) {
             showMessage(getString(R.string.invoice_detail_already_paid))
             return null
@@ -595,11 +594,14 @@ class InvoiceDetailFragment : Fragment() {
         )
 
         binding.tvSummaryRemainingBalance.text = CurrencyFormatter.formatKhr(
-            state.balanceKhr
+            state.collectibleBalanceKhr
         )
+        binding.tvSummaryRemainingBalance.contentDescription =
+            "Total to pay including previous unpaid: ${CurrencyFormatter.formatKhr(state.collectibleBalanceKhr)}"
+        binding.btnRecordPayment.text = "Record payment · includes previous unpaid"
 
         val color = when {
-            state.balanceKhr <= 0L ->
+            state.collectibleBalanceKhr <= 0L ->
                 R.color.roomkit_text_secondary
 
             state.isOverdue ->
@@ -667,14 +669,18 @@ class InvoiceDetailFragment : Fragment() {
         )
 
         binding.containerPayableActions.isVisible =
-            state.balanceKhr > 0L &&
+            state.collectibleBalanceKhr > 0L &&
                     status in setOf(
                 "ISSUED",
                 "UNPAID",
                 "PARTIAL",
                 "PARTIALLY_PAID",
-                "OVERDUE"
+                "OVERDUE", "PAID"
             )
+        binding.btnGenerateKhqr.text = "KHQR · this invoice only"
+        // The imported static KHQR screen still explicitly covers the current invoice.
+        binding.btnGenerateKhqr.isVisible = state.balanceKhr > 0L &&
+                status in setOf("ISSUED", "UNPAID", "PARTIAL", "PARTIALLY_PAID", "OVERDUE")
     }
 
     private fun exportPdf(shareAfterExport: Boolean) {

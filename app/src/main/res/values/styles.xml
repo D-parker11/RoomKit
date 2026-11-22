@@ -535,4 +535,71 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+    <style name="Theme.RoomKit.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/rko_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/rko_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.RoomKit</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+    <string name="rkp_intro">Give your property a name, add its location, and set your room capacity.</string>
+    <string name="rkp_capacity_help">Room capacity is the maximum number of rooms you can add. Fields marked * are required.</string>
+
+    <style name="RkpSection" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/rkp_muted</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:accessibilityHeading">true</item>
+    </style>
+    <style name="RkpCard" parent="Widget.MaterialComponents.CardView">
+
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">20dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardBackgroundColor">@color/rkp_surface</item>
+        <item name="strokeColor">@color/rkp_border</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+    <style name="RkpInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxBackgroundColor">@color/rkp_field</item>
+        <item name="boxStrokeColor">@color/mr_input_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="android:textColorHint">@color/rkp_muted</item>
+        <item name="hintTextColor">@color/rkp_accent</item>
+    </style>
+    <style name="RkpDropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxBackgroundColor">@color/rkp_field</item>
+        <item name="boxStrokeColor">@color/mr_input_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="android:textColorHint">@color/rkp_muted</item>
+        <item name="hintTextColor">@color/rkp_accent</item>
+        <item name="endIconTint">@color/rkp_muted</item>
+    </style>
+    <style name="RkpEditText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:minHeight">56dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/rkp_text</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">14dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
 </resources>

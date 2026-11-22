@@ -665,4 +665,19 @@ Payments received are not profit. Expenses and deposit refunds are not deducted 
     <string name="rb_search_no_results">No matching invoices</string>
     <string name="refresh">Refresh</string>
     <string name="your_property_at_a_glance">Your property, at a glance</string>
+    <string name="rko_brand">RoomKit</string>
+    <string name="rko_tagline">Your property. Simply managed.</string>
+    <string name="rko_eyebrow">A BETTER WAY TO MANAGE RENTALS</string>
+    <string name="rko_welcome">A place for every\npart of your property.</string>
+    <string name="rko_intro">Rooms, tenants, and rent — together in one simple workspace.</string>
+    <string name="rko_feature_rooms">Rooms &amp; tenants</string>
+    <string name="rko_feature_rooms_body">Know who lives where, at a glance.</string>
+    <string name="rko_feature_payments">Invoices &amp; payments</string>
+    <string name="rko_feature_payments_body">Keep charges and payment records organized.</string>
+    <string name="rko_feature_offline">Ready without internet</string>
+    <string name="rko_feature_offline_body">Work offline. Your records stay on this device.</string>
+    <string name="rko_setup">Set up my property</string>
+    <string name="rko_footer">No account needed · Works offline</string>
+    <string name="rko_read_error">Unable to read your property records. Please try again.</string>
+    <string name="rko_retry">Try again</string>
 </resources>

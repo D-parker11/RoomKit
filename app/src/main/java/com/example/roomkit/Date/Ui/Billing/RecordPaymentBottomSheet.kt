@@ -20,6 +20,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.roomkit.Date.Billing.CurrencyFormatter
 import com.example.roomkit.Date.Repositories.BillingRepository
 import com.example.roomkit.databinding.BottomSheetRecordPaymentBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.appcompat.app.AlertDialog
+import com.example.roomkit.Date.Billing.CarryForwardPayments
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -44,6 +47,9 @@ class RecordPaymentBottomSheet : BottomSheetDialogFragment() {
     private var remainingBalanceKhr = 0L
     private var selectedDateTimestamp = System.currentTimeMillis()
     private var datePicker: DatePickerDialog? = null
+    private var allocationDialog: AlertDialog? = null
+    private var previewBusy = false
+    private var loadedFingerprint = ""
 
     private val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.US)
 
@@ -280,14 +286,14 @@ class RecordPaymentBottomSheet : BottomSheetDialogFragment() {
                 "Enter the amount you received."
 
             amount > remainingBalanceKhr ->
-                "Payment exceeds this invoice’s remaining balance."
+                "Payment exceeds total outstanding through this invoice."
 
             amount == remainingBalanceKhr ->
-                "This payment will settle the invoice."
+                "This payment will clear the balance through this invoice."
 
             else -> {
                 val balanceAfter = remainingBalanceKhr - amount
-                "Balance after payment: ${
+                "Outstanding after payment: ${
                     CurrencyFormatter.formatKhr(balanceAfter)
                 }"
             }
@@ -329,26 +335,15 @@ class RecordPaymentBottomSheet : BottomSheetDialogFragment() {
                     "Payments cannot be recorded for this invoice status."
                 }
 
-                val payments = saved.accountInvoices
-                    .single { it.invoice.invoiceId == invoiceId }
-                    .payments
-
-                val totalPaid = payments
-                    .filter {
-                        it.status.trim().equals(
-                            "ACTIVE",
-                            ignoreCase = true
-                        )
-                    }
-                    .fold(0L) { total, payment ->
-                        Math.addExact(total, payment.amountKhr)
-                    }
-
+                val scope = CarryForwardPayments.scope(invoice, saved.accountInvoices)
+                val account = com.example.roomkit.Date.Billing.InvoiceAccountBalances.calculate(invoice, saved.accountInvoices)
+                val totalPaid = account.currentPaidKhr
                 val invoiceTotal = invoice.totalKhr
-
-                remainingBalanceKhr =
-                    Math.subtractExact(invoiceTotal, totalPaid)
-                        .coerceAtLeast(0L)
+                remainingBalanceKhr = scope.dueKhr
+                loadedFingerprint = scope.fingerprint
+                binding.tvCarryForwardBreakdown.text =
+                    "Previous unpaid: ${CurrencyFormatter.formatKhr(scope.previousUnpaidKhr)}\n" +
+                            "This invoice remaining: ${CurrencyFormatter.formatKhr(scope.currentBalanceKhr)}"
 
                 val periodText = YearMonth.of(
                     invoice.billingYear,
@@ -370,7 +365,7 @@ class RecordPaymentBottomSheet : BottomSheetDialogFragment() {
                     CurrencyFormatter.formatKhr(remainingBalanceKhr)
 
                 require(remainingBalanceKhr > 0L) {
-                    "This invoice has no remaining balance."
+                    "No outstanding balance through this invoice."
                 }
 
                 if (
@@ -467,16 +462,41 @@ class RecordPaymentBottomSheet : BottomSheetDialogFragment() {
             ?.toString()
             ?.trim()
 
-        paymentVm.save(
-            invoiceId,
-            amount,
-            selectedDateTimestamp,
-            method,
-            note,
-            reference
-        )
-
+        previewBusy = true
         updateControls()
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val preview = repository.previewCarryForwardPayment(invoiceId, amount).getOrThrow()
+                check(preview.scope.fingerprint == loadedFingerprint) {
+                    "Balances changed. Reopen this form to refresh the amount due."
+                }
+                if (_binding == null) return@launch
+                val allocationText = preview.allocations.joinToString("\n") {
+                    "Invoice #${it.invoiceId}: ${CurrencyFormatter.formatKhr(it.amountKhr)}"
+                }
+                allocationDialog = MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Confirm payment received")
+                    .setMessage("Received: ${CurrencyFormatter.formatKhr(amount)}\n\n" +
+                            "Applied oldest invoice first:\n$allocationText\n\n" +
+                            "Outstanding after payment: ${CurrencyFormatter.formatKhr(preview.scope.dueKhr - amount)}")
+                    .setNegativeButton("Cancel", null)
+                    .setPositiveButton("Record payment") { _, _ ->
+                        paymentVm.saveCarryForward(invoiceId, amount, selectedDateTimestamp,
+                            method, note, reference, preview.scope.fingerprint)
+                        updateControls()
+                    }
+                    .create().also { d ->
+                        d.setOnDismissListener { allocationDialog = null; updateControls() }
+                        d.show()
+                    }
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) {
+                _binding?.tvBalanceAfterPayment?.text = e.message ?: "Unable to prepare payment."
+            } finally {
+                previewBusy = false
+                updateControls()
+            }
+        }
     }
 
     private fun observePaymentState() {
@@ -513,7 +533,7 @@ class RecordPaymentBottomSheet : BottomSheetDialogFragment() {
 
     private fun canEdit(): Boolean {
         val state = paymentVm.state.value
-        return loaded && !state.saving && !state.saved
+        return loaded && !state.saving && !state.saved && !previewBusy && allocationDialog == null
     }
 
     private fun updateControls() {
@@ -570,6 +590,9 @@ class RecordPaymentBottomSheet : BottomSheetDialogFragment() {
     }
 
     override fun onDestroyView() {
+        allocationDialog?.dismiss()
+        allocationDialog = null
+        previewBusy = false
         datePicker?.dismiss()
         datePicker = null
         loaded = false

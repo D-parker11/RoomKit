@@ -324,6 +324,78 @@ class BillingRepository(
         return paymentDao.observePaymentsForInvoice(invoiceId)
     }
 
+    suspend fun previewCarryForwardPayment(
+        invoiceId: Long,
+        amountKhr: Long
+    ): Result<com.example.roomkit.Date.Billing.CarryForwardPaymentPreview> = try {
+        Result.success(db.withTransaction {
+            val snapshot = invoiceDao.getInvoiceDetailWithItems(invoiceId) ?: error("Invoice not found.")
+            val scope = com.example.roomkit.Date.Billing.CarryForwardPayments.scope(
+                snapshot.detail.invoice, snapshot.accountInvoices
+            )
+            com.example.roomkit.Date.Billing.CarryForwardPaymentPreview(
+                scope, com.example.roomkit.Date.Billing.CarryForwardAllocator.allocate(scope.balances, amountKhr)
+            )
+        })
+    } catch (e: CancellationException) { throw e }
+    catch (e: Exception) { Result.failure(e) }
+
+    /** Current invoice plus older unpaid invoices; later billing periods are excluded. */
+    suspend fun recordCarryForwardPayment(
+        invoiceId: Long,
+        amountKhr: Long,
+        paymentDate: Long,
+        method: String,
+        note: String?,
+        referenceNumber: String?,
+        expectedFingerprint: String
+    ): Result<Unit> = try {
+        val cleanReference = com.example.roomkit.Date.Billing.InvoiceFieldValidation.paymentReference(referenceNumber)
+        val cleanMethod = method.trim().uppercase(Locale.ROOT)
+        require(cleanMethod in setOf("CASH", "BANK", "BANK_TRANSFER", "KHQR")) { "Choose a valid payment method." }
+        val reminders = db.withTransaction {
+            val snapshot = invoiceDao.getInvoiceDetailWithItems(invoiceId) ?: error("Invoice not found.")
+            val scope = com.example.roomkit.Date.Billing.CarryForwardPayments.scope(
+                snapshot.detail.invoice, snapshot.accountInvoices
+            )
+            check(scope.fingerprint == expectedFingerprint) {
+                "Balances changed. Reopen the payment form and check the new allocation."
+            }
+            val allocations = com.example.roomkit.Date.Billing.CarryForwardAllocator.allocate(scope.balances, amountKhr)
+            allocations.map { allocation ->
+                val invoice = snapshot.accountInvoices.single { it.invoice.invoiceId == allocation.invoiceId }.invoice
+                paymentDao.insertPayment(PaymentEntity(
+                    invoiceId = invoice.invoiceId,
+                    amountKhr = allocation.amountKhr,
+                    paymentDate = paymentDate,
+                    paymentMethod = cleanMethod,
+                    note = listOfNotNull(note?.trim()?.takeIf { it.isNotEmpty() },
+                        "Allocation from ${CurrencyFormatter.formatKhr(amountKhr)} received through invoice #$invoiceId.")
+                        .joinToString("\n"),
+                    referenceNumber = cleanReference
+                ))
+                val paid = com.example.roomkit.Date.Billing.InvoiceAccountBalances.activePaid(
+                    paymentDao.getPaymentsForInvoice(invoice.invoiceId)
+                )
+                val balance = Math.subtractExact(invoice.totalKhr, paid)
+                check(balance >= 0) { "Invoice payment exceeds its charges." }
+                val status = BillingCalculator.resolveInvoiceStatus(invoice.totalKhr, paid, invoice.dueDate)
+                invoiceDao.updatePaymentBalances(invoice.invoiceId, paid, balance, status)
+                Triple(invoice.invoiceId, invoice.dueDate, balance)
+            }
+        }
+        // Schedule/cancel after commit. A notification failure must not invite a duplicate payment.
+        reminders.forEach { (id, dueDate, balance) ->
+            try {
+                if (balance == 0L) cancelInvoiceReminders(id)
+                else scheduleInvoiceReminders(id, "Room", dueDate)
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) { android.util.Log.w("BillingRepository", "Payment saved; reminder update failed", e) }
+        }
+        Result.success(Unit)
+    } catch (e: CancellationException) { throw e }
+    catch (e: Exception) { Result.failure(e) }
+
     suspend fun recordPayment(
         invoiceId: Long,
         amountKhr: Long,

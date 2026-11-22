@@ -41,6 +41,8 @@ class AddBuildingBottomSheetDialogFragment :
 
     private var loadedBuilding: BuildingEntity? = null
     private var isSaving = false
+    private var sizingParent: View? = null
+    private var sizingListener: View.OnLayoutChangeListener? = null
 
     private val districts = listOf(
         "Chamkarmon",
@@ -90,44 +92,46 @@ class AddBuildingBottomSheetDialogFragment :
 
     override fun onStart() {
         super.onStart()
-
         val sheetDialog = dialog as? BottomSheetDialog ?: return
-
         sheetDialog.window?.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
         )
-
         val sheet = sheetDialog.findViewById<View>(
             com.google.android.material.R.id.design_bottom_sheet
         ) ?: return
-
-        sheet.post {
-            val currentBinding = _binding ?: return@post
-            val container = sheet.parent as? View ?: return@post
+        val parent = sheet.parent as? View ?: return
+        sheet.layoutParams = sheet.layoutParams.apply {
+            height = ViewGroup.LayoutParams.WRAP_CONTENT
+        }
+        binding.root.layoutParams = binding.root.layoutParams.apply {
+            height = ViewGroup.LayoutParams.WRAP_CONTENT
+        }
+        sheet.background = ColorDrawable(Color.TRANSPARENT)
+        val behavior = sheetDialog.behavior
+        behavior.isFitToContents = true
+        behavior.skipCollapsed = true
+        fun sizeSheet() {
+            if (_binding == null || parent.height == 0) return
             val topGap = (24 * resources.displayMetrics.density).toInt()
-            val availableHeight = container.height
-
-            if (availableHeight <= topGap) return@post
-
-            sheet.layoutParams = sheet.layoutParams.apply {
-                height = availableHeight - topGap
+            val limit = (parent.height - topGap).coerceAtLeast(1)
+            if (behavior.maxHeight != limit) {
+                behavior.maxHeight = limit
+                sheet.requestLayout()
             }
-
-            currentBinding.root.layoutParams =
-                currentBinding.root.layoutParams.apply {
-                    height = ViewGroup.LayoutParams.MATCH_PARENT
-                }
-
-            sheet.background = ColorDrawable(Color.TRANSPARENT)
-
-            sheetDialog.behavior.apply {
-                isFitToContents = true
-                skipCollapsed = true
-                state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+        sizingListener?.let { sizingParent?.removeOnLayoutChangeListener(it) }
+        val listener = View.OnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            sizeSheet()
+        }
+        sizingParent = parent
+        sizingListener = listener
+        parent.addOnLayoutChangeListener(listener)
+        sheet.post {
+            if (_binding != null) {
+                sizeSheet()
+                ViewCompat.requestApplyInsets(binding.root)
             }
-
-            sheet.requestLayout()
-            ViewCompat.requestApplyInsets(currentBinding.root)
         }
     }
 
@@ -167,31 +171,36 @@ class AddBuildingBottomSheetDialogFragment :
     }
 
     private fun setupInsets(view: View) {
-        val initialLeft = view.paddingLeft
-        val initialTop = view.paddingTop
-        val initialRight = view.paddingRight
-        val initialBottom = view.paddingBottom
-
+        val left = view.paddingLeft
+        val top = view.paddingTop
+        val right = view.paddingRight
+        val bottom = view.paddingBottom
+        fun applyOverlap() {
+            if (_binding?.root !== view || !view.isAttachedToWindow) return
+            val window = dialog?.window ?: return
+            val insets = ViewCompat.getRootWindowInsets(view) ?: return
+            val bounds = window.windowManager.currentWindowMetrics.bounds
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
+            val location = IntArray(2)
+            view.getLocationOnScreen(location)
+            val newLeft = left + (bounds.left + bars.left - location[0]).coerceAtLeast(0)
+            val newTop = top + (bounds.top + bars.top - location[1]).coerceAtLeast(0)
+            val newRight = right + (location[0] + view.width - bounds.right + bars.right).coerceAtLeast(0)
+            val newBottom = bottom + (location[1] + view.height - bounds.bottom +
+                    maxOf(bars.bottom, ime.bottom)).coerceAtLeast(0)
+            if (view.paddingLeft != newLeft || view.paddingTop != newTop ||
+                view.paddingRight != newRight || view.paddingBottom != newBottom) {
+                view.setPadding(newLeft, newTop, newRight, newBottom)
+            }
+        }
         ViewCompat.setOnApplyWindowInsetsListener(view) { target, insets ->
-            val navigation = insets.getInsets(
-                WindowInsetsCompat.Type.navigationBars()
-            )
-            val keyboard = insets.getInsets(
-                WindowInsetsCompat.Type.ime()
-            )
-
-            target.setPadding(
-                initialLeft + navigation.left,
-                initialTop,
-                initialRight + navigation.right,
-                initialBottom + maxOf(
-                    navigation.bottom,
-                    keyboard.bottom
-                )
-            )
-
+            target.post { applyOverlap() }
             insets
         }
+        view.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> applyOverlap() }
     }
 
     private fun loadBuilding(populateFields: Boolean) {
@@ -489,6 +498,9 @@ class AddBuildingBottomSheetDialogFragment :
     }
 
     override fun onDestroyView() {
+        sizingListener?.let { sizingParent?.removeOnLayoutChangeListener(it) }
+        sizingParent = null
+        sizingListener = null
         _binding?.root?.let {
             ViewCompat.setOnApplyWindowInsetsListener(it, null)
         }
