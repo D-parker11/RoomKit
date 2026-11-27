@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.RoomKit.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/roomkit_size_16"
+    app:cardBackgroundColor="@color/roomkit_neutral_surface"
+    app:strokeWidth="@dimen/roomkit_size_0">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/roomkit_size_16">
+        <TextView
+            android:id="@+id/sectionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/roomkit_size_8"
+            android:accessibilityHeading="true"
+            android:textAppearance="@style/TextAppearance.RoomKit.Heading.Medium" />
+        <LinearLayout
+            android:id="@+id/sectionRows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+        <TextView
+            android:id="@+id/sectionBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.RoomKit.Body.Standard" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

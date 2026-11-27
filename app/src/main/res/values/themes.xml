@@ -8,6 +8,7 @@
         <item name="android:windowLightNavigationBar">true</item>
     </style>
     <style name="Theme.RoomKit" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.RoomKit.Dialog</item>
         <item name="colorPrimary">@color/roomkit_primary</item>
         <item name="colorPrimaryVariant">@color/roomkit_primary_dark</item>
         <item name="colorOnPrimary">@color/roomkit_white</item>
@@ -19,7 +20,12 @@
     </style>
     <style name="ThemeOverlay.RoomKit.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.RoomKit.Dialog</item>
-        <item name="buttonBarPositiveButtonStyle">@style/Widget.RoomKit.Button.Primary</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/TextAppearance.RoomKit.SectionTitle</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/TextAppearance.RoomKit.Body</item>
+        <!-- Simple alerts use the native measured/stacking action bar.
+             Detailed reviews supply a full-width footer outside their scroll area. -->
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.RoomKit.Button.TextMedium</item>
         <item name="buttonBarNegativeButtonStyle">@style/Widget.RoomKit.Button.TextMedium</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.RoomKit.Button.TextMedium</item>
     </style>
 </resources>
