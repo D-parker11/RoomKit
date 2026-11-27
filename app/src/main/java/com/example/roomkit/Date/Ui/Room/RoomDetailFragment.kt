@@ -2,6 +2,8 @@
 
 package com.example.roomkit.Date.Ui.Room
 
+import com.example.roomkit.Date.Ui.Common.setRoomKitTextSize
+
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
@@ -162,7 +164,7 @@ class RoomDetailFragment : Fragment() {
 
         view.gravity = Gravity.CENTER_VERTICAL
         view.includeFontPadding = false
-        view.textSize = 12f
+        view.setRoomKitTextSize(R.dimen.roomkit_text_12)
         view.setTypeface(view.typeface, Typeface.BOLD)
         view.setTextColor(color)
         view.backgroundTintList = null
@@ -463,7 +465,7 @@ class RoomDetailFragment : Fragment() {
             "PARTIAL", "PARTIALLY_PAID" -> {
                 labelResource = R.string.rk_room_detail_partial
                 backgroundResource = R.drawable.bg_rd_badge_blue
-                colorValue = Color.parseColor("#1D4ED8")
+                colorValue = androidx.core.content.ContextCompat.getColor(requireContext(), R.color.roomkit_blue_700)
             }
 
             "OVERDUE" -> {

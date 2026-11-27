@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="@color/roomkit_surface"
+        android:background="@color/roomkit_white"
         android:gravity="center_vertical"
         android:paddingHorizontal="12dp">
 
@@ -35,7 +35,7 @@
             android:gravity="center"
             android:text="Edit room"
             android:textColor="@color/roomkit_text_primary"
-            android:textSize="18sp" />
+            android:textSize="@dimen/roomkit_text_18" />
 
         <Space
             android:layout_width="48dp"
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:text="PROPERTY"
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="11sp"
+                android:textSize="@dimen/roomkit_text_11"
                 android:fontFamily="sans-serif-medium"
                 android:letterSpacing="0.08" />
 
@@ -75,7 +75,7 @@
                 android:layout_marginTop="6dp"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="20sp"
+                android:textSize="@dimen/roomkit_text_20"
                 tools:text="Proser" />
 
             <!-- Occupied notice -->
@@ -103,7 +103,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="Room currently occupied"
                         android:textColor="@color/roomkit_text_primary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/roomkit_text_14" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                         android:lineSpacingExtra="3dp"
                         android:text="Default rent changes apply to future tenancies. Current tenant charges and past invoices stay unchanged."
                         android:textColor="@color/roomkit_text_secondary"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/roomkit_text_13" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -124,7 +124,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="Room details"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="17sp" />
+                android:textSize="@dimen/roomkit_text_17" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,7 +134,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilRoomNumber"
-                    style="@style/RoomKitFormInput"
+                    style="@style/Widget.RoomKit.Input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
@@ -143,7 +143,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etRoomNumber"
-                        style="@style/RoomKitFormEditText"
+                        style="@style/Widget.RoomKit.EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
@@ -153,7 +153,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilFloor"
-                    style="@style/RoomKitFormInput"
+                    style="@style/Widget.RoomKit.Input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -161,7 +161,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etFloor"
-                        style="@style/RoomKitFormEditText"
+                        style="@style/Widget.RoomKit.EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
@@ -172,7 +172,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilRoomType"
-                style="@style/RoomKitFormDropdown"
+                style="@style/Widget.RoomKit.Input.Dropdown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -180,7 +180,7 @@
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/actvRoomType"
-                    style="@style/RoomKitFormEditText"
+                    style="@style/Widget.RoomKit.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
@@ -189,7 +189,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilNotes"
-                style="@style/RoomKitFormInput"
+                style="@style/Widget.RoomKit.Input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -197,7 +197,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etNotes"
-                    style="@style/RoomKitFormEditText"
+                    style="@style/Widget.RoomKit.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top|start"
@@ -211,7 +211,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Private notes for your reference."
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="12sp" />
+                android:textSize="@dimen/roomkit_text_12" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -220,7 +220,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="Default pricing"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="17sp" />
+                android:textSize="@dimen/roomkit_text_17" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -229,11 +229,11 @@
                 android:layout_marginBottom="16dp"
                 android:text="Used when creating a new tenancy."
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="13sp" />
+                android:textSize="@dimen/roomkit_text_13" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilMonthlyRent"
-                style="@style/RoomKitFormInput"
+                style="@style/Widget.RoomKit.Input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Monthly rent *"
@@ -242,7 +242,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etMonthlyRent"
-                    style="@style/RoomKitFormEditText"
+                    style="@style/Widget.RoomKit.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
@@ -255,7 +255,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                app:cardBackgroundColor="@color/roomkit_surface"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/roomkit_border"
@@ -280,7 +280,7 @@
                             android:fontFamily="sans-serif-medium"
                             android:text="Occupancy"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -288,7 +288,7 @@
                             android:layout_marginTop="4dp"
                             android:text="Managed by tenancy"
                             android:textColor="@color/roomkit_text_secondary"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/roomkit_text_12" />
                     </LinearLayout>
 
                     <TextView
@@ -298,7 +298,7 @@
                         android:layout_marginStart="12dp"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/roomkit_success_dark"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/roomkit_text_14"
                         tools:text="Occupied" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -310,7 +310,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="Room management"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="17sp" />
+                android:textSize="@dimen/roomkit_text_17" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -320,7 +320,7 @@
                 android:lineSpacingExtra="3dp"
                 android:text="Archive to keep the room’s history. Rooms with tenancy or billing history cannot be deleted."
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="13sp" />
+                android:textSize="@dimen/roomkit_text_13" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnArchiveRoom"
@@ -333,8 +333,8 @@
                 android:text="Archive room"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="14sp"
-                app:backgroundTint="@color/roomkit_surface"
+                android:textSize="@dimen/roomkit_text_14"
+                app:backgroundTint="@color/roomkit_white"
                 app:cornerRadius="14dp"
                 app:strokeColor="@color/roomkit_border" />
 
@@ -350,8 +350,8 @@
                 android:text="Delete room"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_error_dark"
-                android:textSize="14sp"
-                app:backgroundTint="@color/roomkit_surface"
+                android:textSize="@dimen/roomkit_text_14"
+                app:backgroundTint="@color/roomkit_white"
                 app:cornerRadius="14dp" />
 
             <TextView
@@ -362,7 +362,7 @@
                 android:accessibilityLiveRegion="polite"
                 android:lineSpacingExtra="3dp"
                 android:textColor="@color/roomkit_error_dark"
-                android:textSize="14sp"
+                android:textSize="@dimen/roomkit_text_14"
                 android:visibility="gone"
                 tools:text="Please check the room details."
                 tools:visibility="visible" />
@@ -374,7 +374,7 @@
         android:id="@+id/layoutBottomAction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/roomkit_surface"
+        android:background="@color/roomkit_white"
         android:orientation="vertical">
 
         <View
@@ -394,8 +394,8 @@
             android:letterSpacing="0"
             android:text="Save changes"
             android:textAllCaps="false"
-            android:textColor="@color/roomkit_on_primary"
-            android:textSize="16sp"
+            android:textColor="@color/roomkit_white"
+            android:textSize="@dimen/roomkit_text_16"
             app:backgroundTint="@color/roomkit_primary"
             app:cornerRadius="16dp"
             app:elevation="0dp" />

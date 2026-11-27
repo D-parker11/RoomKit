@@ -2,6 +2,8 @@
 
 package com.example.roomkit.Date.Ui.Reminders
 
+import com.example.roomkit.Date.Ui.Common.setRoomKitTextSize
+
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.view.Gravity
@@ -69,7 +71,7 @@ class RemindersAdapter(private val onOpen: (Long) -> Unit) :
                 view = binding.tvReminderPaymentBadge,
                 textRes = if (card.isPartial) R.string.rr_partial else R.string.rr_unpaid,
                 backgroundRes = if (card.isPartial) R.drawable.bg_rd_badge_blue else R.drawable.bg_rd_badge_amber,
-                foregroundRes = if (card.isPartial) R.color.rr_blue else R.color.rr_amber
+                foregroundRes = if (card.isPartial) R.color.roomkit_partial else R.color.roomkit_warning
             )
 
             when (card.filter) {
@@ -77,19 +79,19 @@ class RemindersAdapter(private val onOpen: (Long) -> Unit) :
                     view = binding.tvReminderDueBadge,
                     textRes = R.string.rr_overdue,
                     backgroundRes = R.drawable.bg_rd_badge_red,
-                    foregroundRes = R.color.rr_red
+                    foregroundRes = R.color.roomkit_error
                 )
                 ReminderFilter.TODAY -> styleStatusBadge(
                     view = binding.tvReminderDueBadge,
                     textRes = R.string.rr_today,
                     backgroundRes = R.drawable.bg_rd_badge_blue,
-                    foregroundRes = R.color.rr_blue
+                    foregroundRes = R.color.roomkit_partial
                 )
                 ReminderFilter.UPCOMING -> styleStatusBadge(
                     view = binding.tvReminderDueBadge,
                     textRes = R.string.rr_upcoming,
                     backgroundRes = R.drawable.bg_rd_badge_neutral,
-                    foregroundRes = R.color.rr_muted
+                    foregroundRes = R.color.roomkit_text_secondary
                 )
             }
 
@@ -111,7 +113,7 @@ class RemindersAdapter(private val onOpen: (Long) -> Unit) :
         view.setText(textRes)
         view.gravity = Gravity.CENTER_VERTICAL
         view.includeFontPadding = false
-        view.textSize = 12f
+        view.setRoomKitTextSize(R.dimen.roomkit_text_12)
         view.setTypeface(view.typeface, Typeface.BOLD)
         view.setTextColor(color)
         view.backgroundTintList = null

@@ -32,7 +32,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="Choose paper size"
             android:textColor="@color/roomkit_text_primary"
-            android:textSize="21sp"
+            android:textSize="@dimen/roomkit_text_21"
             android:textStyle="bold" />
 
         <TextView
@@ -46,7 +46,7 @@
             android:paddingVertical="6dp"
             android:text="Cancel"
             android:textColor="@color/roomkit_text_secondary"
-            android:textSize="14sp" />
+            android:textSize="@dimen/roomkit_text_14" />
     </LinearLayout>
 
     <!-- Context Subtitle -->
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:textColor="@color/roomkit_text_secondary"
-        android:textSize="13sp"
+        android:textSize="@dimen/roomkit_text_13"
         tools:text="Room 01 · Oct 2026" />
 
     <!-- Option 1: A4 -->
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:text="A4 · 210 × 297 mm"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="15sp"
+                android:textSize="@dimen/roomkit_text_15"
                 android:textStyle="bold" />
 
             <TextView
@@ -94,7 +94,7 @@
                 android:layout_marginTop="2dp"
                 android:text="Standard full-page document"
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="13sp" />
+                android:textSize="@dimen/roomkit_text_13" />
         </LinearLayout>
 
         <ImageView
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:text="A5 · 148 × 210 mm"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="15sp"
+                android:textSize="@dimen/roomkit_text_15"
                 android:textStyle="bold" />
 
             <TextView
@@ -145,7 +145,7 @@
                 android:layout_marginTop="2dp"
                 android:text="Compact half-page format"
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="13sp" />
+                android:textSize="@dimen/roomkit_text_13" />
         </LinearLayout>
 
         <ImageView
@@ -161,7 +161,7 @@
     <!-- Primary Confirm Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnConfirmPaperSize"
-        style="@style/InvoiceActionPrimary"
+        style="@style/Widget.RoomKit.Action.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

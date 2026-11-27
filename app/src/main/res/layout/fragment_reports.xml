@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/roomkit_slate_50"
     android:orientation="vertical">
 
     <!-- Top App Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/roomkit_white"
         android:gravity="center_vertical"
         android:padding="12dp">
 
@@ -23,7 +23,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Back"
             android:src="@drawable/ic_arrow_back"
-            app:tint="#111827" />
+            app:tint="@color/roomkit_text_primary" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -37,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="3dp"
                 android:text="Reports"
-                android:textColor="#111827"
-                android:textSize="26sp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_26"
                 android:textStyle="bold" />
 
             <TextView
@@ -46,8 +46,8 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="3dp"
                 android:text="@string/your_property_at_a_glance"
-                android:textColor="#64748B"
-                android:textSize="12sp" />
+                android:textColor="@color/roomkit_slate_500"
+                android:textSize="@dimen/roomkit_text_12" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -57,7 +57,7 @@
             android:layout_height="48dp"
             android:text="@string/refresh"
             android:textAllCaps="false"
-            android:textColor="#111827" />
+            android:textColor="@color/roomkit_text_primary" />
     </LinearLayout>
 
     <!-- Period Selector Card (Matches Payment Trend Card Styling) -->
@@ -67,10 +67,10 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="4dp"
-        app:cardBackgroundColor="#FFFFFF"
+        app:cardBackgroundColor="@color/roomkit_white"
         app:cardCornerRadius="24dp"
         app:cardElevation="0dp"
-        app:strokeColor="#E5E7EB"
+        app:strokeColor="@color/roomkit_gray_200"
         app:strokeWidth="1dp">
 
         <LinearLayout
@@ -89,7 +89,7 @@
                 android:contentDescription="Previous month"
                 android:padding="12dp"
                 android:src="@drawable/ic_rb_left"
-                app:tint="#111827" />
+                app:tint="@color/roomkit_text_primary" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -105,7 +105,7 @@
                     android:layout_marginEnd="10dp"
                     android:importantForAccessibility="no"
                     android:src="@drawable/ic_calender"
-                    app:tint="#111827" />
+                    app:tint="@color/roomkit_text_primary" />
 
                 <TextView
                     android:id="@+id/tvSelectedMonth"
@@ -114,8 +114,8 @@
                     android:fontFamily="sans-serif"
                     android:includeFontPadding="false"
                     android:text="November 2026"
-                    android:textColor="#111827"
-                    android:textSize="16sp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="@dimen/roomkit_text_16"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -127,7 +127,7 @@
                 android:contentDescription="Next month"
                 android:padding="12dp"
                 android:src="@drawable/ic_rb_right"
-                app:tint="#111827" />
+                app:tint="@color/roomkit_text_primary" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -138,7 +138,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:indeterminateTint="#111827" />
+        android:indeterminateTint="@color/roomkit_text_primary" />
 
     <!-- Error State Panel -->
     <LinearLayout
@@ -154,8 +154,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="3dp"
-            android:textColor="#C62828"
-            android:textSize="14sp" />
+            android:textColor="@color/roomkit_red_650"
+            android:textSize="@dimen/roomkit_text_14" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/rptRetry"
@@ -165,7 +165,7 @@
             android:minHeight="52dp"
             android:text="Retry"
             android:textAllCaps="false"
-            android:textColor="#111827"
+            android:textColor="@color/roomkit_text_primary"
             app:cornerRadius="14dp" />
     </LinearLayout>
 
@@ -194,8 +194,8 @@
                 android:layout_marginBottom="16dp"
                 android:lineSpacingExtra="3dp"
                 android:text="No billing activity in this month. Current property totals are shown below."
-                android:textColor="#64748B"
-                android:textSize="13sp"
+                android:textColor="@color/roomkit_slate_500"
+                android:textSize="@dimen/roomkit_text_13"
                 android:visibility="gone" />
 
             <!-- Card 1: Payment Trend -->
@@ -203,10 +203,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#E5E7EB"
+                app:strokeColor="@color/roomkit_gray_200"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -220,8 +220,8 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="Payment trend"
-                        android:textColor="#111827"
-                        android:textSize="20sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_20"
                         android:textStyle="bold" />
 
                     <TextView
@@ -230,8 +230,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:lineSpacingExtra="3dp"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <com.example.roomkit.Date.Reports.PaymentTrendView
                         android:id="@+id/rptTrend"
@@ -243,15 +243,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="16dp"
-                        android:background="#E5E7EB" />
+                        android:background="@color/roomkit_gray_200" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="Received in selected month"
-                        android:textColor="#64748B"
-                        android:textSize="13sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_13" />
 
                     <TextView
                         android:id="@+id/rptReceived"
@@ -259,8 +259,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:lineSpacingExtra="3dp"
-                        android:textColor="#111827"
-                        android:textSize="30sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_30"
                         android:textStyle="bold" />
 
                     <TextView
@@ -269,8 +269,8 @@
                         android:layout_marginTop="6dp"
                         android:lineSpacingExtra="3dp"
                         android:text="Invoice payments only · Deposit allocations excluded"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_12" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -279,10 +279,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#E5E7EB"
+                app:strokeColor="@color/roomkit_gray_200"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -296,8 +296,8 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="Occupancy"
-                        android:textColor="#111827"
-                        android:textSize="20sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_20"
                         android:textStyle="bold" />
 
                     <TextView
@@ -305,8 +305,8 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="Today · Active tenancies"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -339,8 +339,8 @@
                                     android:layout_marginEnd="12dp"
                                     android:layout_weight="1"
                                     android:text="Occupied"
-                                    android:textColor="#64748B"
-                                    android:textSize="14sp" />
+                                    android:textColor="@color/roomkit_slate_500"
+                                    android:textSize="@dimen/roomkit_text_14" />
 
                                 <TextView
                                     android:id="@+id/rptOccupied"
@@ -348,8 +348,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1.2"
                                     android:gravity="end"
-                                    android:textColor="#111827"
-                                    android:textSize="18sp"
+                                    android:textColor="@color/roomkit_text_primary"
+                                    android:textSize="@dimen/roomkit_text_18"
                                     android:textStyle="bold" />
                             </LinearLayout>
 
@@ -366,8 +366,8 @@
                                     android:layout_marginEnd="12dp"
                                     android:layout_weight="1"
                                     android:text="Not occupied"
-                                    android:textColor="#64748B"
-                                    android:textSize="14sp" />
+                                    android:textColor="@color/roomkit_slate_500"
+                                    android:textSize="@dimen/roomkit_text_14" />
 
                                 <TextView
                                     android:id="@+id/rptVacant"
@@ -375,8 +375,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1.2"
                                     android:gravity="end"
-                                    android:textColor="#111827"
-                                    android:textSize="18sp"
+                                    android:textColor="@color/roomkit_text_primary"
+                                    android:textSize="@dimen/roomkit_text_18"
                                     android:textStyle="bold" />
                             </LinearLayout>
 
@@ -393,8 +393,8 @@
                                     android:layout_marginEnd="12dp"
                                     android:layout_weight="1"
                                     android:text="Total rooms"
-                                    android:textColor="#64748B"
-                                    android:textSize="14sp" />
+                                    android:textColor="@color/roomkit_slate_500"
+                                    android:textSize="@dimen/roomkit_text_14" />
 
                                 <TextView
                                     android:id="@+id/rptRooms"
@@ -402,8 +402,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1.2"
                                     android:gravity="end"
-                                    android:textColor="#111827"
-                                    android:textSize="18sp"
+                                    android:textColor="@color/roomkit_text_primary"
+                                    android:textSize="@dimen/roomkit_text_18"
                                     android:textStyle="bold" />
                             </LinearLayout>
                         </LinearLayout>
@@ -414,8 +414,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_12" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -424,10 +424,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#E5E7EB"
+                app:strokeColor="@color/roomkit_gray_200"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -441,8 +441,8 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="Billing summary"
-                        android:textColor="#111827"
-                        android:textSize="20sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_20"
                         android:textStyle="bold" />
 
                     <TextView
@@ -450,8 +450,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -466,8 +466,8 @@
                             android:layout_marginEnd="12dp"
                             android:layout_weight="1"
                             android:text="Billed"
-                            android:textColor="#64748B"
-                            android:textSize="14sp" />
+                            android:textColor="@color/roomkit_slate_500"
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/rptBilled"
@@ -475,8 +475,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
                             android:gravity="end"
-                            android:textColor="#111827"
-                            android:textSize="18sp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_18"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -493,8 +493,8 @@
                             android:layout_marginEnd="12dp"
                             android:layout_weight="1"
                             android:text="Settled to date"
-                            android:textColor="#64748B"
-                            android:textSize="14sp" />
+                            android:textColor="@color/roomkit_slate_500"
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/rptSettled"
@@ -502,8 +502,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
                             android:gravity="end"
-                            android:textColor="#12824C"
-                            android:textSize="18sp"
+                            android:textColor="@color/roomkit_green_650"
+                            android:textSize="@dimen/roomkit_text_18"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -520,8 +520,8 @@
                             android:layout_marginEnd="12dp"
                             android:layout_weight="1"
                             android:text="Remaining now"
-                            android:textColor="#64748B"
-                            android:textSize="14sp" />
+                            android:textColor="@color/roomkit_slate_500"
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/rptRemaining"
@@ -529,8 +529,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
                             android:gravity="end"
-                            android:textColor="#C62828"
-                            android:textSize="18sp"
+                            android:textColor="@color/roomkit_red_650"
+                            android:textSize="@dimen/roomkit_text_18"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -538,23 +538,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="16dp"
-                        android:background="#E5E7EB" />
+                        android:background="@color/roomkit_gray_200" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="Settlement rate"
-                        android:textColor="#64748B"
-                        android:textSize="13sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_13" />
 
                     <TextView
                         android:id="@+id/rptCollection"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
-                        android:textColor="#111827"
-                        android:textSize="13sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_13"
                         android:textStyle="bold" />
 
                     <ProgressBar
@@ -564,8 +564,8 @@
                         android:layout_height="8dp"
                         android:layout_marginTop="8dp"
                         android:max="100"
-                        android:progressBackgroundTint="#E5E7EB"
-                        android:progressTint="#12824C" />
+                        android:progressBackgroundTint="@color/roomkit_gray_200"
+                        android:progressTint="@color/roomkit_green_650" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -573,22 +573,22 @@
                         android:layout_marginTop="10dp"
                         android:lineSpacingExtra="3dp"
                         android:text="Includes all active payments and applied deposits for these invoices."
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="16dp"
-                        android:background="#E5E7EB" />
+                        android:background="@color/roomkit_gray_200" />
 
                     <TextView
                         android:id="@+id/rptCounts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
-                        android:textColor="#111827"
-                        android:textSize="13sp" />
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_13" />
 
                     <TextView
                         android:id="@+id/rptOverdue"
@@ -596,8 +596,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:lineSpacingExtra="3dp"
-                        android:textColor="#C62828"
-                        android:textSize="13sp" />
+                        android:textColor="@color/roomkit_red_650"
+                        android:textSize="@dimen/roomkit_text_13" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -606,10 +606,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#E5E7EB"
+                app:strokeColor="@color/roomkit_gray_200"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -623,8 +623,8 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="Utility usage"
-                        android:textColor="#111827"
-                        android:textSize="20sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_20"
                         android:textStyle="bold" />
 
                     <TextView
@@ -632,8 +632,8 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="Billed usage · Issued invoice snapshots"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -648,8 +648,8 @@
                             android:layout_marginEnd="12dp"
                             android:layout_weight="1"
                             android:text="Electricity"
-                            android:textColor="#64748B"
-                            android:textSize="14sp" />
+                            android:textColor="@color/roomkit_slate_500"
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/rptElectricityUsage"
@@ -657,8 +657,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
                             android:gravity="end"
-                            android:textColor="#111827"
-                            android:textSize="18sp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_18"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -667,14 +667,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="16dp"
-                        android:background="#E5E7EB" />
+                        android:background="@color/roomkit_gray_200" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -689,8 +689,8 @@
                             android:layout_marginEnd="12dp"
                             android:layout_weight="1"
                             android:text="Metered water"
-                            android:textColor="#64748B"
-                            android:textSize="14sp" />
+                            android:textColor="@color/roomkit_slate_500"
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/rptWaterUsage"
@@ -698,8 +698,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
                             android:gravity="end"
-                            android:textColor="#111827"
-                            android:textSize="18sp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_18"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -708,8 +708,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -717,8 +717,8 @@
                         android:layout_marginTop="12dp"
                         android:lineSpacingExtra="3dp"
                         android:text="Fixed-fee water has no metered usage."
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_12" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -731,7 +731,7 @@
                 android:minHeight="52dp"
                 android:text="View detailed breakdown"
                 android:textAllCaps="false"
-                android:textColor="#111827"
+                android:textColor="@color/roomkit_text_primary"
                 app:cornerRadius="14dp" />
 
             <!-- Collapsible Detailed Breakdown Container -->
@@ -748,10 +748,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/roomkit_white"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#E5E7EB"
+                    app:strokeColor="@color/roomkit_gray_200"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -765,8 +765,8 @@
                             android:layout_height="wrap_content"
                             android:lineSpacingExtra="3dp"
                             android:text="Billed charges"
-                            android:textColor="#111827"
-                            android:textSize="19sp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_19"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -782,8 +782,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="Rent"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptRent"
@@ -791,8 +791,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -809,8 +809,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="Electricity"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptElectricity"
@@ -818,8 +818,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -836,8 +836,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="Water"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptWater"
@@ -845,8 +845,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -863,8 +863,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="Rubbish / waste"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptRubbish"
@@ -872,8 +872,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -890,8 +890,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="Other charges"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptOtherCharges"
@@ -899,8 +899,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -917,8 +917,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="Discounts"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptDiscount"
@@ -926,8 +926,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
@@ -938,10 +938,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/roomkit_white"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#E5E7EB"
+                    app:strokeColor="@color/roomkit_gray_200"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -955,8 +955,8 @@
                             android:layout_height="wrap_content"
                             android:lineSpacingExtra="3dp"
                             android:text="Payments by method"
-                            android:textColor="#111827"
-                            android:textSize="19sp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_19"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -972,8 +972,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="Cash"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptCash"
@@ -981,8 +981,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -999,8 +999,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="Bank transfer"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptBank"
@@ -1008,8 +1008,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -1026,8 +1026,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="KHQR"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptKhqr"
@@ -1035,8 +1035,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -1053,8 +1053,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="Other methods"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptOtherPayments"
@@ -1062,8 +1062,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -1080,8 +1080,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="Deposit applied"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptDepositApplied"
@@ -1089,8 +1089,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -1099,8 +1099,8 @@
                             android:layout_height="wrap_content"
                             android:lineSpacingExtra="3dp"
                             android:text="Deposit applied is not new cash received."
-                            android:textColor="#64748B"
-                            android:textSize="12sp" />
+                            android:textColor="@color/roomkit_slate_500"
+                            android:textSize="@dimen/roomkit_text_12" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -1109,10 +1109,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/roomkit_white"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#E5E7EB"
+                    app:strokeColor="@color/roomkit_gray_200"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -1126,8 +1126,8 @@
                             android:layout_height="wrap_content"
                             android:lineSpacingExtra="3dp"
                             android:text="Property balances · now"
-                            android:textColor="#111827"
-                            android:textSize="19sp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_19"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -1143,8 +1143,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="All outstanding"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptAllOutstanding"
@@ -1152,8 +1152,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -1170,8 +1170,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="All overdue"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptAllOverdue"
@@ -1179,8 +1179,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#C62828"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_red_650"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -1197,8 +1197,8 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:text="Pending refunds"
-                                android:textColor="#64748B"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_slate_500"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/rptPendingRefund"
@@ -1206,8 +1206,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.2"
                                 android:gravity="end"
-                                android:textColor="#111827"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -1216,8 +1216,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:lineSpacingExtra="3dp"
-                            android:textColor="#64748B"
-                            android:textSize="12sp" />
+                            android:textColor="@color/roomkit_slate_500"
+                            android:textSize="@dimen/roomkit_text_12" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -1226,10 +1226,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/roomkit_white"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#E5E7EB"
+                    app:strokeColor="@color/roomkit_gray_200"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -1243,8 +1243,8 @@
                             android:layout_height="wrap_content"
                             android:lineSpacingExtra="3dp"
                             android:text="About these figures"
-                            android:textColor="#111827"
-                            android:textSize="18sp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_18"
                             android:textStyle="bold" />
 
                         <TextView
@@ -1253,8 +1253,8 @@
                             android:layout_marginTop="8dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Months use Cambodia time. Billed totals follow the invoice billing month; received payments follow their payment date. Drafts, void invoices and voided payments are excluded. Balances and occupancy are current, not historical month-end snapshots. Payments received are not profit."
-                            android:textColor="#64748B"
-                            android:textSize="13sp" />
+                            android:textColor="@color/roomkit_slate_500"
+                            android:textSize="@dimen/roomkit_text_13" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -1268,8 +1268,8 @@
                 android:minHeight="52dp"
                 android:text="@string/share_report_summary"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                app:backgroundTint="#111827"
+                android:textColor="@color/roomkit_white"
+                app:backgroundTint="@color/roomkit_text_primary"
                 app:cornerRadius="14dp" />
 
             <TextView
@@ -1280,8 +1280,8 @@
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:lineSpacingExtra="3dp"
-                android:textColor="#64748B"
-                android:textSize="12sp" />
+                android:textColor="@color/roomkit_slate_500"
+                android:textSize="@dimen/roomkit_text_12" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

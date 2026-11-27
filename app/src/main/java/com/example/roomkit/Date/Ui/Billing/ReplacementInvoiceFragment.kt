@@ -237,7 +237,7 @@ class ReplacementInvoiceFragment : Fragment() {
             else -> R.string.replacement_ready
         })
         b.tvSaveState.setTextColor(ContextCompat.getColor(requireContext(),
-            if (state.dirty) R.color.replacement_amber else R.color.replacement_success))
+            if (state.dirty) R.color.roomkit_warning else R.color.roomkit_success))
         b.btnSave.isEnabled = editable && calculated != null && state.dirty
         b.btnIssue.isEnabled = editable && calculated != null
         b.btnSave.alpha = if (b.btnSave.isEnabled) 1f else 0.45f

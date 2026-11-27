@@ -2,6 +2,8 @@
 
 package com.example.roomkit.Date.Ui.Billing
 
+import com.example.roomkit.Date.Ui.Common.setRoomKitTextSize
+
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.view.Gravity
@@ -42,7 +44,7 @@ class BillingInvoiceAdapter(private val onItemClick: (Long) -> Unit) :
 
         view.gravity = Gravity.CENTER_VERTICAL
         view.includeFontPadding = false
-        view.textSize = 12f
+        view.setRoomKitTextSize(R.dimen.roomkit_text_12)
         view.setTypeface(view.typeface, Typeface.BOLD)
         view.setTextColor(color)
         view.setBackgroundResource(backgroundRes)
@@ -74,7 +76,7 @@ class BillingInvoiceAdapter(private val onItemClick: (Long) -> Unit) :
             binding.tvInvoiceTenantName.text = item.tenantName
             binding.tvInvoiceTotal.text = money(item.invoiceTotalKhr)
             binding.tvInvoiceTotal.setTextColor(
-                ContextCompat.getColor(context, if (isVoid) R.color.rb_muted else R.color.rb_ink)
+                ContextCompat.getColor(context, if (isVoid) R.color.roomkit_text_secondary else R.color.roomkit_text_primary)
             )
             binding.tvInvoicePeriodDueDate.text = item.dueDateText
             binding.tvInvoicePeriodDueDate.isVisible = !isVoid && !isDraft && item.dueDateText.isNotBlank()
@@ -82,7 +84,7 @@ class BillingInvoiceAdapter(private val onItemClick: (Long) -> Unit) :
             // Reset recycled views before applying each status.
             binding.tvInvoicePaymentDetail.text = ""
             binding.tvInvoicePaymentDetail.isVisible = false
-            binding.tvInvoicePaymentDetail.setTextColor(ContextCompat.getColor(context, R.color.rb_muted))
+            binding.tvInvoicePaymentDetail.setTextColor(ContextCompat.getColor(context, R.color.roomkit_text_secondary))
 
             val label: Int
             val color: Int
@@ -90,24 +92,24 @@ class BillingInvoiceAdapter(private val onItemClick: (Long) -> Unit) :
             when {
                 isVoid -> {
                     label = R.string.rb_void
-                    color = R.color.rb_muted
+                    color = R.color.roomkit_text_secondary
                     badgeBg = R.drawable.bg_rd_badge_neutral
                     binding.tvInvoicePaymentDetail.text = string(R.string.rb_cancelled)
                 }
                 isDraft -> {
                     label = R.string.rb_draft
-                    color = R.color.rb_muted
+                    color = R.color.roomkit_text_secondary
                     badgeBg = R.drawable.bg_rd_badge_neutral
                     binding.tvInvoicePaymentDetail.text = string(R.string.rb_not_issued)
                 }
                 overdue || item.status == BillingDisplayStatus.OVERDUE -> {
                     label = R.string.rb_overdue
-                    color = R.color.rb_red
+                    color = R.color.roomkit_error
                     badgeBg = R.drawable.bg_rd_badge_red
                 }
                 item.status == BillingDisplayStatus.PAID -> {
                     label = R.string.rb_paid
-                    color = R.color.rb_green
+                    color = R.color.roomkit_success
                     badgeBg = R.drawable.bg_rd_badge_green
                     binding.tvInvoicePaymentDetail.text = listOfNotNull(
                         string(R.string.rb_paid),
@@ -117,12 +119,12 @@ class BillingInvoiceAdapter(private val onItemClick: (Long) -> Unit) :
                 }
                 item.status == BillingDisplayStatus.PARTIAL -> {
                     label = R.string.rb_partial
-                    color = R.color.rb_blue
+                    color = R.color.roomkit_partial
                     badgeBg = R.drawable.bg_rd_badge_blue
                 }
                 else -> {
                     label = R.string.rb_unpaid
-                    color = R.color.rb_amber
+                    color = R.color.roomkit_warning
                     badgeBg = R.drawable.bg_rd_badge_amber
                 }
             }

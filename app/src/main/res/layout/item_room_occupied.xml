@@ -29,7 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="18sp"
+                android:textSize="@dimen/roomkit_text_18"
                 tools:text="ROOM 01" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -44,11 +44,11 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
                 android:text="Occupied"
-                android:textColor="#15803D"
-                android:textSize="12sp"
+                android:textColor="@color/roomkit_green_700"
+                android:textSize="@dimen/roomkit_text_12"
                 android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_rd_status_dot"
-                app:drawableTint="#15803D" />
+                app:drawableTint="@color/roomkit_green_700" />
 
             <ImageView
                 android:layout_width="18dp"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textColor="@color/roomkit_text_primary"
-            android:textSize="16sp"
+            android:textSize="@dimen/roomkit_text_16"
             android:textStyle="bold"
             tools:text="Davith Sok" />
 
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/roomkit_spacing_md"
-            android:background="#F8FAFC"
+            android:background="@color/roomkit_slate_50"
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/roomkit_spacing_md"
@@ -117,7 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Electricity"
-                        android:textSize="11sp" />
+                        android:textSize="@dimen/roomkit_text_11" />
 
                     <TextView
                         android:id="@+id/tvElectricityUsage"
@@ -125,7 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/roomkit_text_primary"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/roomkit_text_13"
                         android:textStyle="bold"
                         tools:text="140 kWh" />
                 </LinearLayout>
@@ -164,7 +164,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Water"
-                        android:textSize="11sp" />
+                        android:textSize="@dimen/roomkit_text_11" />
 
                     <TextView
                         android:id="@+id/tvWaterUsage"
@@ -172,7 +172,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/roomkit_text_primary"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/roomkit_text_13"
                         android:textStyle="bold"
                         tools:text="12 m³" />
                 </LinearLayout>
@@ -214,11 +214,11 @@
                 android:includeFontPadding="false"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
-                android:textColor="#15803D"
-                android:textSize="12sp"
+                android:textColor="@color/roomkit_green_700"
+                android:textSize="@dimen/roomkit_text_12"
                 android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_rd_status_dot"
-                app:drawableTint="#15803D"
+                app:drawableTint="@color/roomkit_green_700"
                 tools:text="Occupied" />
         </LinearLayout>
     </LinearLayout>

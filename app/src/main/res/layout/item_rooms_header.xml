@@ -74,7 +74,7 @@
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
                     app:iconSize="20dp"
-                    app:iconTint="@color/roomkit_on_primary" />
+                    app:iconTint="@color/roomkit_white" />
             </RelativeLayout>
 
             <!-- 2x2 Summary Metric Cards (Matching Dashboard Architecture) -->
@@ -222,8 +222,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:hintEnabled="false"
-                app:boxBackgroundColor="@color/rrs_search_surface"
-                app:boxStrokeColor="@color/rrs_search_border"
+                app:boxBackgroundColor="@color/roomkit_white"
+                app:boxStrokeColor="@color/roomkit_border"
                 app:boxStrokeWidth="1dp"
                 app:boxCornerRadiusTopStart="14dp"
                 app:boxCornerRadiusTopEnd="14dp"
@@ -237,7 +237,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:hint="@string/rrs_search_hint"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/roomkit_text_14"
                     android:textColor="@color/roomkit_text_primary"
                     android:textColorHint="@color/roomkit_text_muted"
                     android:singleLine="true"

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rb_background"
+    android:background="@color/roomkit_background"
     android:orientation="vertical">
 
     <!-- Seamless Top Header -->
@@ -26,7 +26,7 @@
             android:contentDescription="Back"
             android:padding="12dp"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/rb_ink" />
+            app:tint="@color/roomkit_text_primary" />
 
         <TextView
             android:layout_width="0dp"
@@ -37,8 +37,8 @@
             android:fontFamily="sans-serif"
             android:includeFontPadding="false"
             android:text="Payment QR"
-            android:textColor="@color/rb_ink"
-            android:textSize="26sp"
+            android:textColor="@color/roomkit_text_primary"
+            android:textSize="@dimen/roomkit_text_26"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -63,10 +63,10 @@
                 android:id="@+id/invoiceCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/rb_surface"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/rb_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -82,8 +82,8 @@
                         android:includeFontPadding="false"
                         android:letterSpacing="0.08"
                         android:text="INVOICE SUMMARY"
-                        android:textColor="@color/rb_muted"
-                        android:textSize="11sp"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_11"
                         android:textStyle="bold" />
 
                     <!-- Room & Tenant Row with Rounded Icon Tile -->
@@ -97,7 +97,7 @@
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="52dp"
                             android:layout_height="52dp"
-                            app:cardBackgroundColor="@color/rb_background"
+                            app:cardBackgroundColor="@color/roomkit_background"
                             app:cardCornerRadius="14dp"
                             app:cardElevation="0dp"
                             app:strokeWidth="0dp">
@@ -108,7 +108,7 @@
                                 android:layout_gravity="center"
                                 android:importantForAccessibility="no"
                                 android:src="@drawable/ic_calender"
-                                app:tint="@color/rb_ink" />
+                                app:tint="@color/roomkit_text_primary" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <LinearLayout
@@ -124,8 +124,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif"
                                 android:includeFontPadding="false"
-                                android:textColor="@color/rb_ink"
-                                android:textSize="20sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_20"
                                 android:textStyle="bold"
                                 tools:text="Room 02 · Mann Vanda" />
 
@@ -136,8 +136,8 @@
                                 android:layout_marginTop="5dp"
                                 android:fontFamily="sans-serif"
                                 android:includeFontPadding="false"
-                                android:textColor="@color/rb_muted"
-                                android:textSize="13sp"
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="@dimen/roomkit_text_13"
                                 tools:text="Nov 2026 · #INV-0034" />
                         </LinearLayout>
                     </LinearLayout>
@@ -146,7 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="16dp"
-                        android:background="@color/rb_border" />
+                        android:background="@color/roomkit_border" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -154,8 +154,8 @@
                         android:fontFamily="sans-serif"
                         android:includeFontPadding="false"
                         android:text="Amount due"
-                        android:textColor="@color/rb_muted"
-                        android:textSize="13sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_13" />
 
                     <TextView
                         android:id="@+id/tvAmountDue"
@@ -165,12 +165,12 @@
                         android:fontFamily="sans-serif"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:textColor="@color/rb_ink"
-                        android:textSize="32sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_32"
                         android:textStyle="bold"
-                        app:autoSizeMaxTextSize="32sp"
-                        app:autoSizeMinTextSize="20sp"
-                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeMaxTextSize="@dimen/roomkit_text_32"
+                        app:autoSizeMinTextSize="@dimen/roomkit_text_20"
+                        app:autoSizeStepGranularity="@dimen/roomkit_text_1"
                         app:autoSizeTextType="uniform"
                         tools:text="900,000 ៛" />
 
@@ -181,8 +181,8 @@
                         android:fontFamily="sans-serif"
                         android:includeFontPadding="false"
                         android:text="For this invoice only"
-                        android:textColor="@color/rb_muted"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_12" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -193,7 +193,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="28dp"
-                android:indeterminateTint="@color/rb_ink"
+                android:indeterminateTint="@color/roomkit_text_primary"
                 android:visibility="gone" />
 
             <!-- Receiving QR Card -->
@@ -202,10 +202,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/rb_surface"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/rb_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -224,8 +224,8 @@
                         android:gravity="start"
                         android:includeFontPadding="false"
                         android:text="Scan to pay"
-                        android:textColor="@color/rb_ink"
-                        android:textSize="18sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_18"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -234,7 +234,7 @@
                         android:layout_height="220dp"
                         android:layout_marginTop="18dp"
                         android:layout_marginBottom="16dp"
-                        android:background="#FFFFFF"
+                        android:background="@color/roomkit_white"
                         android:contentDescription="Receiving KHQR"
                         android:padding="8dp"
                         android:scaleType="fitCenter"
@@ -249,8 +249,8 @@
                         android:fontFamily="sans-serif"
                         android:gravity="center"
                         android:includeFontPadding="false"
-                        android:textColor="@color/rb_ink"
-                        android:textSize="17sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_17"
                         android:textStyle="bold"
                         android:visibility="gone"
                         tools:text="CHANNDAVITH SOVANN"
@@ -265,8 +265,8 @@
                         android:gravity="center"
                         android:lineSpacingExtra="4dp"
                         android:text="First, import your receiving KHQR image in:\n\nMore → Settings → Payment setup\n\nOnce saved, your QR will appear here automatically."
-                        android:textColor="@color/rb_muted"
-                        android:textSize="13sp"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_13"
                         android:visibility="visible" />
 
                     <com.google.android.material.button.MaterialButton
@@ -283,11 +283,11 @@
                         android:stateListAnimator="@null"
                         android:text="Set up payment QR"
                         android:textAllCaps="false"
-                        android:textColor="@color/rb_surface"
-                        android:textSize="15sp"
+                        android:textColor="@color/roomkit_white"
+                        android:textSize="@dimen/roomkit_text_15"
                         android:textStyle="bold"
                         android:visibility="gone"
-                        app:backgroundTint="@color/rb_ink"
+                        app:backgroundTint="@color/roomkit_text_primary"
                         app:cornerRadius="14dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -315,16 +315,16 @@
                     android:stateListAnimator="@null"
                     android:text="Share payment QR"
                     android:textAllCaps="false"
-                    android:textColor="@color/rb_surface"
-                    android:textSize="15sp"
+                    android:textColor="@color/roomkit_white"
+                    android:textSize="@dimen/roomkit_text_15"
                     android:textStyle="bold"
-                    app:backgroundTint="@color/rb_ink"
+                    app:backgroundTint="@color/roomkit_text_primary"
                     app:cornerRadius="14dp"
                     app:icon="@drawable/ic_share"
                     app:iconGravity="textStart"
                     app:iconPadding="10dp"
                     app:iconSize="20dp"
-                    app:iconTint="@color/rb_surface" />
+                    app:iconTint="@color/roomkit_white" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSaveImage"
@@ -341,17 +341,17 @@
                     android:stateListAnimator="@null"
                     android:text="Save image"
                     android:textAllCaps="false"
-                    android:textColor="@color/rb_ink"
-                    android:textSize="15sp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="@dimen/roomkit_text_15"
                     android:textStyle="bold"
-                    app:backgroundTint="@color/rb_surface"
+                    app:backgroundTint="@color/roomkit_white"
                     app:cornerRadius="14dp"
                     app:icon="@drawable/ic_download"
                     app:iconGravity="textStart"
                     app:iconPadding="10dp"
                     app:iconSize="20dp"
-                    app:iconTint="@color/rb_ink"
-                    app:strokeColor="@color/rb_border"
+                    app:iconTint="@color/roomkit_text_primary"
+                    app:strokeColor="@color/roomkit_border"
                     app:strokeWidth="1dp" />
             </LinearLayout>
 
@@ -366,8 +366,8 @@
                 android:lineSpacingExtra="3dp"
                 android:paddingHorizontal="8dp"
                 android:text="After payment, check your banking app and record the payment in RoomKit."
-                android:textColor="@color/rb_muted"
-                android:textSize="12sp" />
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="@dimen/roomkit_text_12" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

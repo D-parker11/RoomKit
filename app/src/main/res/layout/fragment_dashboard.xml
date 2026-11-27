@@ -6,7 +6,7 @@
     android:id="@+id/scrollDashboard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rd_background"
+    android:background="@color/roomkit_background"
     android:clipToPadding="false"
     android:fillViewport="true"
     android:paddingBottom="@dimen/roomkit_bottom_safe_padding">
@@ -25,8 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans"
-            android:textColor="@color/rd_muted"
-            android:textSize="14sp"
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="@dimen/roomkit_text_14"
             tools:text="Good afternoon" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -36,8 +36,8 @@
             android:accessibilityHeading="true"
             android:fontFamily="sans"
             android:text="@string/rd_overview"
-            android:textColor="@color/rd_ink"
-            android:textSize="30sp"
+            android:textColor="@color/roomkit_text_primary"
+            android:textSize="@dimen/roomkit_text_30"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="sans"
-            android:textColor="@color/rd_muted"
-            android:textSize="16sp"
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="@dimen/roomkit_text_16"
             tools:text="Proser" />
 
         <!-- Dashboard Loading Indicator -->
@@ -57,7 +57,7 @@
             android:layout_height="4dp"
             android:layout_marginTop="24dp"
             android:indeterminate="true"
-            app:indicatorColor="@color/rd_ink" />
+            app:indicatorColor="@color/roomkit_text_primary" />
 
         <!-- Main Dashboard Content -->
         <LinearLayout
@@ -73,10 +73,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                app:cardBackgroundColor="@color/rd_surface"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/rd_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -97,8 +97,8 @@
                             android:layout_height="wrap_content"
                             android:accessibilityHeading="true"
                             android:text="@string/dm_this_month"
-                            android:textColor="@color/rd_ink"
-                            android:textSize="20sp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_20"
                             android:textStyle="bold" />
 
                         <com.google.android.material.button.MaterialButton
@@ -111,15 +111,15 @@
                             android:minHeight="48dp"
                             android:text="@string/dm_choose_month"
                             android:textAllCaps="false"
-                            android:textColor="@color/rd_ink"
-                            android:textSize="14sp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_14"
                             app:cornerRadius="12dp"
                             app:icon="@drawable/ic_calender"
                             app:iconGravity="textStart"
                             app:iconPadding="10dp"
                             app:iconSize="20dp"
-                            app:iconTint="@color/rd_ink"
-                            app:strokeColor="@color/rd_border" />
+                            app:iconTint="@color/roomkit_text_primary"
+                            app:strokeColor="@color/roomkit_border" />
                     </LinearLayout>
 
                     <!-- Outstanding Total -->
@@ -129,8 +129,8 @@
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans"
                         android:text="@string/rd_outstanding"
-                        android:textColor="@color/rd_muted"
-                        android:textSize="14sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_14" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvOutstandingAmount"
@@ -139,12 +139,12 @@
                         android:layout_marginTop="6dp"
                         android:fontFamily="sans"
                         android:maxLines="1"
-                        android:textColor="@color/rd_ink"
-                        android:textSize="30sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_30"
                         android:textStyle="bold"
-                        app:autoSizeMaxTextSize="30sp"
-                        app:autoSizeMinTextSize="18sp"
-                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeMaxTextSize="@dimen/roomkit_text_30"
+                        app:autoSizeMinTextSize="@dimen/roomkit_text_18"
+                        app:autoSizeStepGranularity="@dimen/roomkit_text_1"
                         app:autoSizeTextType="uniform"
                         tools:text="1,746,000 KHR" />
 
@@ -153,7 +153,7 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@color/rd_border" />
+                        android:background="@color/roomkit_border" />
 
                     <!-- Billed vs Collected 2-Column Row -->
                     <LinearLayout
@@ -175,8 +175,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans"
                                 android:text="@string/rd_billed"
-                                android:textColor="@color/rd_muted"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvBilledAmount"
@@ -185,12 +185,12 @@
                                 android:layout_marginTop="6dp"
                                 android:fontFamily="sans"
                                 android:maxLines="1"
-                                android:textColor="@color/rd_ink"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold"
-                                app:autoSizeMaxTextSize="18sp"
-                                app:autoSizeMinTextSize="11sp"
-                                app:autoSizeStepGranularity="1sp"
+                                app:autoSizeMaxTextSize="@dimen/roomkit_text_18"
+                                app:autoSizeMinTextSize="@dimen/roomkit_text_11"
+                                app:autoSizeStepGranularity="@dimen/roomkit_text_1"
                                 app:autoSizeTextType="uniform"
                                 tools:text="1,746,000 KHR" />
                         </LinearLayout>
@@ -198,7 +198,7 @@
                         <View
                             android:layout_width="1dp"
                             android:layout_height="44dp"
-                            android:background="@color/rd_border" />
+                            android:background="@color/roomkit_border" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -212,8 +212,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans"
                                 android:text="@string/rd_collected"
-                                android:textColor="@color/rd_muted"
-                                android:textSize="14sp" />
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvCollectedAmount"
@@ -222,12 +222,12 @@
                                 android:layout_marginTop="6dp"
                                 android:fontFamily="sans"
                                 android:maxLines="1"
-                                android:textColor="@color/rd_green"
-                                android:textSize="18sp"
+                                android:textColor="@color/roomkit_success"
+                                android:textSize="@dimen/roomkit_text_18"
                                 android:textStyle="bold"
-                                app:autoSizeMaxTextSize="18sp"
-                                app:autoSizeMinTextSize="11sp"
-                                app:autoSizeStepGranularity="1sp"
+                                app:autoSizeMaxTextSize="@dimen/roomkit_text_18"
+                                app:autoSizeMinTextSize="@dimen/roomkit_text_11"
+                                app:autoSizeStepGranularity="@dimen/roomkit_text_1"
                                 app:autoSizeTextType="uniform"
                                 tools:text="0 KHR" />
                         </LinearLayout>
@@ -241,8 +241,8 @@
                         android:layout_marginTop="22dp"
                         android:indeterminate="false"
                         android:max="100"
-                        app:indicatorColor="@color/rd_green"
-                        app:trackColor="@color/rd_track"
+                        app:indicatorColor="@color/roomkit_success"
+                        app:trackColor="@color/roomkit_track"
                         app:trackCornerRadius="4dp"
                         app:trackThickness="8dp" />
 
@@ -252,8 +252,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:fontFamily="sans"
-                        android:textColor="@color/rd_muted"
-                        android:textSize="13sp"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_13"
                         tools:text="0% collected" />
 
                     <!-- Invoice Status Badges Carousel -->
@@ -282,11 +282,11 @@
                                 android:includeFontPadding="false"
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="6dp"
-                                android:textColor="@color/rd_amber"
-                                android:textSize="12sp"
+                                android:textColor="@color/roomkit_warning"
+                                android:textSize="@dimen/roomkit_text_12"
                                 android:textStyle="bold"
                                 app:drawableStartCompat="@drawable/ic_rd_status_dot"
-                                app:drawableTint="@color/rd_amber"
+                                app:drawableTint="@color/roomkit_warning"
                                 tools:text="1 unpaid" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -301,12 +301,12 @@
                                 android:includeFontPadding="false"
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="6dp"
-                                android:textColor="@color/rd_amber"
-                                android:textSize="12sp"
+                                android:textColor="@color/roomkit_warning"
+                                android:textSize="@dimen/roomkit_text_12"
                                 android:textStyle="bold"
                                 android:visibility="gone"
                                 app:drawableStartCompat="@drawable/ic_rd_status_dot"
-                                app:drawableTint="@color/rd_amber"
+                                app:drawableTint="@color/roomkit_warning"
                                 tools:text="1 partial" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -321,11 +321,11 @@
                                 android:includeFontPadding="false"
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="6dp"
-                                android:textColor="@color/rd_muted"
-                                android:textSize="12sp"
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="@dimen/roomkit_text_12"
                                 android:textStyle="bold"
                                 app:drawableStartCompat="@drawable/ic_rd_status_dot"
-                                app:drawableTint="@color/rd_muted"
+                                app:drawableTint="@color/roomkit_text_secondary"
                                 tools:text="0 overdue" />
                         </LinearLayout>
                     </HorizontalScrollView>
@@ -337,10 +337,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/rd_surface"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/rd_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -362,8 +362,8 @@
                             android:layout_weight="1"
                             android:fontFamily="sans"
                             android:text="@string/dm_rooms_now"
-                            android:textColor="@color/rd_ink"
-                            android:textSize="20sp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_20"
                             android:textStyle="bold" />
 
                         <com.google.android.material.button.MaterialButton
@@ -376,13 +376,13 @@
                             android:paddingEnd="0dp"
                             android:text="@string/rd_view_property"
                             android:textAllCaps="false"
-                            android:textColor="@color/rd_muted"
-                            android:textSize="14sp"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="@dimen/roomkit_text_14"
                             app:icon="@drawable/ref_chvron"
                             app:iconGravity="textEnd"
                             app:iconPadding="6dp"
                             app:iconSize="18dp"
-                            app:iconTint="@color/rd_muted" />
+                            app:iconTint="@color/roomkit_text_secondary" />
                     </LinearLayout>
 
                     <!-- 3-Column Rooms Metric Grid -->
@@ -407,8 +407,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans"
-                                android:textColor="@color/rd_ink"
-                                android:textSize="26sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_26"
                                 android:textStyle="bold"
                                 tools:text="14" />
 
@@ -418,14 +418,14 @@
                                 android:layout_marginTop="2dp"
                                 android:fontFamily="sans"
                                 android:text="@string/rd_total"
-                                android:textColor="@color/rd_muted"
-                                android:textSize="13sp" />
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="@dimen/roomkit_text_13" />
                         </LinearLayout>
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="42dp"
-                            android:background="@color/rd_border" />
+                            android:background="@color/roomkit_border" />
 
                         <!-- Metric: Occupied -->
                         <LinearLayout
@@ -440,8 +440,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans"
-                                android:textColor="@color/rd_ink"
-                                android:textSize="26sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_26"
                                 android:textStyle="bold"
                                 tools:text="14" />
 
@@ -451,14 +451,14 @@
                                 android:layout_marginTop="2dp"
                                 android:fontFamily="sans"
                                 android:text="@string/rd_occupied"
-                                android:textColor="@color/rd_muted"
-                                android:textSize="13sp" />
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="@dimen/roomkit_text_13" />
                         </LinearLayout>
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="42dp"
-                            android:background="@color/rd_border" />
+                            android:background="@color/roomkit_border" />
 
                         <!-- Metric: Vacant -->
                         <LinearLayout
@@ -473,8 +473,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans"
-                                android:textColor="@color/rd_ink"
-                                android:textSize="26sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_26"
                                 android:textStyle="bold"
                                 tools:text="14" />
 
@@ -484,8 +484,8 @@
                                 android:layout_marginTop="2dp"
                                 android:fontFamily="sans"
                                 android:text="@string/rd_vacant"
-                                android:textColor="@color/rd_muted"
-                                android:textSize="13sp" />
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="@dimen/roomkit_text_13" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -504,8 +504,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
                             android:fontFamily="sans"
-                            android:textColor="@color/rd_muted"
-                            android:textSize="13sp"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="@dimen/roomkit_text_13"
                             tools:text="93% occupancy" />
 
                         <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -515,8 +515,8 @@
                             android:layout_weight="1"
                             android:indeterminate="false"
                             android:max="100"
-                            app:indicatorColor="@color/rd_ink"
-                            app:trackColor="@color/rd_track"
+                            app:indicatorColor="@color/roomkit_text_primary"
+                            app:trackColor="@color/roomkit_track"
                             app:trackCornerRadius="4dp"
                             app:trackThickness="8dp" />
                     </LinearLayout>
@@ -539,8 +539,8 @@
                     android:accessibilityHeading="true"
                     android:fontFamily="sans"
                     android:text="@string/rd_needs_attention"
-                    android:textColor="@color/rd_ink"
-                    android:textSize="20sp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="@dimen/roomkit_text_20"
                     android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
@@ -553,13 +553,13 @@
                     android:paddingEnd="0dp"
                     android:text="@string/rd_view_all"
                     android:textAllCaps="false"
-                    android:textColor="@color/rd_muted"
-                    android:textSize="14sp"
+                    android:textColor="@color/roomkit_text_secondary"
+                    android:textSize="@dimen/roomkit_text_14"
                     app:icon="@drawable/ref_chvron"
                     app:iconGravity="textEnd"
                     app:iconPadding="6dp"
                     app:iconSize="18dp"
-                    app:iconTint="@color/rd_muted" />
+                    app:iconTint="@color/roomkit_text_secondary" />
             </LinearLayout>
 
             <TextView
@@ -567,8 +567,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:textColor="@color/rd_muted"
-                android:textSize="12sp" />
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="@dimen/roomkit_text_12" />
 
             <!-- Attention Rows Card -->
             <com.google.android.material.card.MaterialCardView
@@ -576,10 +576,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:cardBackgroundColor="@color/rd_surface"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/rd_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -596,10 +596,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:visibility="gone"
-                app:cardBackgroundColor="@color/rd_surface"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/rd_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -613,8 +613,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans"
                         android:text="@string/rd_all_caught_up"
-                        android:textColor="@color/rd_ink"
-                        android:textSize="16sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_16"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -623,8 +623,8 @@
                         android:layout_marginTop="6dp"
                         android:fontFamily="sans"
                         android:text="@string/rd_no_attention"
-                        android:textColor="@color/rd_muted"
-                        android:textSize="14sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_14" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

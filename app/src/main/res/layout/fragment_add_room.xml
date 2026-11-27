@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC">
+    android:background="@color/roomkit_slate_50">
 
     <!-- Header -->
     <RelativeLayout
         android:id="@+id/layoutHeader"
         android:layout_width="0dp"
         android:layout_height="72dp"
-        android:background="#FFFFFF"
+        android:background="@color/roomkit_white"
         android:paddingHorizontal="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,8 +29,8 @@
             android:minWidth="64dp"
             android:paddingHorizontal="8dp"
             android:text="@string/ar_cancel"
-            android:textColor="#475569"
-            android:textSize="15sp" />
+            android:textColor="@color/roomkit_slate_600"
+            android:textSize="@dimen/roomkit_text_15" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,8 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ar_title"
-                android:textColor="#0F172A"
-                android:textSize="20sp"
+                android:textColor="@color/roomkit_primary"
+                android:textSize="@dimen/roomkit_text_20"
                 android:textStyle="bold" />
 
             <TextView
@@ -55,8 +55,8 @@
                 android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="#64748B"
-                android:textSize="13sp"
+                android:textColor="@color/roomkit_slate_500"
+                android:textSize="@dimen/roomkit_text_13"
                 tools:text="Proser" />
         </LinearLayout>
 
@@ -75,7 +75,7 @@
         android:id="@+id/dividerHeader"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="#E2E8F0"
+        android:background="@color/roomkit_slate_200"
         app:layout_constraintTop_toBottomOf="@id/layoutHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -106,8 +106,8 @@
                 android:accessibilityLiveRegion="polite"
                 android:background="@drawable/bg_badge_overdue_pill"
                 android:padding="14dp"
-                android:textColor="#B91C1C"
-                android:textSize="14sp"
+                android:textColor="@color/roomkit_red_700"
+                android:textSize="@dimen/roomkit_text_14"
                 android:visibility="gone"
                 tools:text="This room number already exists." />
 
@@ -115,8 +115,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/ar_details"
-                android:textColor="#0F172A"
-                android:textSize="18sp"
+                android:textColor="@color/roomkit_primary"
+                android:textSize="@dimen/roomkit_text_18"
                 android:textStyle="bold" />
 
             <TextView
@@ -125,8 +125,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="20dp"
                 android:text="@string/ar_intro"
-                android:textColor="#64748B"
-                android:textSize="14sp" />
+                android:textColor="@color/roomkit_slate_500"
+                android:textSize="@dimen/roomkit_text_14" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilRoomNumber"
@@ -134,7 +134,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/ar_room_number"
-                app:boxBackgroundColor="#FFFFFF"
+                app:boxBackgroundColor="@color/roomkit_white"
                 app:boxCornerRadiusTopStart="12dp"
                 app:boxCornerRadiusTopEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -149,8 +149,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="textCapCharacters"
                     android:singleLine="true"
-                    android:textColor="#0F172A"
-                    android:textSize="16sp" />
+                    android:textColor="@color/roomkit_primary"
+                    android:textSize="@dimen/roomkit_text_16" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/ar_floor"
-                app:boxBackgroundColor="#FFFFFF"
+                app:boxBackgroundColor="@color/roomkit_white"
                 app:boxCornerRadiusTopStart="12dp"
                 app:boxCornerRadiusTopEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -175,8 +175,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:singleLine="true"
-                    android:textColor="#0F172A"
-                    android:textSize="16sp" />
+                    android:textColor="@color/roomkit_primary"
+                    android:textSize="@dimen/roomkit_text_16" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -186,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/ar_type"
-                app:boxBackgroundColor="#FFFFFF"
+                app:boxBackgroundColor="@color/roomkit_white"
                 app:boxCornerRadiusTopStart="12dp"
                 app:boxCornerRadiusTopEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -199,8 +199,8 @@
                     android:minHeight="56dp"
                     android:inputType="none"
                     android:singleLine="true"
-                    android:textColor="#0F172A"
-                    android:textSize="16sp" />
+                    android:textColor="@color/roomkit_primary"
+                    android:textSize="@dimen/roomkit_text_16" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -209,8 +209,8 @@
                 android:layout_marginTop="28dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/ar_pricing"
-                android:textColor="#0F172A"
-                android:textSize="18sp"
+                android:textColor="@color/roomkit_primary"
+                android:textSize="@dimen/roomkit_text_18"
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -219,7 +219,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/ar_monthly_rent"
-                app:boxBackgroundColor="#FFFFFF"
+                app:boxBackgroundColor="@color/roomkit_white"
                 app:boxCornerRadiusTopStart="12dp"
                 app:boxCornerRadiusTopEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -236,8 +236,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:singleLine="true"
-                    android:textColor="#0F172A"
-                    android:textSize="18sp" />
+                    android:textColor="@color/roomkit_primary"
+                    android:textSize="@dimen/roomkit_text_18" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -247,7 +247,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="@string/ar_notes"
-                app:boxBackgroundColor="#FFFFFF"
+                app:boxBackgroundColor="@color/roomkit_white"
                 app:boxCornerRadiusTopStart="12dp"
                 app:boxCornerRadiusTopEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -261,8 +261,8 @@
                     android:gravity="top|start"
                     android:inputType="textMultiLine|textCapSentences"
                     android:minLines="3"
-                    android:textColor="#0F172A"
-                    android:textSize="16sp" />
+                    android:textColor="@color/roomkit_primary"
+                    android:textSize="@dimen/roomkit_text_16" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Informational status, not an editable field. -->
@@ -281,8 +281,8 @@
                     android:paddingHorizontal="12dp"
                     android:paddingVertical="6dp"
                     android:text="@string/ar_vacant"
-                    android:textColor="#475569"
-                    android:textSize="12sp"
+                    android:textColor="@color/roomkit_slate_600"
+                    android:textSize="@dimen/roomkit_text_12"
                     android:textStyle="bold" />
 
                 <TextView
@@ -291,8 +291,8 @@
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
                     android:text="@string/ar_status_helper"
-                    android:textColor="#64748B"
-                    android:textSize="13sp" />
+                    android:textColor="@color/roomkit_slate_500"
+                    android:textSize="@dimen/roomkit_text_13" />
             </LinearLayout>
 
         </LinearLayout>
@@ -303,7 +303,7 @@
         android:id="@+id/layoutBottomAction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/roomkit_white"
         android:elevation="4dp"
         android:orientation="vertical"
         android:paddingHorizontal="20dp"
@@ -321,10 +321,10 @@
             android:insetBottom="0dp"
             android:text="@string/ar_create"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textColor="@color/roomkit_white"
+            android:textSize="@dimen/roomkit_text_16"
             android:textStyle="bold"
-            app:backgroundTint="#0F172A"
+            app:backgroundTint="@color/roomkit_primary"
             app:cornerRadius="14dp" />
     </LinearLayout>
 

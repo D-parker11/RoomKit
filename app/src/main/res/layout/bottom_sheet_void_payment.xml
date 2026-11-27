@@ -29,8 +29,8 @@
             android:layout_height="wrap_content"
             android:accessibilityHeading="true"
             android:text="@string/pvu_title"
-            android:textColor="@color/pvu_ink"
-            android:textSize="24sp"
+            android:textColor="@color/roomkit_text_primary"
+            android:textSize="@dimen/roomkit_text_24"
             android:textStyle="bold" />
 
         <TextView
@@ -39,17 +39,17 @@
             android:layout_marginTop="8dp"
             android:lineSpacingExtra="3dp"
             android:text="@string/pvu_intro"
-            android:textColor="@color/pvu_secondary"
-            android:textSize="14sp" />
+            android:textColor="@color/roomkit_slate_600"
+            android:textSize="@dimen/roomkit_text_14" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/pvu_surface"
+            app:cardBackgroundColor="@color/roomkit_slate_50"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
-            app:strokeColor="@color/pvu_border"
+            app:strokeColor="@color/roomkit_slate_300"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -62,16 +62,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pvu_amount_label"
-                    android:textColor="@color/pvu_secondary"
-                    android:textSize="12sp" />
+                    android:textColor="@color/roomkit_slate_600"
+                    android:textSize="@dimen/roomkit_text_12" />
 
                 <TextView
                     android:id="@+id/tvVoidAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:textColor="@color/pvu_ink"
-                    android:textSize="28sp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="@dimen/roomkit_text_28"
                     android:textStyle="bold" />
 
                 <TextView
@@ -79,8 +79,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/pvu_secondary"
-                    android:textSize="13sp" />
+                    android:textColor="@color/roomkit_slate_600"
+                    android:textSize="@dimen/roomkit_text_13" />
 
             </LinearLayout>
 
@@ -92,8 +92,8 @@
             android:layout_marginTop="16dp"
             android:lineSpacingExtra="3dp"
             android:text="@string/pvu_effect"
-            android:textColor="@color/pvu_secondary"
-            android:textSize="13sp" />
+            android:textColor="@color/roomkit_slate_600"
+            android:textSize="@dimen/roomkit_text_13" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilVoidReason"
@@ -102,16 +102,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="@string/pvu_reason"
-            android:textColorHint="@color/pvu_secondary"
-            app:boxBackgroundColor="@color/pvu_white"
+            android:textColorHint="@color/roomkit_slate_600"
+            app:boxBackgroundColor="@color/roomkit_white"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusTopStart="12dp"
-            app:boxStrokeColor="@color/pvu_secondary"
+            app:boxStrokeColor="@color/roomkit_slate_600"
             app:helperText="@string/pvu_reason_example"
-            app:helperTextTextColor="@color/pvu_secondary"
-            app:hintTextColor="@color/pvu_secondary">
+            app:helperTextTextColor="@color/roomkit_slate_600"
+            app:hintTextColor="@color/roomkit_slate_600">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etVoidReason"
@@ -122,8 +122,8 @@
                 android:maxLines="4"
                 android:minLines="2"
                 android:padding="16dp"
-                android:textColor="@color/pvu_ink"
-                android:textSize="15sp" />
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_15" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,8 +133,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:accessibilityLiveRegion="polite"
-            android:textColor="@color/pvu_danger"
-            android:textSize="13sp"
+            android:textColor="@color/roomkit_error"
+            android:textSize="@dimen/roomkit_text_13"
             android:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
@@ -142,15 +142,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:backgroundTint="@color/pvu_danger"
+            android:backgroundTint="@color/roomkit_error"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:minHeight="52dp"
             android:paddingVertical="14dp"
             android:text="@string/pvu_confirm"
             android:textAllCaps="false"
-            android:textColor="@color/pvu_white"
-            android:textSize="15sp"
+            android:textColor="@color/roomkit_white"
+            android:textSize="@dimen/roomkit_text_15"
             android:textStyle="bold"
             app:cornerRadius="14dp" />
 
@@ -163,8 +163,8 @@
             android:minHeight="48dp"
             android:text="@string/pvu_cancel"
             android:textAllCaps="false"
-            android:textColor="@color/pvu_secondary"
-            android:textSize="15sp" />
+            android:textColor="@color/roomkit_slate_600"
+            android:textSize="@dimen/roomkit_text_15" />
 
     </LinearLayout>
 

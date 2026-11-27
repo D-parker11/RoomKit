@@ -4,7 +4,7 @@
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
             <corners android:radius="4dp" />
-            <solid android:color="#E5E7EB" />
+            <solid android:color="@color/roomkit_gray_200" />
         </shape>
     </item>
     <!-- Filled progress -->
@@ -12,7 +12,7 @@
         <scale android:scaleWidth="100%">
             <shape android:shape="rectangle">
                 <corners android:radius="4dp" />
-                <solid android:color="#111827" />
+                <solid android:color="@color/roomkit_text_primary" />
             </shape>
         </scale>
     </item>

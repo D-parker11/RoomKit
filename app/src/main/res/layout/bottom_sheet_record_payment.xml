@@ -20,7 +20,7 @@
             android:layout_height="4dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
-            app:cardBackgroundColor="#CBD5E1"
+            app:cardBackgroundColor="@color/roomkit_slate_300"
             app:cardCornerRadius="2dp"
             app:cardElevation="0dp" />
 
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Record payment"
-            android:textSize="24sp"
+            android:textSize="@dimen/roomkit_text_24"
             android:fontFamily="sans-serif-medium"
             android:textColor="?attr/colorOnSurface"
             android:accessibilityHeading="true" />
@@ -38,14 +38,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textSize="14sp"
+            android:textSize="@dimen/roomkit_text_14"
             android:textColor="?android:attr/textColorSecondary" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:cardBackgroundColor="#F1F5F9"
+            app:cardBackgroundColor="@color/roomkit_slate_100"
             app:cardCornerRadius="20dp"
             app:cardElevation="0dp"
             app:strokeWidth="0dp">
@@ -60,37 +60,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Total to pay"
-                    android:textSize="13sp"
-                    android:textColor="#526077" />
+                    android:textSize="@dimen/roomkit_text_13"
+                    android:textColor="@color/roomkit_slate_medium" />
 
                 <TextView
                     android:id="@+id/tvPaymentRemaining"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textSize="30sp"
+                    android:textSize="@dimen/roomkit_text_30"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="#111827" />
+                    android:textColor="@color/roomkit_text_primary" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Includes earlier unpaid invoices. Later months are excluded."
-                    android:textSize="12sp"
-                    android:textColor="#526077" />
+                    android:textSize="@dimen/roomkit_text_12"
+                    android:textColor="@color/roomkit_slate_medium" />
 
                 <TextView
                     android:id="@+id/tvCarryForwardBreakdown"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp" android:textSize="13sp"
-                    android:lineSpacingExtra="4dp" android:textColor="#526077" />
+                    android:layout_marginTop="12dp" android:textSize="@dimen/roomkit_text_13"
+                    android:lineSpacingExtra="4dp" android:textColor="@color/roomkit_slate_medium" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginVertical="16dp"
-                    android:background="#DBE2EA" />
+                    android:background="@color/roomkit_slate_250" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -108,17 +108,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="This invoice total"
-                            android:textSize="12sp"
-                            android:textColor="#526077" />
+                            android:textSize="@dimen/roomkit_text_12"
+                            android:textColor="@color/roomkit_slate_medium" />
 
                         <TextView
                             android:id="@+id/tvPaymentTotalAmount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/roomkit_text_15"
                             android:fontFamily="sans-serif-medium"
-                            android:textColor="#111827" />
+                            android:textColor="@color/roomkit_text_primary" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -131,17 +131,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Paid on this invoice"
-                            android:textSize="12sp"
-                            android:textColor="#526077" />
+                            android:textSize="@dimen/roomkit_text_12"
+                            android:textColor="@color/roomkit_slate_medium" />
 
                         <TextView
                             android:id="@+id/tvPaymentAlreadyPaid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/roomkit_text_15"
                             android:fontFamily="sans-serif-medium"
-                            android:textColor="#047857" />
+                            android:textColor="@color/roomkit_green_800" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -167,7 +167,7 @@
                 android:minHeight="68dp"
                 android:inputType="number"
                 android:singleLine="true"
-                android:textSize="24sp"
+                android:textSize="@dimen/roomkit_text_24"
                 android:fontFamily="sans-serif-medium"
                 android:imeOptions="actionDone" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -188,7 +188,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:textSize="13sp"
+            android:textSize="@dimen/roomkit_text_13"
             android:textColor="?android:attr/textColorSecondary"
             android:accessibilityLiveRegion="polite" />
 
@@ -209,7 +209,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="56dp"
                 android:inputType="none"
-                android:textSize="16sp" />
+                android:textSize="@dimen/roomkit_text_16" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -219,7 +219,7 @@
             android:layout_marginTop="8dp"
             android:paddingHorizontal="4dp"
             android:text="Confirm receipt in your banking app before saving."
-            android:textSize="12sp"
+            android:textSize="@dimen/roomkit_text_12"
             android:lineSpacingExtra="3dp"
             android:textColor="?android:attr/textColorSecondary"
             android:visibility="gone" />
@@ -248,7 +248,7 @@
                 android:clickable="true"
                 android:cursorVisible="false"
                 android:inputType="none"
-                android:textSize="16sp" />
+                android:textSize="@dimen/roomkit_text_16" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -324,11 +324,11 @@
             android:text="Save payment"
             android:textAllCaps="false"
             android:letterSpacing="0"
-            android:textSize="16sp"
+            android:textSize="@dimen/roomkit_text_16"
             android:fontFamily="sans-serif-medium"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/roomkit_white"
             android:enabled="false"
-            app:backgroundTint="#111827"
+            app:backgroundTint="@color/roomkit_text_primary"
             app:cornerRadius="16dp" />
 
     </LinearLayout>

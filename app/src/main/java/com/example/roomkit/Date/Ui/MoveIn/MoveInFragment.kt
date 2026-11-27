@@ -1,5 +1,7 @@
 package com.example.roomkit.Date.Ui.Tenancy
 
+import com.example.roomkit.Date.Ui.Common.setRoomKitTextSize
+
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -493,7 +495,7 @@ class MoveInFragment : Fragment() {
         listOf(binding.actvBuilding, binding.actvRoom).forEach { field ->
             field.threshold = 0
             field.setDropDownBackgroundDrawable(GradientDrawable().apply {
-                setColor(ContextCompat.getColor(requireContext(), R.color.roomkit_surface))
+                setColor(ContextCompat.getColor(requireContext(), R.color.roomkit_white))
                 cornerRadius = 16f * resources.displayMetrics.density
             })
         }
@@ -534,8 +536,8 @@ class MoveInFragment : Fragment() {
                 setPadding((16 * density).toInt(), (12 * density).toInt(),
                     (16 * density).toInt(), (12 * density).toInt())
                 setTextColor(ContextCompat.getColor(context, R.color.roomkit_text_primary))
-                setBackgroundColor(ContextCompat.getColor(context, R.color.roomkit_surface))
-                textSize = 15f
+                setBackgroundColor(ContextCompat.getColor(context, R.color.roomkit_white))
+                setRoomKitTextSize(R.dimen.roomkit_text_15)
                 maxLines = 3
                 text = getItem(position)?.label.orEmpty()
             }

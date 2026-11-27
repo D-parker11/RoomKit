@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
-    app:cardBackgroundColor="@color/rpay_surface"
+    app:cardBackgroundColor="@color/roomkit_white"
     app:cardCornerRadius="18dp"
     app:cardElevation="0dp"
-    app:strokeColor="@color/rpay_border"
+    app:strokeColor="@color/roomkit_border"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -29,12 +29,12 @@
                 android:id="@+id/tvAvatar"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:background="@color/rpay_avatar"
+                android:background="@color/roomkit_selected_soft"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:importantForAccessibility="no"
-                android:textColor="@color/rpay_ink"
-                android:textSize="18sp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_18"
                 android:textStyle="bold"
                 tools:text="CS" />
 
@@ -52,8 +52,8 @@
                     android:ellipsize="end"
                     android:fontFamily="sans-serif"
                     android:maxLines="2"
-                    android:textColor="@color/rpay_ink"
-                    android:textSize="17sp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="@dimen/roomkit_text_17"
                     android:textStyle="bold"
                     tools:text="Channdavith Sovann" />
 
@@ -63,8 +63,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:fontFamily="sans-serif"
-                    android:textColor="@color/rpay_muted"
-                    android:textSize="13sp"
+                    android:textColor="@color/roomkit_text_secondary"
+                    android:textSize="@dimen/roomkit_text_13"
                     tools:text="Room 01 · Proser" />
             </LinearLayout>
         </LinearLayout>
@@ -76,8 +76,8 @@
             android:layout_marginTop="14dp"
             android:fontFamily="sans-serif"
             android:text="Balance due"
-            android:textColor="@color/rpay_muted"
-            android:textSize="13sp" />
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="@dimen/roomkit_text_13" />
 
         <!-- Remaining Balance & Status Badge -->
         <LinearLayout
@@ -93,12 +93,12 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
                 android:maxLines="1"
-                android:textColor="@color/rpay_ink"
-                android:textSize="25sp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_25"
                 android:textStyle="bold"
-                app:autoSizeMaxTextSize="25sp"
-                app:autoSizeMinTextSize="18sp"
-                app:autoSizeStepGranularity="1sp"
+                app:autoSizeMaxTextSize="@dimen/roomkit_text_25"
+                app:autoSizeMinTextSize="@dimen/roomkit_text_18"
+                app:autoSizeStepGranularity="@dimen/roomkit_text_1"
                 app:autoSizeTextType="uniform"
                 tools:text="846,000 KHR" />
 
@@ -110,8 +110,8 @@
                 android:fontFamily="sans-serif"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
-                android:textColor="@color/rpay_amber"
-                android:textSize="12sp"
+                android:textColor="@color/roomkit_warning"
+                android:textSize="@dimen/roomkit_text_12"
                 android:textStyle="bold"
                 tools:text="Unpaid" />
         </LinearLayout>
@@ -123,8 +123,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="sans-serif"
-            android:textColor="@color/rpay_muted"
-            android:textSize="13sp"
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="@dimen/roomkit_text_13"
             tools:text="Due 05 Dec 2026" />
 
         <TextView
@@ -133,8 +133,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:fontFamily="sans-serif"
-            android:textColor="@color/rpay_muted"
-            android:textSize="12sp"
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="@dimen/roomkit_text_12"
             android:visibility="gone"
             tools:text="Paid: 400,000 KHR · Remaining: 446,000 KHR" />
 
@@ -142,7 +142,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginVertical="12dp"
-            android:background="@color/rpay_border" />
+            android:background="@color/roomkit_border" />
 
         <!-- Card Actions -->
         <LinearLayout
@@ -165,12 +165,12 @@
                 android:stateListAnimator="@null"
                 android:text="View invoice"
                 android:textAllCaps="false"
-                android:textColor="@color/rpay_muted"
-                android:textSize="13sp"
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="@dimen/roomkit_text_13"
                 android:textStyle="bold"
-                app:backgroundTint="@color/rpay_surface"
+                app:backgroundTint="@color/roomkit_white"
                 app:cornerRadius="10dp"
-                app:strokeColor="@color/rpay_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp" />
 
             <Space
@@ -192,12 +192,12 @@
                 android:stateListAnimator="@null"
                 android:text="Record payment"
                 android:textAllCaps="false"
-                android:textColor="@color/rpay_surface"
-                android:textSize="13sp"
+                android:textColor="@color/roomkit_white"
+                android:textSize="@dimen/roomkit_text_13"
                 android:textStyle="bold"
-                app:backgroundTint="@color/rpay_ink"
+                app:backgroundTint="@color/roomkit_text_primary"
                 app:cornerRadius="10dp"
-                app:strokeColor="@color/rpay_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="0dp" />
         </LinearLayout>
 

@@ -37,7 +37,7 @@
             android:layout_toEndOf="@id/btnBack"
             android:text="@string/mu_move_out_title"
             android:textColor="@color/roomkit_text_primary"
-            android:textSize="22sp" />
+            android:textSize="@dimen/roomkit_text_22" />
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -116,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/roomkit_text_primary"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/roomkit_text_18"
                         android:textStyle="bold"
                         tools:text="Davith Sok" />
 
@@ -127,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:textColor="@color/roomkit_text_secondary"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/roomkit_text_14"
                         tools:text="Room 01 · Barce Residence" />
 
                     <View
@@ -154,7 +154,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/mu_label_deposit_held"
                                 android:textColor="@color/roomkit_text_muted"
-                                android:textSize="12sp" />
+                                android:textSize="@dimen/roomkit_text_12" />
 
                             <TextView
                                 android:id="@+id/tvSummaryDeposit"
@@ -163,7 +163,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:textColor="@color/roomkit_text_primary"
-                                android:textSize="16sp"
+                                android:textSize="@dimen/roomkit_text_16"
                                 android:textStyle="bold"
                                 tools:text="800,000៛" />
                         </LinearLayout>
@@ -180,7 +180,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/mu_label_unpaid_balance"
                                 android:textColor="@color/roomkit_text_muted"
-                                android:textSize="12sp" />
+                                android:textSize="@dimen/roomkit_text_12" />
 
                             <TextView
                                 android:id="@+id/tvSummaryUnpaidBalance"
@@ -189,7 +189,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:textColor="@color/roomkit_error_dark"
-                                android:textSize="16sp"
+                                android:textSize="@dimen/roomkit_text_16"
                                 android:textStyle="bold"
                                 tools:text="0៛" />
                         </LinearLayout>
@@ -242,7 +242,7 @@
                             android:inputType="date"
                             android:minHeight="56dp"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -287,7 +287,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:textColor="@color/roomkit_text_secondary"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/roomkit_text_13"
                         tools:text="Last billed reading: 1,200 kWh" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -311,7 +311,7 @@
                             android:inputType="number"
                             android:minHeight="56dp"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <View
@@ -336,7 +336,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:textColor="@color/roomkit_text_secondary"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/roomkit_text_13"
                         tools:text="Last billed reading: 60 m³" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -360,7 +360,7 @@
                             android:inputType="number"
                             android:minHeight="56dp"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -370,7 +370,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:textColor="@color/roomkit_text_secondary"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/roomkit_text_13"
                         android:visibility="gone"
                         tools:text="Water is billed at fixed monthly rate (40,000៛ / mo)."
                         tools:visibility="visible" />
@@ -408,7 +408,7 @@
                         android:layout_marginBottom="12dp"
                         android:text="@string/mu_helper_additional_charges"
                         android:textColor="@color/roomkit_text_muted"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -438,7 +438,7 @@
                                 android:inputType="number"
                                 android:minHeight="56dp"
                                 android:textColor="@color/roomkit_text_primary"
-                                android:textSize="15sp" />
+                                android:textSize="@dimen/roomkit_text_15" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -463,7 +463,7 @@
                                 android:inputType="number"
                                 android:minHeight="56dp"
                                 android:textColor="@color/roomkit_text_primary"
-                                android:textSize="15sp" />
+                                android:textSize="@dimen/roomkit_text_15" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
@@ -489,7 +489,7 @@
                             android:inputType="text"
                             android:minHeight="56dp"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -525,7 +525,7 @@
                         android:layout_marginBottom="12dp"
                         android:text="@string/mu_helper_deposit_allocation"
                         android:textColor="@color/roomkit_text_muted"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilDepositApplied"
@@ -569,7 +569,7 @@
                             android:inputType="number"
                             android:minHeight="56dp"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -594,7 +594,7 @@
                             android:inputType="text"
                             android:minHeight="56dp"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -616,7 +616,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/mu_label_refund_paid_checkbox"
                     android:textColor="@color/roomkit_text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/roomkit_text_14" />
             </LinearLayout>
 
             <!-- Review Summary Card -->
@@ -646,7 +646,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/mu_title_settlement_review"
                         android:textColor="@color/roomkit_primary"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/roomkit_text_18" />
 
                     <View
                         android:layout_width="match_parent"
@@ -685,7 +685,7 @@
                         android:layout_marginTop="12dp"
                         android:text="@string/mu_helper_remaining_debt_acknowledgement"
                         android:textColor="@color/roomkit_text_secondary"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <CheckBox
                         android:id="@+id/cbAcknowledge"
@@ -703,7 +703,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/roomkit_surface"
+        android:background="@color/roomkit_white"
         android:elevation="8dp"
         android:orientation="vertical"
         android:paddingHorizontal="24dp"
@@ -717,10 +717,10 @@
             android:layout_height="56dp"
             android:text="@string/mu_action_review_settlement"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textColor="@color/roomkit_white"
+            android:textSize="@dimen/roomkit_text_16"
             android:textStyle="bold"
-            app:backgroundTint="#0F172A"
+            app:backgroundTint="@color/roomkit_primary"
             app:cornerRadius="18dp" />
     </LinearLayout>
 

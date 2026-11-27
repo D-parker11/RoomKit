@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                         binding.bottomNav.getOrCreateBadge(R.id.moreFragment).apply {
                             isVisible = true
                             number = urgentCount
-                            backgroundColor = ContextCompat.getColor(this@MainActivity, R.color.rr_red)
+                            backgroundColor = ContextCompat.getColor(this@MainActivity, R.color.roomkit_error)
                             badgeTextColor = Color.WHITE
                         }
                     } else {

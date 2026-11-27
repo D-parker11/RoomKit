@@ -7,7 +7,7 @@
 
     <path
         android:fillColor="@android:color/transparent"
-        android:strokeColor="#AAAAAA"
+        android:strokeColor="@color/roomkit_gray_350"
         android:strokeWidth="3"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
@@ -15,7 +15,7 @@
 
     <path
         android:fillColor="@android:color/transparent"
-        android:strokeColor="#AAAAAA"
+        android:strokeColor="@color/roomkit_gray_350"
         android:strokeWidth="3"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"

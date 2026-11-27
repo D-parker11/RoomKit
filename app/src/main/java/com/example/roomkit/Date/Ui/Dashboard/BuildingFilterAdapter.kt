@@ -1,10 +1,10 @@
 @file:Suppress("PackageNaming")
 package com.example.roomkit.Date.Ui.Dashboard
 
-import android.graphics.Color
+import com.example.roomkit.R
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -36,14 +36,14 @@ class BuildingFilterAdapter(
 
             if (item.isSelected) {
                 // Selected: Dark background, dark border, white text
-                binding.cardFilter.setCardBackgroundColor("#111827".toColorInt())
-                binding.cardFilter.strokeColor = "#111827".toColorInt()
-                binding.tvFilterName.setTextColor(Color.WHITE)
+                binding.cardFilter.setCardBackgroundColor(androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_text_primary))
+                binding.cardFilter.strokeColor = androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_text_primary)
+                binding.tvFilterName.setTextColor(androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_white))
             } else {
                 // Unselected: White background, light gray border, dark gray text
-                binding.cardFilter.setCardBackgroundColor(Color.WHITE)
-                binding.cardFilter.strokeColor = "#E5E7EB".toColorInt()
-                binding.tvFilterName.setTextColor("#374151".toColorInt())
+                binding.cardFilter.setCardBackgroundColor(androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_white))
+                binding.cardFilter.strokeColor = androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_gray_200)
+                binding.tvFilterName.setTextColor(androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_gray_750))
             }
 
             binding.root.setOnClickListener {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/rks2_bg">
+    android:background="@color/roomkit_background">
 
     <!-- Header -->
     <LinearLayout
@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="12dp"
-        android:background="@color/rks2_surface">
+        android:background="@color/roomkit_white">
 
         <ImageButton
             android:id="@+id/settingsBack"
@@ -23,7 +23,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_arrow_back"
             android:contentDescription="@string/rks2_back"
-            app:tint="@color/rks2_text" />
+            app:tint="@color/roomkit_text_primary" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -38,8 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/rks2_settings"
-                android:textColor="@color/rks2_text"
-                android:textSize="26sp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_26"
                 android:textStyle="bold"
                 android:accessibilityHeading="true" />
 
@@ -49,8 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="@string/rks2_subtitle"
-                android:textColor="@color/rks2_muted"
-                android:textSize="12sp" />
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="@dimen/roomkit_text_12" />
 
         </LinearLayout>
 
@@ -74,11 +74,11 @@
 
             <!-- Property -->
             <TextView
-                style="@style/Rks2Section"
+                style="@style/TextAppearance.RoomKit.Section.Spaced"
                 android:text="@string/rks2_property_section" />
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Rks2Card">
+                style="@style/Widget.RoomKit.Card.Padded">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -95,11 +95,11 @@
 
             <!-- Billing and payment settings -->
             <TextView
-                style="@style/Rks2Section"
+                style="@style/TextAppearance.RoomKit.Section.Spaced"
                 android:text="@string/rks2_billing_section" />
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Rks2Card">
+                style="@style/Widget.RoomKit.Card.Padded">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -114,7 +114,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="54dp"
-                        android:background="@color/rks2_border" />
+                        android:background="@color/roomkit_border" />
 
                     <include
                         android:id="@+id/settingsPayment"
@@ -124,7 +124,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="54dp"
-                        android:background="@color/rks2_border" />
+                        android:background="@color/roomkit_border" />
 
                     <include
                         android:id="@+id/settingsMonthClose"
@@ -134,7 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="54dp"
-                        android:background="@color/rks2_border" />
+                        android:background="@color/roomkit_border" />
 
                     <include
                         android:id="@+id/settingsCurrency"
@@ -146,11 +146,11 @@
 
             <!-- Reminders -->
             <TextView
-                style="@style/Rks2Section"
+                style="@style/TextAppearance.RoomKit.Section.Spaced"
                 android:text="@string/rks2_reminder_section" />
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Rks2Card">
+                style="@style/Widget.RoomKit.Card.Padded">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -170,17 +170,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:text="@string/rks2_schedule"
-                android:textColor="@color/rks2_muted"
-                android:textSize="12sp"
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="@dimen/roomkit_text_12"
                 android:lineSpacingExtra="3dp" />
 
             <!-- Data and privacy -->
             <TextView
-                style="@style/Rks2Section"
+                style="@style/TextAppearance.RoomKit.Section.Spaced"
                 android:text="@string/rks2_data_section" />
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Rks2Card">
+                style="@style/Widget.RoomKit.Card.Padded">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -195,7 +195,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="54dp"
-                        android:background="@color/rks2_border" />
+                        android:background="@color/roomkit_border" />
 
                     <include
                         android:id="@+id/settingsPrivacy"
@@ -218,8 +218,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="RoomKit"
-                    android:textColor="@color/rks2_text"
-                    android:textSize="22sp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="@dimen/roomkit_text_22"
                     android:textStyle="bold" />
 
                 <TextView
@@ -227,16 +227,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/rks2_muted"
-                    android:textSize="12sp" />
+                    android:textColor="@color/roomkit_text_secondary"
+                    android:textSize="@dimen/roomkit_text_12" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/rks2_local"
-                    android:textColor="@color/rks2_muted"
-                    android:textSize="12sp"
+                    android:textColor="@color/roomkit_text_secondary"
+                    android:textSize="@dimen/roomkit_text_12"
                     android:gravity="center" />
 
             </LinearLayout>

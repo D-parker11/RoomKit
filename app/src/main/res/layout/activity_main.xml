@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/roomkit_surface">
+    android:background="@color/roomkit_white">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
@@ -25,14 +25,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:minHeight="80dp"
-        android:background="@color/roomkit_surface"
+        android:background="@color/roomkit_white"
         app:elevation="0dp"
         app:itemIconSize="24dp"
-        app:itemIconTint="@color/bottom_nav_color_selector"
-        app:itemTextColor="@color/bottom_nav_color_selector"
-        app:itemTextAppearanceActive="@style/RoomKitBottomNavLabelActive"
-        app:itemTextAppearanceInactive="@style/RoomKitBottomNavLabel"
-        app:itemActiveIndicatorStyle="@style/RoomKitBottomNavIndicator"
+        app:itemIconTint="@color/roomkit_navigation_text"
+        app:itemTextColor="@color/roomkit_navigation_text"
+        app:itemTextAppearanceActive="@style/TextAppearance.RoomKit.Navigation.Active"
+        app:itemTextAppearanceInactive="@style/TextAppearance.RoomKit.Navigation"
+        app:itemActiveIndicatorStyle="@style/Widget.RoomKit.NavigationIndicator"
         app:itemHorizontalTranslationEnabled="false"
         app:itemPaddingTop="12dp"
         app:itemPaddingBottom="12dp"

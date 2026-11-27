@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/replacement_background"
+    android:background="@color/roomkit_background"
     android:orientation="vertical">
 
     <!-- Top App Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/replacement_surface"
+        android:background="@color/roomkit_white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="12dp"
@@ -42,16 +42,16 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/replacement_title"
-                android:textColor="@color/replacement_navy"
-                android:textSize="20sp" />
+                android:textColor="@color/roomkit_primary"
+                android:textSize="@dimen/roomkit_text_20" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="@string/replacement_subtitle"
-                android:textColor="@color/replacement_muted"
-                android:textSize="12sp" />
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="@dimen/roomkit_text_12" />
         </LinearLayout>
     </LinearLayout>
 
@@ -62,8 +62,8 @@
         android:layout_height="3dp"
         android:indeterminate="true"
         android:visibility="gone"
-        app:indicatorColor="@color/replacement_blue"
-        app:trackColor="@color/replacement_blue_bg" />
+        app:indicatorColor="@color/roomkit_partial"
+        app:trackColor="@color/roomkit_partial_bg" />
 
     <!-- Scrollable Content Area -->
     <androidx.core.widget.NestedScrollView
@@ -82,7 +82,7 @@
 
             <!-- Card 1: Summary & Navigation -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/ReplacementCard">
+                style="@style/Widget.RoomKit.Card.Outlined">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -102,8 +102,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="sans-serif-medium"
-                            android:textColor="@color/replacement_navy"
-                            android:textSize="22sp"
+                            android:textColor="@color/roomkit_primary"
+                            android:textSize="@dimen/roomkit_text_22"
                             tools:text="Room 04" />
 
                         <TextView
@@ -114,8 +114,8 @@
                             android:paddingHorizontal="12dp"
                             android:paddingVertical="6dp"
                             android:text="@string/replacement_draft"
-                            android:textColor="@color/replacement_amber"
-                            android:textSize="12sp" />
+                            android:textColor="@color/roomkit_warning"
+                            android:textSize="@dimen/roomkit_text_12" />
                     </LinearLayout>
 
                     <TextView
@@ -123,8 +123,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textColor="@color/replacement_muted"
-                        android:textSize="14sp"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_14"
                         tools:text="Ngoun Channdevith" />
 
                     <LinearLayout
@@ -139,16 +139,16 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="sans-serif-medium"
-                            android:textColor="@color/replacement_text"
-                            android:textSize="13sp"
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_13"
                             tools:text="October 2026" />
 
                         <TextView
                             android:id="@+id/tvDue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/replacement_muted"
-                            android:textSize="13sp"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="@dimen/roomkit_text_13"
                             tools:text="Due Nov 5, 2026" />
                     </LinearLayout>
 
@@ -156,7 +156,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
-                        android:background="@color/replacement_border" />
+                        android:background="@color/roomkit_border" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -169,8 +169,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textColor="@color/replacement_muted"
-                            android:textSize="13sp"
+                            android:textColor="@color/roomkit_text_secondary"
+                            android:textSize="@dimen/roomkit_text_13"
                             tools:text="Draft #0012" />
 
                         <com.google.android.material.button.MaterialButton
@@ -181,8 +181,8 @@
                             android:letterSpacing="0"
                             android:minHeight="48dp"
                             android:textAllCaps="false"
-                            android:textColor="@color/replacement_blue"
-                            android:textSize="13sp"
+                            android:textColor="@color/roomkit_partial"
+                            android:textSize="@dimen/roomkit_text_13"
                             tools:text="View original #0011" />
                     </LinearLayout>
 
@@ -193,8 +193,8 @@
                         android:background="@drawable/replacement_info_bg"
                         android:padding="12dp"
                         android:text="@string/replacement_note"
-                        android:textColor="@color/replacement_blue"
-                        android:textSize="13sp" />
+                        android:textColor="@color/roomkit_partial"
+                        android:textSize="@dimen/roomkit_text_13" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAbout"
@@ -206,14 +206,14 @@
                         android:minHeight="48dp"
                         android:text="@string/replacement_details"
                         android:textAllCaps="false"
-                        android:textColor="@color/replacement_muted"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_12" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Card 2: Rent Section -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/ReplacementCard">
+                style="@style/Widget.RoomKit.Card.Outlined">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -228,7 +228,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/ReplacementSectionTitle"
+                            style="@style/TextAppearance.RoomKit.SectionLabel"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="@string/replacement_rent_title" />
@@ -236,20 +236,20 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilRent"
-                        style="@style/ReplacementField"
+                        style="@style/Widget.RoomKit.Field"
                         android:hint="@string/replacement_rent_hint"
                         app:suffixText="@string/replacement_khr">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etRent"
-                            style="@style/ReplacementInput" />
+                            style="@style/Widget.RoomKit.EditText.Compact" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Card 3: Electricity Section -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/ReplacementCard">
+                style="@style/Widget.RoomKit.Card.Outlined">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -264,15 +264,15 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/ReplacementSectionTitle"
+                            style="@style/TextAppearance.RoomKit.SectionLabel"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="@string/replacement_electricity_title" />
 
                         <TextView
                             android:id="@+id/tvElectricityCharge"
-                            style="@style/ReplacementSectionTitle"
-                            android:textColor="@color/replacement_blue"
+                            style="@style/TextAppearance.RoomKit.SectionLabel"
+                            android:textColor="@color/roomkit_partial"
                             tools:text="7,000 ៛" />
                     </LinearLayout>
 
@@ -284,7 +284,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilElectricityPrevious"
-                            style="@style/ReplacementField"
+                            style="@style/Widget.RoomKit.Field"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:hint="@string/replacement_previous"
@@ -292,7 +292,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etElectricityPrevious"
-                                style="@style/ReplacementInput" />
+                                style="@style/Widget.RoomKit.EditText.Compact" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <Space
@@ -301,7 +301,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilElectricityCurrent"
-                            style="@style/ReplacementField"
+                            style="@style/Widget.RoomKit.Field"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:hint="@string/replacement_current"
@@ -309,19 +309,19 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etElectricityCurrent"
-                                style="@style/ReplacementInput" />
+                                style="@style/Widget.RoomKit.EditText.Compact" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilElectricityRate"
-                        style="@style/ReplacementField"
+                        style="@style/Widget.RoomKit.Field"
                         android:hint="@string/replacement_rate"
                         app:suffixText="@string/replacement_rate_khr">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etElectricityRate"
-                            style="@style/ReplacementInput" />
+                            style="@style/Widget.RoomKit.EditText.Compact" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -329,15 +329,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:textColor="@color/replacement_muted"
-                        android:textSize="13sp"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_13"
                         tools:text="7 kWh used" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Card 4: Water Section -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/ReplacementCard">
+                style="@style/Widget.RoomKit.Card.Outlined">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -352,15 +352,15 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/ReplacementSectionTitle"
+                            style="@style/TextAppearance.RoomKit.SectionLabel"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="@string/replacement_water_title" />
 
                         <TextView
                             android:id="@+id/tvWaterCharge"
-                            style="@style/ReplacementSectionTitle"
-                            android:textColor="@color/replacement_blue"
+                            style="@style/TextAppearance.RoomKit.SectionLabel"
+                            android:textColor="@color/roomkit_partial"
                             tools:text="7,000 ៛" />
                     </LinearLayout>
 
@@ -370,8 +370,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="@string/replacement_water_fixed"
-                        android:textColor="@color/replacement_muted"
-                        android:textSize="13sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_13" />
 
                     <LinearLayout
                         android:id="@+id/rowWaterReadings"
@@ -382,7 +382,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilWaterPrevious"
-                            style="@style/ReplacementField"
+                            style="@style/Widget.RoomKit.Field"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:hint="@string/replacement_previous"
@@ -390,7 +390,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etWaterPrevious"
-                                style="@style/ReplacementInput" />
+                                style="@style/Widget.RoomKit.EditText.Compact" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <Space
@@ -399,7 +399,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilWaterCurrent"
-                            style="@style/ReplacementField"
+                            style="@style/Widget.RoomKit.Field"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:hint="@string/replacement_current"
@@ -407,19 +407,19 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etWaterCurrent"
-                                style="@style/ReplacementInput" />
+                                style="@style/Widget.RoomKit.EditText.Compact" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilWaterRate"
-                        style="@style/ReplacementField"
+                        style="@style/Widget.RoomKit.Field"
                         android:hint="@string/replacement_fixed_fee"
                         app:suffixText="@string/replacement_khr">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etWaterRate"
-                            style="@style/ReplacementInput" />
+                            style="@style/Widget.RoomKit.EditText.Compact" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -427,8 +427,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:textColor="@color/replacement_muted"
-                        android:textSize="13sp"
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_13"
                         android:visibility="gone"
                         tools:text="3 m³ used" />
                 </LinearLayout>
@@ -436,7 +436,7 @@
 
             <!-- Card 5: Fees & Adjustments Section -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/ReplacementCard">
+                style="@style/Widget.RoomKit.Card.Outlined">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -451,7 +451,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/ReplacementSectionTitle"
+                            style="@style/TextAppearance.RoomKit.SectionLabel"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="@string/replacement_fees_title" />
@@ -459,13 +459,13 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilRubbish"
-                        style="@style/ReplacementField"
+                        style="@style/Widget.RoomKit.Field"
                         android:hint="@string/replacement_rubbish"
                         app:suffixText="@string/replacement_khr">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etRubbish"
-                            style="@style/ReplacementInput" />
+                            style="@style/Widget.RoomKit.EditText.Compact" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <LinearLayout
@@ -476,7 +476,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilOther"
-                            style="@style/ReplacementField"
+                            style="@style/Widget.RoomKit.Field"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:hint="@string/replacement_other"
@@ -484,7 +484,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etOther"
-                                style="@style/ReplacementInput" />
+                                style="@style/Widget.RoomKit.EditText.Compact" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <Space
@@ -493,7 +493,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilDiscount"
-                            style="@style/ReplacementField"
+                            style="@style/Widget.RoomKit.Field"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:hint="@string/replacement_discount"
@@ -501,13 +501,13 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etDiscount"
-                                style="@style/ReplacementInput" />
+                                style="@style/Widget.RoomKit.EditText.Compact" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilDiscountReason"
-                        style="@style/ReplacementField"
+                        style="@style/Widget.RoomKit.Field"
                         android:hint="@string/if_discount_reason_hint">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -525,8 +525,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/if_currency_khr"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_slate_500"
+                        android:textSize="@dimen/roomkit_text_12" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -539,7 +539,7 @@
                 android:minHeight="48dp"
                 android:text="@string/rd_delete"
                 android:textAllCaps="false"
-                android:textColor="#B42318"
+                android:textColor="@color/roomkit_error"
                 android:visibility="gone" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -548,13 +548,13 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/replacement_border" />
+        android:background="@color/roomkit_border" />
 
     <!-- Bottom Action Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/replacement_surface"
+        android:background="@color/roomkit_white"
         android:orientation="vertical"
         android:paddingStart="20dp"
         android:paddingTop="12dp"
@@ -567,8 +567,8 @@
             android:layout_height="wrap_content"
             android:accessibilityLiveRegion="polite"
             android:paddingBottom="8dp"
-            android:textColor="@color/replacement_error"
-            android:textSize="13sp"
+            android:textColor="@color/roomkit_error"
+            android:textSize="@dimen/roomkit_text_13"
             android:visibility="gone" />
 
         <LinearLayout
@@ -587,8 +587,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/replacement_total"
-                    android:textColor="@color/replacement_muted"
-                    android:textSize="13sp" />
+                    android:textColor="@color/roomkit_text_secondary"
+                    android:textSize="@dimen/roomkit_text_13" />
 
                 <TextView
                     android:id="@+id/tvSaveState"
@@ -597,8 +597,8 @@
                     android:layout_marginTop="3dp"
                     android:accessibilityLiveRegion="polite"
                     android:text="@string/replacement_ready"
-                    android:textColor="@color/replacement_success"
-                    android:textSize="11sp" />
+                    android:textColor="@color/roomkit_success"
+                    android:textSize="@dimen/roomkit_text_11" />
             </LinearLayout>
 
             <TextView
@@ -606,8 +606,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
-                android:textColor="@color/replacement_navy"
-                android:textSize="25sp"
+                android:textColor="@color/roomkit_primary"
+                android:textSize="@dimen/roomkit_text_25"
                 tools:text="437,000 ៛" />
         </LinearLayout>
 
@@ -628,9 +628,9 @@
                 android:minHeight="52dp"
                 android:text="@string/replacement_save"
                 android:textAllCaps="false"
-                android:textColor="@color/replacement_navy"
+                android:textColor="@color/roomkit_primary"
                 app:cornerRadius="14dp"
-                app:strokeColor="@color/replacement_border" />
+                app:strokeColor="@color/roomkit_border" />
 
             <Space
                 android:layout_width="12dp"
@@ -645,8 +645,8 @@
                 android:minHeight="52dp"
                 android:text="@string/replacement_issue"
                 android:textAllCaps="false"
-                android:textColor="@color/replacement_surface"
-                app:backgroundTint="@color/replacement_navy"
+                android:textColor="@color/roomkit_white"
+                app:backgroundTint="@color/roomkit_primary"
                 app:cornerRadius="14dp" />
         </LinearLayout>
     </LinearLayout>

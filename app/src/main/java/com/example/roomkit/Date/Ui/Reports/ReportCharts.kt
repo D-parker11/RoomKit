@@ -1,5 +1,7 @@
 package com.example.roomkit.Date.Reports
 
+import com.example.roomkit.R
+
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -13,8 +15,8 @@ class PaymentTrendView @JvmOverloads constructor(
 ) : View(context, attrs) {
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var points: List<TrendPoint> = emptyList()
-    private val ink = Color.rgb(17, 24, 39)
-    private val muted = Color.rgb(100, 116, 139)
+    private val ink = androidx.core.content.ContextCompat.getColor(context, R.color.roomkit_text_primary)
+    private val muted = androidx.core.content.ContextCompat.getColor(context, R.color.roomkit_slate_500)
     private val density = resources.displayMetrics.density
     private val labelFormat = DateTimeFormatter.ofPattern("MMM", Locale.US)
 
@@ -30,7 +32,7 @@ class PaymentTrendView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (points.isEmpty() || width == 0 || height == 0) return
-        val font = 11f * resources.displayMetrics.scaledDensity
+        val font = resources.getDimension(R.dimen.roomkit_text_11)
         val left = 16f * density
         val right = width - 16f * density
         val top = font + 12f * density
@@ -45,7 +47,7 @@ class PaymentTrendView @JvmOverloads constructor(
         paint.textAlign = Paint.Align.RIGHT
         canvas.drawText(if (points.all { it.amount == 0L }) "No payments" else ReportFormatter.money(max),
             right, font, paint)
-        paint.color = Color.rgb(226,232,240)
+        paint.color = androidx.core.content.ContextCompat.getColor(context, R.color.roomkit_slate_200)
         paint.strokeWidth = density
         for (step in 0..2) {
             val y = top + (bottom - top) * step / 2f
@@ -107,14 +109,14 @@ class OccupancyRingView @JvmOverloads constructor(
         val cx=width/2f;val cy=height/2f
         val rect=RectF(cx-radius,cy-radius,cx+radius,cy+radius)
         paint.style=Paint.Style.STROKE;paint.strokeWidth=stroke
-        paint.strokeCap=Paint.Cap.ROUND;paint.color=Color.rgb(229,231,235)
+        paint.strokeCap=Paint.Cap.ROUND;paint.color=androidx.core.content.ContextCompat.getColor(context, R.color.roomkit_gray_200)
         canvas.drawOval(rect,paint)
         val fraction=if(total==0L) 0f else occupied.toDouble().div(total).toFloat()
-        paint.color=Color.rgb(17,24,39)
+        paint.color=androidx.core.content.ContextCompat.getColor(context, R.color.roomkit_text_primary)
         if(fraction>0) canvas.drawArc(rect,-90f,360f*fraction,false,paint)
         paint.style=Paint.Style.FILL;paint.textAlign=Paint.Align.CENTER
         paint.typeface=Typeface.create("sans-serif",Typeface.BOLD)
-        paint.textSize=min(27f*resources.displayMetrics.scaledDensity,size*.25f)
+        paint.textSize=min(resources.getDimension(R.dimen.roomkit_text_27),size*.25f)
         val label=if(total==0L) "—" else "${(fraction*100).toInt()}%"
         canvas.drawText(label,cx,cy-(paint.ascent()+paint.descent())/2,paint)
     }

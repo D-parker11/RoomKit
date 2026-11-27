@@ -6,7 +6,7 @@
     android:id="@+id/scrollBuildings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rb_background"
+    android:background="@color/roomkit_background"
     android:clipToPadding="false"
     android:descendantFocusability="beforeDescendants"
     android:fillViewport="true">
@@ -30,8 +30,8 @@
             android:fontFamily="sans"
             android:includeFontPadding="false"
             android:text="@string/rb_title"
-            android:textColor="@color/rb_ink"
-            android:textSize="30sp"
+            android:textColor="@color/roomkit_text_primary"
+            android:textSize="@dimen/roomkit_text_30"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -41,18 +41,18 @@
             android:fontFamily="sans"
             android:includeFontPadding="false"
             android:text="@string/rb_subtitle"
-            android:textColor="@color/rb_muted"
-            android:textSize="15sp" />
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="@dimen/roomkit_text_15" />
 
         <!-- Month Navigation Bar -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/rpay_surface"
+            app:cardBackgroundColor="@color/roomkit_white"
             app:cardCornerRadius="18dp"
             app:cardElevation="0dp"
-            app:strokeColor="@color/rpay_border"
+            app:strokeColor="@color/roomkit_border"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -69,7 +69,7 @@
                     android:contentDescription="Previous month"
                     android:padding="13dp"
                     android:src="@drawable/ic_rb_left"
-                    app:tint="@color/rpay_ink" />
+                    app:tint="@color/roomkit_text_primary" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -84,7 +84,7 @@
                         android:layout_marginEnd="10dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_calender"
-                        app:tint="@color/rpay_ink" />
+                        app:tint="@color/roomkit_text_primary" />
 
                     <TextView
                         android:id="@+id/tvSelectedMonth"
@@ -92,8 +92,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:text="November 2026"
-                        android:textColor="@color/rpay_ink"
-                        android:textSize="16sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_16"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -105,7 +105,7 @@
                     android:contentDescription="Next month"
                     android:padding="13dp"
                     android:src="@drawable/ic_rb_right"
-                    app:tint="@color/rpay_ink" />
+                    app:tint="@color/roomkit_text_primary" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -118,7 +118,7 @@
             android:layout_marginTop="12dp"
             android:indeterminate="true"
             android:visibility="gone"
-            app:indicatorColor="@color/rb_ink" />
+            app:indicatorColor="@color/roomkit_text_primary" />
 
         <!-- Main Content Area -->
         <LinearLayout
@@ -132,10 +132,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/rb_surface"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/rb_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -150,8 +150,8 @@
                         android:fontFamily="sans"
                         android:includeFontPadding="false"
                         android:text="@string/rb_outstanding"
-                        android:textColor="@color/rb_muted"
-                        android:textSize="14sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_14" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvOutstandingAmount"
@@ -161,12 +161,12 @@
                         android:fontFamily="sans"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:textColor="@color/rb_ink"
-                        android:textSize="30sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_30"
                         android:textStyle="bold"
-                        app:autoSizeMaxTextSize="30sp"
-                        app:autoSizeMinTextSize="18sp"
-                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeMaxTextSize="@dimen/roomkit_text_30"
+                        app:autoSizeMinTextSize="@dimen/roomkit_text_18"
+                        app:autoSizeStepGranularity="@dimen/roomkit_text_1"
                         app:autoSizeTextType="uniform"
                         tools:text="1,746,000 KHR" />
 
@@ -174,7 +174,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="16dp"
-                        android:background="@color/rb_border" />
+                        android:background="@color/roomkit_border" />
 
                     <!-- Metrics Columns -->
                     <LinearLayout
@@ -198,8 +198,8 @@
                                 android:fontFamily="sans"
                                 android:gravity="center"
                                 android:includeFontPadding="false"
-                                android:textColor="@color/rb_ink"
-                                android:textSize="26sp"
+                                android:textColor="@color/roomkit_text_primary"
+                                android:textSize="@dimen/roomkit_text_26"
                                 android:textStyle="bold"
                                 tools:text="2" />
 
@@ -211,14 +211,14 @@
                                 android:gravity="center"
                                 android:includeFontPadding="false"
                                 android:text="@string/rb_unpaid"
-                                android:textColor="@color/rb_muted"
-                                android:textSize="13sp" />
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="@dimen/roomkit_text_13" />
                         </LinearLayout>
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="44dp"
-                            android:background="@color/rb_border" />
+                            android:background="@color/roomkit_border" />
 
                         <!-- Paid Count -->
                         <LinearLayout
@@ -234,8 +234,8 @@
                                 android:fontFamily="sans"
                                 android:gravity="center"
                                 android:includeFontPadding="false"
-                                android:textColor="@color/rb_green"
-                                android:textSize="26sp"
+                                android:textColor="@color/roomkit_success"
+                                android:textSize="@dimen/roomkit_text_26"
                                 android:textStyle="bold"
                                 tools:text="0" />
 
@@ -247,14 +247,14 @@
                                 android:gravity="center"
                                 android:includeFontPadding="false"
                                 android:text="@string/rb_paid"
-                                android:textColor="@color/rb_muted"
-                                android:textSize="13sp" />
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="@dimen/roomkit_text_13" />
                         </LinearLayout>
 
                         <View
                             android:layout_width="1dp"
                             android:layout_height="44dp"
-                            android:background="@color/rb_border" />
+                            android:background="@color/roomkit_border" />
 
                         <!-- Void Count -->
                         <LinearLayout
@@ -270,8 +270,8 @@
                                 android:fontFamily="sans"
                                 android:gravity="center"
                                 android:includeFontPadding="false"
-                                android:textColor="@color/rb_muted"
-                                android:textSize="26sp"
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="@dimen/roomkit_text_26"
                                 android:textStyle="bold"
                                 tools:text="1" />
 
@@ -283,8 +283,8 @@
                                 android:gravity="center"
                                 android:includeFontPadding="false"
                                 android:text="@string/rb_void"
-                                android:textColor="@color/rb_muted"
-                                android:textSize="13sp" />
+                                android:textColor="@color/roomkit_text_secondary"
+                                android:textSize="@dimen/roomkit_text_13" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -296,8 +296,8 @@
                         android:fontFamily="sans"
                         android:includeFontPadding="false"
                         android:text="@string/rb_exclusions"
-                        android:textColor="@color/rb_muted"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_12" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
             <!-- Search Field Card -->
@@ -305,10 +305,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                app:cardBackgroundColor="@color/rpay_surface"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/rpay_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -323,7 +323,7 @@
                         android:layout_height="22dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_search"
-                        app:tint="@color/rpay_ink" />
+                        app:tint="@color/roomkit_text_primary" />
 
                     <EditText
                         android:id="@+id/etSearchInvoices"
@@ -337,9 +337,9 @@
                         android:importantForAutofill="no"
                         android:inputType="text"
                         android:singleLine="true"
-                        android:textColor="@color/rpay_ink"
-                        android:textColorHint="@color/rpay_muted"
-                        android:textSize="15sp" />
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textColorHint="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_15" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
             <!-- Full-width filters -->
@@ -353,7 +353,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipAll"
-                    style="@style/Widget.RoomKit.BillingReferenceChip"
+                    style="@style/Widget.RoomKit.Chip.Filter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
@@ -364,7 +364,7 @@
                     android:ellipsize="end"
                     android:text="@string/rb_all"
                     android:textAlignment="center"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/roomkit_text_12"
                     app:checkedIconVisible="false"
                     app:chipIconVisible="false"
                     app:chipMinHeight="40dp"
@@ -375,7 +375,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipUnpaid"
-                    style="@style/Widget.RoomKit.BillingReferenceChip"
+                    style="@style/Widget.RoomKit.Chip.Filter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
@@ -386,7 +386,7 @@
                     android:ellipsize="end"
                     android:text="@string/rb_unpaid"
                     android:textAlignment="center"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/roomkit_text_12"
                     app:checkedIconVisible="false"
                     app:chipIconVisible="false"
                     app:chipMinHeight="40dp"
@@ -397,7 +397,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipPaid"
-                    style="@style/Widget.RoomKit.BillingReferenceChip"
+                    style="@style/Widget.RoomKit.Chip.Filter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
@@ -408,7 +408,7 @@
                     android:ellipsize="end"
                     android:text="@string/rb_paid"
                     android:textAlignment="center"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/roomkit_text_12"
                     app:checkedIconVisible="false"
                     app:chipIconVisible="false"
                     app:chipMinHeight="40dp"
@@ -419,7 +419,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipMore"
-                    style="@style/Widget.RoomKit.BillingReferenceChip"
+                    style="@style/Widget.RoomKit.Chip.Filter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -430,7 +430,7 @@
                     android:ellipsize="end"
                     android:text="@string/rb_more"
                     android:textAlignment="center"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/roomkit_text_12"
                     app:checkedIconVisible="false"
                     app:chipIconVisible="false"
                     app:chipMinHeight="40dp"
@@ -442,7 +442,7 @@
                     app:closeIconSize="14dp"
                     app:closeIconStartPadding="2dp"
                     app:closeIconEndPadding="0dp"
-                    app:closeIconTint="@color/rb_filter_text"
+                    app:closeIconTint="@color/roomkit_filter_text"
                     app:closeIconVisible="true" />
 
             </LinearLayout>
@@ -465,8 +465,8 @@
                     android:fontFamily="sans"
                     android:includeFontPadding="false"
                     android:text="@string/rb_invoices"
-                    android:textColor="@color/rb_ink"
-                    android:textSize="20sp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="@dimen/roomkit_text_20"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -475,8 +475,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans"
                     android:includeFontPadding="false"
-                    android:textColor="@color/rb_muted"
-                    android:textSize="12sp"
+                    android:textColor="@color/roomkit_text_secondary"
+                    android:textSize="@dimen/roomkit_text_12"
                     tools:text="3 records" />
             </LinearLayout>
 
@@ -505,8 +505,8 @@
                     android:fontFamily="sans"
                     android:gravity="center"
                     android:includeFontPadding="false"
-                    android:textColor="@color/rb_ink"
-                    android:textSize="16sp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="@dimen/roomkit_text_16"
                     android:textStyle="bold"
                     tools:text="No invoices for this month" />
 
@@ -518,8 +518,8 @@
                     android:gravity="center"
                     android:includeFontPadding="false"
                     android:text="@string/rb_empty_subtitle"
-                    android:textColor="@color/rb_muted"
-                    android:textSize="14sp" />
+                    android:textColor="@color/roomkit_text_secondary"
+                    android:textSize="@dimen/roomkit_text_14" />
             </LinearLayout>
 
         </LinearLayout>

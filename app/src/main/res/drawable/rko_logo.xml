@@ -2,6 +2,6 @@
     android:width="108dp" android:height="108dp"
     android:viewportWidth="108" android:viewportHeight="108">
     <!-- Geometric vector interpretation of the RoomKit R / open-door concept. -->
-    <path android:fillColor="#FF7900" android:pathData="M28,27 L57,27 C63,27 66,29 70,32 L77,38 C86,46 83,56 73,63 L84,81 L69,81 L59,65 L59,55 L65,50 C69,47 69,44 65,41 L59,37 L40,37 L40,81 L28,81 Z" />
-    <path android:fillColor="#FF7900" android:pathData="M45,58 L57,52 L57,81 L45,81 Z" />
+    <path android:fillColor="@color/roomkit_accent" android:pathData="M28,27 L57,27 C63,27 66,29 70,32 L77,38 C86,46 83,56 73,63 L84,81 L69,81 L59,65 L59,55 L65,50 C69,47 69,44 65,41 L59,37 L40,37 L40,81 L28,81 Z" />
+    <path android:fillColor="@color/roomkit_accent" android:pathData="M45,58 L57,52 L57,81 L45,81 Z" />
 </vector>

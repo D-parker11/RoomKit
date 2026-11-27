@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/rm_icon_surface"/>
+    <solid android:color="@color/roomkit_selected_soft"/>
     <corners android:radius="12dp"/>
 </shape>

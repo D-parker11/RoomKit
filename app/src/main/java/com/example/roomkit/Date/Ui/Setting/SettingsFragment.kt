@@ -227,9 +227,9 @@ class SettingsFragment : Fragment(R.layout.fragment_setting) {
             ContextCompat.getColor(
                 context,
                 if (paymentQr != null) {
-                    R.color.rks2_success
+                    R.color.roomkit_success
                 } else {
-                    R.color.rks2_muted
+                    R.color.roomkit_text_secondary
                 }
             )
         )
@@ -261,9 +261,9 @@ class SettingsFragment : Fragment(R.layout.fragment_setting) {
             ContextCompat.getColor(
                 context,
                 if (notificationsEnabled) {
-                    R.color.rks2_success
+                    R.color.roomkit_success
                 } else {
-                    R.color.rks2_error
+                    R.color.roomkit_error
                 }
             )
         )

@@ -17,7 +17,7 @@
         android:layout_marginEnd="10dp"
         android:src="@drawable/ic_check"
         android:visibility="invisible"
-        app:tint="#FFFFFF"
+        app:tint="@color/roomkit_white"
         tools:visibility="visible" />
 
     <!-- Room Label: Room 204 — $300/mo -->
@@ -26,8 +26,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
+        android:textColor="@color/roomkit_white"
+        android:textSize="@dimen/roomkit_text_15"
         android:textStyle="normal"
         tools:text="400,000 ៛" />
 

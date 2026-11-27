@@ -38,7 +38,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/dm_choose_month"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="22sp" />
+                android:textSize="@dimen/roomkit_text_22" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCancel"
@@ -60,7 +60,7 @@
             android:layout_marginTop="4dp"
             android:accessibilityLiveRegion="polite"
             android:textColor="@color/roomkit_text_secondary"
-            android:textSize="14sp" />
+            android:textSize="@dimen/roomkit_text_14" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,7 +77,7 @@
                 android:padding="0dp"
                 android:text="‹"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="28sp"
+                android:textSize="@dimen/roomkit_text_28"
                 app:cornerRadius="24dp" />
 
             <TextView
@@ -88,7 +88,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="20sp" />
+                android:textSize="@dimen/roomkit_text_20" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNextYear"
@@ -99,7 +99,7 @@
                 android:padding="0dp"
                 android:text="›"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="28sp"
+                android:textSize="@dimen/roomkit_text_28"
                 app:cornerRadius="24dp" />
         </LinearLayout>
 
@@ -134,8 +134,8 @@
             android:letterSpacing="0"
             android:text="@string/dm_apply"
             android:textAllCaps="false"
-            android:textColor="@color/roomkit_on_primary"
-            android:textSize="16sp"
+            android:textColor="@color/roomkit_white"
+            android:textSize="@dimen/roomkit_text_16"
             app:backgroundTint="@color/roomkit_primary"
             app:cornerRadius="16dp" />
 

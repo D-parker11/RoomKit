@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/roomkit_surface"
+    app:cardBackgroundColor="@color/roomkit_white"
     app:cardCornerRadius="24dp"
     app:cardElevation="0dp"
     app:strokeWidth="0dp">
@@ -42,7 +42,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/rk_room_detail_manage"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="22sp" />
+                android:textSize="@dimen/roomkit_text_22" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnClose"
@@ -65,7 +65,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginBottom="20dp"
             android:textColor="@color/roomkit_text_secondary"
-            android:textSize="14sp" />
+            android:textSize="@dimen/roomkit_text_14" />
 
         <LinearLayout
             android:id="@+id/actionViewProfile"
@@ -91,7 +91,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/rk_room_detail_profile"
                     android:textColor="@color/roomkit_text_primary"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/roomkit_text_16" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -100,7 +100,7 @@
                     android:lineSpacingExtra="2dp"
                     android:text="@string/rk_manage_profile_description"
                     android:textColor="@color/roomkit_text_secondary"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/roomkit_text_13" />
             </LinearLayout>
 
             <TextView
@@ -111,7 +111,7 @@
                 android:importantForAccessibility="no"
                 android:text="›"
                 android:textColor="@color/roomkit_text_muted"
-                android:textSize="28sp" />
+                android:textSize="@dimen/roomkit_text_28" />
         </LinearLayout>
 
         <View
@@ -144,7 +144,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/rk_room_detail_move_out"
                     android:textColor="@color/roomkit_text_primary"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/roomkit_text_16" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -153,7 +153,7 @@
                     android:lineSpacingExtra="2dp"
                     android:text="@string/rk_manage_move_out_description"
                     android:textColor="@color/roomkit_text_secondary"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/roomkit_text_13" />
             </LinearLayout>
 
             <TextView
@@ -164,7 +164,7 @@
                 android:importantForAccessibility="no"
                 android:text="›"
                 android:textColor="@color/roomkit_text_muted"
-                android:textSize="28sp" />
+                android:textSize="@dimen/roomkit_text_28" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

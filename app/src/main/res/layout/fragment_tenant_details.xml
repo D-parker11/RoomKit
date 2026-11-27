@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/roomkit_white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -23,7 +23,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Back"
             android:src="@drawable/ic_arrow_back"
-            app:tint="#111827" />
+            app:tint="@color/roomkit_text_primary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,8 +32,8 @@
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/btnBackTenantDetails"
             android:text="Tenant Details"
-            android:textColor="#111827"
-            android:textSize="18sp"
+            android:textColor="@color/roomkit_text_primary"
+            android:textSize="@dimen/roomkit_text_18"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -61,8 +61,8 @@
                     android:id="@+id/tvDetailsFullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#111827"
-                    android:textSize="20sp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="@dimen/roomkit_text_20"
                     android:textStyle="bold"
                     tools:text="Sokha Chan" />
 
@@ -71,8 +71,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textColor="#6B7280"
-                    android:textSize="14sp"
+                    android:textColor="@color/roomkit_gray_500"
+                    android:textSize="@dimen/roomkit_text_14"
                     tools:text="+855 12 345 678" />
 
                 <TextView
@@ -80,8 +80,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:textColor="#9CA3AF"
-                    android:textSize="12sp"
+                    android:textColor="@color/roomkit_gray_400"
+                    android:textSize="@dimen/roomkit_text_12"
                     tools:text="ID: N12345678" />
             </LinearLayout>
 
@@ -99,9 +99,9 @@
                 android:text="@string/qa_edit_tenant"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="14sp"
+                android:textSize="@dimen/roomkit_text_14"
                 android:textStyle="bold"
-                app:backgroundTint="@color/roomkit_surface"
+                app:backgroundTint="@color/roomkit_white"
                 app:cornerRadius="16dp"
                 app:icon="@drawable/ic_edit"
                 app:iconGravity="textStart"
@@ -118,8 +118,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Current Tenancy"
-                android:textColor="#111827"
-                android:textSize="16sp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_16"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -135,8 +135,8 @@
                     android:id="@+id/tvActiveBuildingRoom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#111827"
-                    android:textSize="16sp"
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textSize="@dimen/roomkit_text_16"
                     android:textStyle="bold"
                     tools:text="Campus Residence A • Room 101" />
 
@@ -145,8 +145,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:textColor="#4B5563"
-                    android:textSize="13sp"
+                    android:textColor="@color/roomkit_gray_600"
+                    android:textSize="@dimen/roomkit_text_13"
                     tools:text="Rent: 1,000,000 KHR • Deposit: 1,000,000 KHR" />
 
                 <TextView
@@ -154,8 +154,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textColor="#6B7280"
-                    android:textSize="13sp"
+                    android:textColor="@color/roomkit_gray_500"
+                    android:textSize="@dimen/roomkit_text_13"
                     tools:text="Moved in: 29 Sep 2026" />
 
                 <LinearLayout
@@ -170,12 +170,12 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="6dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#F3F4F6"
+                        android:backgroundTint="@color/roomkit_gray_100"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
                         android:text="View Room"
                         android:textAllCaps="false"
-                        android:textColor="#111827"
+                        android:textColor="@color/roomkit_text_primary"
                         app:cornerRadius="10dp" />
 
                     <com.google.android.material.button.MaterialButton
@@ -184,12 +184,12 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="6dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#FEE2E2"
+                        android:backgroundTint="@color/roomkit_red_100"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
                         android:text="Move Out"
                         android:textAllCaps="false"
-                        android:textColor="#DC2626"
+                        android:textColor="@color/roomkit_red_600"
                         app:cornerRadius="10dp" />
                 </LinearLayout>
             </LinearLayout>
@@ -202,8 +202,8 @@
                 android:background="@drawable/bg_card_stroke"
                 android:padding="16dp"
                 android:text="No active tenancy. Tenant is not assigned to any room."
-                android:textColor="#6B7280"
-                android:textSize="14sp"
+                android:textColor="@color/roomkit_gray_500"
+                android:textSize="@dimen/roomkit_text_14"
                 android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
@@ -211,10 +211,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#111827"
+                android:backgroundTint="@color/roomkit_text_primary"
                 android:text="Assign Room"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/roomkit_white"
                 android:visibility="gone"
                 app:cornerRadius="10dp" />
 
@@ -224,8 +224,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="Rental History"
-                android:textColor="#111827"
-                android:textSize="16sp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_16"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView

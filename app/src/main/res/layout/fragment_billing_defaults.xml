@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rks_background"
+    android:background="@color/roomkit_background"
     android:orientation="vertical">
 
     <!-- Top App Bar -->
@@ -35,8 +35,8 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="3dp"
                 android:text="@string/rks2_defaults"
-                android:textColor="@color/rks_text"
-                android:textSize="24sp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_24"
                 android:textStyle="bold" />
 
             <TextView
@@ -44,8 +44,8 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="3dp"
                 android:text="@string/rks2_defaults_body"
-                android:textColor="@color/rks_muted"
-                android:textSize="13sp" />
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="@dimen/roomkit_text_13" />
         </LinearLayout>
     </LinearLayout>
 
@@ -68,10 +68,10 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/rks_hero"
+                app:cardBackgroundColor="@color/roomkit_teal_bg"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/rks_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -85,8 +85,8 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="@string/rks_hero"
-                        android:textColor="@color/rks_text"
-                        android:textSize="20sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_20"
                         android:textStyle="bold" />
 
                     <TextView
@@ -95,14 +95,14 @@
                         android:layout_marginTop="8dp"
                         android:lineSpacingExtra="3dp"
                         android:text="@string/rks_hero_body"
-                        android:textColor="@color/rks_muted"
-                        android:textSize="14sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_14" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Section: Billing Defaults -->
             <TextView
-                style="@style/RksLabel"
+                style="@style/TextAppearance.RoomKit.Label.Uppercase"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rks_billing" />
@@ -110,10 +110,10 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/rks_surface"
+                app:cardBackgroundColor="@color/roomkit_white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/rks_border"
+                app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -127,8 +127,8 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="@string/rks_currency"
-                        android:textColor="@color/rks_text"
-                        android:textSize="16sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_16"
                         android:textStyle="bold" />
 
                     <TextView
@@ -136,8 +136,8 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="@string/rks_currency_body"
-                        android:textColor="@color/rks_muted"
-                        android:textSize="13sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_13" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -145,12 +145,12 @@
                         android:layout_marginTop="12dp"
                         android:lineSpacingExtra="3dp"
                         android:text="@string/rks_scope"
-                        android:textColor="@color/rks_muted"
-                        android:textSize="13sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_13" />
 
                     <!-- Due Day Input -->
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/RksInput"
+                        style="@style/Widget.RoomKit.Input.Settings"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/rks_due">
@@ -162,13 +162,13 @@
                             android:inputType="number"
                             android:minHeight="56dp"
                             android:saveEnabled="false"
-                            android:textColor="@color/rks_text"
-                            android:textSize="16sp" />
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_16" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Electricity Rate Input -->
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/RksInput"
+                        style="@style/Widget.RoomKit.Input.Settings"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/rks_electricity">
@@ -180,8 +180,8 @@
                             android:inputType="number"
                             android:minHeight="56dp"
                             android:saveEnabled="false"
-                            android:textColor="@color/rks_text"
-                            android:textSize="16sp" />
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_16" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Water Settings Header & Controls -->
@@ -191,8 +191,8 @@
                         android:layout_marginTop="24dp"
                         android:lineSpacingExtra="3dp"
                         android:text="@string/rks_water"
-                        android:textColor="@color/rks_text"
-                        android:textSize="15sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_15"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.SwitchCompat
@@ -203,19 +203,19 @@
                         android:paddingEnd="4dp"
                         android:saveEnabled="false"
                         android:text="@string/rks_metered"
-                        android:textColor="@color/rks_text" />
+                        android:textColor="@color/roomkit_text_primary" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3dp"
                         android:text="@string/rks_water_help"
-                        android:textColor="@color/rks_muted"
-                        android:textSize="13sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_13" />
 
                     <!-- Fixed Water Input -->
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/RksInput"
+                        style="@style/Widget.RoomKit.Input.Settings"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/rks_fixed">
@@ -227,13 +227,13 @@
                             android:inputType="number"
                             android:minHeight="56dp"
                             android:saveEnabled="false"
-                            android:textColor="@color/rks_text"
-                            android:textSize="16sp" />
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_16" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Water Rate Input -->
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/RksInput"
+                        style="@style/Widget.RoomKit.Input.Settings"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/rks_rate">
@@ -245,13 +245,13 @@
                             android:inputType="number"
                             android:minHeight="56dp"
                             android:saveEnabled="false"
-                            android:textColor="@color/rks_text"
-                            android:textSize="16sp" />
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_16" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Rubbish Input -->
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/RksInput"
+                        style="@style/Widget.RoomKit.Input.Settings"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/rks_rubbish">
@@ -263,8 +263,8 @@
                             android:inputType="number"
                             android:minHeight="56dp"
                             android:saveEnabled="false"
-                            android:textColor="@color/rks_text"
-                            android:textSize="16sp" />
+                            android:textColor="@color/roomkit_text_primary"
+                            android:textSize="@dimen/roomkit_text_16" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Status Message Banner -->
@@ -285,8 +285,8 @@
                         android:minHeight="56dp"
                         android:text="@string/rks_save"
                         android:textAllCaps="false"
-                        android:textColor="#FFFFFF"
-                        app:backgroundTint="@color/rks_text"
+                        android:textColor="@color/roomkit_white"
+                        app:backgroundTint="@color/roomkit_text_primary"
                         app:cornerRadius="14dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

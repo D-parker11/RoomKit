@@ -26,16 +26,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ROOM "
-                android:textColor="#6B7280"
-                android:textSize="14sp"
+                android:textColor="@color/roomkit_gray_500"
+                android:textSize="@dimen/roomkit_text_14"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvRoomNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#111827"
-                android:textSize="17sp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_17"
                 android:textStyle="bold"
                 tools:text="101" />
         </LinearLayout>
@@ -54,11 +54,11 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
             android:text="Occupied"
-            android:textColor="#15803D"
-            android:textSize="12sp"
+            android:textColor="@color/roomkit_green_700"
+            android:textSize="@dimen/roomkit_text_12"
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_rd_status_dot"
-            app:drawableTint="#15803D" />
+            app:drawableTint="@color/roomkit_green_700" />
     </RelativeLayout>
 
     <!-- Tenant Name (Occupied) OR Available Notice (Vacant) -->
@@ -67,8 +67,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textColor="#111827"
-        android:textSize="16sp"
+        android:textColor="@color/roomkit_text_primary"
+        android:textSize="@dimen/roomkit_text_16"
         android:textStyle="bold"
         tools:text="Sokha Chan" />
 
@@ -78,8 +78,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:textColor="#6B7280"
-        android:textSize="14sp"
+        android:textColor="@color/roomkit_gray_500"
+        android:textSize="@dimen/roomkit_text_14"
         tools:text="400,000 ៛" />
 
     <View
@@ -87,7 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="12dp"
-        android:background="#F3F4F6" />
+        android:background="@color/roomkit_gray_100" />
 
     <!-- Meter Readings & Invoice Due Status -->
     <RelativeLayout
@@ -109,15 +109,15 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:src="@drawable/ic_bolt"
-                app:tint="#9CA3AF" />
+                app:tint="@color/roomkit_gray_400" />
 
             <TextView
                 android:id="@+id/tvElectricityReading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:textColor="#6B7280"
-                android:textSize="12sp"
+                android:textColor="@color/roomkit_gray_500"
+                android:textSize="@dimen/roomkit_text_12"
                 tools:text="1,250 kWh" />
 
             <TextView
@@ -125,8 +125,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
-                android:textColor="#6B7280"
-                android:textSize="12sp"
+                android:textColor="@color/roomkit_gray_500"
+                android:textSize="@dimen/roomkit_text_12"
                 tools:text="112 m³" />
         </LinearLayout>
 
@@ -144,8 +144,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:textColor="#6B7280"
-                android:textSize="12sp"
+                android:textColor="@color/roomkit_gray_500"
+                android:textSize="@dimen/roomkit_text_12"
                 tools:text="Due Sep 5" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -159,11 +159,11 @@
                 android:includeFontPadding="false"
                 android:paddingHorizontal="9dp"
                 android:paddingVertical="4dp"
-                android:textColor="#B45309"
-                android:textSize="11sp"
+                android:textColor="@color/roomkit_amber_700"
+                android:textSize="@dimen/roomkit_text_11"
                 android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_rd_status_dot"
-                app:drawableTint="#B45309"
+                app:drawableTint="@color/roomkit_amber_700"
                 tools:text="Unpaid" />
         </LinearLayout>
     </RelativeLayout>
@@ -173,13 +173,13 @@
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_marginTop="14dp"
-        android:backgroundTint="#111827"
+        android:backgroundTint="@color/roomkit_text_primary"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="Move In"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
+        android:textColor="@color/roomkit_white"
+        android:textSize="@dimen/roomkit_text_14"
         android:textStyle="bold"
         android:visibility="gone"
         app:cornerRadius="10dp"

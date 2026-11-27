@@ -28,8 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/rvi_title"
-            android:textColor="@color/rvi_ink"
-            android:textSize="24sp"
+            android:textColor="@color/roomkit_text_primary"
+            android:textSize="@dimen/roomkit_text_24"
             android:textStyle="bold" />
 
         <TextView
@@ -38,8 +38,8 @@
             android:layout_marginTop="10dp"
             android:lineSpacingExtra="3dp"
             android:text="@string/rvi_explanation"
-            android:textColor="@color/rvi_muted"
-            android:textSize="14sp" />
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="@dimen/roomkit_text_14" />
 
         <!-- Policy / Payment Rule Info Banner -->
         <TextView
@@ -49,8 +49,8 @@
             android:background="@drawable/bg_rvi_info"
             android:padding="12dp"
             android:text="@string/rvi_payment_rule"
-            android:textColor="@color/rvi_muted"
-            android:textSize="13sp" />
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="@dimen/roomkit_text_13" />
 
         <!-- Reason Input Field -->
         <com.google.android.material.textfield.TextInputLayout
@@ -77,8 +77,8 @@
                 android:maxLines="5"
                 android:minHeight="112dp"
                 android:minLines="3"
-                android:textColor="@color/rvi_ink"
-                android:textSize="14sp" />
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_14" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Live Validation Error -->
@@ -88,8 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:accessibilityLiveRegion="polite"
-            android:textColor="@color/rvi_red"
-            android:textSize="13sp"
+            android:textColor="@color/roomkit_error"
+            android:textSize="@dimen/roomkit_text_13"
             android:visibility="gone" />
 
         <!-- Actions Row -->
@@ -113,10 +113,10 @@
                 android:paddingHorizontal="8dp"
                 android:text="@string/rvi_keep"
                 android:textAllCaps="false"
-                android:textColor="@color/rvi_ink"
-                android:textSize="13sp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_13"
                 app:cornerRadius="12dp"
-                app:strokeColor="@color/rvi_border" />
+                app:strokeColor="@color/roomkit_border" />
 
             <Space
                 android:layout_width="10dp"
@@ -137,9 +137,9 @@
                 android:stateListAnimator="@null"
                 android:text="@string/rvi_confirm"
                 android:textAllCaps="false"
-                android:textColor="@color/rvi_action_text"
-                android:textSize="13sp"
-                app:backgroundTint="@color/rvi_action_background"
+                android:textColor="@color/roomkit_danger_button_text"
+                android:textSize="@dimen/roomkit_text_13"
+                app:backgroundTint="@color/roomkit_danger_button_background"
                 app:cornerRadius="12dp" />
         </LinearLayout>
     </LinearLayout>

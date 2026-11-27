@@ -33,7 +33,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="18sp"
+                android:textSize="@dimen/roomkit_text_18"
                 android:textStyle="bold"
                 tools:text="Davith Sok" />
 
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="13sp"
+                android:textSize="@dimen/roomkit_text_13"
                 tools:text="+855 12 345 678" />
         </LinearLayout>
 
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="14sp"
+                android:textSize="@dimen/roomkit_text_14"
                 android:textStyle="bold"
                 tools:text="Room 01 · Barce Residence" />
         </LinearLayout>
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:text="Deposit"
                     android:textColor="@color/roomkit_text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/roomkit_text_12" />
 
                 <TextView
                     android:id="@+id/tvDepositValue"
@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:textColor="@color/roomkit_text_primary"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/roomkit_text_16"
                     android:textStyle="bold"
                     tools:text="400,000 ៛" />
             </LinearLayout>
@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:text="Moved in"
                     android:textColor="@color/roomkit_text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/roomkit_text_12" />
 
                 <TextView
                     android:id="@+id/tvMoveInDateValue"
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:textColor="@color/roomkit_text_secondary"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/roomkit_text_14"
                     android:textStyle="bold"
                     tools:text="Aug 21" />
             </LinearLayout>
@@ -186,7 +186,7 @@
                 android:layout_centerVertical="true"
                 android:text="View Room >"
                 android:textColor="@color/roomkit_primary"
-                android:textSize="13sp"
+                android:textSize="@dimen/roomkit_text_13"
                 android:textStyle="bold" />
         </RelativeLayout>
 

@@ -29,7 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="18sp"
+                android:textSize="@dimen/roomkit_text_18"
                 tools:text="ROOM 02" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -44,11 +44,11 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
                 android:text="Vacant"
-                android:textColor="#64748B"
-                android:textSize="12sp"
+                android:textColor="@color/roomkit_slate_500"
+                android:textSize="@dimen/roomkit_text_12"
                 android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_rd_status_dot"
-                app:drawableTint="#64748B" />
+                app:drawableTint="@color/roomkit_slate_500" />
 
             <ImageView
                 android:layout_width="18dp"

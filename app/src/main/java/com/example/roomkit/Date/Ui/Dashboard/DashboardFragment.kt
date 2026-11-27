@@ -2,6 +2,8 @@
 
 package com.example.roomkit.Date.Ui.Dashboard
 
+import com.example.roomkit.Date.Ui.Common.setRoomKitTextSize
+
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.os.Bundle
@@ -120,7 +122,7 @@ class DashboardFragment : Fragment() {
 
         view.gravity = Gravity.CENTER_VERTICAL
         view.includeFontPadding = false
-        view.textSize = 12f
+        view.setRoomKitTextSize(R.dimen.roomkit_text_12)
         view.setTypeface(view.typeface, Typeface.BOLD)
         view.setTextColor(color)
         view.setBackgroundResource(backgroundRes)
@@ -170,14 +172,14 @@ class DashboardFragment : Fragment() {
         binding.tvUnpaidCountLabel.text = getString(R.string.rd_unpaid_count, state.unpaidCount)
         styleStatusBadge(
             view = binding.tvUnpaidCountLabel,
-            colorRes = if (state.unpaidCount > 0) R.color.rd_amber else R.color.rd_muted,
+            colorRes = if (state.unpaidCount > 0) R.color.roomkit_warning else R.color.roomkit_text_secondary,
             backgroundRes = if (state.unpaidCount > 0) R.drawable.bg_rd_badge_amber else R.drawable.bg_rd_badge_neutral
         )
 
         binding.tvOverdueCountLabel.text = getString(R.string.rd_overdue_count, state.overdueCount)
         styleStatusBadge(
             view = binding.tvOverdueCountLabel,
-            colorRes = if (state.overdueCount > 0) R.color.rd_red else R.color.rd_muted,
+            colorRes = if (state.overdueCount > 0) R.color.roomkit_error else R.color.roomkit_text_secondary,
             backgroundRes = if (state.overdueCount > 0) R.drawable.bg_rd_badge_red else R.drawable.bg_rd_badge_neutral
         )
 
@@ -185,7 +187,7 @@ class DashboardFragment : Fragment() {
         binding.tvPartialCountLabel.text = getString(R.string.rd_partial_count, state.partiallyPaidCount)
         styleStatusBadge(
             view = binding.tvPartialCountLabel,
-            colorRes = R.color.rd_amber,
+            colorRes = R.color.roomkit_warning,
             backgroundRes = R.drawable.bg_rd_badge_amber
         )
 
@@ -215,7 +217,7 @@ class DashboardFragment : Fragment() {
             val overdue = item.type == DashboardAttentionType.OVERDUE
             styleStatusBadge(
                 view = row.tvAttentionStatus,
-                colorRes = if (overdue) R.color.rd_red else R.color.rd_amber,
+                colorRes = if (overdue) R.color.roomkit_error else R.color.roomkit_warning,
                 backgroundRes = if (overdue) R.drawable.bg_rd_badge_red else R.drawable.bg_rd_badge_amber
             )
 

@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/invoice_screen_title"
                         android:textColor="@color/roomkit_text_primary"
-                        android:textSize="22sp"
+                        android:textSize="@dimen/roomkit_text_22"
                         android:textStyle="bold"
                         android:visibility="visible"
                         tools:text="@string/invoice_screen_title" />
@@ -69,7 +69,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:textColor="@color/roomkit_text_secondary"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/roomkit_text_13"
                         tools:text="Oct 2026" />
                 </LinearLayout>
 
@@ -92,7 +92,7 @@
                         android:includeFontPadding="false"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="5dp"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/roomkit_text_12"
                         android:textStyle="bold"
                         app:drawableStartCompat="@drawable/ic_rd_status_dot"
                         tools:background="@drawable/bg_rd_badge_green"
@@ -114,7 +114,7 @@
                         android:paddingVertical="5dp"
                         android:text="@string/invoice_status_overdue"
                         android:textColor="@color/roomkit_error_dark"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/roomkit_text_12"
                         android:textStyle="bold"
                         android:visibility="gone"
                         app:drawableStartCompat="@drawable/ic_rd_status_dot"
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="13sp"
+                android:textSize="@dimen/roomkit_text_13"
                 android:visibility="gone" />
 
             <!-- CARD 1: Tenant & Property Summary -->
@@ -159,7 +159,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/roomkit_primary"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/roomkit_text_15"
                             tools:text="Invoice #0001" />
 
                         <TextView
@@ -198,7 +198,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="TENANT"
                                 android:textColor="@color/roomkit_text_muted"
-                                android:textSize="11sp" />
+                                android:textSize="@dimen/roomkit_text_11" />
 
                             <TextView
                                 android:id="@+id/tvTenantName"
@@ -207,7 +207,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:textColor="@color/roomkit_text_primary"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/roomkit_text_14"
                                 android:textStyle="bold"
                                 tools:text="Davith Sok" />
 
@@ -218,7 +218,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:textColor="@color/roomkit_text_secondary"
-                                android:textSize="12sp"
+                                android:textSize="@dimen/roomkit_text_12"
                                 tools:text="+855 12 345 678" />
                         </LinearLayout>
 
@@ -235,7 +235,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="PROPERTY"
                                 android:textColor="@color/roomkit_text_muted"
-                                android:textSize="11sp" />
+                                android:textSize="@dimen/roomkit_text_11" />
 
                             <TextView
                                 android:id="@+id/tvRoomNumber"
@@ -244,7 +244,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:textColor="@color/roomkit_text_primary"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/roomkit_text_14"
                                 android:textStyle="bold"
                                 tools:text="Room 01" />
 
@@ -255,7 +255,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:textColor="@color/roomkit_text_secondary"
-                                android:textSize="12sp"
+                                android:textSize="@dimen/roomkit_text_12"
                                 tools:text="Barce Residence" />
                         </LinearLayout>
                     </LinearLayout>
@@ -269,10 +269,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:visibility="gone"
-                app:cardBackgroundColor="@color/ivh_surface"
+                app:cardBackgroundColor="@color/roomkit_error_bg"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/ivh_border"
+                app:strokeColor="@color/roomkit_error_bg"
                 app:strokeWidth="1dp"
                 tools:visibility="visible">
 
@@ -286,8 +286,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/invoice_void_history_title"
-                        android:textColor="@color/ivh_title"
-                        android:textSize="18sp"
+                        android:textColor="@color/roomkit_error"
+                        android:textSize="@dimen/roomkit_text_18"
                         android:textStyle="bold" />
 
                     <TextView
@@ -296,16 +296,16 @@
                         android:layout_marginTop="16dp"
                         android:labelFor="@id/tvInvoiceVoidReason"
                         android:text="@string/invoice_void_history_reason_label"
-                        android:textColor="@color/ivh_muted"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <TextView
                         android:id="@+id/tvInvoiceVoidReason"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="@color/ivh_text"
-                        android:textSize="15sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_15"
                         android:textIsSelectable="true"
                         tools:text="Incorrect electricity charge" />
 
@@ -315,16 +315,16 @@
                         android:layout_marginTop="16dp"
                         android:labelFor="@id/tvInvoiceVoidedAt"
                         android:text="@string/invoice_void_history_date_label"
-                        android:textColor="@color/ivh_muted"
-                        android:textSize="12sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <TextView
                         android:id="@+id/tvInvoiceVoidedAt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="@color/ivh_text"
-                        android:textSize="15sp"
+                        android:textColor="@color/roomkit_text_primary"
+                        android:textSize="@dimen/roomkit_text_15"
                         tools:text="Oct 28, 2026 · 11:50 AM" />
 
                     <TextView
@@ -332,8 +332,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/invoice_void_history_note"
-                        android:textColor="@color/ivh_muted"
-                        android:textSize="13sp" />
+                        android:textColor="@color/roomkit_text_secondary"
+                        android:textSize="@dimen/roomkit_text_13" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -386,7 +386,7 @@
                             android:layout_height="wrap_content"
                             android:text="Monthly Rent"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/tvRentAmount"
@@ -395,7 +395,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/roomkit_text_14"
                             tools:text="400,000 ៛" />
                     </RelativeLayout>
 
@@ -417,7 +417,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Electricity"
                                 android:textColor="@color/roomkit_text_primary"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/roomkit_text_14" />
 
                             <TextView
                                 android:id="@+id/tvElectricitySubtext"
@@ -425,7 +425,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/roomkit_text_muted"
-                                android:textSize="12sp"
+                                android:textSize="@dimen/roomkit_text_12"
                                 tools:text="20 kWh × 1,000 ៛" />
                         </LinearLayout>
 
@@ -436,7 +436,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/roomkit_text_14"
                             tools:text="20,000 ៛" />
                     </RelativeLayout>
 
@@ -452,7 +452,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/roomkit_text_14"
                             tools:text="Water — Fixed Monthly" />
 
                         <TextView
@@ -462,7 +462,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/roomkit_text_14"
                             tools:text="20,000 ៛" />
                     </RelativeLayout>
 
@@ -480,7 +480,7 @@
                             android:layout_height="wrap_content"
                             android:text="Rubbish / Waste"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/tvRubbishAmount"
@@ -489,7 +489,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/roomkit_text_14"
                             tools:text="10,000 ៛" />
                     </RelativeLayout>
 
@@ -509,14 +509,14 @@
                             android:layout_weight="1"
                             android:text="@string/bd_other_label"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/roomkit_text_15" />
 
                         <TextView
                             android:id="@+id/tvOtherChargesAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/roomkit_text_15" />
                     </LinearLayout>
 
                     <!-- Utility Conversion Box -->
@@ -573,14 +573,14 @@
                             android:layout_weight="1"
                             android:text="@string/bd_discount_label"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/roomkit_text_15" />
 
                         <TextView
                             android:id="@+id/tvDiscountAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/roomkit_text_15" />
                     </LinearLayout>
 
                     <!-- Invoice Total -->
@@ -595,7 +595,7 @@
                             android:layout_centerVertical="true"
                             android:text="Invoice Total"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/roomkit_text_16"
                             android:textStyle="bold" />
 
                         <TextView
@@ -606,7 +606,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="22sp"
+                            android:textSize="@dimen/roomkit_text_22"
                             android:textStyle="bold"
                             tools:text="400,000 ៛" />
                     </RelativeLayout>
@@ -619,7 +619,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="13sp" />
+                android:textSize="@dimen/roomkit_text_13" />
 
             <TextView
                 android:id="@+id/tvInvoiceDiscountReason"
@@ -627,7 +627,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="13sp"
+                android:textSize="@dimen/roomkit_text_13"
                 android:visibility="gone" />
 
             <!-- CARD 3: Payment Summary -->
@@ -652,7 +652,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Payment Summary"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/roomkit_text_16" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -665,7 +665,7 @@
                             android:layout_height="wrap_content"
                             android:text="Invoice Total"
                             android:textColor="@color/roomkit_text_secondary"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/tvSummaryInvoiceTotal"
@@ -674,7 +674,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/roomkit_text_14"
                             android:textStyle="bold"
                             tools:text="400,000 ៛" />
                     </RelativeLayout>
@@ -690,7 +690,7 @@
                             android:layout_height="wrap_content"
                             android:text="Total Paid"
                             android:textColor="@color/roomkit_text_secondary"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/tvSummaryTotalPaid"
@@ -699,7 +699,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:textColor="@color/roomkit_success_dark"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/roomkit_text_14"
                             android:textStyle="bold"
                             tools:text="400,000 ៛" />
                     </RelativeLayout>
@@ -720,7 +720,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/ab_current_invoice_balance"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/roomkit_text_15"
                             android:textStyle="bold" />
 
                         <TextView
@@ -729,7 +729,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:textSize="16sp"
+                            android:textSize="@dimen/roomkit_text_16"
                             android:textStyle="bold"
                             tools:text="400,000 ៛"
                             tools:textColor="@color/roomkit_text_secondary" />
@@ -759,7 +759,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/ab_title"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/roomkit_text_16" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -775,7 +775,7 @@
                             android:layout_weight="1"
                             android:text="@string/ab_previous_unpaid_balance"
                             android:textColor="@color/roomkit_text_secondary"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/tvPreviousUnpaidBalance"
@@ -784,7 +784,7 @@
                             android:layout_weight="1"
                             android:gravity="end"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/roomkit_text_15"
                             android:textStyle="bold"
                             tools:text="400,000 ៛" />
                     </LinearLayout>
@@ -803,7 +803,7 @@
                             android:layout_weight="1"
                             android:text="@string/ab_current_invoice_balance"
                             android:textColor="@color/roomkit_text_secondary"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/tvAccountCurrentBalance"
@@ -812,7 +812,7 @@
                             android:layout_weight="1"
                             android:gravity="end"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/roomkit_text_15"
                             android:textStyle="bold"
                             tools:text="400,000 ៛" />
                     </LinearLayout>
@@ -832,7 +832,7 @@
                             android:layout_weight="1"
                             android:text="@string/ab_later_unpaid_balance"
                             android:textColor="@color/roomkit_text_secondary"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/tvLaterUnpaidBalance"
@@ -841,7 +841,7 @@
                             android:layout_weight="1"
                             android:gravity="end"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/roomkit_text_15"
                             android:textStyle="bold"
                             tools:text="400,000 ៛" />
                     </LinearLayout>
@@ -866,7 +866,7 @@
                             android:layout_weight="1"
                             android:text="@string/ab_total_account_balance"
                             android:textColor="@color/roomkit_text_secondary"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/roomkit_text_14" />
 
                         <TextView
                             android:id="@+id/tvTotalAccountBalance"
@@ -875,7 +875,7 @@
                             android:layout_weight="1"
                             android:gravity="end"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="17sp"
+                            android:textSize="@dimen/roomkit_text_17"
                             android:textStyle="bold"
                             tools:text="400,000 ៛" />
                     </LinearLayout>
@@ -886,7 +886,7 @@
                         android:layout_marginTop="12dp"
                         android:text="@string/ab_explanation"
                         android:textColor="@color/roomkit_text_secondary"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/roomkit_text_12" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -912,7 +912,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Payment History"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/roomkit_text_16" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvPaymentHistory"
@@ -950,7 +950,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnRecordPayment"
-                        style="@style/InvoiceActionPrimary"
+                        style="@style/Widget.RoomKit.Action.Primary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/ia_record"
@@ -958,7 +958,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnGenerateKhqr"
-                        style="@style/InvoiceActionSecondary"
+                        style="@style/Widget.RoomKit.Action.Secondary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
@@ -968,7 +968,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnReplacementAction"
-                    style="@style/InvoiceActionPrimary"
+                    style="@style/Widget.RoomKit.Action.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/ia_replacement"
@@ -982,7 +982,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnExportPdf"
-                        style="@style/InvoiceActionSecondary"
+                        style="@style/Widget.RoomKit.Action.Secondary"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="6dp"
@@ -994,7 +994,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnSendTelegram"
-                        style="@style/InvoiceActionSecondary"
+                        style="@style/Widget.RoomKit.Action.Secondary"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
@@ -1011,7 +1011,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:visibility="gone"
-                    app:cardBackgroundColor="@color/roomkit_surface"
+                    app:cardBackgroundColor="@color/roomkit_white"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="0dp"
                     app:strokeColor="@color/roomkit_border"
@@ -1040,9 +1040,9 @@
                             android:text="@string/ia_original"
                             android:textAllCaps="false"
                             android:textColor="@color/roomkit_text_primary"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/roomkit_text_15"
                             android:visibility="gone"
-                            app:backgroundTint="@color/roomkit_surface"
+                            app:backgroundTint="@color/roomkit_white"
                             app:cornerRadius="0dp"
                             app:icon="@drawable/ic_link"
                             app:iconGravity="start"
@@ -1079,9 +1079,9 @@
                             android:text="@string/ia_void"
                             android:textAllCaps="false"
                             android:textColor="@color/roomkit_error_dark"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/roomkit_text_15"
                             android:visibility="gone"
-                            app:backgroundTint="@color/roomkit_surface"
+                            app:backgroundTint="@color/roomkit_white"
                             app:cornerRadius="0dp"
                             app:icon="@drawable/ic_void"
                             app:iconGravity="start"

@@ -9,10 +9,10 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/rb_surface"
+    app:cardBackgroundColor="@color/roomkit_white"
     app:cardCornerRadius="18dp"
     app:cardElevation="0dp"
-    app:strokeColor="@color/rb_border"
+    app:strokeColor="@color/roomkit_border"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -37,8 +37,8 @@
                 android:layout_weight="1"
                 android:fontFamily="sans"
                 android:includeFontPadding="false"
-                android:textColor="@color/rb_ink"
-                android:textSize="17sp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_17"
                 android:textStyle="bold"
                 tools:text="Room 01" />
 
@@ -50,8 +50,8 @@
                 android:includeFontPadding="false"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
-                android:textColor="@color/rb_muted"
-                android:textSize="12sp"
+                android:textColor="@color/roomkit_text_secondary"
+                android:textSize="@dimen/roomkit_text_12"
                 android:textStyle="bold"
                 tools:text="Unpaid" />
         </LinearLayout>
@@ -66,8 +66,8 @@
             android:fontFamily="sans"
             android:includeFontPadding="false"
             android:maxLines="2"
-            android:textColor="@color/rb_muted"
-            android:textSize="13sp"
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="@dimen/roomkit_text_13"
             tools:text="Channdavith Sovann" />
 
         <!-- Total Amount & Forward Arrow -->
@@ -88,12 +88,12 @@
                 android:fontFamily="sans"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textColor="@color/rb_ink"
-                android:textSize="23sp"
+                android:textColor="@color/roomkit_text_primary"
+                android:textSize="@dimen/roomkit_text_23"
                 android:textStyle="bold"
-                app:autoSizeMaxTextSize="23sp"
-                app:autoSizeMinTextSize="16sp"
-                app:autoSizeStepGranularity="1sp"
+                app:autoSizeMaxTextSize="@dimen/roomkit_text_23"
+                app:autoSizeMinTextSize="@dimen/roomkit_text_16"
+                app:autoSizeStepGranularity="@dimen/roomkit_text_1"
                 app:autoSizeTextType="uniform"
                 tools:text="846,000 KHR" />
 
@@ -102,7 +102,7 @@
                 android:layout_height="20dp"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_rb_right"
-                app:tint="@color/rb_muted" />
+                app:tint="@color/roomkit_text_secondary" />
         </LinearLayout>
 
         <!-- Due Date Info -->
@@ -113,8 +113,8 @@
             android:layout_marginTop="5dp"
             android:fontFamily="sans"
             android:includeFontPadding="false"
-            android:textColor="@color/rb_muted"
-            android:textSize="13sp"
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="@dimen/roomkit_text_13"
             tools:text="Due 05 Dec 2026" />
 
         <!-- Optional Payment / Cancellation Detail -->
@@ -125,8 +125,8 @@
             android:layout_marginTop="6dp"
             android:fontFamily="sans"
             android:includeFontPadding="false"
-            android:textColor="@color/rb_muted"
-            android:textSize="13sp"
+            android:textColor="@color/roomkit_text_secondary"
+            android:textSize="@dimen/roomkit_text_13"
             android:visibility="gone"
             tools:text="Cancelled · No payment due" />
     </LinearLayout>

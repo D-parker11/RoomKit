@@ -7,7 +7,7 @@
 
     <path
         android:fillColor="@android:color/transparent"
-        android:strokeColor="#202020"
+        android:strokeColor="@color/roomkit_ink_800"
         android:strokeWidth="1.8"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
@@ -15,7 +15,7 @@
 
     <path
         android:fillColor="@android:color/transparent"
-        android:strokeColor="#202020"
+        android:strokeColor="@color/roomkit_ink_800"
         android:strokeWidth="1.8"
         android:pathData="M15,12 A3,3 0,1 1,9 12 A3,3 0,1 1,15 12 Z" />
 </vector>

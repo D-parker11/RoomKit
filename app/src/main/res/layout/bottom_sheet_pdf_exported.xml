@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/roomkit_surface"
+    app:cardBackgroundColor="@color/roomkit_white"
     app:cardCornerRadius="24dp"
     app:cardElevation="0dp"
     app:strokeWidth="0dp">
@@ -40,7 +40,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/rk_pdf_ready_title"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="24sp" />
+                android:textSize="@dimen/roomkit_text_24" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                 android:lineSpacingExtra="3dp"
                 android:text="@string/rk_pdf_ready_description"
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="14sp" />
+                android:textSize="@dimen/roomkit_text_14" />
 
             <!-- Invoice context -->
             <com.google.android.material.card.MaterialCardView
@@ -75,7 +75,7 @@
                         android:letterSpacing="0.06"
                         android:text="@string/invoice_detail_pdf_label"
                         android:textColor="@color/roomkit_text_secondary"
-                        android:textSize="11sp" />
+                        android:textSize="@dimen/roomkit_text_11" />
 
                     <TextView
                         android:id="@+id/tvInvoiceContext"
@@ -84,7 +84,7 @@
                         android:layout_marginTop="6dp"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/roomkit_text_primary"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/roomkit_text_15" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -99,8 +99,8 @@
                 android:letterSpacing="0"
                 android:text="@string/invoice_detail_open_pdf"
                 android:textAllCaps="false"
-                android:textColor="@color/roomkit_on_primary"
-                android:textSize="16sp"
+                android:textColor="@color/roomkit_white"
+                android:textSize="@dimen/roomkit_text_16"
                 app:backgroundTint="@color/roomkit_primary"
                 app:cornerRadius="16dp" />
 
@@ -116,8 +116,8 @@
                 android:text="@string/rk_pdf_print_invoice"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="16sp"
-                app:backgroundTint="@color/roomkit_surface"
+                android:textSize="@dimen/roomkit_text_16"
+                app:backgroundTint="@color/roomkit_white"
                 app:cornerRadius="16dp"
                 app:strokeColor="@color/roomkit_border"
                 app:strokeWidth="1dp" />
@@ -132,7 +132,7 @@
                 android:text="@string/invoice_detail_done"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="14sp"
+                android:textSize="@dimen/roomkit_text_14"
                 app:cornerRadius="16dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

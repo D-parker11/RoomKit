@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
-    android:background="@color/rko_background">
+    android:background="@color/roomkit_background">
     <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:fillViewport="true" android:clipToPadding="false">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp" android:gravity="center_vertical">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="32dp">
                 <ImageView android:layout_width="64dp" android:layout_height="64dp" android:background="@drawable/rko_logo_tile" android:src="@drawable/rko_logo" android:importantForAccessibility="no" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="14dp" android:text="@string/rko_brand" android:textSize="26sp" android:fontFamily="sans-serif-medium" android:textColor="@color/rko_navy" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="14dp" android:text="@string/rko_brand" android:textSize="@dimen/roomkit_text_26" android:fontFamily="sans-serif-medium" android:textColor="@color/roomkit_navy" />
             </LinearLayout>
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rko_eyebrow" android:textColor="@color/rko_muted" android:textSize="10sp" android:letterSpacing="0.10" android:fontFamily="sans-serif-medium" />
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/rko_welcome" android:textColor="@color/rko_navy" android:textSize="32sp" android:fontFamily="sans-serif-medium" android:lineSpacingExtra="2dp" android:accessibilityHeading="true" />
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/rko_intro" android:textColor="@color/rko_muted" android:textSize="15sp" android:lineSpacingExtra="4dp" />
-            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#FFFFFF" app:strokeWidth="1dp" app:strokeColor="#E9EDF2">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rko_eyebrow" android:textColor="@color/roomkit_slate" android:textSize="@dimen/roomkit_text_10" android:letterSpacing="0.10" android:fontFamily="sans-serif-medium" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/rko_welcome" android:textColor="@color/roomkit_navy" android:textSize="@dimen/roomkit_text_32" android:fontFamily="sans-serif-medium" android:lineSpacingExtra="2dp" android:accessibilityHeading="true" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/rko_intro" android:textColor="@color/roomkit_slate" android:textSize="@dimen/roomkit_text_15" android:lineSpacingExtra="4dp" />
+            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="@color/roomkit_white" app:strokeWidth="1dp" app:strokeColor="@color/roomkit_slate_150">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
                         <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/rko_rooms" android:importantForAccessibility="no" />
                         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="16dp" android:orientation="vertical">
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rko_feature_rooms" android:textColor="@color/rko_navy" android:textSize="16sp" android:fontFamily="sans-serif-medium" />
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/rko_feature_rooms_body" android:textColor="@color/rko_muted" android:textSize="13sp" android:lineSpacingExtra="2dp" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rko_feature_rooms" android:textColor="@color/roomkit_navy" android:textSize="@dimen/roomkit_text_16" android:fontFamily="sans-serif-medium" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/rko_feature_rooms_body" android:textColor="@color/roomkit_slate" android:textSize="@dimen/roomkit_text_13" android:lineSpacingExtra="2dp" />
                         </LinearLayout>
                     </LinearLayout>
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:layout_marginEnd="16dp" android:background="#EDF0F4" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:layout_marginEnd="16dp" android:background="@color/roomkit_gray_150" />
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
                         <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/rko_payments" android:importantForAccessibility="no" />
                         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="16dp" android:orientation="vertical">
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rko_feature_payments" android:textColor="@color/rko_navy" android:textSize="16sp" android:fontFamily="sans-serif-medium" />
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/rko_feature_payments_body" android:textColor="@color/rko_muted" android:textSize="13sp" android:lineSpacingExtra="2dp" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rko_feature_payments" android:textColor="@color/roomkit_navy" android:textSize="@dimen/roomkit_text_16" android:fontFamily="sans-serif-medium" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/rko_feature_payments_body" android:textColor="@color/roomkit_slate" android:textSize="@dimen/roomkit_text_13" android:lineSpacingExtra="2dp" />
                         </LinearLayout>
                     </LinearLayout>
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:layout_marginEnd="16dp" android:background="#EDF0F4" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:layout_marginEnd="16dp" android:background="@color/roomkit_gray_150" />
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="16dp">
                         <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/rko_offline" android:importantForAccessibility="no" />
                         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="16dp" android:orientation="vertical">
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rko_feature_offline" android:textColor="@color/rko_navy" android:textSize="16sp" android:fontFamily="sans-serif-medium" />
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/rko_feature_offline_body" android:textColor="@color/rko_muted" android:textSize="13sp" android:lineSpacingExtra="2dp" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/rko_feature_offline" android:textColor="@color/roomkit_navy" android:textSize="@dimen/roomkit_text_16" android:fontFamily="sans-serif-medium" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/rko_feature_offline_body" android:textColor="@color/roomkit_slate" android:textSize="@dimen/roomkit_text_13" android:lineSpacingExtra="2dp" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -41,7 +41,7 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="24dp" android:paddingEnd="24dp" android:paddingTop="12dp" android:paddingBottom="20dp">
-        <com.google.android.material.button.MaterialButton android:id="@+id/welcomeSetup" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:paddingTop="16dp" android:paddingBottom="16dp" android:text="@string/rko_setup" android:textAllCaps="false" android:letterSpacing="0" android:textSize="16sp" android:fontFamily="sans-serif-medium" android:textColor="#FFFFFF" app:backgroundTint="@color/rko_navy" app:cornerRadius="16dp" />
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/rko_footer" android:gravity="center" android:textSize="12sp" android:textColor="@color/rko_muted" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/welcomeSetup" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:paddingTop="16dp" android:paddingBottom="16dp" android:text="@string/rko_setup" android:textAllCaps="false" android:letterSpacing="0" android:textSize="@dimen/roomkit_text_16" android:fontFamily="sans-serif-medium" android:textColor="@color/roomkit_white" app:backgroundTint="@color/roomkit_navy" app:cornerRadius="16dp" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/rko_footer" android:gravity="center" android:textSize="@dimen/roomkit_text_12" android:textColor="@color/roomkit_slate" />
     </LinearLayout>
 </LinearLayout>

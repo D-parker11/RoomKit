@@ -2,6 +2,8 @@
 
 package com.example.roomkit.Date.Ui.Dashboard
 
+import com.example.roomkit.Date.Ui.Common.setRoomKitTextSize
+
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.os.Bundle
@@ -148,7 +150,7 @@ class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
 
         sheet.background = MaterialShapeDrawable(shape).apply {
             fillColor = ColorStateList.valueOf(
-                color(R.color.roomkit_surface)
+                color(R.color.roomkit_white)
             )
         }
 
@@ -205,7 +207,7 @@ class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
 
                     isAllCaps = false
                     letterSpacing = 0f
-                    textSize = 14f
+                    setRoomKitTextSize(R.dimen.roomkit_text_14)
                     typeface = Typeface.create(
                         "sans-serif-medium",
                         Typeface.NORMAL
@@ -279,13 +281,13 @@ class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
             button.backgroundTintList = ColorStateList.valueOf(
                 color(
                     if (selected) R.color.roomkit_primary
-                    else R.color.roomkit_surface
+                    else R.color.roomkit_white
                 )
             )
 
             button.setTextColor(
                 color(
-                    if (selected) R.color.roomkit_on_primary
+                    if (selected) R.color.roomkit_white
                     else R.color.roomkit_text_primary
                 )
             )
