@@ -1,1 +1,0 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"><solid android:color="@color/roomkit_neutral_surface"/><corners android:radius="@dimen/roomkit_size_12"/></shape>

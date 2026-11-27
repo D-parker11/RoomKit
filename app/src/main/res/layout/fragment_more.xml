@@ -58,7 +58,7 @@
                 <FrameLayout
                     android:layout_width="@dimen/roomkit_action_height"
                     android:layout_height="@dimen/roomkit_action_height"
-                    android:background="@drawable/bg_rm_icon">
+                    android:background="@drawable/bg_icon_soft">
 
                     <ImageView
                         android:layout_width="@dimen/roomkit_size_32"
@@ -140,7 +140,7 @@
                     <FrameLayout
                         android:layout_width="@dimen/roomkit_size_44"
                         android:layout_height="@dimen/roomkit_size_44"
-                        android:background="@drawable/bg_rm_icon">
+                        android:background="@drawable/bg_icon_soft">
 
                         <ImageView
                             android:layout_width="@dimen/roomkit_size_24"
@@ -209,7 +209,7 @@
                     <FrameLayout
                         android:layout_width="@dimen/roomkit_size_44"
                         android:layout_height="@dimen/roomkit_size_44"
-                        android:background="@drawable/bg_rm_icon">
+                        android:background="@drawable/bg_icon_soft">
 
                         <ImageView
                             android:layout_width="@dimen/roomkit_size_24"
@@ -278,7 +278,7 @@
                     <FrameLayout
                         android:layout_width="@dimen/roomkit_size_44"
                         android:layout_height="@dimen/roomkit_size_44"
-                        android:background="@drawable/bg_rm_icon">
+                        android:background="@drawable/bg_icon_soft">
 
                         <ImageView
                             android:layout_width="@dimen/roomkit_size_24"
@@ -383,7 +383,7 @@
                 <FrameLayout
                     android:layout_width="@dimen/roomkit_size_44"
                     android:layout_height="@dimen/roomkit_size_44"
-                    android:background="@drawable/bg_rm_icon">
+                    android:background="@drawable/bg_icon_soft">
 
                     <ImageView
                         android:layout_width="@dimen/roomkit_size_24"

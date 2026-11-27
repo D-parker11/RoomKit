@@ -71,11 +71,11 @@ class TenantListAdapter(
 
                 if (hasPastHistory) {
                     binding.tvTenantStatusBadge.text = "Previous"
-                    binding.tvTenantStatusBadge.setBackgroundResource(R.drawable.bg_badge_tenant_previous)
+                    binding.tvTenantStatusBadge.setBackgroundResource(R.drawable.bg_badge_neutral_pill)
                     binding.tvTenantStatusBadge.setTextColor(androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_gray_600))
                 } else {
                     binding.tvTenantStatusBadge.text = "Unassigned"
-                    binding.tvTenantStatusBadge.setBackgroundResource(R.drawable.bg_badge_tenant_previous)
+                    binding.tvTenantStatusBadge.setBackgroundResource(R.drawable.bg_badge_neutral_pill)
                     binding.tvTenantStatusBadge.setTextColor(androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_gray_500))
                 }
 

@@ -70,3 +70,7 @@ All files below were under `app/src/main/res/drawable/`:
 After deletion, all remaining tracked source/resource bytes match the baseline; no screen, style, manifest, or code behavior was edited. XML files parse successfully and no remaining source/resource references a removed drawable. Required launcher, splash and notification resources remain.
 
 Android Lint, resource compilation and device rendering were not run: the execution environment cannot download Gradle and has no configured Android SDK. Before merging, run `./gradlew :app:processDebugResources :app:assembleDebug` in Android Studio's terminal and review the app's main screens.
+
+## Follow-up: duplicate backgrounds
+
+A subsequent consolidation merged five identical background pairs, reducing the remaining 89 files to **84**. See [drawable-duplicates.md](drawable-duplicates.md) for the shared names and validation. The counts above describe the initial unused-resource audit.

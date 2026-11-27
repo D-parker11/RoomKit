@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/roomkit_size_16"
-            android:background="@drawable/bg_rvi_info"
+            android:background="@drawable/bg_notice_neutral"
             android:padding="@dimen/roomkit_size_12"
             android:text="@string/rvi_payment_rule"
             android:textColor="@color/roomkit_text_secondary"

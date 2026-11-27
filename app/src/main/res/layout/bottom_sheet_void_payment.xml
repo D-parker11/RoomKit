@@ -21,7 +21,7 @@
             android:layout_height="@dimen/roomkit_spacing_xs"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/roomkit_size_24"
-            android:background="@drawable/pv_drag_handle"
+            android:background="@drawable/bg_bottom_sheet_handle"
             android:importantForAccessibility="no" />
 
         <TextView

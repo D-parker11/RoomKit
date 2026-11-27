@@ -277,7 +277,7 @@
                     android:id="@+id/tvStatusBadge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_badge_vacant_pill"
+                    android:background="@drawable/bg_badge_neutral_pill"
                     android:paddingHorizontal="@dimen/roomkit_size_12"
                     android:paddingVertical="@dimen/roomkit_size_6"
                     android:text="@string/ar_vacant"

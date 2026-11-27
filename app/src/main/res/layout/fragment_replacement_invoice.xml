@@ -109,7 +109,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/replacement_draft_pill"
+                            android:background="@drawable/bg_info_soft"
                             android:fontFamily="sans-serif-medium"
                             android:paddingHorizontal="@dimen/roomkit_size_12"
                             android:paddingVertical="@dimen/roomkit_size_6"
@@ -190,7 +190,7 @@
                         android:id="@+id/tvEditorNote"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/replacement_info_bg"
+                        android:background="@drawable/bg_info_soft"
                         android:padding="@dimen/roomkit_size_12"
                         android:text="@string/replacement_note"
                         android:textColor="@color/roomkit_partial"

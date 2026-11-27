@@ -63,7 +63,7 @@
 
 
 
-            <TextView android:id="@+id/tvGlobalError" style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" android:accessibilityLiveRegion="polite" android:background="@drawable/rkm_notice_background" android:padding="@dimen/roomkit_size_12" android:visibility="gone" android:textColor="@color/roomkit_error"/>
+            <TextView android:id="@+id/tvGlobalError" style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" android:accessibilityLiveRegion="polite" android:background="@drawable/bg_notice_neutral" android:padding="@dimen/roomkit_size_12" android:visibility="gone" android:textColor="@color/roomkit_error"/>
 
 
 
@@ -84,7 +84,7 @@
 
 
 
-                        <ImageView android:layout_width="@dimen/roomkit_size_36" android:layout_height="@dimen/roomkit_size_36" android:background="@drawable/rkm_icon_background" android:importantForAccessibility="no" android:padding="@dimen/roomkit_size_8" android:src="@drawable/ic_rkm_bolt" app:tint="@color/roomkit_primary"/>
+                        <ImageView android:layout_width="@dimen/roomkit_size_36" android:layout_height="@dimen/roomkit_size_36" android:background="@drawable/bg_icon_soft" android:importantForAccessibility="no" android:padding="@dimen/roomkit_size_8" android:src="@drawable/ic_rkm_bolt" app:tint="@color/roomkit_primary"/>
 
 
 
@@ -152,7 +152,7 @@
 
 
 
-                        <ImageView android:layout_width="@dimen/roomkit_size_36" android:layout_height="@dimen/roomkit_size_36" android:background="@drawable/rkm_icon_background" android:importantForAccessibility="no" android:padding="@dimen/roomkit_size_8" android:src="@drawable/ic_rkm_drop" app:tint="@color/roomkit_primary"/>
+                        <ImageView android:layout_width="@dimen/roomkit_size_36" android:layout_height="@dimen/roomkit_size_36" android:background="@drawable/bg_icon_soft" android:importantForAccessibility="no" android:padding="@dimen/roomkit_size_8" android:src="@drawable/ic_rkm_drop" app:tint="@color/roomkit_primary"/>
 
 
 
@@ -347,7 +347,7 @@
 
 
 
-                        <ImageView android:layout_width="@dimen/roomkit_size_36" android:layout_height="@dimen/roomkit_size_36" android:background="@drawable/rkm_icon_background" android:importantForAccessibility="no" android:padding="@dimen/roomkit_size_8" android:src="@drawable/ic_rkm_history" app:tint="@color/roomkit_primary"/>
+                        <ImageView android:layout_width="@dimen/roomkit_size_36" android:layout_height="@dimen/roomkit_size_36" android:background="@drawable/bg_icon_soft" android:importantForAccessibility="no" android:padding="@dimen/roomkit_size_8" android:src="@drawable/ic_rkm_history" app:tint="@color/roomkit_primary"/>
 
 
 
