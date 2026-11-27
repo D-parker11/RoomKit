@@ -613,12 +613,18 @@ class MoveInFragment : Fragment() {
 
         val dialog = builder
             .setView(review.root)
-            .setNegativeButton(R.string.roomkit_edit_details, null)
-            .setPositiveButton(R.string.move_in_review_confirm) { _, _ ->
-                // Keep the existing ViewModel validation and transaction as the only save path.
-                viewModel.confirmMoveIn()
-            }
             .create()
+
+        review.reviewEdit.setOnClickListener { dialog.dismiss() }
+        review.reviewConfirm.setOnClickListener {
+            val current = viewModel.uiState.value
+            if (!dialog.isShowing || current.isSaving || current.isSuccess) return@setOnClickListener
+            review.reviewConfirm.isEnabled = false
+            review.reviewEdit.isEnabled = false
+            dialog.dismiss()
+            // Keep the original validation and transaction as the only save path.
+            viewModel.confirmMoveIn()
+        }
 
         confirmationDialog = dialog
         dialog.setOnDismissListener {

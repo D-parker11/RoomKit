@@ -822,4 +822,5 @@ Payments received are not profit. Expenses and deposit refunds are not deducted 
     <string name="roomkit_rate_month">%1$s ៛ / month</string>
     <string name="roomkit_reading_kwh">%1$s kWh</string>
     <string name="roomkit_reading_m3">%1$s m³</string>
+    <string name="roomkit_confirm">Confirm</string>
 </resources>
