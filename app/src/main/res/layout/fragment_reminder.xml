@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:background="@color/roomkit_background"
     android:orientation="vertical"
-    android:paddingTop="4dp">
+    android:paddingTop="@dimen/roomkit_spacing_xs">
 
     <!-- Back Button -->
     <ImageButton
         android:id="@+id/btnRemindersBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="12dp"
+        android:layout_width="@dimen/roomkit_touch_target"
+        android:layout_height="@dimen/roomkit_touch_target"
+        android:layout_marginStart="@dimen/roomkit_size_12"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/rr_back"
         android:src="@drawable/ic_arrow_back" />
@@ -24,7 +24,7 @@
         style="@style/TextAppearance.RoomKit.Body.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
+        android:layout_marginHorizontal="@dimen/roomkit_size_24"
         android:fontFamily="sans-serif-medium"
         android:text="@string/rr_title"
         android:textSize="@dimen/roomkit_text_28"
@@ -34,9 +34,9 @@
         style="@style/TextAppearance.RoomKit.Caption.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="@dimen/roomkit_size_24"
+        android:layout_marginTop="@dimen/roomkit_size_3"
+        android:layout_marginBottom="@dimen/roomkit_size_16"
         android:text="@string/rr_subtitle"
         android:textSize="@dimen/roomkit_text_13" />
 
@@ -45,28 +45,28 @@
         style="@style/Widget.RoomKit.Card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        app:cardCornerRadius="18dp">
+        android:layout_marginHorizontal="@dimen/roomkit_size_20"
+        app:cardCornerRadius="@dimen/roomkit_card_radius_medium">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp">
+            android:padding="@dimen/roomkit_size_12">
 
             <ImageView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_width="@dimen/roomkit_size_44"
+                android:layout_height="@dimen/roomkit_size_44"
                 android:background="@drawable/ic_title"
                 android:importantForAccessibility="no"
-                android:padding="10dp"
+                android:padding="@dimen/roomkit_size_10"
                 android:src="@drawable/ic_notifications" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/roomkit_size_12"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -84,17 +84,17 @@
                     style="@style/TextAppearance.RoomKit.Caption.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/roomkit_spacing_xs"
                     tools:text="9:00 AM · Cambodia time" />
             </LinearLayout>
 
             <ImageButton
                 android:id="@+id/btnReminderSettings"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/roomkit_touch_target"
+                android:layout_height="@dimen/roomkit_touch_target"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/rr_settings"
-                android:padding="15dp"
+                android:padding="@dimen/roomkit_size_15"
                 android:src="@drawable/ref_chvron" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -103,10 +103,10 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/roomkit_size_12"
         android:clipToPadding="false"
         android:fillViewport="true"
-        android:paddingHorizontal="20dp"
+        android:paddingHorizontal="@dimen/roomkit_size_20"
         android:scrollbars="none">
 
         <LinearLayout
@@ -119,23 +119,23 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/chipOverdue"
                 style="@style/Widget.RoomKit.Card"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="@dimen/roomkit_size_6"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardCornerRadius="14dp">
+                app:cardCornerRadius="@dimen/roomkit_button_radius_compact">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:minHeight="48dp"
+                    android:minHeight="@dimen/roomkit_touch_target"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="8dp">
+                    android:paddingHorizontal="@dimen/roomkit_size_8"
+                    android:paddingVertical="@dimen/roomkit_size_8">
 
                     <TextView
                         android:id="@+id/tvFilterOverdue"
@@ -151,12 +151,12 @@
                         style="@style/TextAppearance.RoomKit.Body.Primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="@dimen/roomkit_size_5"
                         android:gravity="center"
                         android:importantForAccessibility="no"
-                        android:minWidth="22dp"
-                        android:minHeight="22dp"
-                        android:paddingHorizontal="4dp"
+                        android:minWidth="@dimen/roomkit_size_22"
+                        android:minHeight="@dimen/roomkit_size_22"
+                        android:paddingHorizontal="@dimen/roomkit_spacing_xs"
                         android:textSize="@dimen/roomkit_text_11"
                         android:textStyle="bold"
                         tools:text="2" />
@@ -167,23 +167,23 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/chipToday"
                 style="@style/Widget.RoomKit.Card"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="@dimen/roomkit_size_6"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardCornerRadius="14dp">
+                app:cardCornerRadius="@dimen/roomkit_button_radius_compact">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:minHeight="48dp"
+                    android:minHeight="@dimen/roomkit_touch_target"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="8dp">
+                    android:paddingHorizontal="@dimen/roomkit_size_8"
+                    android:paddingVertical="@dimen/roomkit_size_8">
 
                     <TextView
                         android:id="@+id/tvFilterToday"
@@ -199,12 +199,12 @@
                         style="@style/TextAppearance.RoomKit.Body.Primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="@dimen/roomkit_size_5"
                         android:gravity="center"
                         android:importantForAccessibility="no"
-                        android:minWidth="22dp"
-                        android:minHeight="22dp"
-                        android:paddingHorizontal="4dp"
+                        android:minWidth="@dimen/roomkit_size_22"
+                        android:minHeight="@dimen/roomkit_size_22"
+                        android:paddingHorizontal="@dimen/roomkit_spacing_xs"
                         android:textSize="@dimen/roomkit_text_11"
                         android:textStyle="bold"
                         tools:text="2" />
@@ -215,23 +215,23 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/chipUpcoming"
                 style="@style/Widget.RoomKit.Card"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="0dp"
+                android:layout_marginEnd="@dimen/roomkit_size_0"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardCornerRadius="14dp">
+                app:cardCornerRadius="@dimen/roomkit_button_radius_compact">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:minHeight="48dp"
+                    android:minHeight="@dimen/roomkit_touch_target"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="8dp">
+                    android:paddingHorizontal="@dimen/roomkit_size_8"
+                    android:paddingVertical="@dimen/roomkit_size_8">
 
                     <TextView
                         android:id="@+id/tvFilterUpcoming"
@@ -247,12 +247,12 @@
                         style="@style/TextAppearance.RoomKit.Body.Primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="@dimen/roomkit_size_5"
                         android:gravity="center"
                         android:importantForAccessibility="no"
-                        android:minWidth="22dp"
-                        android:minHeight="22dp"
-                        android:paddingHorizontal="4dp"
+                        android:minWidth="@dimen/roomkit_size_22"
+                        android:minHeight="@dimen/roomkit_size_22"
+                        android:paddingHorizontal="@dimen/roomkit_spacing_xs"
                         android:textSize="@dimen/roomkit_text_11"
                         android:textStyle="bold"
                         tools:text="2" />
@@ -266,15 +266,15 @@
         style="@style/TextAppearance.RoomKit.Caption.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginHorizontal="@dimen/roomkit_size_20"
+        android:layout_marginTop="@dimen/roomkit_size_10"
+        android:layout_marginBottom="@dimen/roomkit_size_12"
         android:text="@string/rr_sorted_short" />
 
     <!-- Main List Container & Feedback States -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/roomkit_size_0"
         android:layout_weight="1">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -282,13 +282,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingHorizontal="20dp"
-            android:paddingBottom="12dp" />
+            android:paddingHorizontal="@dimen/roomkit_size_20"
+            android:paddingBottom="@dimen/roomkit_size_12" />
 
         <ProgressBar
             android:id="@+id/progressReminders"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/roomkit_size_40"
+            android:layout_height="@dimen/roomkit_size_40"
             android:layout_gravity="center" />
 
         <!-- Empty State View -->
@@ -299,7 +299,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="24dp"
+            android:padding="@dimen/roomkit_size_24"
             android:visibility="gone">
 
             <TextView
@@ -316,7 +316,7 @@
                 style="@style/TextAppearance.RoomKit.Caption.Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/roomkit_size_8"
                 android:gravity="center" />
 
             <com.google.android.material.button.MaterialButton
@@ -324,7 +324,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
+                android:minHeight="@dimen/roomkit_touch_target"
                 android:text="@string/rr_retry"
                 android:textAllCaps="false"
                 android:visibility="gone" />
@@ -336,29 +336,29 @@
         style="@style/Widget.RoomKit.Card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="10dp"
-        app:cardCornerRadius="16dp">
+        android:layout_marginHorizontal="@dimen/roomkit_size_20"
+        android:layout_marginBottom="@dimen/roomkit_size_10"
+        app:cardCornerRadius="@dimen/roomkit_size_16">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp">
+            android:padding="@dimen/roomkit_size_12">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/roomkit_size_40"
+                android:layout_height="@dimen/roomkit_size_40"
                 android:background="@drawable/ic_title"
                 android:importantForAccessibility="no"
-                android:padding="9dp"
+                android:padding="@dimen/roomkit_size_9"
                 android:src="@drawable/ic_calender" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/roomkit_size_10"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -374,7 +374,7 @@
                     style="@style/TextAppearance.RoomKit.Caption.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="@dimen/roomkit_size_3"
                     android:text="@string/rr_schedule"
                     android:textSize="@dimen/roomkit_text_11" />
             </LinearLayout>

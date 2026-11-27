@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="@dimen/roomkit_size_8"
     android:background="@drawable/bg_card_stroke"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="@dimen/roomkit_size_12">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         android:id="@+id/tvHistoryDates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/roomkit_spacing_xs"
         android:textColor="@color/roomkit_gray_600"
         android:textSize="@dimen/roomkit_text_12"
         tools:text="15 Jan 2026 - 30 Jun 2026" />
@@ -46,13 +46,13 @@
         android:id="@+id/tvHistoryRent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
         android:textColor="@color/roomkit_gray_500"
         android:textSize="@dimen/roomkit_text_12"
         tools:text="1,000,000 KHR / month" />
 <Button android:id="@+id/btnHistorySettlement"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="@dimen/roomkit_touch_target"
     android:text="@string/move_out_history"
     android:textAllCaps="false" />
 </LinearLayout>

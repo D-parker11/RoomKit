@@ -11,24 +11,24 @@
     <!-- Toolbar -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="@dimen/roomkit_size_64"
         android:background="@color/roomkit_white"
         android:gravity="center_vertical"
-        android:paddingHorizontal="12dp">
+        android:paddingHorizontal="@dimen/roomkit_size_12">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btnBackEditRoom"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/roomkit_touch_target"
+            android:layout_height="@dimen/roomkit_touch_target"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Go back"
-            android:padding="12dp"
+            android:padding="@dimen/roomkit_size_12"
             app:srcCompat="@drawable/ic_arrow_back"
             app:tint="@color/roomkit_text_primary" />
 
         <TextView
             android:id="@+id/tvHeaderTitle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/roomkit_size_0"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-medium"
@@ -38,20 +38,20 @@
             android:textSize="@dimen/roomkit_text_18" />
 
         <Space
-            android:layout_width="48dp"
-            android:layout_height="48dp" />
+            android:layout_width="@dimen/roomkit_touch_target"
+            android:layout_height="@dimen/roomkit_touch_target" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollEditRoom"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/roomkit_size_0"
         android:layout_weight="1"
         android:clipToPadding="false"
         android:fillViewport="true"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="24dp">
+        android:paddingHorizontal="@dimen/roomkit_size_20"
+        android:paddingTop="@dimen/roomkit_size_20"
+        android:paddingBottom="@dimen/roomkit_size_24">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                 android:id="@+id/etBuilding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/roomkit_size_6"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/roomkit_text_primary"
                 android:textSize="@dimen/roomkit_text_20"
@@ -83,19 +83,19 @@
                 android:id="@+id/layoutOccupiedNotice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/roomkit_size_20"
                 android:visibility="gone"
                 app:cardBackgroundColor="@color/roomkit_neutral_surface"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp"
+                app:cardCornerRadius="@dimen/roomkit_size_16"
+                app:cardElevation="@dimen/roomkit_size_0"
+                app:strokeWidth="@dimen/roomkit_size_0"
                 tools:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/roomkit_size_16">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -108,8 +108,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:lineSpacingExtra="3dp"
+                        android:layout_marginTop="@dimen/roomkit_size_6"
+                        android:lineSpacingExtra="@dimen/roomkit_size_3"
                         android:text="Default rent changes apply to future tenancies. Current tenant charges and past invoices stay unchanged."
                         android:textColor="@color/roomkit_text_secondary"
                         android:textSize="@dimen/roomkit_text_13" />
@@ -119,8 +119,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="@dimen/roomkit_spacing_xxl"
+                android:layout_marginBottom="@dimen/roomkit_size_16"
                 android:fontFamily="sans-serif-medium"
                 android:text="Room details"
                 android:textColor="@color/roomkit_text_primary"
@@ -135,9 +135,9 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilRoomNumber"
                     style="@style/Widget.RoomKit.Input"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
+                    android:layout_marginEnd="@dimen/roomkit_size_12"
                     android:layout_weight="1"
                     android:hint="Room number *">
 
@@ -154,7 +154,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilFloor"
                     style="@style/Widget.RoomKit.Input"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Floor">
@@ -175,7 +175,7 @@
                 style="@style/Widget.RoomKit.Input.Dropdown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/roomkit_size_16"
                 android:hint="Room type">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -192,7 +192,7 @@
                 style="@style/Widget.RoomKit.Input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/roomkit_size_16"
                 android:hint="Notes · optional">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -208,7 +208,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/roomkit_size_8"
                 android:text="Private notes for your reference."
                 android:textColor="@color/roomkit_text_secondary"
                 android:textSize="@dimen/roomkit_text_12" />
@@ -216,7 +216,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="@dimen/roomkit_spacing_xxl"
                 android:fontFamily="sans-serif-medium"
                 android:text="Default pricing"
                 android:textColor="@color/roomkit_text_primary"
@@ -225,8 +225,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="@dimen/roomkit_size_6"
+                android:layout_marginBottom="@dimen/roomkit_size_16"
                 android:text="Used when creating a new tenancy."
                 android:textColor="@color/roomkit_text_secondary"
                 android:textSize="@dimen/roomkit_text_13" />
@@ -254,22 +254,22 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/roomkit_size_24"
                 app:cardBackgroundColor="@color/roomkit_white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/roomkit_size_16"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/roomkit_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:padding="@dimen/roomkit_size_16">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/roomkit_size_0"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
@@ -285,7 +285,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/roomkit_spacing_xs"
                             android:text="Managed by tenancy"
                             android:textColor="@color/roomkit_text_secondary"
                             android:textSize="@dimen/roomkit_text_12" />
@@ -295,7 +295,7 @@
                         android:id="@+id/etOccupancy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
+                        android:layout_marginStart="@dimen/roomkit_size_12"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/roomkit_success_dark"
                         android:textSize="@dimen/roomkit_text_14"
@@ -306,7 +306,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="@dimen/roomkit_spacing_xxl"
                 android:fontFamily="sans-serif-medium"
                 android:text="Room management"
                 android:textColor="@color/roomkit_text_primary"
@@ -315,9 +315,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="12dp"
-                android:lineSpacingExtra="3dp"
+                android:layout_marginTop="@dimen/roomkit_size_6"
+                android:layout_marginBottom="@dimen/roomkit_size_12"
+                android:lineSpacingExtra="@dimen/roomkit_size_3"
                 android:text="Archive to keep the room’s history. Rooms with tenancy or billing history cannot be deleted."
                 android:textColor="@color/roomkit_text_secondary"
                 android:textSize="@dimen/roomkit_text_13" />
@@ -326,41 +326,41 @@
                 android:id="@+id/btnArchiveRoom"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:layout_height="@dimen/roomkit_control_height"
+                android:insetTop="@dimen/roomkit_size_0"
+                android:insetBottom="@dimen/roomkit_size_0"
                 android:letterSpacing="0"
                 android:text="Archive room"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_text_primary"
                 android:textSize="@dimen/roomkit_text_14"
                 app:backgroundTint="@color/roomkit_white"
-                app:cornerRadius="14dp"
+                app:cornerRadius="@dimen/roomkit_button_radius_compact"
                 app:strokeColor="@color/roomkit_border" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDeleteRoom"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="@dimen/roomkit_action_height"
+                android:insetTop="@dimen/roomkit_size_0"
+                android:insetBottom="@dimen/roomkit_size_0"
+                android:layout_marginTop="@dimen/roomkit_size_8"
                 android:letterSpacing="0"
                 android:text="Delete room"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_error_dark"
                 android:textSize="@dimen/roomkit_text_14"
                 app:backgroundTint="@color/roomkit_white"
-                app:cornerRadius="14dp" />
+                app:cornerRadius="@dimen/roomkit_button_radius_compact" />
 
             <TextView
                 android:id="@+id/tvErrorMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/roomkit_size_12"
                 android:accessibilityLiveRegion="polite"
-                android:lineSpacingExtra="3dp"
+                android:lineSpacingExtra="@dimen/roomkit_size_3"
                 android:textColor="@color/roomkit_error_dark"
                 android:textSize="@dimen/roomkit_text_14"
                 android:visibility="gone"
@@ -379,25 +379,25 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/roomkit_stroke_width"
             android:background="@color/roomkit_divider" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveChanges"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="12dp"
+            android:layout_height="@dimen/roomkit_control_height"
+            android:layout_marginHorizontal="@dimen/roomkit_size_20"
+            android:layout_marginVertical="@dimen/roomkit_size_12"
             android:fontFamily="sans-serif-medium"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
+            android:insetTop="@dimen/roomkit_size_0"
+            android:insetBottom="@dimen/roomkit_size_0"
             android:letterSpacing="0"
             android:text="Save changes"
             android:textAllCaps="false"
             android:textColor="@color/roomkit_white"
             android:textSize="@dimen/roomkit_text_16"
             app:backgroundTint="@color/roomkit_primary"
-            app:cornerRadius="16dp"
-            app:elevation="0dp" />
+            app:cornerRadius="@dimen/roomkit_size_16"
+            app:elevation="@dimen/roomkit_size_0" />
     </LinearLayout>
 </LinearLayout>

@@ -13,25 +13,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="12dp"
+        android:padding="@dimen/roomkit_size_12"
         android:background="@color/roomkit_white">
 
         <ImageButton
             android:id="@+id/settingsBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/roomkit_touch_target"
+            android:layout_height="@dimen/roomkit_touch_target"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_arrow_back"
             android:contentDescription="@string/rks2_back"
             app:tint="@color/roomkit_text_primary" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/roomkit_size_0"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingStart="8dp"
-            android:paddingEnd="0dp">
+            android:paddingStart="@dimen/roomkit_size_8"
+            android:paddingEnd="@dimen/roomkit_size_0">
 
             <TextView
                 android:id="@+id/pageTitle"
@@ -47,7 +47,7 @@
                 android:id="@+id/pageSubtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="@dimen/roomkit_size_3"
                 android:text="@string/rks2_subtitle"
                 android:textColor="@color/roomkit_text_secondary"
                 android:textSize="@dimen/roomkit_text_12" />
@@ -58,7 +58,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/roomkit_size_0"
         android:layout_weight="1"
         android:fillViewport="true"
         android:clipToPadding="false">
@@ -67,10 +67,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="20dp"
-            android:paddingTop="20dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="40dp">
+            android:paddingStart="@dimen/roomkit_size_20"
+            android:paddingTop="@dimen/roomkit_size_20"
+            android:paddingEnd="@dimen/roomkit_size_20"
+            android:paddingBottom="@dimen/roomkit_size_40">
 
             <!-- Property -->
             <TextView
@@ -112,8 +112,8 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginStart="54dp"
+                        android:layout_height="@dimen/roomkit_stroke_width"
+                        android:layout_marginStart="@dimen/roomkit_button_height"
                         android:background="@color/roomkit_border" />
 
                     <include
@@ -122,8 +122,8 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginStart="54dp"
+                        android:layout_height="@dimen/roomkit_stroke_width"
+                        android:layout_marginStart="@dimen/roomkit_button_height"
                         android:background="@color/roomkit_border" />
 
                     <include
@@ -132,8 +132,8 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginStart="54dp"
+                        android:layout_height="@dimen/roomkit_stroke_width"
+                        android:layout_marginStart="@dimen/roomkit_button_height"
                         android:background="@color/roomkit_border" />
 
                     <include
@@ -168,11 +168,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="@dimen/roomkit_size_12"
                 android:text="@string/rks2_schedule"
                 android:textColor="@color/roomkit_text_secondary"
                 android:textSize="@dimen/roomkit_text_12"
-                android:lineSpacingExtra="3dp" />
+                android:lineSpacingExtra="@dimen/roomkit_size_3" />
 
             <!-- Data and privacy -->
             <TextView
@@ -193,8 +193,8 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginStart="54dp"
+                        android:layout_height="@dimen/roomkit_stroke_width"
+                        android:layout_marginStart="@dimen/roomkit_button_height"
                         android:background="@color/roomkit_border" />
 
                     <include
@@ -209,8 +209,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:padding="24dp"
+                android:layout_marginTop="@dimen/roomkit_size_32"
+                android:padding="@dimen/roomkit_size_24"
                 android:orientation="vertical"
                 android:gravity="center">
 
@@ -226,14 +226,14 @@
                     android:id="@+id/settingsVersion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/roomkit_size_8"
                     android:textColor="@color/roomkit_text_secondary"
                     android:textSize="@dimen/roomkit_text_12" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/roomkit_size_5"
                     android:text="@string/rks2_local"
                     android:textColor="@color/roomkit_text_secondary"
                     android:textSize="@dimen/roomkit_text_12"

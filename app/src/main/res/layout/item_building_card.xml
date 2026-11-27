@@ -5,7 +5,7 @@
     style="@style/Widget.RoomKit.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/roomkit_spacing_md"
+    android:layout_marginBottom="@dimen/roomkit_size_12"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/roomkit_card_padding">
+        android:padding="@dimen/roomkit_size_20">
 
         <!-- Top Header: Building Name & Chevron (Matched to binding.headerContainer) -->
         <LinearLayout
@@ -30,7 +30,7 @@
             <TextView
                 android:id="@+id/tvBuildingName"
                 style="@style/TextAppearance.RoomKit.SectionTitle"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="end"
@@ -38,8 +38,8 @@
                 tools:text="Real Madrid Residence" />
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/roomkit_size_20"
+                android:layout_height="@dimen/roomkit_size_20"
                 android:contentDescription="Open building"
                 android:src="@drawable/ic_chevron_right"
                 app:tint="@color/roomkit_text_muted" />
@@ -54,8 +54,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_width="@dimen/roomkit_button_radius_compact"
+                android:layout_height="@dimen/roomkit_button_radius_compact"
                 android:contentDescription="Address"
                 android:src="@drawable/ic_location_pin"
                 app:tint="@color/roomkit_text_muted" />
@@ -65,7 +65,7 @@
                 style="@style/TextAppearance.RoomKit.Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="@dimen/roomkit_size_6"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textSize="@dimen/roomkit_text_13"
@@ -76,13 +76,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/roomkit_spacing_lg"
+            android:layout_marginTop="@dimen/roomkit_size_16"
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="3">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -99,13 +99,13 @@
                     style="@style/TextAppearance.RoomKit.Caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                     android:text="Rooms"
                     android:textColor="@color/roomkit_text_secondary" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -122,13 +122,13 @@
                     style="@style/TextAppearance.RoomKit.Caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                     android:text="Occupied"
                     android:textColor="@color/roomkit_text_secondary" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -145,7 +145,7 @@
                     style="@style/TextAppearance.RoomKit.Caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                     android:text="Vacant"
                     android:textColor="@color/roomkit_text_secondary" />
             </LinearLayout>
@@ -155,13 +155,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/roomkit_spacing_lg"
+            android:layout_marginTop="@dimen/roomkit_size_16"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 style="@style/TextAppearance.RoomKit.Body"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Occupancy"
@@ -183,8 +183,8 @@
             android:id="@+id/progressOccupancy"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="@dimen/roomkit_size_6"
+            android:layout_marginTop="@dimen/roomkit_size_8"
             android:max="100"
             android:progressBackgroundTint="@color/roomkit_border"
             android:progressTint="@color/roomkit_primary"
@@ -194,21 +194,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/roomkit_spacing_lg"
+            android:layout_marginTop="@dimen/roomkit_size_16"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnViewRooms"
                 style="@style/Widget.RoomKit.Button.NeutralSurface"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_weight="1"
                 android:text="View Rooms" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEditBuilding"
                 style="@style/Widget.RoomKit.Button.OutlinedSmall"
-                android:layout_width="0dp"
-                android:layout_marginStart="@dimen/roomkit_spacing_md"
+                android:layout_width="@dimen/roomkit_size_0"
+                android:layout_marginStart="@dimen/roomkit_size_12"
                 android:layout_weight="1"
                 android:text="Edit" />
         </LinearLayout>

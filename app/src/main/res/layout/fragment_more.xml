@@ -14,9 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="24dp">
+        android:paddingHorizontal="@dimen/roomkit_size_20"
+        android:paddingTop="@dimen/roomkit_size_20"
+        android:paddingBottom="@dimen/roomkit_size_24">
 
         <!-- Screen Header -->
         <TextView
@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/roomkit_spacing_xs"
             android:fontFamily="sans-serif"
             android:text="@string/rm_subtitle"
             android:textColor="@color/roomkit_text_secondary"
@@ -41,28 +41,28 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/roomkit_size_24"
             app:cardBackgroundColor="@color/roomkit_white"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/roomkit_card_radius_medium"
+            app:cardElevation="@dimen/roomkit_size_0"
             app:strokeColor="@color/roomkit_border"
-            app:strokeWidth="1dp">
+            app:strokeWidth="@dimen/roomkit_stroke_width">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="18dp">
+                android:padding="@dimen/roomkit_card_radius_medium">
 
                 <FrameLayout
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
+                    android:layout_width="@dimen/roomkit_action_height"
+                    android:layout_height="@dimen/roomkit_action_height"
                     android:background="@drawable/bg_rm_icon">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/roomkit_size_32"
+                        android:layout_height="@dimen/roomkit_size_32"
                         android:layout_gravity="center"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_rm_building"
@@ -70,9 +70,9 @@
                 </FrameLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
+                    android:layout_marginStart="@dimen/roomkit_button_radius_compact"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -88,7 +88,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
                         android:fontFamily="sans-serif"
                         android:text="@string/rm_brand_sub"
                         android:textColor="@color/roomkit_text_secondary"
@@ -101,8 +101,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="@dimen/roomkit_size_26"
+            android:layout_marginBottom="@dimen/roomkit_size_12"
             android:fontFamily="sans-serif"
             android:letterSpacing="0.10"
             android:text="@string/rm_management"
@@ -114,10 +114,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/roomkit_white"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/roomkit_card_radius_medium"
+            app:cardElevation="@dimen/roomkit_size_0"
             app:strokeColor="@color/roomkit_border"
-            app:strokeWidth="1dp">
+            app:strokeWidth="@dimen/roomkit_stroke_width">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,18 +133,18 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
-                    android:minHeight="80dp"
+                    android:minHeight="@dimen/roomkit_size_80"
                     android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:padding="@dimen/roomkit_size_16">
 
                     <FrameLayout
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
+                        android:layout_width="@dimen/roomkit_size_44"
+                        android:layout_height="@dimen/roomkit_size_44"
                         android:background="@drawable/bg_rm_icon">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/roomkit_size_24"
+                            android:layout_height="@dimen/roomkit_size_24"
                             android:layout_gravity="center"
                             android:importantForAccessibility="no"
                             android:src="@drawable/ic_rm_tenants"
@@ -152,10 +152,10 @@
                     </FrameLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/roomkit_size_0"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="@dimen/roomkit_button_radius_compact"
+                        android:layout_marginEnd="@dimen/roomkit_size_8"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -171,7 +171,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
+                            android:layout_marginTop="@dimen/roomkit_size_3"
                             android:fontFamily="sans-serif"
                             android:text="@string/rm_tenants_sub"
                             android:textColor="@color/roomkit_text_secondary"
@@ -179,8 +179,8 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="@dimen/roomkit_size_20"
+                        android:layout_height="@dimen/roomkit_size_20"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ref_chvron"
                         app:tint="@color/roomkit_text_primary" />
@@ -188,9 +188,9 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="74dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_height="@dimen/roomkit_stroke_width"
+                    android:layout_marginStart="@dimen/roomkit_size_74"
+                    android:layout_marginEnd="@dimen/roomkit_size_16"
                     android:background="@color/roomkit_border" />
 
                 <!-- Row 2: Reports -->
@@ -202,18 +202,18 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
-                    android:minHeight="80dp"
+                    android:minHeight="@dimen/roomkit_size_80"
                     android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:padding="@dimen/roomkit_size_16">
 
                     <FrameLayout
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
+                        android:layout_width="@dimen/roomkit_size_44"
+                        android:layout_height="@dimen/roomkit_size_44"
                         android:background="@drawable/bg_rm_icon">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/roomkit_size_24"
+                            android:layout_height="@dimen/roomkit_size_24"
                             android:layout_gravity="center"
                             android:importantForAccessibility="no"
                             android:src="@drawable/ic_rm_reports"
@@ -221,10 +221,10 @@
                     </FrameLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/roomkit_size_0"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="@dimen/roomkit_button_radius_compact"
+                        android:layout_marginEnd="@dimen/roomkit_size_8"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -240,7 +240,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
+                            android:layout_marginTop="@dimen/roomkit_size_3"
                             android:fontFamily="sans-serif"
                             android:text="@string/rm_reports_sub"
                             android:textColor="@color/roomkit_text_secondary"
@@ -248,8 +248,8 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="@dimen/roomkit_size_20"
+                        android:layout_height="@dimen/roomkit_size_20"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ref_chvron"
                         app:tint="@color/roomkit_text_primary" />
@@ -257,9 +257,9 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="74dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_height="@dimen/roomkit_stroke_width"
+                    android:layout_marginStart="@dimen/roomkit_size_74"
+                    android:layout_marginEnd="@dimen/roomkit_size_16"
                     android:background="@color/roomkit_border" />
 
                 <!-- Row 3: Reminders -->
@@ -271,18 +271,18 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
-                    android:minHeight="80dp"
+                    android:minHeight="@dimen/roomkit_size_80"
                     android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:padding="@dimen/roomkit_size_16">
 
                     <FrameLayout
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
+                        android:layout_width="@dimen/roomkit_size_44"
+                        android:layout_height="@dimen/roomkit_size_44"
                         android:background="@drawable/bg_rm_icon">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/roomkit_size_24"
+                            android:layout_height="@dimen/roomkit_size_24"
                             android:layout_gravity="center"
                             android:importantForAccessibility="no"
                             android:src="@drawable/ic_rm_bell"
@@ -290,10 +290,10 @@
                     </FrameLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/roomkit_size_0"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="@dimen/roomkit_button_radius_compact"
+                        android:layout_marginEnd="@dimen/roomkit_size_8"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -309,7 +309,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
+                            android:layout_marginTop="@dimen/roomkit_size_3"
                             android:fontFamily="sans-serif"
                             android:text="@string/rm_reminders_sub"
                             android:textColor="@color/roomkit_text_secondary"
@@ -320,14 +320,14 @@
                         android:id="@+id/tvRemindersBadge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="@dimen/roomkit_size_8"
                         android:background="@drawable/bg_rd_badge_red"
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:includeFontPadding="false"
-                        android:minWidth="24dp"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="4dp"
+                        android:minWidth="@dimen/roomkit_size_24"
+                        android:paddingHorizontal="@dimen/roomkit_size_8"
+                        android:paddingVertical="@dimen/roomkit_spacing_xs"
                         android:textColor="@color/roomkit_error"
                         android:textSize="@dimen/roomkit_text_12"
                         android:textStyle="bold"
@@ -336,8 +336,8 @@
                         tools:visibility="visible" />
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="@dimen/roomkit_size_20"
+                        android:layout_height="@dimen/roomkit_size_20"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ref_chvron"
                         app:tint="@color/roomkit_text_primary" />
@@ -349,8 +349,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="@dimen/roomkit_size_24"
+            android:layout_marginBottom="@dimen/roomkit_size_12"
             android:fontFamily="sans-serif"
             android:letterSpacing="0.10"
             android:text="@string/rm_preferences"
@@ -362,10 +362,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/roomkit_white"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/roomkit_card_radius_medium"
+            app:cardElevation="@dimen/roomkit_size_0"
             app:strokeColor="@color/roomkit_border"
-            app:strokeWidth="1dp">
+            app:strokeWidth="@dimen/roomkit_stroke_width">
 
             <!-- Settings Row -->
             <LinearLayout
@@ -376,18 +376,18 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
-                android:minHeight="80dp"
+                android:minHeight="@dimen/roomkit_size_80"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="@dimen/roomkit_size_16">
 
                 <FrameLayout
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
+                    android:layout_width="@dimen/roomkit_size_44"
+                    android:layout_height="@dimen/roomkit_size_44"
                     android:background="@drawable/bg_rm_icon">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="@dimen/roomkit_size_24"
+                        android:layout_height="@dimen/roomkit_size_24"
                         android:layout_gravity="center"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_rr_setting"
@@ -395,10 +395,10 @@
                 </FrameLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="@dimen/roomkit_button_radius_compact"
+                    android:layout_marginEnd="@dimen/roomkit_size_8"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -414,7 +414,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
+                        android:layout_marginTop="@dimen/roomkit_size_3"
                         android:fontFamily="sans-serif"
                         android:text="@string/rm_settings_sub"
                         android:textColor="@color/roomkit_text_secondary"
@@ -422,8 +422,8 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/roomkit_size_20"
+                    android:layout_height="@dimen/roomkit_size_20"
                     android:importantForAccessibility="no"
                     android:src="@drawable/ref_chvron"
                     app:tint="@color/roomkit_text_primary" />

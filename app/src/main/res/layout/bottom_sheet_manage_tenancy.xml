@@ -5,37 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/roomkit_white"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="0dp"
-    app:strokeWidth="0dp">
+    app:cardCornerRadius="@dimen/roomkit_size_24"
+    app:cardElevation="@dimen/roomkit_size_0"
+    app:strokeWidth="@dimen/roomkit_size_0">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="12dp"
-        android:paddingBottom="24dp">
+        android:paddingTop="@dimen/roomkit_size_12"
+        android:paddingBottom="@dimen/roomkit_size_24">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="36dp"
-            android:layout_height="4dp"
+            android:layout_width="@dimen/roomkit_size_36"
+            android:layout_height="@dimen/roomkit_spacing_xs"
             android:layout_gravity="center_horizontal"
             android:importantForAccessibility="no"
             app:cardBackgroundColor="@color/roomkit_border"
-            app:cardCornerRadius="2dp"
-            app:cardElevation="0dp"
-            app:strokeWidth="0dp" />
+            app:cardCornerRadius="@dimen/roomkit_stroke_width_focused"
+            app:cardElevation="@dimen/roomkit_size_0"
+            app:strokeWidth="@dimen/roomkit_size_0" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/roomkit_size_12"
             android:gravity="center_vertical"
-            android:paddingStart="24dp"
-            android:paddingEnd="12dp">
+            android:paddingStart="@dimen/roomkit_size_24"
+            android:paddingEnd="@dimen/roomkit_size_12">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:accessibilityHeading="true"
@@ -48,22 +48,22 @@
                 android:id="@+id/btnClose"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:minWidth="64dp"
+                android:layout_height="@dimen/roomkit_touch_target"
+                android:minWidth="@dimen/roomkit_size_64"
                 android:letterSpacing="0"
                 android:text="@string/rk_room_detail_cancel"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_text_secondary"
-                app:cornerRadius="24dp" />
+                app:cornerRadius="@dimen/roomkit_size_24" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvTenancyContext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginHorizontal="@dimen/roomkit_size_24"
+            android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
+            android:layout_marginBottom="@dimen/roomkit_size_20"
             android:textColor="@color/roomkit_text_secondary"
             android:textSize="@dimen/roomkit_text_14" />
 
@@ -71,16 +71,16 @@
             android:id="@+id/actionViewProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="84dp"
+            android:minHeight="@dimen/roomkit_size_84"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="16dp">
+            android:paddingHorizontal="@dimen/roomkit_size_24"
+            android:paddingVertical="@dimen/roomkit_size_16">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -96,17 +96,17 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:lineSpacingExtra="2dp"
+                    android:layout_marginTop="@dimen/roomkit_size_5"
+                    android:lineSpacingExtra="@dimen/roomkit_stroke_width_focused"
                     android:text="@string/rk_manage_profile_description"
                     android:textColor="@color/roomkit_text_secondary"
                     android:textSize="@dimen/roomkit_text_13" />
             </LinearLayout>
 
             <TextView
-                android:layout_width="24dp"
+                android:layout_width="@dimen/roomkit_size_24"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/roomkit_size_12"
                 android:gravity="center"
                 android:importantForAccessibility="no"
                 android:text="›"
@@ -116,24 +116,24 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_height="@dimen/roomkit_stroke_width"
+            android:layout_marginHorizontal="@dimen/roomkit_size_24"
             android:background="@color/roomkit_divider" />
 
         <LinearLayout
             android:id="@+id/actionMoveOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="84dp"
+            android:minHeight="@dimen/roomkit_size_84"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="16dp">
+            android:paddingHorizontal="@dimen/roomkit_size_24"
+            android:paddingVertical="@dimen/roomkit_size_16">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -149,17 +149,17 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:lineSpacingExtra="2dp"
+                    android:layout_marginTop="@dimen/roomkit_size_5"
+                    android:lineSpacingExtra="@dimen/roomkit_stroke_width_focused"
                     android:text="@string/rk_manage_move_out_description"
                     android:textColor="@color/roomkit_text_secondary"
                     android:textSize="@dimen/roomkit_text_13" />
             </LinearLayout>
 
             <TextView
-                android:layout_width="24dp"
+                android:layout_width="@dimen/roomkit_size_24"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/roomkit_size_12"
                 android:gravity="center"
                 android:importantForAccessibility="no"
                 android:text="›"

@@ -12,19 +12,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="24dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="12dp">
+        android:paddingHorizontal="@dimen/roomkit_size_24"
+        android:paddingTop="@dimen/roomkit_size_20"
+        android:paddingBottom="@dimen/roomkit_size_12">
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/roomkit_touch_target"
+            android:layout_height="@dimen/roomkit_touch_target"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/mu_roomkit_back"
-            android:padding="8dp"
+            android:padding="@dimen/roomkit_size_8"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/roomkit_primary" />
 
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="@dimen/roomkit_size_12"
             android:layout_toEndOf="@id/btnBack"
             android:text="@string/mu_move_out_title"
             android:textColor="@color/roomkit_text_primary"
@@ -42,7 +42,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/roomkit_size_0"
         android:layout_weight="1"
         android:clipToPadding="false"
         android:fillViewport="true"
@@ -53,30 +53,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="24dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="24dp">
+            android:paddingHorizontal="@dimen/roomkit_size_24"
+            android:paddingTop="@dimen/roomkit_size_8"
+            android:paddingBottom="@dimen/roomkit_size_24">
 
             <!-- Dynamic Messages / Alerts -->
             <TextView
                 android:id="@+id/tvExistingInvoices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="@dimen/roomkit_size_12"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvSavedSettlement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="@dimen/roomkit_size_12"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnReloadMoveOut"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="@dimen/roomkit_size_12"
                 android:text="@string/mu_reload"
                 android:visibility="gone" />
 
@@ -84,7 +84,7 @@
                 android:id="@+id/tvMoveOutMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="@dimen/roomkit_size_12"
                 android:visibility="gone" />
 
             <!-- Rental Summary Section -->
@@ -92,23 +92,23 @@
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="@dimen/roomkit_size_8"
                 android:text="@string/mu_section_rental_summary" />
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.RoomKit.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/roomkit_size_16"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/roomkit_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="@dimen/roomkit_card_radius_medium">
 
                     <TextView
                         android:id="@+id/tvSummaryTenantName"
@@ -125,15 +125,15 @@
                         style="@style/TextAppearance.RoomKit.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
                         android:textColor="@color/roomkit_text_secondary"
                         android:textSize="@dimen/roomkit_text_14"
                         tools:text="Room 01 · Barce Residence" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="12dp"
+                        android:layout_height="@dimen/roomkit_stroke_width"
+                        android:layout_marginVertical="@dimen/roomkit_size_12"
                         android:background="@color/roomkit_divider" />
 
                     <LinearLayout
@@ -143,7 +143,7 @@
                         android:weightSum="2">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -161,7 +161,7 @@
                                 style="@style/TextAppearance.RoomKit.Body"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
+                                android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                                 android:textColor="@color/roomkit_text_primary"
                                 android:textSize="@dimen/roomkit_text_16"
                                 android:textStyle="bold"
@@ -169,7 +169,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -187,7 +187,7 @@
                                 style="@style/TextAppearance.RoomKit.Body"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
+                                android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                                 android:textColor="@color/roomkit_error_dark"
                                 android:textSize="@dimen/roomkit_text_16"
                                 android:textStyle="bold"
@@ -202,24 +202,24 @@
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="@dimen/roomkit_size_20"
+                android:layout_marginBottom="@dimen/roomkit_size_8"
                 android:text="@string/mu_section_move_out_date" />
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.RoomKit.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/roomkit_size_16"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/roomkit_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="@dimen/roomkit_card_radius_medium">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilMoveOutDate"
@@ -227,10 +227,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/mu_hint_move_out_date"
-                        app:boxCornerRadiusBottomEnd="14dp"
-                        app:boxCornerRadiusBottomStart="14dp"
-                        app:boxCornerRadiusTopEnd="14dp"
-                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusBottomStart="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopStart="@dimen/roomkit_button_radius_compact"
                         app:boxStrokeColor="@color/roomkit_primary"
                         app:endIconMode="none">
 
@@ -240,7 +240,7 @@
                             android:layout_height="wrap_content"
                             android:focusable="false"
                             android:inputType="date"
-                            android:minHeight="56dp"
+                            android:minHeight="@dimen/roomkit_control_height"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -252,24 +252,24 @@
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="@dimen/roomkit_size_20"
+                android:layout_marginBottom="@dimen/roomkit_size_8"
                 android:text="@string/mu_section_final_meters" />
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.RoomKit.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/roomkit_size_16"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/roomkit_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="@dimen/roomkit_card_radius_medium">
 
                     <!-- Electricity -->
                     <TextView
@@ -285,7 +285,7 @@
                         style="@style/TextAppearance.RoomKit.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                         android:textColor="@color/roomkit_text_secondary"
                         android:textSize="@dimen/roomkit_text_13"
                         tools:text="Last billed reading: 1,200 kWh" />
@@ -295,12 +295,12 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/roomkit_size_10"
                         android:hint="@string/mu_hint_final_electricity_reading"
-                        app:boxCornerRadiusBottomEnd="14dp"
-                        app:boxCornerRadiusBottomStart="14dp"
-                        app:boxCornerRadiusTopEnd="14dp"
-                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusBottomStart="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopStart="@dimen/roomkit_button_radius_compact"
                         app:boxStrokeColor="@color/roomkit_primary"
                         app:suffixText="kWh">
 
@@ -309,15 +309,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
-                            android:minHeight="56dp"
+                            android:minHeight="@dimen/roomkit_control_height"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="16dp"
+                        android:layout_height="@dimen/roomkit_stroke_width"
+                        android:layout_marginVertical="@dimen/roomkit_size_16"
                         android:background="@color/roomkit_divider" />
 
                     <!-- Water -->
@@ -334,7 +334,7 @@
                         style="@style/TextAppearance.RoomKit.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                         android:textColor="@color/roomkit_text_secondary"
                         android:textSize="@dimen/roomkit_text_13"
                         tools:text="Last billed reading: 60 m³" />
@@ -344,12 +344,12 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/roomkit_size_10"
                         android:hint="@string/mu_hint_final_water_reading"
-                        app:boxCornerRadiusBottomEnd="14dp"
-                        app:boxCornerRadiusBottomStart="14dp"
-                        app:boxCornerRadiusTopEnd="14dp"
-                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusBottomStart="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopStart="@dimen/roomkit_button_radius_compact"
                         app:boxStrokeColor="@color/roomkit_primary"
                         app:suffixText="m³">
 
@@ -358,7 +358,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
-                            android:minHeight="56dp"
+                            android:minHeight="@dimen/roomkit_control_height"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -368,7 +368,7 @@
                         style="@style/TextAppearance.RoomKit.Caption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/roomkit_size_8"
                         android:textColor="@color/roomkit_text_secondary"
                         android:textSize="@dimen/roomkit_text_13"
                         android:visibility="gone"
@@ -382,30 +382,30 @@
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="@dimen/roomkit_size_20"
+                android:layout_marginBottom="@dimen/roomkit_size_8"
                 android:text="@string/mu_section_additional_charges" />
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.RoomKit.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/roomkit_size_16"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/roomkit_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="@dimen/roomkit_card_radius_medium">
 
                     <TextView
                         style="@style/TextAppearance.RoomKit.Caption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="@dimen/roomkit_size_12"
                         android:text="@string/mu_helper_additional_charges"
                         android:textColor="@color/roomkit_text_muted"
                         android:textSize="@dimen/roomkit_text_12" />
@@ -419,15 +419,15 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilAdditionalRent"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="6dp"
+                            android:layout_marginEnd="@dimen/roomkit_size_6"
                             android:layout_weight="1"
                             android:hint="@string/mu_hint_additional_rent"
-                            app:boxCornerRadiusBottomEnd="14dp"
-                            app:boxCornerRadiusBottomStart="14dp"
-                            app:boxCornerRadiusTopEnd="14dp"
-                            app:boxCornerRadiusTopStart="14dp"
+                            app:boxCornerRadiusBottomEnd="@dimen/roomkit_button_radius_compact"
+                            app:boxCornerRadiusBottomStart="@dimen/roomkit_button_radius_compact"
+                            app:boxCornerRadiusTopEnd="@dimen/roomkit_button_radius_compact"
+                            app:boxCornerRadiusTopStart="@dimen/roomkit_button_radius_compact"
                             app:boxStrokeColor="@color/roomkit_primary"
                             app:prefixText="៛ ">
 
@@ -436,7 +436,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
-                                android:minHeight="56dp"
+                                android:minHeight="@dimen/roomkit_control_height"
                                 android:textColor="@color/roomkit_text_primary"
                                 android:textSize="@dimen/roomkit_text_15" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -444,15 +444,15 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilOtherFees"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
+                            android:layout_marginStart="@dimen/roomkit_size_6"
                             android:layout_weight="1"
                             android:hint="@string/mu_hint_other_fees"
-                            app:boxCornerRadiusBottomEnd="14dp"
-                            app:boxCornerRadiusBottomStart="14dp"
-                            app:boxCornerRadiusTopEnd="14dp"
-                            app:boxCornerRadiusTopStart="14dp"
+                            app:boxCornerRadiusBottomEnd="@dimen/roomkit_button_radius_compact"
+                            app:boxCornerRadiusBottomStart="@dimen/roomkit_button_radius_compact"
+                            app:boxCornerRadiusTopEnd="@dimen/roomkit_button_radius_compact"
+                            app:boxCornerRadiusTopStart="@dimen/roomkit_button_radius_compact"
                             app:boxStrokeColor="@color/roomkit_primary"
                             app:prefixText="៛ ">
 
@@ -461,7 +461,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
-                                android:minHeight="56dp"
+                                android:minHeight="@dimen/roomkit_control_height"
                                 android:textColor="@color/roomkit_text_primary"
                                 android:textSize="@dimen/roomkit_text_15" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -472,13 +472,13 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="@dimen/roomkit_size_12"
                         android:hint="@string/mu_hint_charge_explanation"
                         android:visibility="gone"
-                        app:boxCornerRadiusBottomEnd="14dp"
-                        app:boxCornerRadiusBottomStart="14dp"
-                        app:boxCornerRadiusTopEnd="14dp"
-                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusBottomStart="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopStart="@dimen/roomkit_button_radius_compact"
                         app:boxStrokeColor="@color/roomkit_primary"
                         tools:visibility="visible">
 
@@ -487,7 +487,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
-                            android:minHeight="56dp"
+                            android:minHeight="@dimen/roomkit_control_height"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -499,30 +499,30 @@
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="@dimen/roomkit_size_20"
+                android:layout_marginBottom="@dimen/roomkit_size_8"
                 android:text="@string/mu_section_deposit_settlement" />
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.RoomKit.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/roomkit_size_16"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/roomkit_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="@dimen/roomkit_card_radius_medium">
 
                     <TextView
                         style="@style/TextAppearance.RoomKit.Caption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="@dimen/roomkit_size_12"
                         android:text="@string/mu_helper_deposit_allocation"
                         android:textColor="@color/roomkit_text_muted"
                         android:textSize="@dimen/roomkit_text_12" />
@@ -532,12 +532,12 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="@dimen/roomkit_size_16"
                         android:hint="@string/mu_apply_deposit"
-                        app:boxCornerRadiusBottomEnd="14dp"
-                        app:boxCornerRadiusBottomStart="14dp"
-                        app:boxCornerRadiusTopEnd="14dp"
-                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusBottomStart="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopStart="@dimen/roomkit_button_radius_compact"
                         app:boxStrokeColor="@color/roomkit_primary"
                         app:prefixText="៛ ">
 
@@ -546,7 +546,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
-                            android:minHeight="56dp" />
+                            android:minHeight="@dimen/roomkit_control_height" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -555,10 +555,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/mu_hint_deposit_deductions"
-                        app:boxCornerRadiusBottomEnd="14dp"
-                        app:boxCornerRadiusBottomStart="14dp"
-                        app:boxCornerRadiusTopEnd="14dp"
-                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusBottomStart="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopStart="@dimen/roomkit_button_radius_compact"
                         app:boxStrokeColor="@color/roomkit_primary"
                         app:prefixText="៛ ">
 
@@ -567,7 +567,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
-                            android:minHeight="56dp"
+                            android:minHeight="@dimen/roomkit_control_height"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -577,13 +577,13 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="@dimen/roomkit_size_12"
                         android:hint="@string/mu_hint_deduction_reason"
                         android:visibility="gone"
-                        app:boxCornerRadiusBottomEnd="14dp"
-                        app:boxCornerRadiusBottomStart="14dp"
-                        app:boxCornerRadiusTopEnd="14dp"
-                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusBottomStart="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopEnd="@dimen/roomkit_button_radius_compact"
+                        app:boxCornerRadiusTopStart="@dimen/roomkit_button_radius_compact"
                         app:boxStrokeColor="@color/roomkit_primary"
                         tools:visibility="visible">
 
@@ -592,7 +592,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
-                            android:minHeight="56dp"
+                            android:minHeight="@dimen/roomkit_control_height"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="@dimen/roomkit_text_15" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -604,7 +604,7 @@
                 android:id="@+id/layoutRefundPaidContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/roomkit_size_12"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:visibility="gone"
@@ -625,20 +625,20 @@
                 style="@style/Widget.RoomKit.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/roomkit_size_20"
                 android:visibility="gone"
                 app:cardBackgroundColor="@color/roomkit_surface_subtle"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/roomkit_size_16"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_primary"
-                app:strokeWidth="1.5dp"
+                app:strokeWidth="@dimen/roomkit_size_1_5"
                 tools:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="@dimen/roomkit_card_radius_medium">
 
                     <TextView
                         style="@style/TextAppearance.RoomKit.ScreenTitle"
@@ -650,8 +650,8 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="12dp"
+                        android:layout_height="@dimen/roomkit_stroke_width"
+                        android:layout_marginVertical="@dimen/roomkit_size_12"
                         android:background="@color/roomkit_divider" />
 
                     <include
@@ -682,7 +682,7 @@
                         style="@style/TextAppearance.RoomKit.Caption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="@dimen/roomkit_size_12"
                         android:text="@string/mu_helper_remaining_debt_acknowledgement"
                         android:textColor="@color/roomkit_text_secondary"
                         android:textSize="@dimen/roomkit_text_12" />
@@ -691,7 +691,7 @@
                         android:id="@+id/cbAcknowledge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="48dp"
+                        android:minHeight="@dimen/roomkit_touch_target"
                         android:text="@string/mu_ack" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -704,24 +704,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/roomkit_white"
-        android:elevation="8dp"
+        android:elevation="@dimen/roomkit_size_8"
         android:orientation="vertical"
-        android:paddingHorizontal="24dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="20dp">
+        android:paddingHorizontal="@dimen/roomkit_size_24"
+        android:paddingTop="@dimen/roomkit_size_12"
+        android:paddingBottom="@dimen/roomkit_size_20">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPrimaryAction"
             style="@style/Widget.RoomKit.PrimaryButton"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="@dimen/roomkit_control_height"
             android:text="@string/mu_action_review_settlement"
             android:textAllCaps="false"
             android:textColor="@color/roomkit_white"
             android:textSize="@dimen/roomkit_text_16"
             android:textStyle="bold"
             app:backgroundTint="@color/roomkit_primary"
-            app:cornerRadius="18dp" />
+            app:cornerRadius="@dimen/roomkit_card_radius_medium" />
     </LinearLayout>
 
 </LinearLayout>

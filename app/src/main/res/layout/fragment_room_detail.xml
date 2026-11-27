@@ -21,8 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="24dp"
-            android:paddingTop="20dp">
+            android:paddingHorizontal="@dimen/roomkit_size_24"
+            android:paddingTop="@dimen/roomkit_size_20">
 
             <!-- Top Header -->
             <RelativeLayout
@@ -31,13 +31,13 @@
 
                 <ImageView
                     android:id="@+id/btnBack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/roomkit_size_40"
+                    android:layout_height="@dimen/roomkit_size_40"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Back"
-                    android:padding="8dp"
+                    android:padding="@dimen/roomkit_size_8"
                     android:src="@drawable/ic_arrow_back"
                     app:tint="@color/roomkit_primary" />
 
@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="@dimen/roomkit_size_12"
                     android:layout_toStartOf="@id/btnEditRoom"
                     android:layout_toEndOf="@id/btnBack"
                     android:orientation="vertical">
@@ -66,7 +66,7 @@
                         style="@style/TextAppearance.RoomKit.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:textColor="@color/roomkit_text_secondary"
@@ -76,13 +76,13 @@
 
                 <ImageButton
                     android:id="@+id/btnEditRoom"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
+                    android:layout_width="@dimen/roomkit_size_44"
+                    android:layout_height="@dimen/roomkit_size_44"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/bg_btn_icon_neutral"
                     android:contentDescription="Edit Room"
-                    android:padding="10dp"
+                    android:padding="@dimen/roomkit_size_10"
                     android:src="@drawable/ic_edit"
                     app:tint="@color/roomkit_primary" />
             </RelativeLayout>
@@ -92,17 +92,17 @@
                 style="@style/Widget.RoomKit.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
+                android:layout_marginTop="@dimen/roomkit_size_20"
+                app:cardCornerRadius="@dimen/roomkit_size_20"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/roomkit_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="@dimen/roomkit_size_20">
 
                     <!-- Top Row: Status Badge & Monthly Rent -->
                     <RelativeLayout
@@ -116,11 +116,11 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:drawablePadding="6dp"
+                            android:drawablePadding="@dimen/roomkit_size_6"
                             android:gravity="center_vertical"
                             android:includeFontPadding="false"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="@dimen/roomkit_size_10"
+                            android:paddingVertical="@dimen/roomkit_size_5"
                             android:textSize="@dimen/roomkit_text_12"
                             android:textStyle="bold"
                             app:drawableStartCompat="@drawable/ic_rd_status_dot"
@@ -154,7 +154,7 @@
                             style="@style/TextAppearance.RoomKit.Body"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="@dimen/roomkit_size_16"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="@dimen/roomkit_text_18"
                             android:textStyle="bold"
@@ -164,13 +164,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/roomkit_size_8"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
+                                android:layout_width="@dimen/roomkit_size_16"
+                                android:layout_height="@dimen/roomkit_size_16"
                                 android:contentDescription="Phone"
                                 android:src="@drawable/ic_phone"
                                 app:tint="@color/roomkit_text_muted" />
@@ -180,7 +180,7 @@
                                 style="@style/TextAppearance.RoomKit.Caption"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="@dimen/roomkit_size_8"
                                 android:textColor="@color/roomkit_text_secondary"
                                 android:textSize="@dimen/roomkit_text_14"
                                 tools:text="+855 12 345 678" />
@@ -190,13 +190,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="@dimen/roomkit_size_6"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
+                                android:layout_width="@dimen/roomkit_size_16"
+                                android:layout_height="@dimen/roomkit_size_16"
                                 android:contentDescription="Moved in"
                                 android:src="@drawable/ic_calender"
                                 app:tint="@color/roomkit_text_muted" />
@@ -206,7 +206,7 @@
                                 style="@style/TextAppearance.RoomKit.Caption"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="@dimen/roomkit_size_8"
                                 android:textColor="@color/roomkit_text_secondary"
                                 android:textSize="@dimen/roomkit_text_14"
                                 tools:text="Moved in Aug 21, 2026" />
@@ -214,8 +214,8 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginVertical="16dp"
+                            android:layout_height="@dimen/roomkit_stroke_width"
+                            android:layout_marginVertical="@dimen/roomkit_size_16"
                             android:background="@color/roomkit_divider" />
 
                         <!-- Deposit Display -->
@@ -232,7 +232,7 @@
                             style="@style/TextAppearance.RoomKit.Body"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="@dimen/roomkit_text_18"
                             android:textStyle="bold"
@@ -252,7 +252,7 @@
                             style="@style/TextAppearance.RoomKit.Body"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="@dimen/roomkit_size_16"
                             android:text="No active tenant"
                             android:textColor="@color/roomkit_text_secondary"
                             android:textSize="@dimen/roomkit_text_15" />
@@ -261,7 +261,7 @@
                             style="@style/TextAppearance.RoomKit.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/roomkit_spacing_xs"
                             android:text="This room is vacant and ready for tenant assignment."
                             android:textColor="@color/roomkit_text_muted" />
 
@@ -269,10 +269,10 @@
                             android:id="@+id/btnAssignTenantQuick"
                             style="@style/Widget.RoomKit.PrimaryButton"
                             android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="16dp"
+                            android:layout_height="@dimen/roomkit_touch_target"
+                            android:layout_marginTop="@dimen/roomkit_size_16"
                             android:text="Assign Tenant"
-                            app:cornerRadius="16dp" />
+                            app:cornerRadius="@dimen/roomkit_size_16" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -284,7 +284,7 @@
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/roomkit_size_24"
                 android:letterSpacing="0.08"
                 tools:text="OCT 2026 READINGS" />
 
@@ -293,17 +293,17 @@
                 style="@style/Widget.RoomKit.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
+                android:layout_marginTop="@dimen/roomkit_size_12"
+                app:cardCornerRadius="@dimen/roomkit_size_20"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/roomkit_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="@dimen/roomkit_card_radius_medium">
 
                     <!-- Electricity Sub-block -->
                     <LinearLayout
@@ -313,8 +313,8 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="@dimen/roomkit_card_radius_medium"
+                            android:layout_height="@dimen/roomkit_card_radius_medium"
                             android:contentDescription="Electricity"
                             android:src="@drawable/ic_bolt"
                             app:tint="@color/roomkit_primary" />
@@ -323,7 +323,7 @@
                             style="@style/TextAppearance.RoomKit.Body"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="@dimen/roomkit_size_8"
                             android:text="Electricity"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="@dimen/roomkit_text_16"
@@ -334,13 +334,13 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="@dimen/roomkit_size_12"
                         android:baselineAligned="false"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -358,7 +358,7 @@
                                 style="@style/TextAppearance.RoomKit.Body"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/roomkit_spacing_xs"
                                 android:textColor="@color/roomkit_text_primary"
                                 android:textSize="@dimen/roomkit_text_15"
                                 android:textStyle="bold"
@@ -366,7 +366,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -384,7 +384,7 @@
                                 style="@style/TextAppearance.RoomKit.Body"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/roomkit_spacing_xs"
                                 android:textColor="@color/roomkit_text_primary"
                                 android:textSize="@dimen/roomkit_text_15"
                                 android:textStyle="bold"
@@ -392,7 +392,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -410,7 +410,7 @@
                                 style="@style/TextAppearance.RoomKit.Body"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/roomkit_spacing_xs"
                                 android:textColor="@color/roomkit_primary"
                                 android:textSize="@dimen/roomkit_text_15"
                                 android:textStyle="bold"
@@ -420,8 +420,8 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="16dp"
+                        android:layout_height="@dimen/roomkit_stroke_width"
+                        android:layout_marginVertical="@dimen/roomkit_size_16"
                         android:background="@color/roomkit_divider" />
 
                     <!-- Water Sub-block -->
@@ -432,8 +432,8 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="@dimen/roomkit_card_radius_medium"
+                            android:layout_height="@dimen/roomkit_card_radius_medium"
                             android:contentDescription="Water"
                             android:src="@drawable/ic_water"
                             app:tint="@color/roomkit_primary" />
@@ -443,7 +443,7 @@
                             style="@style/TextAppearance.RoomKit.Body"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="@dimen/roomkit_size_8"
                             android:text="Water"
                             android:textColor="@color/roomkit_text_primary"
                             android:textSize="@dimen/roomkit_text_16"
@@ -455,7 +455,7 @@
                         android:id="@+id/layoutFixedWaterRow"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="@dimen/roomkit_size_12"
                         android:visibility="gone"
                         tools:visibility="visible">
 
@@ -478,7 +478,7 @@
                                 style="@style/TextAppearance.RoomKit.Caption"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
+                                android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                                 android:text="No meter reading required"
                                 android:textColor="@color/roomkit_text_muted"
                                 android:textSize="@dimen/roomkit_text_12" />
@@ -502,13 +502,13 @@
                         android:id="@+id/layoutMeteredWaterGrid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="@dimen/roomkit_size_12"
                         android:baselineAligned="false"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -526,7 +526,7 @@
                                 style="@style/TextAppearance.RoomKit.Body"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/roomkit_spacing_xs"
                                 android:textColor="@color/roomkit_text_primary"
                                 android:textSize="@dimen/roomkit_text_15"
                                 android:textStyle="bold"
@@ -534,7 +534,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -552,7 +552,7 @@
                                 style="@style/TextAppearance.RoomKit.Body"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/roomkit_spacing_xs"
                                 android:textColor="@color/roomkit_text_primary"
                                 android:textSize="@dimen/roomkit_text_15"
                                 android:textStyle="bold"
@@ -560,7 +560,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -578,7 +578,7 @@
                                 style="@style/TextAppearance.RoomKit.Body"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/roomkit_spacing_xs"
                                 android:textColor="@color/roomkit_primary"
                                 android:textSize="@dimen/roomkit_text_15"
                                 android:textStyle="bold"
@@ -595,7 +595,7 @@
                 style="@style/TextAppearance.RoomKit.CardLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/roomkit_size_24"
                 android:letterSpacing="0.08"
                 tools:text="OCT 2026 INVOICE" />
 
@@ -604,17 +604,17 @@
                 style="@style/Widget.RoomKit.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
+                android:layout_marginTop="@dimen/roomkit_size_12"
+                app:cardCornerRadius="@dimen/roomkit_size_20"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/roomkit_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="@dimen/roomkit_size_20">
 
                     <!-- Invoice Header & Status Badge -->
                     <RelativeLayout
@@ -638,11 +638,11 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:drawablePadding="6dp"
+                            android:drawablePadding="@dimen/roomkit_size_6"
                             android:gravity="center_vertical"
                             android:includeFontPadding="false"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="@dimen/roomkit_size_10"
+                            android:paddingVertical="@dimen/roomkit_size_5"
                             android:textSize="@dimen/roomkit_text_12"
                             android:textStyle="bold"
                             app:drawableStartCompat="@drawable/ic_rd_status_dot"
@@ -663,7 +663,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp">
+                            android:layout_marginTop="@dimen/roomkit_size_16">
 
                             <TextView
                                 style="@style/TextAppearance.RoomKit.Body"
@@ -688,7 +688,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="@dimen/roomkit_size_10">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -729,7 +729,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="@dimen/roomkit_size_10">
 
                             <TextView
                                 android:id="@+id/tvInvoiceWaterLabel"
@@ -756,7 +756,7 @@
                             android:id="@+id/rowRubbish"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="@dimen/roomkit_size_10">
 
                             <TextView
                                 style="@style/TextAppearance.RoomKit.Body"
@@ -781,7 +781,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="@dimen/roomkit_size_10">
 
                             <TextView
                                 style="@style/TextAppearance.RoomKit.Body"
@@ -805,8 +805,8 @@
                         <!-- Divider -->
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginVertical="14dp"
+                            android:layout_height="@dimen/roomkit_stroke_width"
+                            android:layout_marginVertical="@dimen/roomkit_button_radius_compact"
                             android:background="@color/roomkit_divider" />
 
                         <!-- Invoice Total & Due Date -->
@@ -835,7 +835,7 @@
                                     style="@style/TextAppearance.RoomKit.Caption"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="2dp"
+                                    android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                                     android:textColor="@color/roomkit_text_secondary"
                                     android:textSize="@dimen/roomkit_text_12"
                                     tools:text="Due Nov 5, 2026" />
@@ -861,7 +861,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:paddingVertical="12dp"
+                        android:paddingVertical="@dimen/roomkit_size_12"
                         android:visibility="gone"
                         tools:visibility="gone">
 
@@ -879,7 +879,7 @@
                             style="@style/TextAppearance.RoomKit.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/roomkit_spacing_xs"
                             android:text="Record meter readings to calculate and generate this cycle's bill."
                             android:textColor="@color/roomkit_text_secondary"
                             android:textSize="@dimen/roomkit_text_13" />
@@ -892,7 +892,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/roomkit_size_24"
                 android:orientation="vertical">
 
                 <!-- 1. PRIMARY: View Invoice -->
@@ -900,38 +900,38 @@
                     android:id="@+id/btnViewInvoice"
                     style="@style/Widget.RoomKit.PrimaryButton"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="@dimen/roomkit_button_height"
                     android:text="View Invoice"
                     android:textSize="@dimen/roomkit_text_15"
-                    app:cornerRadius="16dp" />
+                    app:cornerRadius="@dimen/roomkit_size_16" />
 
                 <!-- 2. SECONDARY: Record Meter -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRecordMeter"
                     style="@style/Widget.RoomKit.Button.NeutralSurface"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_height="@dimen/roomkit_touch_target"
+                    android:layout_marginTop="@dimen/roomkit_size_12"
                     android:text="Record Meter"
                     android:textColor="@color/roomkit_primary"
                     android:textSize="@dimen/roomkit_text_14"
-                    app:cornerRadius="16dp"
+                    app:cornerRadius="@dimen/roomkit_size_16"
                     app:strokeColor="@color/roomkit_border"
-                    app:strokeWidth="1dp" />
+                    app:strokeWidth="@dimen/roomkit_stroke_width" />
 
                 <!-- 3. TERTIARY: Manage Tenancy -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnManageTenancy"
                     style="@style/Widget.RoomKit.Button.NeutralSurface"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_height="@dimen/roomkit_touch_target"
+                    android:layout_marginTop="@dimen/roomkit_size_12"
                     android:text="Manage Tenancy"
                     android:textColor="@color/roomkit_text_secondary"
                     android:textSize="@dimen/roomkit_text_14"
-                    app:cornerRadius="16dp"
+                    app:cornerRadius="@dimen/roomkit_size_16"
                     app:strokeColor="@color/roomkit_border"
-                    app:strokeWidth="1dp" />
+                    app:strokeWidth="@dimen/roomkit_stroke_width" />
             </LinearLayout>
 
         </LinearLayout>

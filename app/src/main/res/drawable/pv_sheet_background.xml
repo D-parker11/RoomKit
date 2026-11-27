@@ -5,7 +5,7 @@
     <solid android:color="@color/roomkit_white" />
 
     <corners
-        android:topLeftRadius="28dp"
-        android:topRightRadius="28dp" />
+        android:topLeftRadius="@dimen/roomkit_spacing_xxl"
+        android:topRightRadius="@dimen/roomkit_spacing_xxl" />
 
 </shape>

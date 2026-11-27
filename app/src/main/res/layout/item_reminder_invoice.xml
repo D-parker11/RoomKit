@@ -6,8 +6,8 @@
     style="@style/Widget.RoomKit.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="18dp">
+    android:layout_marginBottom="@dimen/roomkit_size_12"
+    app:cardCornerRadius="@dimen/roomkit_card_radius_medium">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="@dimen/roomkit_size_16">
 
             <!-- Room, Tenant & Status Badges Row -->
             <LinearLayout
@@ -29,9 +29,9 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/roomkit_size_8"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -49,7 +49,7 @@
                         style="@style/TextAppearance.RoomKit.Caption.Secondary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
                         tools:text="GMengz · Invoice #0020" />
                 </LinearLayout>
 
@@ -64,11 +64,11 @@
                         style="@style/TextAppearance.RoomKit.Caption.Secondary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="6dp"
+                        android:drawablePadding="@dimen/roomkit_size_6"
                         android:gravity="center_vertical"
                         android:includeFontPadding="false"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="@dimen/roomkit_size_10"
+                        android:paddingVertical="@dimen/roomkit_size_5"
                         android:textSize="@dimen/roomkit_text_12"
                         android:textStyle="bold"
                         app:drawableStartCompat="@drawable/ic_rd_status_dot"
@@ -82,12 +82,12 @@
                         style="@style/TextAppearance.RoomKit.Caption.Secondary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:drawablePadding="6dp"
+                        android:layout_marginStart="@dimen/roomkit_size_6"
+                        android:drawablePadding="@dimen/roomkit_size_6"
                         android:gravity="center_vertical"
                         android:includeFontPadding="false"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="@dimen/roomkit_size_10"
+                        android:paddingVertical="@dimen/roomkit_size_5"
                         android:textSize="@dimen/roomkit_text_12"
                         android:textStyle="bold"
                         app:drawableStartCompat="@drawable/ic_rd_status_dot"
@@ -103,7 +103,7 @@
                 style="@style/TextAppearance.RoomKit.Caption.Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/roomkit_size_16"
                 android:text="@string/rr_balance" />
 
             <TextView
@@ -111,7 +111,7 @@
                 style="@style/TextAppearance.RoomKit.Body.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/roomkit_spacing_xs"
                 android:fontFamily="sans-serif-medium"
                 android:textSize="@dimen/roomkit_text_29"
                 android:textStyle="bold"
@@ -121,12 +121,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/roomkit_size_16"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
@@ -142,19 +142,19 @@
                         style="@style/TextAppearance.RoomKit.Body.Primary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
                         android:textSize="@dimen/roomkit_text_13"
                         tools:text="Nov 5, 2026" />
                 </LinearLayout>
 
                 <View
-                    android:layout_width="1dp"
+                    android:layout_width="@dimen/roomkit_stroke_width"
                     android:layout_height="match_parent"
-                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginHorizontal="@dimen/roomkit_button_radius_compact"
                     android:background="@color/roomkit_border" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.25"
                     android:orientation="vertical">
@@ -170,7 +170,7 @@
                         style="@style/TextAppearance.RoomKit.Body.Primary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
                         android:textSize="@dimen/roomkit_text_13"
                         tools:text="Nov 2 · 9:00 AM" />
                 </LinearLayout>
@@ -180,7 +180,7 @@
         <!-- Divider -->
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/roomkit_stroke_width"
             android:background="@color/roomkit_border" />
 
         <!-- Open Invoice Action Row -->
@@ -193,30 +193,30 @@
             android:contentDescription="@string/rr_open"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:minHeight="52dp"
+            android:minHeight="@dimen/roomkit_action_height"
             android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp">
+            android:paddingHorizontal="@dimen/roomkit_size_16"
+            android:paddingVertical="@dimen/roomkit_size_12">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="@dimen/roomkit_size_22"
+                android:layout_height="@dimen/roomkit_size_22"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_billing" />
 
             <TextView
                 style="@style/TextAppearance.RoomKit.Body.Primary"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/roomkit_size_12"
                 android:layout_weight="1"
                 android:importantForAccessibility="no"
                 android:text="@string/rr_open"
                 android:textStyle="bold" />
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="@dimen/roomkit_card_radius_medium"
+                android:layout_height="@dimen/roomkit_card_radius_medium"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ref_chvron"
                 app:tint="@color/roomkit_text_secondary" />

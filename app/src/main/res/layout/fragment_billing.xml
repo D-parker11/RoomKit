@@ -18,9 +18,9 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="20dp">
+        android:paddingHorizontal="@dimen/roomkit_size_20"
+        android:paddingTop="@dimen/roomkit_card_radius_medium"
+        android:paddingBottom="@dimen/roomkit_size_20">
 
         <!-- Screen Header -->
         <androidx.appcompat.widget.AppCompatTextView
@@ -37,7 +37,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/roomkit_size_6"
             android:fontFamily="sans"
             android:includeFontPadding="false"
             android:text="@string/rb_subtitle"
@@ -48,12 +48,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/roomkit_size_20"
             app:cardBackgroundColor="@color/roomkit_white"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/roomkit_card_radius_medium"
+            app:cardElevation="@dimen/roomkit_size_0"
             app:strokeColor="@color/roomkit_border"
-            app:strokeWidth="1dp">
+            app:strokeWidth="@dimen/roomkit_stroke_width">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,25 +63,25 @@
 
                 <ImageButton
                     android:id="@+id/btnPrevMonth"
-                    android:layout_width="48dp"
-                    android:layout_height="52dp"
+                    android:layout_width="@dimen/roomkit_touch_target"
+                    android:layout_height="@dimen/roomkit_action_height"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Previous month"
-                    android:padding="13dp"
+                    android:padding="@dimen/roomkit_size_13"
                     android:src="@drawable/ic_rb_left"
                     app:tint="@color/roomkit_text_primary" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_width="@dimen/roomkit_size_22"
+                        android:layout_height="@dimen/roomkit_size_22"
+                        android:layout_marginEnd="@dimen/roomkit_size_10"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_calender"
                         app:tint="@color/roomkit_text_primary" />
@@ -99,11 +99,11 @@
 
                 <ImageButton
                     android:id="@+id/btnNextMonth"
-                    android:layout_width="48dp"
-                    android:layout_height="52dp"
+                    android:layout_width="@dimen/roomkit_touch_target"
+                    android:layout_height="@dimen/roomkit_action_height"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Next month"
-                    android:padding="13dp"
+                    android:padding="@dimen/roomkit_size_13"
                     android:src="@drawable/ic_rb_right"
                     app:tint="@color/roomkit_text_primary" />
             </LinearLayout>
@@ -114,8 +114,8 @@
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressBilling"
             android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="@dimen/roomkit_spacing_xs"
+            android:layout_marginTop="@dimen/roomkit_size_12"
             android:indeterminate="true"
             android:visibility="gone"
             app:indicatorColor="@color/roomkit_text_primary" />
@@ -131,18 +131,18 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/roomkit_size_16"
                 app:cardBackgroundColor="@color/roomkit_white"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/roomkit_card_radius_medium"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/roomkit_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="@dimen/roomkit_card_radius_medium">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
@@ -157,7 +157,7 @@
                         android:id="@+id/tvOutstandingAmount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginTop="@dimen/roomkit_size_7"
                         android:fontFamily="sans"
                         android:includeFontPadding="false"
                         android:maxLines="1"
@@ -172,8 +172,8 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="16dp"
+                        android:layout_height="@dimen/roomkit_stroke_width"
+                        android:layout_marginVertical="@dimen/roomkit_size_16"
                         android:background="@color/roomkit_border" />
 
                     <!-- Metrics Columns -->
@@ -186,7 +186,7 @@
 
                         <!-- Unpaid Count -->
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -206,7 +206,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
+                                android:layout_marginTop="@dimen/roomkit_size_6"
                                 android:fontFamily="sans"
                                 android:gravity="center"
                                 android:includeFontPadding="false"
@@ -216,13 +216,13 @@
                         </LinearLayout>
 
                         <View
-                            android:layout_width="1dp"
-                            android:layout_height="44dp"
+                            android:layout_width="@dimen/roomkit_stroke_width"
+                            android:layout_height="@dimen/roomkit_size_44"
                             android:background="@color/roomkit_border" />
 
                         <!-- Paid Count -->
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -242,7 +242,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
+                                android:layout_marginTop="@dimen/roomkit_size_6"
                                 android:fontFamily="sans"
                                 android:gravity="center"
                                 android:includeFontPadding="false"
@@ -252,13 +252,13 @@
                         </LinearLayout>
 
                         <View
-                            android:layout_width="1dp"
-                            android:layout_height="44dp"
+                            android:layout_width="@dimen/roomkit_stroke_width"
+                            android:layout_height="@dimen/roomkit_size_44"
                             android:background="@color/roomkit_border" />
 
                         <!-- Void Count -->
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/roomkit_size_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -278,7 +278,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
+                                android:layout_marginTop="@dimen/roomkit_size_6"
                                 android:fontFamily="sans"
                                 android:gravity="center"
                                 android:includeFontPadding="false"
@@ -292,7 +292,7 @@
                         android:id="@+id/tvSummaryNote"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/roomkit_size_16"
                         android:fontFamily="sans"
                         android:includeFontPadding="false"
                         android:text="@string/rb_exclusions"
@@ -304,32 +304,32 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/roomkit_button_radius_compact"
                 app:cardBackgroundColor="@color/roomkit_white"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/roomkit_card_radius_medium"
+                app:cardElevation="@dimen/roomkit_size_0"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/roomkit_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="14dp">
+                    android:paddingHorizontal="@dimen/roomkit_button_radius_compact">
 
                     <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="@dimen/roomkit_size_22"
+                        android:layout_height="@dimen/roomkit_size_22"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_search"
                         app:tint="@color/roomkit_text_primary" />
 
                     <EditText
                         android:id="@+id/etSearchInvoices"
-                        android:layout_width="0dp"
-                        android:layout_height="52dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_width="@dimen/roomkit_size_0"
+                        android:layout_height="@dimen/roomkit_action_height"
+                        android:layout_marginStart="@dimen/roomkit_size_10"
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="@string/search"
@@ -346,7 +346,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/roomkit_size_12"
                 android:baselineAligned="false"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -354,12 +354,12 @@
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipAll"
                     style="@style/Widget.RoomKit.Chip.Filter"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="@dimen/roomkit_size_6"
                     android:layout_weight="1"
-                    android:minWidth="0dp"
-                    android:minHeight="48dp"
+                    android:minWidth="@dimen/roomkit_size_0"
+                    android:minHeight="@dimen/roomkit_touch_target"
                     android:checkable="true"
                     android:ellipsize="end"
                     android:text="@string/rb_all"
@@ -367,21 +367,21 @@
                     android:textSize="@dimen/roomkit_text_12"
                     app:checkedIconVisible="false"
                     app:chipIconVisible="false"
-                    app:chipMinHeight="40dp"
-                    app:chipStartPadding="4dp"
-                    app:chipEndPadding="4dp"
-                    app:textStartPadding="2dp"
-                    app:textEndPadding="2dp" />
+                    app:chipMinHeight="@dimen/roomkit_size_40"
+                    app:chipStartPadding="@dimen/roomkit_spacing_xs"
+                    app:chipEndPadding="@dimen/roomkit_spacing_xs"
+                    app:textStartPadding="@dimen/roomkit_stroke_width_focused"
+                    app:textEndPadding="@dimen/roomkit_stroke_width_focused" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipUnpaid"
                     style="@style/Widget.RoomKit.Chip.Filter"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="@dimen/roomkit_size_6"
                     android:layout_weight="1"
-                    android:minWidth="0dp"
-                    android:minHeight="48dp"
+                    android:minWidth="@dimen/roomkit_size_0"
+                    android:minHeight="@dimen/roomkit_touch_target"
                     android:checkable="true"
                     android:ellipsize="end"
                     android:text="@string/rb_unpaid"
@@ -389,21 +389,21 @@
                     android:textSize="@dimen/roomkit_text_12"
                     app:checkedIconVisible="false"
                     app:chipIconVisible="false"
-                    app:chipMinHeight="40dp"
-                    app:chipStartPadding="4dp"
-                    app:chipEndPadding="4dp"
-                    app:textStartPadding="2dp"
-                    app:textEndPadding="2dp" />
+                    app:chipMinHeight="@dimen/roomkit_size_40"
+                    app:chipStartPadding="@dimen/roomkit_spacing_xs"
+                    app:chipEndPadding="@dimen/roomkit_spacing_xs"
+                    app:textStartPadding="@dimen/roomkit_stroke_width_focused"
+                    app:textEndPadding="@dimen/roomkit_stroke_width_focused" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipPaid"
                     style="@style/Widget.RoomKit.Chip.Filter"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="@dimen/roomkit_size_6"
                     android:layout_weight="1"
-                    android:minWidth="0dp"
-                    android:minHeight="48dp"
+                    android:minWidth="@dimen/roomkit_size_0"
+                    android:minHeight="@dimen/roomkit_touch_target"
                     android:checkable="true"
                     android:ellipsize="end"
                     android:text="@string/rb_paid"
@@ -411,20 +411,20 @@
                     android:textSize="@dimen/roomkit_text_12"
                     app:checkedIconVisible="false"
                     app:chipIconVisible="false"
-                    app:chipMinHeight="40dp"
-                    app:chipStartPadding="4dp"
-                    app:chipEndPadding="4dp"
-                    app:textStartPadding="2dp"
-                    app:textEndPadding="2dp" />
+                    app:chipMinHeight="@dimen/roomkit_size_40"
+                    app:chipStartPadding="@dimen/roomkit_spacing_xs"
+                    app:chipEndPadding="@dimen/roomkit_spacing_xs"
+                    app:textStartPadding="@dimen/roomkit_stroke_width_focused"
+                    app:textEndPadding="@dimen/roomkit_stroke_width_focused" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipMore"
                     style="@style/Widget.RoomKit.Chip.Filter"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:minWidth="0dp"
-                    android:minHeight="48dp"
+                    android:minWidth="@dimen/roomkit_size_0"
+                    android:minHeight="@dimen/roomkit_touch_target"
                     android:checkable="true"
                     android:contentDescription="@string/rb_more"
                     android:ellipsize="end"
@@ -433,15 +433,15 @@
                     android:textSize="@dimen/roomkit_text_12"
                     app:checkedIconVisible="false"
                     app:chipIconVisible="false"
-                    app:chipMinHeight="40dp"
-                    app:chipStartPadding="4dp"
-                    app:chipEndPadding="4dp"
-                    app:textStartPadding="2dp"
-                    app:textEndPadding="2dp"
+                    app:chipMinHeight="@dimen/roomkit_size_40"
+                    app:chipStartPadding="@dimen/roomkit_spacing_xs"
+                    app:chipEndPadding="@dimen/roomkit_spacing_xs"
+                    app:textStartPadding="@dimen/roomkit_stroke_width_focused"
+                    app:textEndPadding="@dimen/roomkit_stroke_width_focused"
                     app:closeIcon="@drawable/rc_rb_down"
-                    app:closeIconSize="14dp"
-                    app:closeIconStartPadding="2dp"
-                    app:closeIconEndPadding="0dp"
+                    app:closeIconSize="@dimen/roomkit_button_radius_compact"
+                    app:closeIconStartPadding="@dimen/roomkit_stroke_width_focused"
+                    app:closeIconEndPadding="@dimen/roomkit_size_0"
                     app:closeIconTint="@color/roomkit_filter_text"
                     app:closeIconVisible="true" />
 
@@ -451,14 +451,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginTop="@dimen/roomkit_size_10"
+                android:layout_marginBottom="@dimen/roomkit_size_12"
                 android:baselineAligned="false"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:accessibilityHeading="true"
@@ -495,7 +495,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingVertical="32dp"
+                android:paddingVertical="@dimen/roomkit_size_32"
                 android:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -513,7 +513,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/roomkit_size_8"
                     android:fontFamily="sans"
                     android:gravity="center"
                     android:includeFontPadding="false"

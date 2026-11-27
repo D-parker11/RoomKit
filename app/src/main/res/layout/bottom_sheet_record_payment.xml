@@ -11,18 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="24dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="24dp">
+        android:paddingHorizontal="@dimen/roomkit_size_24"
+        android:paddingTop="@dimen/roomkit_size_12"
+        android:paddingBottom="@dimen/roomkit_size_24">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="36dp"
-            android:layout_height="4dp"
+            android:layout_width="@dimen/roomkit_size_36"
+            android:layout_height="@dimen/roomkit_spacing_xs"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="@dimen/roomkit_size_20"
             app:cardBackgroundColor="@color/roomkit_slate_300"
-            app:cardCornerRadius="2dp"
-            app:cardElevation="0dp" />
+            app:cardCornerRadius="@dimen/roomkit_stroke_width_focused"
+            app:cardElevation="@dimen/roomkit_size_0" />
 
         <TextView
             android:layout_width="match_parent"
@@ -37,24 +37,24 @@
             android:id="@+id/tvPaymentHeaderSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/roomkit_spacing_xs"
             android:textSize="@dimen/roomkit_text_14"
             android:textColor="?android:attr/textColorSecondary" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/roomkit_size_20"
             app:cardBackgroundColor="@color/roomkit_slate_100"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="0dp"
-            app:strokeWidth="0dp">
+            app:cardCornerRadius="@dimen/roomkit_size_20"
+            app:cardElevation="@dimen/roomkit_size_0"
+            app:strokeWidth="@dimen/roomkit_size_0">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="@dimen/roomkit_size_20">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                     android:id="@+id/tvPaymentRemaining"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/roomkit_spacing_xs"
                     android:textSize="@dimen/roomkit_text_30"
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/roomkit_text_primary" />
@@ -75,7 +75,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/roomkit_spacing_xs"
                     android:text="Includes earlier unpaid invoices. Later months are excluded."
                     android:textSize="@dimen/roomkit_text_12"
                     android:textColor="@color/roomkit_slate_medium" />
@@ -83,13 +83,13 @@
                 <TextView
                     android:id="@+id/tvCarryForwardBreakdown"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp" android:textSize="@dimen/roomkit_text_13"
-                    android:lineSpacingExtra="4dp" android:textColor="@color/roomkit_slate_medium" />
+                    android:layout_marginTop="@dimen/roomkit_size_12" android:textSize="@dimen/roomkit_text_13"
+                    android:lineSpacingExtra="@dimen/roomkit_spacing_xs" android:textColor="@color/roomkit_slate_medium" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="16dp"
+                    android:layout_height="@dimen/roomkit_stroke_width"
+                    android:layout_marginVertical="@dimen/roomkit_size_16"
                     android:background="@color/roomkit_slate_250" />
 
                 <LinearLayout
@@ -98,10 +98,10 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/roomkit_size_0"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:paddingEnd="8dp"
+                        android:paddingEnd="@dimen/roomkit_size_8"
                         android:orientation="vertical">
 
                         <TextView
@@ -115,14 +115,14 @@
                             android:id="@+id/tvPaymentTotalAmount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/roomkit_spacing_xs"
                             android:textSize="@dimen/roomkit_text_15"
                             android:fontFamily="sans-serif-medium"
                             android:textColor="@color/roomkit_text_primary" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/roomkit_size_0"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
@@ -138,7 +138,7 @@
                             android:id="@+id/tvPaymentAlreadyPaid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/roomkit_spacing_xs"
                             android:textSize="@dimen/roomkit_text_15"
                             android:fontFamily="sans-serif-medium"
                             android:textColor="@color/roomkit_green_800" />
@@ -152,19 +152,19 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/roomkit_size_24"
             android:hint="Amount received"
             app:suffixText="KHR"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusBottomEnd="16dp">
+            app:boxCornerRadiusTopStart="@dimen/roomkit_size_16"
+            app:boxCornerRadiusTopEnd="@dimen/roomkit_size_16"
+            app:boxCornerRadiusBottomStart="@dimen/roomkit_size_16"
+            app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_16">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPaymentAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="68dp"
+                android:minHeight="@dimen/roomkit_size_68"
                 android:inputType="number"
                 android:singleLine="true"
                 android:textSize="@dimen/roomkit_text_24"
@@ -178,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:minHeight="48dp"
+            android:minHeight="@dimen/roomkit_touch_target"
             android:text="Use full balance"
             android:textAllCaps="false"
             android:letterSpacing="0" />
@@ -187,7 +187,7 @@
             android:id="@+id/tvBalanceAfterPayment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/roomkit_size_16"
             android:textSize="@dimen/roomkit_text_13"
             android:textColor="?android:attr/textColorSecondary"
             android:accessibilityLiveRegion="polite" />
@@ -198,16 +198,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Payment method"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusBottomEnd="16dp">
+            app:boxCornerRadiusTopStart="@dimen/roomkit_size_16"
+            app:boxCornerRadiusTopEnd="@dimen/roomkit_size_16"
+            app:boxCornerRadiusBottomStart="@dimen/roomkit_size_16"
+            app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_16">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/actvPaymentMethod"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="56dp"
+                android:minHeight="@dimen/roomkit_control_height"
                 android:inputType="none"
                 android:textSize="@dimen/roomkit_text_16" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -216,11 +216,11 @@
             android:id="@+id/tvBankNotice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingHorizontal="4dp"
+            android:layout_marginTop="@dimen/roomkit_size_8"
+            android:paddingHorizontal="@dimen/roomkit_spacing_xs"
             android:text="Confirm receipt in your banking app before saving."
             android:textSize="@dimen/roomkit_text_12"
-            android:lineSpacingExtra="3dp"
+            android:lineSpacingExtra="@dimen/roomkit_size_3"
             android:textColor="?android:attr/textColorSecondary"
             android:visibility="gone" />
 
@@ -229,12 +229,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/roomkit_size_16"
             android:hint="Payment date"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusTopStart="@dimen/roomkit_size_16"
+            app:boxCornerRadiusTopEnd="@dimen/roomkit_size_16"
+            app:boxCornerRadiusBottomStart="@dimen/roomkit_size_16"
+            app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_16"
             app:endIconDrawable="@drawable/ic_calender"
             app:endIconContentDescription="Choose payment date"
             app:endIconMode="custom">
@@ -243,7 +243,7 @@
                 android:id="@+id/etPaymentDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="56dp"
+                android:minHeight="@dimen/roomkit_control_height"
                 android:focusable="false"
                 android:clickable="true"
                 android:cursorVisible="false"
@@ -256,8 +256,8 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:layout_marginTop="12dp"
+            android:minHeight="@dimen/roomkit_touch_target"
+            android:layout_marginTop="@dimen/roomkit_size_12"
             android:gravity="start|center_vertical"
             android:text="Add reference or note"
             android:textAllCaps="false"
@@ -275,18 +275,18 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/roomkit_size_8"
                 android:hint="Payment reference (optional)"
-                app:boxCornerRadiusTopStart="16dp"
-                app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusBottomStart="16dp"
-                app:boxCornerRadiusBottomEnd="16dp">
+                app:boxCornerRadiusTopStart="@dimen/roomkit_size_16"
+                app:boxCornerRadiusTopEnd="@dimen/roomkit_size_16"
+                app:boxCornerRadiusBottomStart="@dimen/roomkit_size_16"
+                app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_16">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPaymentReference"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="56dp"
+                    android:minHeight="@dimen/roomkit_control_height"
                     android:inputType="text"
                     android:singleLine="true"
                     android:maxLength="100" />
@@ -297,18 +297,18 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/roomkit_size_16"
                 android:hint="Note (optional)"
-                app:boxCornerRadiusTopStart="16dp"
-                app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusBottomStart="16dp"
-                app:boxCornerRadiusBottomEnd="16dp">
+                app:boxCornerRadiusTopStart="@dimen/roomkit_size_16"
+                app:boxCornerRadiusTopEnd="@dimen/roomkit_size_16"
+                app:boxCornerRadiusBottomStart="@dimen/roomkit_size_16"
+                app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_16">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPaymentNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="80dp"
+                    android:minHeight="@dimen/roomkit_size_80"
                     android:gravity="top|start"
                     android:inputType="textCapSentences|textMultiLine"
                     android:maxLines="4" />
@@ -319,8 +319,8 @@
             android:id="@+id/btnSavePayment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="56dp"
-            android:layout_marginTop="20dp"
+            android:minHeight="@dimen/roomkit_control_height"
+            android:layout_marginTop="@dimen/roomkit_size_20"
             android:text="Save payment"
             android:textAllCaps="false"
             android:letterSpacing="0"
@@ -329,7 +329,7 @@
             android:textColor="@color/roomkit_white"
             android:enabled="false"
             app:backgroundTint="@color/roomkit_text_primary"
-            app:cornerRadius="16dp" />
+            app:cornerRadius="@dimen/roomkit_size_16" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

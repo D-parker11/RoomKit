@@ -6,8 +6,7 @@ Use the existing resources when adding a screen. Do not copy colors or styles in
 | --- | --- | --- |
 | Colors | `app/src/main/res/values/colors.xml` | One name per exact color value; no screen aliases |
 | State colors | `app/src/main/res/color/roomkit_*.xml` | Disabled, focused, checked and selected colors |
-| Typography | `app/src/main/res/values/typography.xml` | Reusable headings, body text, captions and labels |
-| Components | `app/src/main/res/values/styles.xml` | Cards, buttons, text fields, chips and navigation |
+| Styles | `app/src/main/res/values/styles.xml` | Text appearances, cards, buttons, inputs, chips and their shared base styles |
 | Dimensions | `app/src/main/res/values/dimens.xml` | Text sizes (sp), spacing, padding, corner radii and component sizes (dp) |
 | App theme | `app/src/main/res/values/themes.xml` | Maps the palette to Material theme roles |
 
@@ -53,6 +52,14 @@ Material exposed dropdowns retain their dedicated Material parent so dropdown de
 In Kotlin, use `ContextCompat.getColor(context, R.color.roomkit_text_primary)` for an explicit palette color, or resolve a Material theme attribute when the component should follow the theme. Do not add `Color.parseColor` literals to app screens.
 
 For a text view created in Kotlin, import `com.example.roomkit.Date.Ui.Common.setRoomKitTextSize` and call `view.setRoomKitTextSize(R.dimen.roomkit_text_14)`. This reads the same font-scale-aware dimension as XML. Programmatic tenant-picker labels also take these dimension resource IDs.
+
+## One definition per exact value
+
+Text appearances and component styles share `styles.xml`. All dimension resources share `dimens.xml`; the old `typography.xml` and `type_sizes.xml` files are removed.
+
+An exact size such as 16dp is defined once as `roomkit_size_16` and reused for every measurement that has that value. Text sizes use `roomkit_text_*` names. XML layouts, shapes and vector dimensions also reference this same dimension collection; repeated literal dp/sp measurements are not redefined in individual screens. A dp value and an sp value are different units and stay distinct.
+
+Changing a shared size changes every usage of it, including padding and shape sizes. Use an existing size rather than adding another name for the same value.
 
 ## Editing a design
 

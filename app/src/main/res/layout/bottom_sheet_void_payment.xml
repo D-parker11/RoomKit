@@ -11,16 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="24dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="24dp"
-        android:paddingBottom="24dp">
+        android:paddingStart="@dimen/roomkit_size_24"
+        android:paddingTop="@dimen/roomkit_size_12"
+        android:paddingEnd="@dimen/roomkit_size_24"
+        android:paddingBottom="@dimen/roomkit_size_24">
 
         <View
-            android:layout_width="36dp"
-            android:layout_height="4dp"
+            android:layout_width="@dimen/roomkit_size_36"
+            android:layout_height="@dimen/roomkit_spacing_xs"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="@dimen/roomkit_size_24"
             android:background="@drawable/pv_drag_handle"
             android:importantForAccessibility="no" />
 
@@ -36,8 +36,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:lineSpacingExtra="3dp"
+            android:layout_marginTop="@dimen/roomkit_size_8"
+            android:lineSpacingExtra="@dimen/roomkit_size_3"
             android:text="@string/pvu_intro"
             android:textColor="@color/roomkit_slate_600"
             android:textSize="@dimen/roomkit_text_14" />
@@ -45,18 +45,18 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/roomkit_size_20"
             app:cardBackgroundColor="@color/roomkit_slate_50"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/roomkit_size_16"
+            app:cardElevation="@dimen/roomkit_size_0"
             app:strokeColor="@color/roomkit_slate_300"
-            app:strokeWidth="1dp">
+            app:strokeWidth="@dimen/roomkit_stroke_width">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="@dimen/roomkit_card_radius_medium">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                     android:id="@+id/tvVoidAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="@dimen/roomkit_size_6"
                     android:textColor="@color/roomkit_text_primary"
                     android:textSize="@dimen/roomkit_text_28"
                     android:textStyle="bold" />
@@ -78,7 +78,7 @@
                     android:id="@+id/tvVoidPaymentInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/roomkit_size_8"
                     android:textColor="@color/roomkit_slate_600"
                     android:textSize="@dimen/roomkit_text_13" />
 
@@ -89,8 +89,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:lineSpacingExtra="3dp"
+            android:layout_marginTop="@dimen/roomkit_size_16"
+            android:lineSpacingExtra="@dimen/roomkit_size_3"
             android:text="@string/pvu_effect"
             android:textColor="@color/roomkit_slate_600"
             android:textSize="@dimen/roomkit_text_13" />
@@ -100,14 +100,14 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/roomkit_size_20"
             android:hint="@string/pvu_reason"
             android:textColorHint="@color/roomkit_slate_600"
             app:boxBackgroundColor="@color/roomkit_white"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_12"
+            app:boxCornerRadiusBottomStart="@dimen/roomkit_size_12"
+            app:boxCornerRadiusTopEnd="@dimen/roomkit_size_12"
+            app:boxCornerRadiusTopStart="@dimen/roomkit_size_12"
             app:boxStrokeColor="@color/roomkit_slate_600"
             app:helperText="@string/pvu_reason_example"
             app:helperTextTextColor="@color/roomkit_slate_600"
@@ -121,7 +121,7 @@
                 android:inputType="textCapSentences|textMultiLine"
                 android:maxLines="4"
                 android:minLines="2"
-                android:padding="16dp"
+                android:padding="@dimen/roomkit_size_16"
                 android:textColor="@color/roomkit_text_primary"
                 android:textSize="@dimen/roomkit_text_15" />
 
@@ -131,7 +131,7 @@
             android:id="@+id/tvVoidError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/roomkit_size_12"
             android:accessibilityLiveRegion="polite"
             android:textColor="@color/roomkit_error"
             android:textSize="@dimen/roomkit_text_13"
@@ -141,26 +141,26 @@
             android:id="@+id/btnConfirmVoid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/roomkit_size_24"
             android:backgroundTint="@color/roomkit_error"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minHeight="52dp"
-            android:paddingVertical="14dp"
+            android:insetTop="@dimen/roomkit_size_0"
+            android:insetBottom="@dimen/roomkit_size_0"
+            android:minHeight="@dimen/roomkit_action_height"
+            android:paddingVertical="@dimen/roomkit_button_radius_compact"
             android:text="@string/pvu_confirm"
             android:textAllCaps="false"
             android:textColor="@color/roomkit_white"
             android:textSize="@dimen/roomkit_text_15"
             android:textStyle="bold"
-            app:cornerRadius="14dp" />
+            app:cornerRadius="@dimen/roomkit_button_radius_compact" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCancelVoid"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:minHeight="48dp"
+            android:layout_marginTop="@dimen/roomkit_size_8"
+            android:minHeight="@dimen/roomkit_touch_target"
             android:text="@string/pvu_cancel"
             android:textAllCaps="false"
             android:textColor="@color/roomkit_slate_600"

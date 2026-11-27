@@ -3,7 +3,7 @@
     <!-- Background track -->
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
-            <corners android:radius="4dp" />
+            <corners android:radius="@dimen/roomkit_spacing_xs" />
             <solid android:color="@color/roomkit_gray_200" />
         </shape>
     </item>
@@ -11,7 +11,7 @@
     <item android:id="@android:id/progress">
         <scale android:scaleWidth="100%">
             <shape android:shape="rectangle">
-                <corners android:radius="4dp" />
+                <corners android:radius="@dimen/roomkit_spacing_xs" />
                 <solid android:color="@color/roomkit_text_primary" />
             </shape>
         </scale>

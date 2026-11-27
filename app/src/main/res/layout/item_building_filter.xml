@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardFilter"
     android:layout_width="wrap_content"
-    android:layout_height="38dp"
-    android:layout_marginEnd="8dp"
+    android:layout_height="@dimen/roomkit_size_38"
+    android:layout_marginEnd="@dimen/roomkit_size_8"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="19dp"
-    app:cardElevation="0dp"
-    app:strokeWidth="1dp">
+    app:cardCornerRadius="@dimen/roomkit_size_19"
+    app:cardElevation="@dimen/roomkit_size_0"
+    app:strokeWidth="@dimen/roomkit_stroke_width">
 
     <TextView
         android:id="@+id/tvFilterName"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:paddingHorizontal="16dp"
+        android:paddingHorizontal="@dimen/roomkit_size_16"
         android:textSize="@dimen/roomkit_text_13"
         android:textStyle="bold"
         tools:text="All Buildings" />

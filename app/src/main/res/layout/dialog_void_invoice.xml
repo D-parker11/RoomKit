@@ -11,22 +11,22 @@
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="@dimen/roomkit_size_24">
 
         <!-- Void Header Icon -->
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/roomkit_touch_target"
+            android:layout_height="@dimen/roomkit_touch_target"
             android:background="@drawable/bg_rvi_icon"
             android:importantForAccessibility="no"
-            android:padding="12dp"
+            android:padding="@dimen/roomkit_size_12"
             android:src="@drawable/ic_rvi_void" />
 
         <!-- Title & Explanations -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/roomkit_size_16"
             android:text="@string/rvi_title"
             android:textColor="@color/roomkit_text_primary"
             android:textSize="@dimen/roomkit_text_24"
@@ -35,8 +35,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:lineSpacingExtra="3dp"
+            android:layout_marginTop="@dimen/roomkit_size_10"
+            android:lineSpacingExtra="@dimen/roomkit_size_3"
             android:text="@string/rvi_explanation"
             android:textColor="@color/roomkit_text_secondary"
             android:textSize="@dimen/roomkit_text_14" />
@@ -45,9 +45,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/roomkit_size_16"
             android:background="@drawable/bg_rvi_info"
-            android:padding="12dp"
+            android:padding="@dimen/roomkit_size_12"
             android:text="@string/rvi_payment_rule"
             android:textColor="@color/roomkit_text_secondary"
             android:textSize="@dimen/roomkit_text_13" />
@@ -58,12 +58,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="@dimen/roomkit_card_radius_medium"
             android:hint="@string/rvi_reason"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_12"
+            app:boxCornerRadiusBottomStart="@dimen/roomkit_size_12"
+            app:boxCornerRadiusTopEnd="@dimen/roomkit_size_12"
+            app:boxCornerRadiusTopStart="@dimen/roomkit_size_12"
             app:helperText="@string/rvi_helper"
             app:placeholderText="@string/rvi_placeholder">
 
@@ -75,7 +75,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textCapSentences|textMultiLine"
                 android:maxLines="5"
-                android:minHeight="112dp"
+                android:minHeight="@dimen/roomkit_size_112"
                 android:minLines="3"
                 android:textColor="@color/roomkit_text_primary"
                 android:textSize="@dimen/roomkit_text_14" />
@@ -86,7 +86,7 @@
             android:id="@+id/tvVoidError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/roomkit_size_8"
             android:accessibilityLiveRegion="polite"
             android:textColor="@color/roomkit_error"
             android:textSize="@dimen/roomkit_text_13"
@@ -96,51 +96,51 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/roomkit_size_20"
             android:baselineAligned="false"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnKeepInvoice"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:insetTop="@dimen/roomkit_size_0"
+                android:insetBottom="@dimen/roomkit_size_0"
                 android:letterSpacing="0"
-                android:minHeight="48dp"
-                android:paddingHorizontal="8dp"
+                android:minHeight="@dimen/roomkit_touch_target"
+                android:paddingHorizontal="@dimen/roomkit_size_8"
                 android:text="@string/rvi_keep"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_text_primary"
                 android:textSize="@dimen/roomkit_text_13"
-                app:cornerRadius="12dp"
+                app:cornerRadius="@dimen/roomkit_size_12"
                 app:strokeColor="@color/roomkit_border" />
 
             <Space
-                android:layout_width="10dp"
-                android:layout_height="1dp" />
+                android:layout_width="@dimen/roomkit_size_10"
+                android:layout_height="@dimen/roomkit_stroke_width" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVoidInvoice"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:elevation="0dp"
+                android:elevation="@dimen/roomkit_size_0"
                 android:enabled="false"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:insetTop="@dimen/roomkit_size_0"
+                android:insetBottom="@dimen/roomkit_size_0"
                 android:letterSpacing="0"
-                android:minHeight="48dp"
-                android:paddingHorizontal="8dp"
+                android:minHeight="@dimen/roomkit_touch_target"
+                android:paddingHorizontal="@dimen/roomkit_size_8"
                 android:stateListAnimator="@null"
                 android:text="@string/rvi_confirm"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_danger_button_text"
                 android:textSize="@dimen/roomkit_text_13"
                 app:backgroundTint="@color/roomkit_danger_button_background"
-                app:cornerRadius="12dp" />
+                app:cornerRadius="@dimen/roomkit_size_12" />
         </LinearLayout>
     </LinearLayout>
 

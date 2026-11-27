@@ -5,7 +5,7 @@
     style="@style/Widget.RoomKit.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/roomkit_spacing_md"
+    android:layout_marginBottom="@dimen/roomkit_size_12"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/roomkit_card_padding">
+        android:padding="@dimen/roomkit_size_20">
 
         <!-- Top Header: Room Number, Occupied Badge, and Chevron -->
         <LinearLayout
@@ -26,7 +26,7 @@
             <TextView
                 android:id="@+id/tvRoomNumber"
                 style="@style/TextAppearance.RoomKit.SectionTitle"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="@dimen/roomkit_text_18"
@@ -37,12 +37,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rd_badge_green"
-                android:drawablePadding="6dp"
+                android:drawablePadding="@dimen/roomkit_size_6"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"
+                android:paddingHorizontal="@dimen/roomkit_size_10"
+                android:paddingVertical="@dimen/roomkit_size_5"
                 android:text="Occupied"
                 android:textColor="@color/roomkit_green_700"
                 android:textSize="@dimen/roomkit_text_12"
@@ -51,9 +51,9 @@
                 app:drawableTint="@color/roomkit_green_700" />
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginStart="8dp"
+                android:layout_width="@dimen/roomkit_card_radius_medium"
+                android:layout_height="@dimen/roomkit_card_radius_medium"
+                android:layout_marginStart="@dimen/roomkit_size_8"
                 android:contentDescription="Open details"
                 android:src="@drawable/ic_chevron_right"
                 app:tint="@color/roomkit_text_muted" />
@@ -65,7 +65,7 @@
             style="@style/TextAppearance.RoomKit.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/roomkit_spacing_xs"
             android:textColor="@color/roomkit_text_primary"
             android:textSize="@dimen/roomkit_text_16"
             android:textStyle="bold"
@@ -76,7 +76,7 @@
             style="@style/TextAppearance.RoomKit.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
             android:textColor="@color/roomkit_text_secondary"
             tools:text="400,000 ៛" />
 
@@ -84,24 +84,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/roomkit_spacing_md"
+            android:layout_marginTop="@dimen/roomkit_size_12"
             android:background="@color/roomkit_slate_50"
             android:baselineAligned="false"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/roomkit_spacing_md"
-            android:paddingVertical="10dp">
+            android:paddingHorizontal="@dimen/roomkit_size_12"
+            android:paddingVertical="@dimen/roomkit_size_10">
 
             <!-- Electricity -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/roomkit_size_16"
+                    android:layout_height="@dimen/roomkit_size_16"
                     android:contentDescription="Electricity"
                     android:src="@drawable/ic_bolt"
                     app:tint="@color/roomkit_text_muted" />
@@ -109,7 +109,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/roomkit_size_8"
                     android:orientation="vertical">
 
                     <TextView
@@ -132,23 +132,23 @@
             </LinearLayout>
 
             <View
-                android:layout_width="1dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/roomkit_stroke_width"
+                android:layout_height="@dimen/roomkit_size_24"
                 android:layout_gravity="center_vertical"
                 android:background="@color/roomkit_divider" />
 
             <!-- Water -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/roomkit_size_12"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/roomkit_size_16"
+                    android:layout_height="@dimen/roomkit_size_16"
                     android:contentDescription="Water"
                     android:src="@drawable/ic_water"
                     app:tint="@color/roomkit_text_muted" />
@@ -156,7 +156,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/roomkit_size_8"
                     android:orientation="vertical">
 
                     <TextView
@@ -182,21 +182,21 @@
         <!-- Footer Divider & Payment / Due Day Status -->
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="14dp"
+            android:layout_height="@dimen/roomkit_stroke_width"
+            android:layout_marginTop="@dimen/roomkit_button_radius_compact"
             android:background="@color/roomkit_divider" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/roomkit_size_10"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tvDueDay"
                 style="@style/TextAppearance.RoomKit.Caption"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/roomkit_text_secondary"
@@ -208,12 +208,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rd_badge_green"
-                android:drawablePadding="6dp"
+                android:drawablePadding="@dimen/roomkit_size_6"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"
+                android:paddingHorizontal="@dimen/roomkit_size_10"
+                android:paddingVertical="@dimen/roomkit_size_5"
                 android:textColor="@color/roomkit_green_700"
                 android:textSize="@dimen/roomkit_text_12"
                 android:textStyle="bold"

@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="@dimen/roomkit_size_12"
     android:background="@drawable/bg_card_stroke"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="@dimen/roomkit_size_16">
 
     <!-- Top Row: ROOM 101 & Occupancy Status Badge -->
     <RelativeLayout
@@ -47,12 +47,12 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="@drawable/bg_rd_badge_green"
-            android:drawablePadding="6dp"
+            android:drawablePadding="@dimen/roomkit_size_6"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
             android:includeFontPadding="false"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="5dp"
+            android:paddingHorizontal="@dimen/roomkit_size_10"
+            android:paddingVertical="@dimen/roomkit_size_5"
             android:text="Occupied"
             android:textColor="@color/roomkit_green_700"
             android:textSize="@dimen/roomkit_text_12"
@@ -66,7 +66,7 @@
         android:id="@+id/tvTenantOrAvailability"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/roomkit_size_8"
         android:textColor="@color/roomkit_text_primary"
         android:textSize="@dimen/roomkit_text_16"
         android:textStyle="bold"
@@ -77,7 +77,7 @@
         android:id="@+id/tvRentAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
         android:textColor="@color/roomkit_gray_500"
         android:textSize="@dimen/roomkit_text_14"
         tools:text="400,000 ៛" />
@@ -85,8 +85,8 @@
     <View
         android:id="@+id/dividerMeta"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="@dimen/roomkit_stroke_width"
+        android:layout_marginTop="@dimen/roomkit_size_12"
         android:background="@color/roomkit_gray_100" />
 
     <!-- Meter Readings & Invoice Due Status -->
@@ -94,7 +94,7 @@
         android:id="@+id/layoutMetaInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="@dimen/roomkit_size_12">
 
         <LinearLayout
             android:id="@+id/layoutMeters"
@@ -106,8 +106,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_width="@dimen/roomkit_button_radius_compact"
+                android:layout_height="@dimen/roomkit_button_radius_compact"
                 android:src="@drawable/ic_bolt"
                 app:tint="@color/roomkit_gray_400" />
 
@@ -115,7 +115,7 @@
                 android:id="@+id/tvElectricityReading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="@dimen/roomkit_spacing_xs"
                 android:textColor="@color/roomkit_gray_500"
                 android:textSize="@dimen/roomkit_text_12"
                 tools:text="1,250 kWh" />
@@ -124,7 +124,7 @@
                 android:id="@+id/tvWaterReading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="@dimen/roomkit_button_radius_compact"
                 android:textColor="@color/roomkit_gray_500"
                 android:textSize="@dimen/roomkit_text_12"
                 tools:text="112 m³" />
@@ -143,7 +143,7 @@
                 android:id="@+id/tvDueDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/roomkit_size_8"
                 android:textColor="@color/roomkit_gray_500"
                 android:textSize="@dimen/roomkit_text_12"
                 tools:text="Due Sep 5" />
@@ -153,12 +153,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rd_badge_amber"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/roomkit_size_5"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
-                android:paddingHorizontal="9dp"
-                android:paddingVertical="4dp"
+                android:paddingHorizontal="@dimen/roomkit_size_9"
+                android:paddingVertical="@dimen/roomkit_spacing_xs"
                 android:textColor="@color/roomkit_amber_700"
                 android:textSize="@dimen/roomkit_text_11"
                 android:textStyle="bold"
@@ -171,18 +171,18 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnMoveInRoom"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_marginTop="14dp"
+        android:layout_height="@dimen/roomkit_size_42"
+        android:layout_marginTop="@dimen/roomkit_button_radius_compact"
         android:backgroundTint="@color/roomkit_text_primary"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
+        android:insetTop="@dimen/roomkit_size_0"
+        android:insetBottom="@dimen/roomkit_size_0"
         android:text="Move In"
         android:textAllCaps="false"
         android:textColor="@color/roomkit_white"
         android:textSize="@dimen/roomkit_text_14"
         android:textStyle="bold"
         android:visibility="gone"
-        app:cornerRadius="10dp"
+        app:cornerRadius="@dimen/roomkit_size_10"
         tools:visibility="visible" />
 
 </LinearLayout>

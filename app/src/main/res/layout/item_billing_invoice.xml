@@ -5,21 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="@dimen/roomkit_size_10"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/roomkit_white"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="0dp"
+    app:cardCornerRadius="@dimen/roomkit_card_radius_medium"
+    app:cardElevation="@dimen/roomkit_size_0"
     app:strokeColor="@color/roomkit_border"
-    app:strokeWidth="1dp">
+    app:strokeWidth="@dimen/roomkit_stroke_width">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/roomkit_size_16">
 
         <!-- Header: Room/Building & Status Badge -->
         <LinearLayout
@@ -31,9 +31,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvInvoiceRoomBuilding"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="@dimen/roomkit_size_12"
                 android:layout_weight="1"
                 android:fontFamily="sans"
                 android:includeFontPadding="false"
@@ -48,8 +48,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans"
                 android:includeFontPadding="false"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"
+                android:paddingHorizontal="@dimen/roomkit_size_10"
+                android:paddingVertical="@dimen/roomkit_size_5"
                 android:textColor="@color/roomkit_text_secondary"
                 android:textSize="@dimen/roomkit_text_12"
                 android:textStyle="bold"
@@ -61,7 +61,7 @@
             android:id="@+id/tvInvoiceTenantName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/roomkit_size_5"
             android:ellipsize="end"
             android:fontFamily="sans"
             android:includeFontPadding="false"
@@ -74,16 +74,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/roomkit_size_12"
             android:baselineAligned="false"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvInvoiceTotal"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="@dimen/roomkit_size_12"
                 android:layout_weight="1"
                 android:fontFamily="sans"
                 android:includeFontPadding="false"
@@ -98,8 +98,8 @@
                 tools:text="846,000 KHR" />
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/roomkit_size_20"
+                android:layout_height="@dimen/roomkit_size_20"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_rb_right"
                 app:tint="@color/roomkit_text_secondary" />
@@ -110,7 +110,7 @@
             android:id="@+id/tvInvoicePeriodDueDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/roomkit_size_5"
             android:fontFamily="sans"
             android:includeFontPadding="false"
             android:textColor="@color/roomkit_text_secondary"
@@ -122,7 +122,7 @@
             android:id="@+id/tvInvoicePaymentDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/roomkit_size_6"
             android:fontFamily="sans"
             android:includeFontPadding="false"
             android:textColor="@color/roomkit_text_secondary"

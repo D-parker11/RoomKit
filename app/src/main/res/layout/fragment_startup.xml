@@ -4,25 +4,25 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:fillViewport="true" android:background="@color/roomkit_background">
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:gravity="center" android:padding="32dp">
-        <ImageView android:layout_width="112dp" android:layout_height="112dp"
+        android:orientation="vertical" android:gravity="center" android:padding="@dimen/roomkit_size_32">
+        <ImageView android:layout_width="@dimen/roomkit_size_112" android:layout_height="@dimen/roomkit_size_112"
             android:background="@drawable/rko_logo_tile" android:src="@drawable/rko_logo"
             android:importantForAccessibility="no" />
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_marginTop="24dp" android:text="@string/rko_brand"
+            android:layout_marginTop="@dimen/roomkit_size_24" android:text="@string/rko_brand"
             android:fontFamily="sans-serif-medium" android:textSize="@dimen/roomkit_text_34" android:textColor="@color/roomkit_navy" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" android:gravity="center" android:text="@string/rko_tagline"
+            android:layout_marginTop="@dimen/roomkit_size_8" android:gravity="center" android:text="@string/rko_tagline"
             android:textSize="@dimen/roomkit_text_15" android:textColor="@color/roomkit_slate" />
-        <ProgressBar android:id="@+id/startupProgress" android:layout_width="24dp" android:layout_height="24dp"
-            android:layout_marginTop="32dp" android:indeterminateTint="@color/roomkit_accent" />
+        <ProgressBar android:id="@+id/startupProgress" android:layout_width="@dimen/roomkit_size_24" android:layout_height="@dimen/roomkit_size_24"
+            android:layout_marginTop="@dimen/roomkit_size_32" android:indeterminateTint="@color/roomkit_accent" />
         <TextView android:id="@+id/startupError" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="24dp" android:text="@string/rko_read_error" android:gravity="center"
+            android:layout_marginTop="@dimen/roomkit_size_24" android:text="@string/rko_read_error" android:gravity="center"
             android:textColor="@color/roomkit_slate" android:textSize="@dimen/roomkit_text_14" android:visibility="gone"
             android:accessibilityLiveRegion="polite" />
         <com.google.android.material.button.MaterialButton android:id="@+id/startupRetry"
-            android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="48dp"
-            android:layout_marginTop="12dp" android:text="@string/rko_retry" android:textAllCaps="false"
-            android:textColor="@color/roomkit_white" app:backgroundTint="@color/roomkit_navy" app:cornerRadius="16dp" android:visibility="gone" />
+            android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="@dimen/roomkit_touch_target"
+            android:layout_marginTop="@dimen/roomkit_size_12" android:text="@string/rko_retry" android:textAllCaps="false"
+            android:textColor="@color/roomkit_white" app:backgroundTint="@color/roomkit_navy" app:cornerRadius="@dimen/roomkit_size_16" android:visibility="gone" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

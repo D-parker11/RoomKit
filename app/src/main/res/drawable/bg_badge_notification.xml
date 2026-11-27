@@ -3,6 +3,6 @@
     android:shape="oval">
     <solid android:color="@color/roomkit_red_600" />
     <size
-        android:width="20dp"
-        android:height="20dp" />
+        android:width="@dimen/roomkit_size_20"
+        android:height="@dimen/roomkit_size_20" />
 </shape>

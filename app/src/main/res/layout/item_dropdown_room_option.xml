@@ -4,17 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="@dimen/roomkit_touch_target"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingHorizontal="16dp">
+    android:paddingHorizontal="@dimen/roomkit_size_16">
 
     <!-- Selected Checkmark Icon -->
     <ImageView
         android:id="@+id/ivCheckmark"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="@dimen/roomkit_card_radius_medium"
+        android:layout_height="@dimen/roomkit_card_radius_medium"
+        android:layout_marginEnd="@dimen/roomkit_size_10"
         android:src="@drawable/ic_check"
         android:visibility="invisible"
         app:tint="@color/roomkit_white"
@@ -23,7 +23,7 @@
     <!-- Room Label: Room 204 — $300/mo -->
     <TextView
         android:id="@+id/tvRoomOptionText"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/roomkit_size_0"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textColor="@color/roomkit_white"

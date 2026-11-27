@@ -3,6 +3,6 @@
     android:shape="rectangle">
     <solid android:color="@color/roomkit_white" />
     <corners
-        android:topLeftRadius="24dp"
-        android:topRightRadius="24dp" />
+        android:topLeftRadius="@dimen/roomkit_size_24"
+        android:topRightRadius="@dimen/roomkit_size_24" />
 </shape>

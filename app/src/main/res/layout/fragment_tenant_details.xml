@@ -11,14 +11,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="14dp"
-        android:paddingBottom="10dp">
+        android:paddingHorizontal="@dimen/roomkit_size_16"
+        android:paddingTop="@dimen/roomkit_button_radius_compact"
+        android:paddingBottom="@dimen/roomkit_size_10">
 
         <ImageButton
             android:id="@+id/btnBackTenantDetails"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/roomkit_size_36"
+            android:layout_height="@dimen/roomkit_size_36"
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Back"
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/roomkit_size_8"
             android:layout_toEndOf="@id/btnBackTenantDetails"
             android:text="Tenant Details"
             android:textColor="@color/roomkit_text_primary"
@@ -46,8 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingBottom="40dp">
+            android:paddingHorizontal="@dimen/roomkit_size_16"
+            android:paddingBottom="@dimen/roomkit_size_40">
 
             <!-- Profile Overview Card -->
             <LinearLayout
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_card_stroke"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/roomkit_size_16">
 
                 <TextView
                     android:id="@+id/tvDetailsFullName"
@@ -70,7 +70,7 @@
                     android:id="@+id/tvDetailsPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/roomkit_spacing_xs"
                     android:textColor="@color/roomkit_gray_500"
                     android:textSize="@dimen/roomkit_text_14"
                     tools:text="+855 12 345 678" />
@@ -79,7 +79,7 @@
                     android:id="@+id/tvDetailsIdOrPassport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                     android:textColor="@color/roomkit_gray_400"
                     android:textSize="@dimen/roomkit_text_12"
                     tools:text="ID: N12345678" />
@@ -90,33 +90,33 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/roomkit_size_12"
                 android:fontFamily="sans-serif-medium"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
+                android:insetTop="@dimen/roomkit_size_0"
+                android:insetBottom="@dimen/roomkit_size_0"
                 android:letterSpacing="0"
-                android:minHeight="50dp"
+                android:minHeight="@dimen/roomkit_size_50"
                 android:text="@string/qa_edit_tenant"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_text_primary"
                 android:textSize="@dimen/roomkit_text_14"
                 android:textStyle="bold"
                 app:backgroundTint="@color/roomkit_white"
-                app:cornerRadius="16dp"
+                app:cornerRadius="@dimen/roomkit_size_16"
                 app:icon="@drawable/ic_edit"
                 app:iconGravity="textStart"
-                app:iconPadding="8dp"
-                app:iconSize="18dp"
+                app:iconPadding="@dimen/roomkit_size_8"
+                app:iconSize="@dimen/roomkit_card_radius_medium"
                 app:iconTint="@color/roomkit_text_primary"
                 app:rippleColor="@color/roomkit_border"
                 app:strokeColor="@color/roomkit_border"
-                app:strokeWidth="1dp" />
+                app:strokeWidth="@dimen/roomkit_stroke_width" />
 
             <!-- Current Tenancy Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/roomkit_size_20"
                 android:text="Current Tenancy"
                 android:textColor="@color/roomkit_text_primary"
                 android:textSize="@dimen/roomkit_text_16"
@@ -126,10 +126,10 @@
                 android:id="@+id/layoutActiveTenancyCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/roomkit_size_8"
                 android:background="@drawable/bg_card_stroke"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/roomkit_size_16">
 
                 <TextView
                     android:id="@+id/tvActiveBuildingRoom"
@@ -144,7 +144,7 @@
                     android:id="@+id/tvActiveRentDeposit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="@dimen/roomkit_size_6"
                     android:textColor="@color/roomkit_gray_600"
                     android:textSize="@dimen/roomkit_text_13"
                     tools:text="Rent: 1,000,000 KHR • Deposit: 1,000,000 KHR" />
@@ -153,44 +153,44 @@
                     android:id="@+id/tvActiveMoveInDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/roomkit_spacing_xs"
                     android:textColor="@color/roomkit_gray_500"
                     android:textSize="@dimen/roomkit_text_13"
                     tools:text="Moved in: 29 Sep 2026" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_height="@dimen/roomkit_size_40"
+                    android:layout_marginTop="@dimen/roomkit_button_radius_compact"
                     android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnViewAssignedRoom"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/roomkit_size_0"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="6dp"
+                        android:layout_marginEnd="@dimen/roomkit_size_6"
                         android:layout_weight="1"
                         android:backgroundTint="@color/roomkit_gray_100"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
+                        android:insetTop="@dimen/roomkit_size_0"
+                        android:insetBottom="@dimen/roomkit_size_0"
                         android:text="View Room"
                         android:textAllCaps="false"
                         android:textColor="@color/roomkit_text_primary"
-                        app:cornerRadius="10dp" />
+                        app:cornerRadius="@dimen/roomkit_size_10" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnMoveOutTenant"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/roomkit_size_0"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="6dp"
+                        android:layout_marginStart="@dimen/roomkit_size_6"
                         android:layout_weight="1"
                         android:backgroundTint="@color/roomkit_red_100"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
+                        android:insetTop="@dimen/roomkit_size_0"
+                        android:insetBottom="@dimen/roomkit_size_0"
                         android:text="Move Out"
                         android:textAllCaps="false"
                         android:textColor="@color/roomkit_red_600"
-                        app:cornerRadius="10dp" />
+                        app:cornerRadius="@dimen/roomkit_size_10" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -198,9 +198,9 @@
                 android:id="@+id/tvNoActiveTenancy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/roomkit_size_8"
                 android:background="@drawable/bg_card_stroke"
-                android:padding="16dp"
+                android:padding="@dimen/roomkit_size_16"
                 android:text="No active tenancy. Tenant is not assigned to any room."
                 android:textColor="@color/roomkit_gray_500"
                 android:textSize="@dimen/roomkit_text_14"
@@ -209,20 +209,20 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAssignRoom"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="@dimen/roomkit_size_44"
+                android:layout_marginTop="@dimen/roomkit_size_10"
                 android:backgroundTint="@color/roomkit_text_primary"
                 android:text="Assign Room"
                 android:textAllCaps="false"
                 android:textColor="@color/roomkit_white"
                 android:visibility="gone"
-                app:cornerRadius="10dp" />
+                app:cornerRadius="@dimen/roomkit_size_10" />
 
             <!-- Rental History Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/roomkit_size_24"
                 android:text="Rental History"
                 android:textColor="@color/roomkit_text_primary"
                 android:textSize="@dimen/roomkit_text_16"
@@ -232,7 +232,7 @@
                 android:id="@+id/rvTenancyHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/roomkit_size_8"
                 android:nestedScrollingEnabled="false" />
 
         </LinearLayout>
