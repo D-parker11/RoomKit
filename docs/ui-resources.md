@@ -6,10 +6,9 @@ Use the existing resources when adding a screen. Do not copy colors or styles in
 | --- | --- | --- |
 | Colors | `app/src/main/res/values/colors.xml` | One name per exact color value; no screen aliases |
 | State colors | `app/src/main/res/color/roomkit_*.xml` | Disabled, focused, checked and selected colors |
-| Text sizes | `app/src/main/res/values/type_sizes.xml` | Each existing sp value is defined once |
 | Typography | `app/src/main/res/values/typography.xml` | Reusable headings, body text, captions and labels |
 | Components | `app/src/main/res/values/styles.xml` | Cards, buttons, text fields, chips and navigation |
-| Spacing and shape sizes | `app/src/main/res/values/dimens.xml` | Existing shared spacing and component dimensions |
+| Dimensions | `app/src/main/res/values/dimens.xml` | Text sizes (sp), spacing, padding, corner radii and component sizes (dp) |
 | App theme | `app/src/main/res/values/themes.xml` | Maps the palette to Material theme roles |
 
 ## New screen examples
@@ -58,7 +57,7 @@ For a text view created in Kotlin, import `com.example.roomkit.Date.Ui.Common.se
 ## Editing a design
 
 - Change a palette entry to update every reference to that exact color. White and black also have one definition each; changing them affects all uses.
-- Change a typography style to update that text role. Change `type_sizes.xml` only when every use of the size should change.
+- Change a typography style to update that text role. Change `dimens.xml` only when every use of the size should change.
 - Reuse an existing component style before creating a variant. Add a variant only for a real visual difference, and name it for that difference rather than a screen.
 - Keep deliberate state differences. Disabled button backgrounds and error colors have different values and must not be merged simply because they look similar.
 
