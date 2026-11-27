@@ -82,7 +82,7 @@
 
             <!-- Card 1: Summary & Navigation -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.RoomKit.Card.Outlined">
+                style="@style/Widget.RoomKit.Card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -213,7 +213,7 @@
 
             <!-- Card 2: Rent Section -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.RoomKit.Card.Outlined">
+                style="@style/Widget.RoomKit.Card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -249,7 +249,7 @@
 
             <!-- Card 3: Electricity Section -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.RoomKit.Card.Outlined">
+                style="@style/Widget.RoomKit.Card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -337,7 +337,7 @@
 
             <!-- Card 4: Water Section -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.RoomKit.Card.Outlined">
+                style="@style/Widget.RoomKit.Card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -436,7 +436,7 @@
 
             <!-- Card 5: Fees & Adjustments Section -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.RoomKit.Card.Outlined">
+                style="@style/Widget.RoomKit.Card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"

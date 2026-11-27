@@ -28,7 +28,6 @@
     </style>
     <style name="TextAppearance.RoomKit.StatValue.Small" parent="TextAppearance.RoomKit.ScreenTitle">
         <item name="android:textSize">@dimen/roomkit_text_22</item>
-        <item name="android:textStyle">bold</item>
     </style>
     <style name="TextAppearance.RoomKit.MoneyLarge" parent="TextAppearance.MaterialComponents.Headline3">
         <item name="android:textSize">@dimen/roomkit_text_36</item>

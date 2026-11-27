@@ -43,6 +43,14 @@ The examples require your screen's string resources and the usual Android XML na
 
 Prefer `android:textAppearance` for a text appearance. A few existing section styles also contain layout margins: use those with `style` to retain their layout behavior.
 
+## Shared base styles
+
+Common input geometry, edit-text sizing/padding, and filled/outlined button settings are defined in `Base.Widget.RoomKit.*` styles. Public `Widget.RoomKit.*` styles inherit those settings and declare their differences. Use the public styles in layouts; edit the base when the shared appearance should change.
+
+All standard outlined cards use `Widget.RoomKit.Card`. The former `Card.Padded` and `Card.Outlined` names were removed because their appearance was identical. Their width, height and margins are now declared on the views. Card variants such as `Card.Medium` and `Card.Form` inherit the standard card and retain their distinct radius or border.
+
+Material exposed dropdowns retain their dedicated Material parent so dropdown defaults continue to work. Their shape sizes reference the same shared dimensions. Variants with different actual properties remain separate.
+
 In Kotlin, use `ContextCompat.getColor(context, R.color.roomkit_text_primary)` for an explicit palette color, or resolve a Material theme attribute when the component should follow the theme. Do not add `Color.parseColor` literals to app screens.
 
 For a text view created in Kotlin, import `com.example.roomkit.Date.Ui.Common.setRoomKitTextSize` and call `view.setRoomKitTextSize(R.dimen.roomkit_text_14)`. This reads the same font-scale-aware dimension as XML. Programmatic tenant-picker labels also take these dimension resource IDs.

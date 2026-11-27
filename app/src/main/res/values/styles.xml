@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Widget.RoomKit.Input" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxBackgroundColor">@color/roomkit_white</item>
-        <item name="boxCornerRadiusTopStart">12dp</item>
-        <item name="boxCornerRadiusTopEnd">12dp</item>
-        <item name="boxCornerRadiusBottomStart">12dp</item>
-        <item name="boxCornerRadiusBottomEnd">12dp</item>
-        <item name="boxStrokeColor">@color/roomkit_form_outline</item>
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="boxStrokeWidthFocused">2dp</item>
-        <item name="hintTextColor">@color/roomkit_primary</item>
+    <style name="Base.Widget.RoomKit.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/roomkit_primary</item>
+        <item name="cornerRadius">@dimen/roomkit_button_radius</item>
+        <item name="strokeColor">@color/roomkit_border</item>
+    </style>
+    <style name="Base.Widget.RoomKit.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAllCaps">false</item>
+    </style>
+    <style name="Base.Widget.RoomKit.Button.Filled" parent="Base.Widget.RoomKit.Button">
+        <item name="android:textColor">@color/roomkit_white</item>
+        <item name="cornerRadius">@dimen/roomkit_button_radius</item>
+    </style>
+    <style name="Base.Widget.RoomKit.Button.Filled.Label" parent="Base.Widget.RoomKit.Button.Filled">
+        <item name="android:textSize">@dimen/roomkit_text_15</item>
+    </style>
+    <style name="Base.Widget.RoomKit.EditText" parent="">
+        <item name="android:minHeight">@dimen/roomkit_control_height</item>
+        <item name="android:textSize">@dimen/roomkit_text_16</item>
+        <item name="android:paddingTop">@dimen/roomkit_spacing_lg</item>
+        <item name="android:paddingBottom">@dimen/roomkit_spacing_lg</item>
+    </style>
+    <style name="Base.Widget.RoomKit.Input" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/roomkit_input_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/roomkit_input_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/roomkit_input_corner_radius</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/roomkit_input_corner_radius</item>
         <item name="android:textColorHint">@color/roomkit_text_secondary</item>
+    </style>
+    <style name="Base.Widget.RoomKit.Input.Outlined" parent="Base.Widget.RoomKit.Input">
+        <item name="boxBackgroundColor">@color/roomkit_white</item>
+        <item name="boxStrokeWidth">@dimen/roomkit_stroke_width</item>
+        <item name="boxStrokeWidthFocused">@dimen/roomkit_stroke_width_focused</item>
+    </style>
+    <style name="Widget.RoomKit.Input" parent="Base.Widget.RoomKit.Input.Outlined">
+        <item name="boxStrokeColor">@color/roomkit_form_outline</item>
+        <item name="hintTextColor">@color/roomkit_primary</item>
         <item name="expandedHintEnabled">false</item>
         <item name="errorTextColor">@color/roomkit_error_dark</item>
     </style>
@@ -18,74 +44,54 @@
         <item name="endIconMode">dropdown_menu</item>
         <item name="endIconTint">@color/roomkit_text_secondary</item>
     </style>
-    <style name="Widget.RoomKit.EditText" parent="">
-        <item name="android:minHeight">56dp</item>
+    <style name="Widget.RoomKit.EditText" parent="Base.Widget.RoomKit.EditText">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">@dimen/roomkit_text_16</item>
         <item name="android:textColor">@color/roomkit_text_primary</item>
-        <item name="android:paddingStart">16dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingStart">@dimen/roomkit_spacing_lg</item>
+        <item name="android:paddingEnd">@dimen/roomkit_spacing_lg</item>
     </style>
     <style name="Widget.RoomKit.Card" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">@color/roomkit_white</item>
         <item name="cardCornerRadius">@dimen/roomkit_card_radius</item>
         <item name="cardElevation">0dp</item>
         <item name="strokeColor">@color/roomkit_border</item>
-        <item name="strokeWidth">1dp</item>
+        <item name="strokeWidth">@dimen/roomkit_stroke_width</item>
     </style>
     <style name="Widget.RoomKit.Card.Stat" parent="Widget.RoomKit.Card">
         <item name="cardCornerRadius">@dimen/roomkit_card_radius_sm</item>
     </style>
     <style name="Widget.RoomKit.Card.MonthPill" parent="Widget.RoomKit.Card">
         <item name="cardBackgroundColor">@color/roomkit_border</item>
-        <item name="cardCornerRadius">@dimen/roomkit_card_radius</item>
-        <item name="cardElevation">0dp</item>
         <item name="strokeWidth">0dp</item>
     </style>
-    <style name="Widget.RoomKit.PrimaryButton" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.RoomKit.PrimaryButton" parent="Base.Widget.RoomKit.Button.Filled.Label">
         <item name="android:layout_height">@dimen/roomkit_button_height</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/roomkit_white</item>
-        <item name="android:textSize">@dimen/roomkit_text_15</item>
         <item name="android:textStyle">bold</item>
         <item name="backgroundTint">@color/roomkit_primary</item>
-        <item name="cornerRadius">@dimen/roomkit_button_radius</item>
         <item name="elevation">0dp</item>
     </style>
-    <style name="Widget.RoomKit.SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="Widget.RoomKit.SecondaryButton" parent="Base.Widget.RoomKit.Button.Outlined">
         <item name="android:layout_height">@dimen/roomkit_button_height</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/roomkit_primary</item>
         <item name="android:textSize">@dimen/roomkit_text_15</item>
         <item name="android:textStyle">bold</item>
         <item name="backgroundTint">@color/roomkit_white</item>
-        <item name="cornerRadius">@dimen/roomkit_button_radius</item>
-        <item name="strokeColor">@color/roomkit_border</item>
-        <item name="strokeWidth">1dp</item>
+        <item name="strokeWidth">@dimen/roomkit_stroke_width</item>
     </style>
-    <style name="Widget.RoomKit.Button.NeutralSurface" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.RoomKit.Button.NeutralSurface" parent="Base.Widget.RoomKit.Button.Filled">
         <item name="android:layout_height">48dp</item>
-        <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/roomkit_primary</item>
         <item name="android:textSize">@dimen/roomkit_text_14</item>
         <item name="android:textStyle">bold</item>
         <item name="backgroundTint">@color/roomkit_gray_75</item>
-        <item name="cornerRadius">16dp</item>
         <item name="elevation">0dp</item>
         <item name="android:stateListAnimator">@null</item>
     </style>
-    <style name="Widget.RoomKit.Button.OutlinedSmall" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="Widget.RoomKit.Button.OutlinedSmall" parent="Base.Widget.RoomKit.Button.Outlined">
         <item name="android:layout_height">48dp</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/roomkit_primary</item>
         <item name="android:textSize">@dimen/roomkit_text_14</item>
         <item name="android:textStyle">bold</item>
         <item name="backgroundTint">@color/roomkit_white</item>
-        <item name="cornerRadius">16dp</item>
-        <item name="strokeColor">@color/roomkit_border</item>
-        <item name="strokeWidth">1dp</item>
+        <item name="strokeWidth">@dimen/roomkit_stroke_width</item>
         <item name="elevation">0dp</item>
     </style>
     <style name="Widget.RoomKit.Card.Menu" parent="Widget.RoomKit.Card">
@@ -94,61 +100,38 @@
         <item name="android:focusable">true</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
-    <style name="Widget.RoomKit.Card.Outlined" parent="Widget.MaterialComponents.CardView">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">16dp</item>
-        <item name="cardBackgroundColor">@color/roomkit_white</item>
-        <item name="cardCornerRadius">20dp</item>
-        <item name="cardElevation">0dp</item>
-        <item name="strokeWidth">1dp</item>
-        <item name="strokeColor">@color/roomkit_border</item>
-    </style>
-    <style name="Widget.RoomKit.Field" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Widget.RoomKit.Field" parent="Base.Widget.RoomKit.Input.Outlined">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">14dp</item>
-        <item name="boxBackgroundColor">@color/roomkit_white</item>
         <item name="boxStrokeColor">@color/roomkit_form_outline</item>
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="boxStrokeWidthFocused">2dp</item>
-        <item name="boxCornerRadiusTopStart">12dp</item>
-        <item name="boxCornerRadiusTopEnd">12dp</item>
-        <item name="boxCornerRadiusBottomStart">12dp</item>
-        <item name="boxCornerRadiusBottomEnd">12dp</item>
-        <item name="android:textColorHint">@color/roomkit_text_secondary</item>
         <item name="hintTextColor">@color/roomkit_text_secondary</item>
         <item name="suffixTextColor">@color/roomkit_text_secondary</item>
         <item name="errorTextColor">@color/roomkit_error</item>
     </style>
-    <style name="Widget.RoomKit.EditText.Compact" parent="">
+    <style name="Widget.RoomKit.EditText.Compact" parent="Base.Widget.RoomKit.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">56dp</item>
         <item name="android:paddingStart">14dp</item>
         <item name="android:paddingEnd">14dp</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
         <item name="android:background">@null</item>
         <item name="android:textColor">@color/roomkit_text_primary</item>
-        <item name="android:textSize">@dimen/roomkit_text_16</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:inputType">number</item>
         <item name="android:singleLine">true</item>
         <item name="android:imeOptions">actionNext</item>
         <item name="android:importantForAutofill">no</item>
     </style>
-    <style name="Widget.RoomKit.Action" parent="Widget.MaterialComponents.Button">
-        <item name="android:minHeight">52dp</item>
+    <style name="Widget.RoomKit.Action" parent="Base.Widget.RoomKit.Button">
+        <item name="android:minHeight">@dimen/roomkit_action_height</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
-        <item name="android:textAllCaps">false</item>
         <item name="android:textSize">@dimen/roomkit_text_14</item>
         <item name="android:letterSpacing">0</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:elevation">0dp</item>
         <item name="android:stateListAnimator">@null</item>
-        <item name="cornerRadius">16dp</item>
+        <item name="cornerRadius">@dimen/roomkit_button_radius</item>
         <item name="iconSize">20dp</item>
         <item name="iconPadding">8dp</item>
         <item name="iconGravity">textStart</item>
@@ -163,7 +146,7 @@
         <item name="android:textColor">@color/roomkit_navy_light</item>
         <item name="iconTint">@color/roomkit_slate_550</item>
         <item name="strokeColor">@color/roomkit_slate_225</item>
-        <item name="strokeWidth">1dp</item>
+        <item name="strokeWidth">@dimen/roomkit_stroke_width</item>
     </style>
     <style name="Widget.RoomKit.Action.Link" parent="Widget.RoomKit.Action">
         <item name="backgroundTint">@android:color/transparent</item>
@@ -174,25 +157,13 @@
         <item name="android:textColor">@color/roomkit_error</item>
         <item name="iconTint">@color/roomkit_error</item>
     </style>
-    <style name="Widget.RoomKit.Input.Compact" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxBackgroundColor">@color/roomkit_white</item>
+    <style name="Widget.RoomKit.Input.Compact" parent="Base.Widget.RoomKit.Input.Outlined">
         <item name="boxStrokeColor">@color/roomkit_input_outline_info</item>
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="boxStrokeWidthFocused">2dp</item>
-        <item name="boxCornerRadiusTopStart">12dp</item>
-        <item name="boxCornerRadiusTopEnd">12dp</item>
-        <item name="boxCornerRadiusBottomStart">12dp</item>
-        <item name="boxCornerRadiusBottomEnd">12dp</item>
         <item name="hintTextColor">@color/roomkit_partial</item>
-        <item name="android:textColorHint">@color/roomkit_text_secondary</item>
     </style>
-    <style name="Widget.RoomKit.Button.Compact" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.RoomKit.Button.Compact" parent="Base.Widget.RoomKit.Button.Filled.Label">
         <item name="backgroundTint">@color/roomkit_button_background</item>
-        <item name="cornerRadius">16dp</item>
-        <item name="android:textColor">@color/roomkit_white</item>
-        <item name="android:textAllCaps">false</item>
         <item name="android:letterSpacing">0</item>
-        <item name="android:textSize">@dimen/roomkit_text_15</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
     </style>
@@ -200,56 +171,35 @@
         <item name="android:textColor">@color/roomkit_partial</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:letterSpacing">0</item>
-        <item name="android:minHeight">48dp</item>
+        <item name="android:minHeight">@dimen/roomkit_touch_target</item>
     </style>
-    <style name="Widget.RoomKit.Input.Settings" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Widget.RoomKit.Input.Settings" parent="Base.Widget.RoomKit.Input">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">16dp</item>
-        <item name="boxCornerRadiusTopStart">12dp</item>
-        <item name="boxCornerRadiusTopEnd">12dp</item>
-        <item name="boxCornerRadiusBottomStart">12dp</item>
-        <item name="boxCornerRadiusBottomEnd">12dp</item>
         <item name="boxStrokeColor">@color/roomkit_text_secondary</item>
-        <item name="android:textColorHint">@color/roomkit_text_secondary</item>
     </style>
-    <style name="Widget.RoomKit.Card.Padded" parent="Widget.MaterialComponents.CardView">
+    <style name="Widget.RoomKit.Button.Rounded" parent="Base.Widget.RoomKit.Button.Filled">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="cardBackgroundColor">@color/roomkit_white</item>
-        <item name="cardCornerRadius">20dp</item>
-        <item name="cardElevation">0dp</item>
-        <item name="strokeWidth">1dp</item>
-        <item name="strokeColor">@color/roomkit_border</item>
-    </style>
-    <style name="Widget.RoomKit.Button.Rounded" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">56dp</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/roomkit_white</item>
+        <item name="android:minHeight">@dimen/roomkit_control_height</item>
         <item name="backgroundTint">@color/roomkit_text_primary</item>
-        <item name="cornerRadius">14dp</item>
+        <item name="cornerRadius">@dimen/roomkit_button_radius_compact</item>
     </style>
-    <style name="Widget.RoomKit.Button.OutlinedRounded" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="Widget.RoomKit.Button.OutlinedRounded" parent="Base.Widget.RoomKit.Button.Outlined">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">52dp</item>
-        <item name="android:textAllCaps">false</item>
+        <item name="android:minHeight">@dimen/roomkit_action_height</item>
         <item name="android:textColor">@color/roomkit_text_primary</item>
-        <item name="cornerRadius">14dp</item>
-        <item name="strokeColor">@color/roomkit_border</item>
+        <item name="cornerRadius">@dimen/roomkit_button_radius_compact</item>
     </style>
-    <style name="Widget.RoomKit.Button.Primary" parent="Widget.MaterialComponents.Button">
-        <item name="android:textAllCaps">false</item>
+    <style name="Widget.RoomKit.Button.Primary" parent="Base.Widget.RoomKit.Button.Filled">
         <item name="android:textSize">@dimen/roomkit_text_16</item>
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:minHeight">56dp</item>
+        <item name="android:minHeight">@dimen/roomkit_control_height</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
-        <item name="cornerRadius">16dp</item>
         <item name="backgroundTint">@color/roomkit_text_primary</item>
-        <item name="android:textColor">@color/roomkit_white</item>
     </style>
     <style name="Widget.RoomKit.Chip.Filter" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="android:fontFamily">sans-serif-medium</item>
@@ -257,7 +207,7 @@
         <item name="android:textColor">@color/roomkit_filter_text</item>
         <item name="chipBackgroundColor">@color/roomkit_filter_background</item>
         <item name="chipStrokeColor">@color/roomkit_border</item>
-        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeWidth">@dimen/roomkit_stroke_width</item>
         <item name="chipCornerRadius">24dp</item>
         <item name="chipMinHeight">36dp</item>
         <item name="android:checkable">true</item>
@@ -269,39 +219,25 @@
         <item name="textStartPadding">0dp</item>
         <item name="textEndPadding">0dp</item>
     </style>
-    <style name="Widget.RoomKit.Card.Medium" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/roomkit_white</item>
-        <item name="cardCornerRadius">18dp</item>
-        <item name="cardElevation">0dp</item>
-        <item name="strokeColor">@color/roomkit_border</item>
-        <item name="strokeWidth">1dp</item>
+    <style name="Widget.RoomKit.Card.Medium" parent="Widget.RoomKit.Card">
+        <item name="cardCornerRadius">@dimen/roomkit_card_radius_medium</item>
     </style>
-    <style name="Widget.RoomKit.Input.WithSuffix" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxBackgroundColor">@color/roomkit_white</item>
+    <style name="Widget.RoomKit.Input.WithSuffix" parent="Base.Widget.RoomKit.Input.Outlined">
         <item name="boxStrokeColor">@color/roomkit_input_outline</item>
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="boxStrokeWidthFocused">2dp</item>
-        <item name="boxCornerRadiusTopStart">12dp</item>
-        <item name="boxCornerRadiusTopEnd">12dp</item>
-        <item name="boxCornerRadiusBottomStart">12dp</item>
-        <item name="boxCornerRadiusBottomEnd">12dp</item>
         <item name="hintTextColor">@color/roomkit_text_secondary</item>
-        <item name="android:textColorHint">@color/roomkit_text_secondary</item>
         <item name="suffixTextColor">@color/roomkit_text_secondary</item>
     </style>
-    <style name="Widget.RoomKit.Button.Medium" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.RoomKit.Button.Medium" parent="Base.Widget.RoomKit.Button.Filled.Label">
         <item name="backgroundTint">@color/roomkit_button_background_subtle</item>
         <item name="android:textColor">@color/roomkit_button_text</item>
-        <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/roomkit_text_15</item>
         <item name="android:letterSpacing">0</item>
-        <item name="cornerRadius">14dp</item>
+        <item name="cornerRadius">@dimen/roomkit_button_radius_compact</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
         <item name="android:elevation">0dp</item>
         <item name="android:stateListAnimator">@null</item>
-        <item name="android:minHeight">52dp</item>
+        <item name="android:minHeight">@dimen/roomkit_action_height</item>
     </style>
     <style name="Widget.RoomKit.Button.TextMedium" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textAllCaps">false</item>
@@ -309,7 +245,7 @@
         <item name="android:textSize">@dimen/roomkit_text_14</item>
         <item name="android:textColor">@color/roomkit_input_text</item>
         <item name="iconTint">@color/roomkit_input_text</item>
-        <item name="android:minHeight">48dp</item>
+        <item name="android:minHeight">@dimen/roomkit_touch_target</item>
         <item name="cornerRadius">12dp</item>
     </style>
     <style name="Widget.RoomKit.NavigationIndicator" parent="">
@@ -322,48 +258,38 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
-    <style name="Widget.RoomKit.Card.Form" parent="Widget.MaterialComponents.CardView">
+    <style name="Widget.RoomKit.Card.Form" parent="Widget.RoomKit.Card">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="cardCornerRadius">20dp</item>
-        <item name="cardElevation">0dp</item>
-        <item name="cardBackgroundColor">@color/roomkit_white</item>
         <item name="strokeColor">@color/roomkit_border_light</item>
-        <item name="strokeWidth">1dp</item>
     </style>
-    <style name="Widget.RoomKit.Input.Accent" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxCornerRadiusTopStart">12dp</item>
-        <item name="boxCornerRadiusTopEnd">12dp</item>
-        <item name="boxCornerRadiusBottomStart">12dp</item>
-        <item name="boxCornerRadiusBottomEnd">12dp</item>
+    <style name="Widget.RoomKit.Input.Accent" parent="Base.Widget.RoomKit.Input.Outlined">
         <item name="boxBackgroundColor">@color/roomkit_field</item>
         <item name="boxStrokeColor">@color/roomkit_input_outline_info</item>
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="boxStrokeWidthFocused">2dp</item>
         <item name="android:textColorHint">@color/roomkit_slate_light</item>
         <item name="hintTextColor">@color/roomkit_accent</item>
     </style>
     <style name="Widget.RoomKit.Input.AccentDropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-        <item name="boxCornerRadiusTopStart">12dp</item>
-        <item name="boxCornerRadiusTopEnd">12dp</item>
-        <item name="boxCornerRadiusBottomStart">12dp</item>
-        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxCornerRadiusTopStart">@dimen/roomkit_input_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/roomkit_input_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/roomkit_input_corner_radius</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/roomkit_input_corner_radius</item>
         <item name="boxBackgroundColor">@color/roomkit_field</item>
         <item name="boxStrokeColor">@color/roomkit_input_outline_info</item>
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxStrokeWidth">@dimen/roomkit_stroke_width</item>
+        <item name="boxStrokeWidthFocused">@dimen/roomkit_stroke_width_focused</item>
         <item name="android:textColorHint">@color/roomkit_slate_light</item>
         <item name="hintTextColor">@color/roomkit_accent</item>
         <item name="endIconTint">@color/roomkit_slate_light</item>
     </style>
     <style name="Widget.RoomKit.EditText.Accent" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
-        <item name="android:minHeight">56dp</item>
+        <item name="android:minHeight">@dimen/roomkit_control_height</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">@dimen/roomkit_text_16</item>
         <item name="android:textColor">@color/roomkit_navy</item>
         <item name="android:paddingStart">14dp</item>
         <item name="android:paddingEnd">14dp</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingTop">@dimen/roomkit_spacing_lg</item>
+        <item name="android:paddingBottom">@dimen/roomkit_spacing_lg</item>
     </style>
 </resources>
