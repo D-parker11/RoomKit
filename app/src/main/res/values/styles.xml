@@ -446,4 +446,8 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:accessibilityHeading">true</item>
     </style>
+    <style name="ShapeAppearance.RoomKit.Dialog" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/roomkit_size_24</item>
+    </style>
 </resources>

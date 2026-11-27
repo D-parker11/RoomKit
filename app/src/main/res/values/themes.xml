@@ -17,4 +17,9 @@
         <item name="android:statusBarColor">@color/roomkit_white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
+    <style name="ThemeOverlay.RoomKit.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.RoomKit.Dialog</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.RoomKit.Button.Primary</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.RoomKit.Button.TextMedium</item>
+    </style>
 </resources>

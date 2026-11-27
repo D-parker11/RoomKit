@@ -797,4 +797,29 @@ Payments received are not profit. Expenses and deposit refunds are not deducted 
     <string name="rk_room_detail_water_fixed">Water — Fixed</string>
     <string name="rk_room_detail_water_metered">Water — Metered</string>
 
+
+    <!-- Shared review labels and move-in confirmation copy. -->
+    <string name="move_in_review_title">Review move-in</string>
+    <string name="move_in_review_subtitle">Check the details before confirming.</string>
+    <string name="move_in_review_date">Move-in · %1$s</string>
+    <string name="move_in_review_rent_unit">KHR / month</string>
+    <string name="move_in_review_note">Confirming assigns this tenant to the room using these terms.</string>
+    <string name="move_in_review_confirm">Confirm move-in</string>
+    <string name="roomkit_edit_details">Edit details</string>
+    <string name="roomkit_not_set">Not set</string>
+    <string name="roomkit_label_deposit">Deposit</string>
+    <string name="roomkit_label_billing_schedule">Billing schedule</string>
+    <string name="roomkit_label_billing_day">Billing day</string>
+    <string name="roomkit_label_due_day">Due day</string>
+    <string name="roomkit_label_utilities">Utilities</string>
+    <string name="roomkit_label_water_fixed">Water · fixed</string>
+    <string name="roomkit_label_water_metered">Water · metered</string>
+    <string name="roomkit_label_rubbish_fee">Rubbish fee</string>
+    <string name="roomkit_label_starting_readings">Starting readings</string>
+    <string name="roomkit_day_number">Day %1$d</string>
+    <string name="roomkit_rate_kwh">%1$s ៛ / kWh</string>
+    <string name="roomkit_rate_m3">%1$s ៛ / m³</string>
+    <string name="roomkit_rate_month">%1$s ៛ / month</string>
+    <string name="roomkit_reading_kwh">%1$s kWh</string>
+    <string name="roomkit_reading_m3">%1$s m³</string>
 </resources>

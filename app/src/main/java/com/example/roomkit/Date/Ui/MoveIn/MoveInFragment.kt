@@ -27,6 +27,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.roomkit.Date.Billing.CurrencyFormatter
 import com.example.roomkit.Date.Ui.Factory.ViewModelFactory
 import com.example.roomkit.databinding.FragmentMoveInBinding
+import com.example.roomkit.databinding.DialogMoveInReviewBinding
+import com.example.roomkit.databinding.ItemSummaryRowBinding
+import androidx.annotation.StringRes
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
@@ -576,87 +579,71 @@ class MoveInFragment : Fragment() {
 
         if (confirmationDialog?.isShowing == true) return
 
-        val waterSummary =
-            if (state.isWaterMetered) {
+        val builder = MaterialAlertDialogBuilder(
+            requireContext(),
+            R.style.ThemeOverlay_RoomKit_Dialog
+        )
+        val review = DialogMoveInReviewBinding.inflate(LayoutInflater.from(builder.context))
 
-                """
-                Water Rate: ${
-                    formatKhr(
-                        state.waterFeeOrRateKhrInput
-                    )
-                } ៛/m³
-                Initial Water: ${state.initialWaterReadingInput} m³
-                """.trimIndent()
+        review.reviewTenantName.text = state.tenantName.ifBlank { getString(R.string.roomkit_not_set) }
+        review.reviewRoomProperty.text = getString(
+            R.string.mr_room_tenant,
+            state.roomNumber.ifBlank { getString(R.string.roomkit_not_set) },
+            state.buildingName.ifBlank { getString(R.string.roomkit_not_set) }
+        )
+        review.reviewMoveInDate.text = getString(R.string.move_in_review_date, state.moveInDateFormatted)
+        review.reviewRentAmount.text = formatReviewNumber(state.monthlyRentKhrInput)
+        review.reviewDepositAmount.text = formatReviewNumber(state.depositKhrInput)
 
-            } else {
+        bindReviewRow(review.reviewBillingDay, R.string.roomkit_label_billing_day, reviewDay(state.billingDayInput))
+        bindReviewRow(review.reviewDueDay, R.string.roomkit_label_due_day, reviewDay(state.dueDayInput))
+        bindReviewRow(review.reviewElectricity, R.string.mu_label_electricity_meter,
+            getString(R.string.roomkit_rate_kwh, formatReviewNumber(state.electricityRateKhrInput)))
+        bindReviewRow(review.reviewWater,
+            if (state.isWaterMetered) R.string.roomkit_label_water_metered else R.string.roomkit_label_water_fixed,
+            getString(if (state.isWaterMetered) R.string.roomkit_rate_m3 else R.string.roomkit_rate_month,
+                formatReviewNumber(state.waterFeeOrRateKhrInput)))
+        bindReviewRow(review.reviewRubbish, R.string.roomkit_label_rubbish_fee,
+            getString(R.string.roomkit_rate_month, formatReviewNumber(state.rubbishFeeKhrInput)))
+        bindReviewRow(review.reviewInitialElectricity, R.string.mu_label_electricity_meter,
+            getString(R.string.roomkit_reading_kwh, formatReviewNumber(state.initialElecReadingInput)))
+        bindReviewRow(review.reviewInitialWater, R.string.mu_label_water_meter,
+            getString(R.string.roomkit_reading_m3, formatReviewNumber(state.initialWaterReadingInput)))
+        review.reviewInitialWater.root.isVisible = state.isWaterMetered
 
-                """
-                Water: Fixed ${
-                    formatKhr(
-                        state.waterFeeOrRateKhrInput
-                    )
-                } ៛/month
-                """.trimIndent()
-            }
-
-        val message =
-            """
-            Tenant: ${state.tenantName}
-            Building: ${state.buildingName}
-            Room: ${state.roomNumber}
-            Move-In: ${state.moveInDateFormatted}
-
-            Monthly Rent (KHR): ${state.monthlyRentKhrInput}
-            Deposit (KHR): ${state.depositKhrInput}
-
-            Billing Day: ${state.billingDayInput}
-            Due Day: ${state.dueDayInput}
-
-            Electricity: ${
-                formatKhr(
-                    state.electricityRateKhrInput
-                )
-            } ៛/kWh
-
-            $waterSummary
-
-            Rubbish: ${
-                formatKhr(
-                    state.rubbishFeeKhrInput
-                )
-            } ៛/month
-
-            Initial Electricity: ${state.initialElecReadingInput} kWh
-            """.trimIndent()
-
-        val dialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Confirm Move-In")
-            .setMessage(message)
-            .setNegativeButton("Cancel", null)
-            .setPositiveButton("Confirm") { _, _ ->
+        val dialog = builder
+            .setView(review.root)
+            .setNegativeButton(R.string.roomkit_edit_details, null)
+            .setPositiveButton(R.string.move_in_review_confirm) { _, _ ->
+                // Keep the existing ViewModel validation and transaction as the only save path.
                 viewModel.confirmMoveIn()
             }
             .create()
 
         confirmationDialog = dialog
-
         dialog.setOnDismissListener {
             if (confirmationDialog === dialog) {
                 confirmationDialog = null
             }
         }
-
         dialog.show()
     }
 
-    private fun formatKhr(
-        value: String
-    ): String {
-
-        return khrFormat.format(
-            value.toLongOrNull() ?: 0L
-        )
+    private fun bindReviewRow(row: ItemSummaryRowBinding, @StringRes label: Int, value: String) {
+        row.tvSummaryRowLabel.setText(label)
+        row.tvSummaryRowValue.text = value
+        // Compact only these dialog rows; other item_summary_row consumers keep their spacing.
+        val inset = resources.getDimensionPixelSize(R.dimen.roomkit_spacing_xs)
+        row.root.setPaddingRelative(0, inset, 0, inset)
     }
+
+    private fun formatReviewNumber(value: String): String =
+        CurrencyFormatter.parseKhrInput(value)?.let { khrFormat.format(it) }
+            ?: getString(R.string.roomkit_not_set)
+
+    private fun reviewDay(value: String): String =
+        value.trim().toIntOrNull()?.let { getString(R.string.roomkit_day_number, it) }
+            ?: getString(R.string.roomkit_not_set)
 
     private fun handleMoveInSuccess(state: MoveInUiState) {
         viewModel.onMoveInSuccessHandled()

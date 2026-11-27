@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/roomkit_size_24"
+    android:paddingTop="@dimen/roomkit_size_24"
+    android:paddingEnd="@dimen/roomkit_size_24"
+    android:paddingBottom="@dimen/roomkit_size_8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:accessibilityHeading="true"
+            android:text="@string/move_in_review_title"
+            android:textAppearance="@style/TextAppearance.RoomKit.SectionTitle" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/roomkit_spacing_xs"
+            android:text="@string/move_in_review_subtitle"
+            android:textAppearance="@style/TextAppearance.RoomKit.Caption.Standard" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/roomkit_size_20"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="@dimen/roomkit_touch_target"
+                android:layout_height="@dimen/roomkit_touch_target"
+                android:layout_marginEnd="@dimen/roomkit_size_12"
+                android:importantForAccessibility="no"
+                app:cardBackgroundColor="@color/roomkit_neutral_surface"
+                app:cardCornerRadius="@dimen/roomkit_size_12"
+                app:strokeWidth="@dimen/roomkit_size_0">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/roomkit_size_12"
+                    android:src="@drawable/ic_building"
+                    app:tint="@color/roomkit_primary" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="@dimen/roomkit_size_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/reviewTenantName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.RoomKit.Heading.Medium"
+                    tools:text="KKEE" />
+
+                <TextView
+                    android:id="@+id/reviewRoomProperty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/roomkit_size_2_5"
+                    android:textAppearance="@style/TextAppearance.RoomKit.Caption.Standard"
+                    tools:text="Room DEMO-03 · Heh" />
+
+                <TextView
+                    android:id="@+id/reviewMoveInDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.RoomKit.Caption.Standard"
+                    tools:text="Move-in · 27 Nov 2026" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.RoomKit.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/roomkit_size_16"
+            app:cardBackgroundColor="@color/roomkit_background"
+            app:strokeWidth="@dimen/roomkit_size_0">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/roomkit_size_16">
+
+                <LinearLayout
+                    android:layout_width="@dimen/roomkit_size_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/roomkit_size_12"
+                    android:orientation="vertical"
+                    android:screenReaderFocusable="true">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/replacement_rent_title"
+                        android:textAppearance="@style/TextAppearance.RoomKit.Caption.Standard" />
+
+                    <TextView
+                        android:id="@+id/reviewRentAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                        android:textAppearance="@style/TextAppearance.RoomKit.SectionTitle"
+                        tools:text="400,000" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/move_in_review_rent_unit"
+                        android:textAppearance="@style/TextAppearance.RoomKit.Caption" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/roomkit_size_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:screenReaderFocusable="true">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/roomkit_label_deposit"
+                        android:textAppearance="@style/TextAppearance.RoomKit.Caption.Standard" />
+
+                    <TextView
+                        android:id="@+id/reviewDepositAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/roomkit_spacing_xs"
+                        android:textAppearance="@style/TextAppearance.RoomKit.SectionTitle"
+                        tools:text="400,000" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/replacement_khr"
+                        android:textAppearance="@style/TextAppearance.RoomKit.Caption" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/roomkit_size_20"
+            android:layout_marginBottom="@dimen/roomkit_spacing_xs"
+            android:accessibilityHeading="true"
+            android:text="@string/roomkit_label_billing_schedule"
+            android:textAppearance="@style/TextAppearance.RoomKit.Heading.Medium" />
+
+        <include android:id="@+id/reviewBillingDay" layout="@layout/item_summary_row" />
+        <include android:id="@+id/reviewDueDay" layout="@layout/item_summary_row" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/roomkit_stroke_width"
+            android:layout_marginVertical="@dimen/roomkit_size_12"
+            android:background="@color/roomkit_divider" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/roomkit_spacing_xs"
+            android:accessibilityHeading="true"
+            android:text="@string/roomkit_label_utilities"
+            android:textAppearance="@style/TextAppearance.RoomKit.Heading.Medium" />
+
+        <include android:id="@+id/reviewElectricity" layout="@layout/item_summary_row" />
+        <include android:id="@+id/reviewWater" layout="@layout/item_summary_row" />
+        <include android:id="@+id/reviewRubbish" layout="@layout/item_summary_row" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/roomkit_stroke_width"
+            android:layout_marginVertical="@dimen/roomkit_size_12"
+            android:background="@color/roomkit_divider" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/roomkit_spacing_xs"
+            android:accessibilityHeading="true"
+            android:text="@string/roomkit_label_starting_readings"
+            android:textAppearance="@style/TextAppearance.RoomKit.Heading.Medium" />
+
+        <include android:id="@+id/reviewInitialElectricity" layout="@layout/item_summary_row" />
+        <include android:id="@+id/reviewInitialWater" layout="@layout/item_summary_row" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/roomkit_size_16"
+            android:text="@string/move_in_review_note"
+            android:textAppearance="@style/TextAppearance.RoomKit.Caption.Standard" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
