@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="@dimen/roomkit_size_24" android:height="@dimen/roomkit_size_24" android:viewportWidth="24" android:viewportHeight="24">
-    <path android:pathData="M12,20H4V12M14,5l5,5M10,19l-5,1 1,-5L17,4a2,2 0,0 1,3 3Z" android:fillColor="@android:color/transparent" android:strokeColor="@color/roomkit_text_primary" android:strokeWidth="1.8" android:strokeLineCap="round" android:strokeLineJoin="round"/>
-</vector>

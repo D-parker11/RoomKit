@@ -1,1 +1,0 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"><solid android:color="@color/roomkit_white"/><corners android:radius="@dimen/roomkit_button_radius_compact"/><stroke android:width="@dimen/roomkit_stroke_width" android:color="@color/roomkit_border"/></shape>
