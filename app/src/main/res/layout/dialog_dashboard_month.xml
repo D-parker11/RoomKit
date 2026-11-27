@@ -62,6 +62,15 @@
             android:textColor="@color/roomkit_text_secondary"
             android:textSize="@dimen/roomkit_text_14" />
 
+        <!-- Optional caller context; hidden for the dashboard. -->
+        <TextView
+            android:id="@+id/tvMonthHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/roomkit_size_12"
+            android:textAppearance="@style/TextAppearance.RoomKit.Caption.Standard"
+            android:visibility="gone" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
