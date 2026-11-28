@@ -1,6 +1,5 @@
 package com.example.roomkit.Date.Ui.Tenant
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +36,7 @@ class TenantListAdapter(
                 // Active status pill
                 binding.tvTenantStatusBadge.text = "Active"
                 binding.tvTenantStatusBadge.setBackgroundResource(R.drawable.bg_badge_tenant_active)
-                binding.tvTenantStatusBadge.setTextColor(Color.parseColor("#2E7D32"))
+                binding.tvTenantStatusBadge.setTextColor(androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_green_750))
 
                 // Room & Building
                 val rNum = item.roomNumber ?: item.currentRoomNumber ?: "—"
@@ -72,12 +71,12 @@ class TenantListAdapter(
 
                 if (hasPastHistory) {
                     binding.tvTenantStatusBadge.text = "Previous"
-                    binding.tvTenantStatusBadge.setBackgroundResource(R.drawable.bg_badge_tenant_previous)
-                    binding.tvTenantStatusBadge.setTextColor(Color.parseColor("#4B5563"))
+                    binding.tvTenantStatusBadge.setBackgroundResource(R.drawable.bg_badge_neutral_pill)
+                    binding.tvTenantStatusBadge.setTextColor(androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_gray_600))
                 } else {
                     binding.tvTenantStatusBadge.text = "Unassigned"
-                    binding.tvTenantStatusBadge.setBackgroundResource(R.drawable.bg_badge_tenant_previous)
-                    binding.tvTenantStatusBadge.setTextColor(Color.parseColor("#6B7280"))
+                    binding.tvTenantStatusBadge.setBackgroundResource(R.drawable.bg_badge_neutral_pill)
+                    binding.tvTenantStatusBadge.setTextColor(androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_gray_500))
                 }
 
                 binding.tvRoomAndBuilding.text = "No active room"

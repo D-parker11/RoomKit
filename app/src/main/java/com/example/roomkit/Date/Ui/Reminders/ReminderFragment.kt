@@ -92,7 +92,7 @@ class RemindersFragment : Fragment() {
         binding.tvReminderPermissionHint.setText(if (state.notificationsEnabled) R.string.rr_time else R.string.rr_disabled_help)
         binding.btnReminderSettings.contentDescription = getString(if (state.notificationsEnabled) R.string.rr_settings else R.string.rr_enable)
         binding.tvReminderPermission.setTextColor(ContextCompat.getColor(requireContext(),
-            if (state.notificationsEnabled) R.color.rr_navy else R.color.rr_red))
+            if (state.notificationsEnabled) R.color.roomkit_primary else R.color.roomkit_error))
         filter(binding.chipOverdue, binding.tvFilterOverdue, binding.tvCountOverdue, state.overdueCount, state.filter == ReminderFilter.OVERDUE, true)
         filter(binding.chipToday, binding.tvFilterToday, binding.tvCountToday, state.todayCount, state.filter == ReminderFilter.TODAY)
         filter(binding.chipUpcoming, binding.tvFilterUpcoming, binding.tvCountUpcoming, state.upcomingCount, state.filter == ReminderFilter.UPCOMING)
@@ -102,20 +102,20 @@ class RemindersFragment : Fragment() {
 
     private fun filter(card: MaterialCardView, label: TextView, count: TextView,
                        number: Int, selected: Boolean, overdue: Boolean = false) {
-        val bg = if (!selected) R.color.rr_surface else if (overdue) R.color.rr_red_light else R.color.rr_blue_light
-        val fg = if (!selected) R.color.rr_navy else if (overdue) R.color.rr_red else R.color.rr_blue
+        val bg = if (!selected) R.color.roomkit_white else if (overdue) R.color.roomkit_error_bg else R.color.roomkit_partial_bg
+        val fg = if (!selected) R.color.roomkit_primary else if (overdue) R.color.roomkit_error else R.color.roomkit_partial
         val color = ContextCompat.getColor(requireContext(), fg)
         card.isSelected = selected
         card.contentDescription = "${label.text}, $number"
         card.setCardBackgroundColor(ContextCompat.getColor(requireContext(), bg))
-        card.strokeColor = ContextCompat.getColor(requireContext(), if (selected) fg else R.color.rr_border)
+        card.strokeColor = ContextCompat.getColor(requireContext(), if (selected) fg else R.color.roomkit_border)
         label.setTextColor(color)
         count.text = number.toString()
         count.setTextColor(color)
         count.background = GradientDrawable().apply {
             shape = GradientDrawable.OVAL
             setColor(if (selected) (color and 0x00FFFFFF) or 0x22000000
-            else ContextCompat.getColor(requireContext(), R.color.rr_background))
+            else ContextCompat.getColor(requireContext(), R.color.roomkit_background))
         }
     }
 

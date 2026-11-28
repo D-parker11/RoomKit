@@ -146,9 +146,9 @@
 //                ContextCompat.getColor(
 //                    context,
 //                    if (isVoided) {
-//                        R.color.ph_secondary
+//                        R.color.roomkit_slate_600
 //                    } else {
-//                        R.color.ph_success
+//                        R.color.roomkit_green_800
 //                    }
 //                )
 //            )
@@ -175,9 +175,9 @@
 //                ContextCompat.getColor(
 //                    context,
 //                    if (isVoided) {
-//                        R.color.ph_void_text
+//                        R.color.roomkit_error
 //                    } else {
-//                        R.color.ph_success
+//                        R.color.roomkit_green_800
 //                    }
 //                )
 //            )
@@ -280,7 +280,7 @@ class PaymentHistoryAdapter(private val onItemClick: ((PaymentEntity) -> Unit)? 
             binding.tvPaymentMethodAndNote.text = formatPaymentMethod(context, item.paymentMethod)
             binding.tvPaymentAmount.text = CurrencyFormatter.formatKhr(item.amountKhr)
             binding.tvPaymentAmount.setTextColor(ContextCompat.getColor(context,
-                if (isVoided) R.color.ph_secondary else R.color.ph_success))
+                if (isVoided) R.color.roomkit_slate_600 else R.color.roomkit_green_800))
             binding.tvPaymentAmount.paintFlags = if (isVoided)
                 binding.tvPaymentAmount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             else binding.tvPaymentAmount.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
@@ -290,7 +290,7 @@ class PaymentHistoryAdapter(private val onItemClick: ((PaymentEntity) -> Unit)? 
                 else -> R.string.ph_received
             })
             binding.tvPaymentStatus.setTextColor(ContextCompat.getColor(context,
-                if (isVoided) R.color.ph_void_text else R.color.ph_success))
+                if (isVoided) R.color.roomkit_error else R.color.roomkit_green_800))
             val note = item.note?.trim().orEmpty()
             binding.tvPaymentNote.text = note
             binding.tvPaymentNote.isVisible = note.isNotEmpty()

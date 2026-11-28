@@ -2,6 +2,8 @@
 
 package com.example.roomkit.Date.Ui.Payment
 
+import com.example.roomkit.Date.Ui.Common.setRoomKitTextSize
+
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.view.Gravity
@@ -72,7 +74,7 @@ class PaymentsActivityAdapter(
         view.text = label
         view.gravity = Gravity.CENTER_VERTICAL
         view.includeFontPadding = false
-        view.textSize = 12f
+        view.setRoomKitTextSize(R.dimen.roomkit_text_12)
         view.setTypeface(view.typeface, Typeface.BOLD)
         view.setTextColor(color)
         view.backgroundTintList = null
@@ -104,7 +106,7 @@ class PaymentsActivityAdapter(
             tvDueDate.setTextColor(
                 ContextCompat.getColor(
                     root.context,
-                    if (item.isOverdue) R.color.rpay_red else R.color.rpay_muted
+                    if (item.isOverdue) R.color.roomkit_error else R.color.roomkit_text_secondary
                 )
             )
 
@@ -113,19 +115,19 @@ class PaymentsActivityAdapter(
                     tvStatusBadge,
                     "Overdue",
                     R.drawable.bg_rd_badge_red,
-                    R.color.rpay_red
+                    R.color.roomkit_error
                 )
                 item.totalPaidKhr > 0L -> badge(
                     tvStatusBadge,
                     "Partial",
                     R.drawable.bg_rd_badge_blue,
-                    R.color.rpay_blue
+                    R.color.roomkit_partial
                 )
                 else -> badge(
                     tvStatusBadge,
                     "Unpaid",
                     R.drawable.bg_rd_badge_amber,
-                    R.color.rpay_amber
+                    R.color.roomkit_warning
                 )
             }
 
@@ -147,7 +149,7 @@ class PaymentsActivityAdapter(
             tvPaymentAmount.setTextColor(
                 ContextCompat.getColor(
                     root.context,
-                    if (item.isVoided) R.color.rpay_muted else R.color.rpay_green
+                    if (item.isVoided) R.color.roomkit_text_secondary else R.color.roomkit_success
                 )
             )
 
@@ -165,7 +167,7 @@ class PaymentsActivityAdapter(
                     tvStatusBadge,
                     "Voided",
                     R.drawable.bg_rd_badge_red,
-                    R.color.rpay_red
+                    R.color.roomkit_error
                 )
                 tvReceiptDetail.text = "Voided payment · Excluded from collected total"
             } else {
@@ -173,7 +175,7 @@ class PaymentsActivityAdapter(
                     tvStatusBadge,
                     "Recorded",
                     R.drawable.bg_rd_badge_green,
-                    R.color.rpay_green
+                    R.color.roomkit_success
                 )
                 tvReceiptDetail.text = if (item.isFullyPaid) {
                     "Invoice fully paid"

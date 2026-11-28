@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp"
-    app:cardBackgroundColor="@color/ph_background" app:cardCornerRadius="16dp" app:cardElevation="0dp"
-    app:strokeColor="@color/ph_border" app:strokeWidth="1dp">
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/roomkit_size_10"
+    app:cardBackgroundColor="@color/roomkit_white" app:cardCornerRadius="@dimen/roomkit_size_16" app:cardElevation="@dimen/roomkit_size_0"
+    app:strokeColor="@color/roomkit_slate_200" app:strokeWidth="@dimen/roomkit_stroke_width">
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:padding="16dp">
+        android:orientation="vertical" android:padding="@dimen/roomkit_size_16">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="horizontal" android:gravity="center_vertical" android:baselineAligned="false">
-            <TextView android:id="@+id/tvPaymentDate" android:layout_width="0dp" android:layout_weight="1"
-                android:layout_height="wrap_content" android:layout_marginEnd="12dp"
-                android:textColor="@color/ph_text" android:textSize="14sp" android:textStyle="bold" />
+            <TextView android:id="@+id/tvPaymentDate" android:layout_width="@dimen/roomkit_size_0" android:layout_weight="1"
+                android:layout_height="wrap_content" android:layout_marginEnd="@dimen/roomkit_size_12"
+                android:textColor="@color/roomkit_text_primary" android:textSize="@dimen/roomkit_text_14" android:textStyle="bold" />
             <TextView android:id="@+id/tvPaymentStatus" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:textColor="@color/ph_void_text" android:textSize="11sp" android:textStyle="bold" />
+                android:textColor="@color/roomkit_error" android:textSize="@dimen/roomkit_text_11" android:textStyle="bold" />
         </LinearLayout>
         <TextView android:id="@+id/tvPaymentMethodAndNote" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:layout_marginTop="5dp" android:textColor="@color/ph_secondary" android:textSize="13sp" />
+            android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_5" android:textColor="@color/roomkit_slate_600" android:textSize="@dimen/roomkit_text_13" />
         <TextView android:id="@+id/tvPaymentAmount" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" android:textColor="@color/ph_success" android:textSize="22sp" android:textStyle="bold" />
+            android:layout_marginTop="@dimen/roomkit_size_12" android:textColor="@color/roomkit_green_800" android:textSize="@dimen/roomkit_text_22" android:textStyle="bold" />
         <TextView android:id="@+id/tvPaymentReference" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="6dp" android:textColor="@color/ph_secondary" android:textSize="13sp"
+            android:layout_marginTop="@dimen/roomkit_size_6" android:textColor="@color/roomkit_slate_600" android:textSize="@dimen/roomkit_text_13"
             android:textIsSelectable="true" android:visibility="gone" />
         <TextView android:id="@+id/tvPaymentNote" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="6dp" android:lineSpacingExtra="2dp" android:textColor="@color/ph_secondary"
-            android:textSize="13sp" android:visibility="gone" />
+            android:layout_marginTop="@dimen/roomkit_size_6" android:lineSpacingExtra="@dimen/roomkit_stroke_width_focused" android:textColor="@color/roomkit_slate_600"
+            android:textSize="@dimen/roomkit_text_13" android:visibility="gone" />
         <com.google.android.material.card.MaterialCardView android:id="@+id/cardVoidDetails"
-            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp"
-            android:visibility="gone" app:cardBackgroundColor="@color/ph_void_background" app:cardCornerRadius="10dp"
-            app:cardElevation="0dp" app:strokeWidth="0dp">
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_button_radius_compact"
+            android:visibility="gone" app:cardBackgroundColor="@color/roomkit_red_50" app:cardCornerRadius="@dimen/roomkit_size_10"
+            app:cardElevation="@dimen/roomkit_size_0" app:strokeWidth="@dimen/roomkit_size_0">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:padding="12dp">
+                android:orientation="vertical" android:padding="@dimen/roomkit_size_12">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:text="@string/ph_void_reason" android:textColor="@color/ph_void_text" android:textSize="12sp" android:textStyle="bold" />
+                    android:text="@string/ph_void_reason" android:textColor="@color/roomkit_error" android:textSize="@dimen/roomkit_text_12" android:textStyle="bold" />
                 <TextView android:id="@+id/tvVoidReason" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp" android:lineSpacingExtra="3dp" android:textColor="@color/ph_text" android:textSize="14sp" />
+                    android:layout_marginTop="@dimen/roomkit_size_5" android:lineSpacingExtra="@dimen/roomkit_size_3" android:textColor="@color/roomkit_text_primary" android:textSize="@dimen/roomkit_text_14" />
                 <TextView android:id="@+id/tvVoidedAt" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" android:textColor="@color/ph_secondary" android:textSize="12sp" />
+                    android:layout_marginTop="@dimen/roomkit_size_8" android:textColor="@color/roomkit_slate_600" android:textSize="@dimen/roomkit_text_12" />
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp" android:text="@string/ph_excluded" android:textColor="@color/ph_secondary" android:textSize="12sp" />
+                    android:layout_marginTop="@dimen/roomkit_spacing_xs" android:text="@string/ph_excluded" android:textColor="@color/roomkit_slate_600" android:textSize="@dimen/roomkit_text_12" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

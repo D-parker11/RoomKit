@@ -1,31 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Screen Edge Paddings -->
-    <dimen name="roomkit_screen_padding_horizontal">24dp</dimen>
-    <dimen name="roomkit_screen_padding_top">24dp</dimen>
-    <dimen name="roomkit_bottom_safe_padding">108dp</dimen> <!-- Clears BottomNavigationView -->
-
-    <!-- Spacing Scale -->
+    <dimen name="roomkit_size_0">0dp</dimen>
+    <dimen name="roomkit_stroke_width">1dp</dimen>
+    <dimen name="roomkit_size_1_5">1.5dp</dimen>
+    <dimen name="roomkit_stroke_width_focused">2dp</dimen>
+    <dimen name="roomkit_size_2_5">2.5dp</dimen>
+    <dimen name="roomkit_size_3">3dp</dimen>
     <dimen name="roomkit_spacing_xs">4dp</dimen>
-    <dimen name="roomkit_spacing_sm">8dp</dimen>
-    <dimen name="roomkit_spacing_md">12dp</dimen>
-    <dimen name="roomkit_spacing_lg">16dp</dimen>
-    <dimen name="roomkit_spacing_xl">20dp</dimen>
+    <dimen name="roomkit_size_5">5dp</dimen>
+    <dimen name="roomkit_size_6">6dp</dimen>
+    <dimen name="roomkit_size_7">7dp</dimen>
+    <dimen name="roomkit_size_8">8dp</dimen>
+    <dimen name="roomkit_size_9">9dp</dimen>
+    <dimen name="roomkit_size_10">10dp</dimen>
+    <dimen name="roomkit_size_12">12dp</dimen>
+    <dimen name="roomkit_size_13">13dp</dimen>
+    <dimen name="roomkit_button_radius_compact">14dp</dimen>
+    <dimen name="roomkit_size_15">15dp</dimen>
+    <dimen name="roomkit_size_16">16dp</dimen>
+    <dimen name="roomkit_card_radius_medium">18dp</dimen>
+    <dimen name="roomkit_size_19">19dp</dimen>
+    <dimen name="roomkit_size_20">20dp</dimen>
+    <dimen name="roomkit_size_22">22dp</dimen>
+    <dimen name="roomkit_size_24">24dp</dimen>
+    <dimen name="roomkit_size_26">26dp</dimen>
     <dimen name="roomkit_spacing_xxl">28dp</dimen>
-
-    <!-- Card & Component Radii -->
-    <dimen name="roomkit_card_radius">20dp</dimen>
-    <dimen name="roomkit_card_radius_sm">16dp</dimen>
-    <dimen name="roomkit_chip_radius">24dp</dimen>
-    <dimen name="roomkit_button_radius">16dp</dimen>
-    <dimen name="roomkit_status_dot_size">8dp</dimen>
-
-    <!-- Card Insets & Component Heights -->
-    <dimen name="roomkit_card_padding">20dp</dimen>
-    <dimen name="roomkit_card_padding_compact">16dp</dimen>
+    <dimen name="roomkit_size_32">32dp</dimen>
+    <dimen name="roomkit_size_34">34dp</dimen>
+    <dimen name="roomkit_size_36">36dp</dimen>
+    <dimen name="roomkit_size_38">38dp</dimen>
+    <dimen name="roomkit_size_40">40dp</dimen>
+    <dimen name="roomkit_size_42">42dp</dimen>
+    <dimen name="roomkit_size_44">44dp</dimen>
+    <dimen name="roomkit_size_46">46dp</dimen>
+    <dimen name="roomkit_touch_target">48dp</dimen>
+    <dimen name="roomkit_size_50">50dp</dimen>
+    <dimen name="roomkit_action_height">52dp</dimen>
     <dimen name="roomkit_button_height">54dp</dimen>
-
-    <!-- Summary Card Tokens -->
-    <dimen name="roomkit_summary_card_width">116dp</dimen>
+    <dimen name="roomkit_control_height">56dp</dimen>
+    <dimen name="roomkit_size_58">58dp</dimen>
+    <dimen name="roomkit_size_60">60dp</dimen>
+    <dimen name="roomkit_size_64">64dp</dimen>
+    <dimen name="roomkit_size_66">66dp</dimen>
+    <dimen name="roomkit_size_68">68dp</dimen>
+    <dimen name="roomkit_size_72">72dp</dimen>
+    <dimen name="roomkit_size_74">74dp</dimen>
+    <dimen name="roomkit_size_78">78dp</dimen>
+    <dimen name="roomkit_size_80">80dp</dimen>
+    <dimen name="roomkit_size_84">84dp</dimen>
+    <dimen name="roomkit_size_88">88dp</dimen>
+    <dimen name="roomkit_size_90">90dp</dimen>
     <dimen name="roomkit_summary_card_height">104dp</dimen>
+    <dimen name="roomkit_bottom_safe_padding">108dp</dimen>
+    <dimen name="roomkit_size_110">110dp</dimen>
+    <dimen name="roomkit_size_112">112dp</dimen>
+    <dimen name="roomkit_summary_card_width">116dp</dimen>
+    <dimen name="roomkit_size_132">132dp</dimen>
+    <dimen name="roomkit_size_200">200dp</dimen>
+    <dimen name="roomkit_size_220">220dp</dimen>
+    <dimen name="roomkit_size_240">240dp</dimen>
+    <dimen name="roomkit_size_280">280dp</dimen>
+    <dimen name="roomkit_size_999">999dp</dimen>
+    <dimen name="roomkit_text_1">1sp</dimen>
+    <dimen name="roomkit_text_10">10sp</dimen>
+    <dimen name="roomkit_text_11">11sp</dimen>
+    <dimen name="roomkit_text_12">12sp</dimen>
+    <dimen name="roomkit_text_12_5">12.5sp</dimen>
+    <dimen name="roomkit_text_13">13sp</dimen>
+    <dimen name="roomkit_text_14">14sp</dimen>
+    <dimen name="roomkit_text_15">15sp</dimen>
+    <dimen name="roomkit_text_16">16sp</dimen>
+    <dimen name="roomkit_text_17">17sp</dimen>
+    <dimen name="roomkit_text_18">18sp</dimen>
+    <dimen name="roomkit_text_19">19sp</dimen>
+    <dimen name="roomkit_text_20">20sp</dimen>
+    <dimen name="roomkit_text_21">21sp</dimen>
+    <dimen name="roomkit_text_22">22sp</dimen>
+    <dimen name="roomkit_text_23">23sp</dimen>
+    <dimen name="roomkit_text_24">24sp</dimen>
+    <dimen name="roomkit_text_25">25sp</dimen>
+    <dimen name="roomkit_text_26">26sp</dimen>
+    <dimen name="roomkit_text_27">27sp</dimen>
+    <dimen name="roomkit_text_28">28sp</dimen>
+    <dimen name="roomkit_text_29">29sp</dimen>
+    <dimen name="roomkit_text_30">30sp</dimen>
+    <dimen name="roomkit_text_32">32sp</dimen>
+    <dimen name="roomkit_text_34">34sp</dimen>
+    <dimen name="roomkit_text_36">36sp</dimen>
 </resources>

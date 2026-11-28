@@ -20,7 +20,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.roomkit.Date.Billing.CurrencyFormatter
 import com.example.roomkit.Date.Repositories.BillingRepository
 import com.example.roomkit.databinding.BottomSheetRecordPaymentBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.example.roomkit.R
+import com.example.roomkit.Date.Ui.Common.ReviewDialogs
+import com.example.roomkit.Date.Ui.Common.ReviewSection
 import androidx.appcompat.app.AlertDialog
 import com.example.roomkit.Date.Billing.CarryForwardPayments
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -471,24 +473,34 @@ class RecordPaymentBottomSheet : BottomSheetDialogFragment() {
                     "Balances changed. Reopen this form to refresh the amount due."
                 }
                 if (_binding == null) return@launch
-                val allocationText = preview.allocations.joinToString("\n") {
-                    "Invoice #${it.invoiceId}: ${CurrencyFormatter.formatKhr(it.amountKhr)}"
-                }
-                allocationDialog = MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Confirm payment received")
-                    .setMessage("Received: ${CurrencyFormatter.formatKhr(amount)}\n\n" +
-                            "Applied oldest invoice first:\n$allocationText\n\n" +
-                            "Outstanding after payment: ${CurrencyFormatter.formatKhr(preview.scope.dueKhr - amount)}")
-                    .setNegativeButton("Cancel", null)
-                    .setPositiveButton("Record payment") { _, _ ->
+                allocationDialog = ReviewDialogs.create(
+                    context = requireContext(),
+                    title = getString(R.string.payment_review_title),
+                    description = getString(R.string.payment_review_description),
+                    sections = listOf(
+                        ReviewSection(rows = listOf(
+                            getString(R.string.payment_review_received) to CurrencyFormatter.formatKhr(amount),
+                            getString(R.string.payment_review_remaining) to
+                                CurrencyFormatter.formatKhr(preview.scope.dueKhr - amount)
+                        )),
+                        ReviewSection(
+                            title = getString(R.string.payment_review_allocations),
+                            rows = preview.allocations.map {
+                                getString(R.string.roomkit_invoice_number, it.invoiceId) to
+                                    CurrencyFormatter.formatKhr(it.amountKhr)
+                            }
+                        )
+                    ),
+                    confirmLabel = getString(R.string.ia_record),
+                    onConfirm = {
                         paymentVm.saveCarryForward(invoiceId, amount, selectedDateTimestamp,
                             method, note, reference, preview.scope.fingerprint)
                         updateControls()
                     }
-                    .create().also { d ->
-                        d.setOnDismissListener { allocationDialog = null; updateControls() }
-                        d.show()
-                    }
+                ).also { d ->
+                    d.setOnDismissListener { allocationDialog = null; updateControls() }
+                    d.show()
+                }
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 _binding?.tvBalanceAfterPayment?.text = e.message ?: "Unable to prepare payment."

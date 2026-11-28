@@ -5,7 +5,7 @@
     style="@style/Widget.RoomKit.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/roomkit_spacing_md"
+    android:layout_marginBottom="@dimen/roomkit_size_12"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/roomkit_card_padding">
+        android:padding="@dimen/roomkit_size_20">
 
         <!-- Top Header: Room Number, Vacant Badge, and Chevron -->
         <LinearLayout
@@ -26,10 +26,10 @@
             <TextView
                 android:id="@+id/tvRoomNumber"
                 style="@style/TextAppearance.RoomKit.SectionTitle"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="18sp"
+                android:textSize="@dimen/roomkit_text_18"
                 tools:text="ROOM 02" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -37,23 +37,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rd_badge_neutral"
-                android:drawablePadding="6dp"
+                android:drawablePadding="@dimen/roomkit_size_6"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"
+                android:paddingHorizontal="@dimen/roomkit_size_10"
+                android:paddingVertical="@dimen/roomkit_size_5"
                 android:text="Vacant"
-                android:textColor="#64748B"
-                android:textSize="12sp"
+                android:textColor="@color/roomkit_slate_500"
+                android:textSize="@dimen/roomkit_text_12"
                 android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_rd_status_dot"
-                app:drawableTint="#64748B" />
+                app:drawableTint="@color/roomkit_slate_500" />
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginStart="8dp"
+                android:layout_width="@dimen/roomkit_card_radius_medium"
+                android:layout_height="@dimen/roomkit_card_radius_medium"
+                android:layout_marginStart="@dimen/roomkit_size_8"
                 android:contentDescription="Open details"
                 android:src="@drawable/ic_chevron_right"
                 app:tint="@color/roomkit_text_muted" />
@@ -64,7 +64,7 @@
             style="@style/TextAppearance.RoomKit.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/roomkit_spacing_xs"
             android:text="No active tenant"
             android:textColor="@color/roomkit_text_muted" />
 
@@ -73,7 +73,7 @@
             style="@style/TextAppearance.RoomKit.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
             android:textColor="@color/roomkit_text_secondary"
             tools:text="400,000 ៛" />
 
@@ -82,8 +82,8 @@
             android:id="@+id/btnAssignTenant"
             style="@style/Widget.RoomKit.PrimaryButton"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="@dimen/roomkit_spacing_lg"
+            android:layout_height="@dimen/roomkit_touch_target"
+            android:layout_marginTop="@dimen/roomkit_size_16"
             android:text="Assign Tenant" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

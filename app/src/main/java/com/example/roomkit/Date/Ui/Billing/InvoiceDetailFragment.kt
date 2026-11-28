@@ -2,6 +2,8 @@
 
 package com.example.roomkit.Date.Ui.Billing
 
+import com.example.roomkit.Date.Ui.Common.setRoomKitTextSize
+
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.Context
@@ -146,7 +148,7 @@ class InvoiceDetailFragment : Fragment() {
 
         view.gravity = Gravity.CENTER_VERTICAL
         view.includeFontPadding = false
-        view.textSize = 12f
+        view.setRoomKitTextSize(R.dimen.roomkit_text_12)
         view.setTypeface(view.typeface, Typeface.BOLD)
         view.setTextColor(color)
         view.backgroundTintList = null
@@ -633,7 +635,7 @@ class InvoiceDetailFragment : Fragment() {
             "PARTIAL", "PARTIALLY_PAID" -> {
                 label = R.string.invoice_detail_partial
                 background = R.drawable.bg_rd_badge_blue
-                colorValue = Color.parseColor("#1D4ED8")
+                colorValue = androidx.core.content.ContextCompat.getColor(requireContext(), R.color.roomkit_blue_700)
             }
 
             "OVERDUE" -> {
@@ -984,7 +986,7 @@ class InvoiceDetailFragment : Fragment() {
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(content.root)
             .setBackground(GradientDrawable().apply {
-                setColor(ContextCompat.getColor(requireContext(), R.color.rvi_surface))
+                setColor(ContextCompat.getColor(requireContext(), R.color.roomkit_white))
                 cornerRadius = 24f * resources.displayMetrics.density
             })
             .create()

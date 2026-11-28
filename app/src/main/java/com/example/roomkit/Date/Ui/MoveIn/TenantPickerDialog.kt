@@ -1,5 +1,7 @@
 package com.example.roomkit.Date.Ui.Tenancy
 
+import com.example.roomkit.Date.Ui.Common.setRoomKitTextSize
+
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.*
@@ -36,11 +38,11 @@ internal class TenantPickerDialog(
     private fun color(id: Int) = ContextCompat.getColor(context, id)
     private val ink = color(R.color.roomkit_text_primary)
     private val muted = color(R.color.roomkit_text_secondary)
-    private val surface = color(R.color.roomkit_surface)
+    private val surface = color(R.color.roomkit_white)
     private val border = color(R.color.roomkit_border)
     private val soft = ColorUtils.blendARGB(surface, ink, 0.045f)
-    private val availableInk = Color.rgb(22, 101, 52)
-    private val availableFill = Color.rgb(234, 247, 239)
+    private val availableInk = color(R.color.roomkit_green_850)
+    private val availableFill = color(R.color.roomkit_green_125)
     private var snapshot = TenantPickerState()
     private var selectedTenantId: Long? = null
     private var filter = TenantAssignmentFilter.AVAILABLE
@@ -50,8 +52,8 @@ internal class TenantPickerDialog(
         setColor(fill); cornerRadius = dp(radius).toFloat()
         if (stroke != null) setStroke(dp(1), stroke)
     }
-    private fun label(value: String, size: Float, bold: Boolean = false) = TextView(context).apply {
-        text = value; textSize = size; setTextColor(if (bold) ink else muted)
+    private fun label(value: String, @androidx.annotation.DimenRes size: Int, bold: Boolean = false) = TextView(context).apply {
+        text = value; setRoomKitTextSize(size); setTextColor(if (bold) ink else muted)
         if (bold) setTypeface(typeface, Typeface.BOLD)
         includeFontPadding = false
     }
@@ -71,7 +73,7 @@ internal class TenantPickerDialog(
     private val search = EditText(context).apply {
         background = null; hint = "Search name or phone"
         contentDescription = "Search tenants by name or phone number"
-        setHintTextColor(muted); setTextColor(ink); textSize = 15f
+        setHintTextColor(muted); setTextColor(ink); setRoomKitTextSize(R.dimen.roomkit_text_15)
         setSingleLine(true); setPadding(dp(10), dp(14), 0, dp(14))
         inputType = android.text.InputType.TYPE_CLASS_TEXT
         imeOptions = android.view.inputmethod.EditorInfo.IME_ACTION_DONE
@@ -86,9 +88,9 @@ internal class TenantPickerDialog(
     private val availableTab = filterTab(TenantAssignmentFilter.AVAILABLE)
     private val allTab = filterTab(TenantAssignmentFilter.ALL)
     private val assignedTab = filterTab(TenantAssignmentFilter.ASSIGNED)
-    private val sectionTitle = label("Available tenants", 14f, true)
-    private val resultCount = label("", 12f)
-    private val status = label("Loading tenant availability…", 15f).apply {
+    private val sectionTitle = label("Available tenants", R.dimen.roomkit_text_14, true)
+    private val resultCount = label("", R.dimen.roomkit_text_12)
+    private val status = label("Loading tenant availability…", R.dimen.roomkit_text_15).apply {
         gravity = Gravity.CENTER; setPadding(dp(18), dp(26), dp(18), dp(26))
         accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_POLITE
     }
@@ -116,13 +118,13 @@ internal class TenantPickerDialog(
                 gravity = Gravity.CENTER_HORIZONTAL; bottomMargin = dp(16)
             })
         val header = LinearLayout(context).apply { gravity = Gravity.CENTER_VERTICAL }
-        header.addView(label("Choose tenant", 25f, true),
+        header.addView(label("Choose tenant", R.dimen.roomkit_text_25, true),
             LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
         header.addView(iconButton(Icon.CLOSE, "Close tenant picker").apply {
             background = rounded(soft, 24); setOnClickListener { dismiss() }
         }, LinearLayout.LayoutParams(dp(48), dp(48)))
         content.addView(header)
-        content.addView(label("Find an available tenant for this room.", 14f), params(top = 6, bottom = 20))
+        content.addView(label("Find an available tenant for this room.", R.dimen.roomkit_text_14), params(top = 6, bottom = 20))
 
         // The native search container avoids theme-dependent TextInputLayout
         // underlines and removes the previous LayoutParams crash path entirely.
@@ -147,7 +149,7 @@ internal class TenantPickerDialog(
         content.addView(resultHeader, params(bottom = 12))
         content.addView(status, params()); content.addView(retry, params(bottom = 10))
         content.addView(list, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f))
-        content.addView(label("Assigned tenants stay linked to their current room until move-out.", 12f), params(top = 14))
+        content.addView(label("Assigned tenants stay linked to their current room until move-out.", R.dimen.roomkit_text_12), params(top = 14))
         search.doAfterTextChanged { clearSearch.isVisible = !it.isNullOrEmpty(); updateList() }
         setContentView(content)
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
@@ -166,7 +168,7 @@ internal class TenantPickerDialog(
         setPadding(dp(14), dp(14), dp(14), dp(14)); contentDescription = description
         minimumWidth = dp(48); minimumHeight = dp(48)
     }
-    private fun filterTab(value: TenantAssignmentFilter) = label("", 12.5f, true).apply {
+    private fun filterTab(value: TenantAssignmentFilter) = label("", R.dimen.roomkit_text_12_5, true).apply {
         gravity = Gravity.CENTER; minHeight = dp(48); setPadding(dp(3), dp(10), dp(3), dp(10))
         maxLines = 2; isClickable = true; isFocusable = true
         setOnClickListener { filter = value; updateList() }
@@ -249,14 +251,14 @@ internal class TenantPickerDialog(
                     gravity = Gravity.CENTER_VERTICAL; minimumHeight = dp(104)
                     setPadding(dp(14), dp(16), dp(12), dp(16))
                 }
-                val avatar = label("", 16f, true).apply { gravity = Gravity.CENTER }
+                val avatar = label("", R.dimen.roomkit_text_16, true).apply { gravity = Gravity.CENTER }
                 card.addView(avatar, LinearLayout.LayoutParams(dp(44), dp(44)).apply { marginEnd = dp(12) })
                 val body = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
-                val name = label("", 16f, true).apply { maxLines = 2; ellipsize = TextUtils.TruncateAt.END }
-                val phone = label("", 13f)
+                val name = label("", R.dimen.roomkit_text_16, true).apply { maxLines = 2; ellipsize = TextUtils.TruncateAt.END }
+                val phone = label("", R.dimen.roomkit_text_13)
                 val statusLine = LinearLayout(context).apply { gravity = Gravity.CENTER_VERTICAL }
-                val badge = label("", 11f, true).apply { setPadding(dp(8), dp(4), dp(8), dp(4)); gravity = Gravity.CENTER }
-                val detail = label("", 12f).apply { maxLines = 2; ellipsize = TextUtils.TruncateAt.END }
+                val badge = label("", R.dimen.roomkit_text_11, true).apply { setPadding(dp(8), dp(4), dp(8), dp(4)); gravity = Gravity.CENTER }
+                val detail = label("", R.dimen.roomkit_text_12).apply { maxLines = 2; ellipsize = TextUtils.TruncateAt.END }
                 statusLine.addView(badge, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginEnd = dp(7) })
                 statusLine.addView(detail, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
@@ -284,7 +286,7 @@ internal class TenantPickerDialog(
                 selected -> Icon.CHECK; available -> Icon.NEXT; else -> Icon.LOCK
             }, if (selected) availableInk else muted))
             holder.card.background = RippleDrawable(ColorStateList.valueOf(ColorUtils.setAlphaComponent(ink, 20)),
-                rounded(surface, 18, if (selected) ink else border), rounded(Color.WHITE, 18))
+                rounded(surface, 18, if (selected) ink else border), rounded(surface, 18))
             outer.isEnabled = available
             outer.contentDescription = "${option.fullName}, ${holder.phone.text}, ${option.assignmentLabel}" +
                     if (selected) ", selected" else if (!available) ", unavailable for assignment" else ""

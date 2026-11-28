@@ -6,16 +6,16 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bottom_sheet_surface"
     android:orientation="vertical"
-    android:paddingHorizontal="24dp"
-    android:paddingTop="12dp"
-    android:paddingBottom="24dp">
+    android:paddingHorizontal="@dimen/roomkit_size_24"
+    android:paddingTop="@dimen/roomkit_size_12"
+    android:paddingBottom="@dimen/roomkit_size_24">
 
     <!-- Top Drag Handle -->
     <View
-        android:layout_width="36dp"
-        android:layout_height="4dp"
+        android:layout_width="@dimen/roomkit_size_36"
+        android:layout_height="@dimen/roomkit_spacing_xs"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="@dimen/roomkit_card_radius_medium"
         android:background="@drawable/bg_bottom_sheet_handle" />
 
     <!-- Header Row: Title & Cancel -->
@@ -26,13 +26,13 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/roomkit_size_0"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-medium"
             android:text="Choose paper size"
             android:textColor="@color/roomkit_text_primary"
-            android:textSize="21sp"
+            android:textSize="@dimen/roomkit_text_21"
             android:textStyle="bold" />
 
         <TextView
@@ -42,11 +42,11 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="6dp"
+            android:paddingHorizontal="@dimen/roomkit_size_8"
+            android:paddingVertical="@dimen/roomkit_size_6"
             android:text="Cancel"
             android:textColor="@color/roomkit_text_secondary"
-            android:textSize="14sp" />
+            android:textSize="@dimen/roomkit_text_14" />
     </LinearLayout>
 
     <!-- Context Subtitle -->
@@ -54,9 +54,9 @@
         android:id="@+id/tvPaperSizeContext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/roomkit_spacing_xs"
         android:textColor="@color/roomkit_text_secondary"
-        android:textSize="13sp"
+        android:textSize="@dimen/roomkit_text_13"
         tools:text="Room 01 · Oct 2026" />
 
     <!-- Option 1: A4 -->
@@ -64,19 +64,19 @@
         android:id="@+id/optionA4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/roomkit_size_16"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
-        android:minHeight="66dp"
+        android:minHeight="@dimen/roomkit_size_66"
         android:orientation="horizontal"
-        android:paddingVertical="12dp">
+        android:paddingVertical="@dimen/roomkit_size_12">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/roomkit_size_0"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="@dimen/roomkit_size_12"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -85,22 +85,22 @@
                 android:layout_height="wrap_content"
                 android:text="A4 · 210 × 297 mm"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="15sp"
+                android:textSize="@dimen/roomkit_text_15"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                 android:text="Standard full-page document"
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="13sp" />
+                android:textSize="@dimen/roomkit_text_13" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/ivCheckA4"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/roomkit_size_20"
+            android:layout_height="@dimen/roomkit_size_20"
             android:contentDescription="Selected"
             android:src="@drawable/ic_rk_check"
             app:tint="@color/roomkit_primary" />
@@ -108,7 +108,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/roomkit_stroke_width"
         android:background="@color/roomkit_divider" />
 
     <!-- Option 2: A5 -->
@@ -120,14 +120,14 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
-        android:minHeight="66dp"
+        android:minHeight="@dimen/roomkit_size_66"
         android:orientation="horizontal"
-        android:paddingVertical="12dp">
+        android:paddingVertical="@dimen/roomkit_size_12">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/roomkit_size_0"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="@dimen/roomkit_size_12"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -136,22 +136,22 @@
                 android:layout_height="wrap_content"
                 android:text="A5 · 148 × 210 mm"
                 android:textColor="@color/roomkit_text_primary"
-                android:textSize="15sp"
+                android:textSize="@dimen/roomkit_text_15"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                 android:text="Compact half-page format"
                 android:textColor="@color/roomkit_text_secondary"
-                android:textSize="13sp" />
+                android:textSize="@dimen/roomkit_text_13" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/ivCheckA5"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/roomkit_size_20"
+            android:layout_height="@dimen/roomkit_size_20"
             android:contentDescription="Selected"
             android:src="@drawable/ic_rk_check"
             android:visibility="invisible"
@@ -161,10 +161,10 @@
     <!-- Primary Confirm Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnConfirmPaperSize"
-        style="@style/InvoiceActionPrimary"
+        style="@style/Widget.RoomKit.Action.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/roomkit_size_16"
         android:text="Create PDF" />
 
 </LinearLayout>

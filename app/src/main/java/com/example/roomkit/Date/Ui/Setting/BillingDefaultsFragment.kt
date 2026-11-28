@@ -43,7 +43,7 @@ class BillingDefaultsFragment : Fragment(R.layout.fragment_billing_defaults) {
                     b.settingsSave.setText(if (state.saving) R.string.rks_saving else R.string.rks_save)
                     b.settingsMessage.text = state.message; b.settingsMessage.isVisible = state.message.isNotBlank()
                     b.settingsMessage.setTextColor(ContextCompat.getColor(requireContext(),
-                        if (state.error) R.color.rks2_error else R.color.rks2_success))
+                        if (state.error) R.color.roomkit_error else R.color.roomkit_success))
                 }
             }
         }

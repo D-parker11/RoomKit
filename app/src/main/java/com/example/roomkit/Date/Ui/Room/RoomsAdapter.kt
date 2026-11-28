@@ -2,8 +2,9 @@
 
 package com.example.roomkit.Date.Ui.Room
 
+import com.example.roomkit.Date.Ui.Common.setRoomKitTextSize
+
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -67,17 +68,17 @@ class RoomsAdapter(
 
     private fun styleStatusBadge(
         view: TextView,
-        textColorHex: String,
+        @androidx.annotation.ColorRes textColorRes: Int,
         @DrawableRes backgroundRes: Int
     ) {
-        val color = Color.parseColor(textColorHex)
+        val color = androidx.core.content.ContextCompat.getColor(view.context, textColorRes)
         val density = view.resources.displayMetrics.density
         val padH = (10 * density).roundToInt()
         val padV = (5 * density).roundToInt()
 
         view.gravity = Gravity.CENTER_VERTICAL
         view.includeFontPadding = false
-        view.textSize = 12f
+        view.setRoomKitTextSize(R.dimen.roomkit_text_12)
         view.setTypeface(view.typeface, Typeface.BOLD)
         view.setTextColor(color)
         view.setBackgroundResource(backgroundRes)
@@ -113,7 +114,7 @@ class RoomsAdapter(
             b.tvInvoiceStatusBadge.text = "Occupied"
             styleStatusBadge(
                 view = b.tvInvoiceStatusBadge,
-                textColorHex = "#15803D",
+                textColorRes = R.color.roomkit_green_700,
                 backgroundRes = R.drawable.bg_rd_badge_green
             )
 

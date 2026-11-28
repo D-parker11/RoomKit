@@ -5,15 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC">
+    android:background="@color/roomkit_slate_50">
 
     <!-- Header -->
     <RelativeLayout
         android:id="@+id/layoutHeader"
-        android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:background="#FFFFFF"
-        android:paddingHorizontal="16dp"
+        android:layout_width="@dimen/roomkit_size_0"
+        android:layout_height="@dimen/roomkit_size_72"
+        android:background="@color/roomkit_white"
+        android:paddingHorizontal="@dimen/roomkit_size_16"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -21,22 +21,22 @@
         <TextView
             android:id="@+id/btnCancelAddRoom"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/roomkit_touch_target"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:gravity="center"
-            android:minWidth="64dp"
-            android:paddingHorizontal="8dp"
+            android:minWidth="@dimen/roomkit_size_64"
+            android:paddingHorizontal="@dimen/roomkit_size_8"
             android:text="@string/ar_cancel"
-            android:textColor="#475569"
-            android:textSize="15sp" />
+            android:textColor="@color/roomkit_slate_600"
+            android:textSize="@dimen/roomkit_text_15" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginHorizontal="80dp"
+            android:layout_marginHorizontal="@dimen/roomkit_size_80"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -44,19 +44,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ar_title"
-                android:textColor="#0F172A"
-                android:textSize="20sp"
+                android:textColor="@color/roomkit_primary"
+                android:textSize="@dimen/roomkit_text_20"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvHeaderBuildingName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="@dimen/roomkit_size_3"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="#64748B"
-                android:textSize="13sp"
+                android:textColor="@color/roomkit_slate_500"
+                android:textSize="@dimen/roomkit_text_13"
                 tools:text="Proser" />
         </LinearLayout>
 
@@ -64,7 +64,7 @@
         <TextView
             android:id="@+id/btnHeaderSave"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/roomkit_touch_target"
             android:layout_alignParentEnd="true"
             android:gravity="center"
             android:text="@string/ar_create"
@@ -73,9 +73,9 @@
 
     <View
         android:id="@+id/dividerHeader"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#E2E8F0"
+        android:layout_width="@dimen/roomkit_size_0"
+        android:layout_height="@dimen/roomkit_stroke_width"
+        android:background="@color/roomkit_slate_200"
         app:layout_constraintTop_toBottomOf="@id/layoutHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -83,8 +83,8 @@
     <!-- Scrollable form -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollContainer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/roomkit_size_0"
+        android:layout_height="@dimen/roomkit_size_0"
         android:clipToPadding="false"
         android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/dividerHeader"
@@ -96,18 +96,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="@dimen/roomkit_size_20">
 
             <TextView
                 android:id="@+id/tvGeneralError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/roomkit_size_16"
                 android:accessibilityLiveRegion="polite"
                 android:background="@drawable/bg_badge_overdue_pill"
-                android:padding="14dp"
-                android:textColor="#B91C1C"
-                android:textSize="14sp"
+                android:padding="@dimen/roomkit_button_radius_compact"
+                android:textColor="@color/roomkit_red_700"
+                android:textSize="@dimen/roomkit_text_14"
                 android:visibility="gone"
                 tools:text="This room number already exists." />
 
@@ -115,18 +115,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/ar_details"
-                android:textColor="#0F172A"
-                android:textSize="18sp"
+                android:textColor="@color/roomkit_primary"
+                android:textSize="@dimen/roomkit_text_18"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="@dimen/roomkit_size_5"
+                android:layout_marginBottom="@dimen/roomkit_size_20"
                 android:text="@string/ar_intro"
-                android:textColor="#64748B"
-                android:textSize="14sp" />
+                android:textColor="@color/roomkit_slate_500"
+                android:textSize="@dimen/roomkit_text_14" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilRoomNumber"
@@ -134,23 +134,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/ar_room_number"
-                app:boxBackgroundColor="#FFFFFF"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxBackgroundColor="@color/roomkit_white"
+                app:boxCornerRadiusTopStart="@dimen/roomkit_size_12"
+                app:boxCornerRadiusTopEnd="@dimen/roomkit_size_12"
+                app:boxCornerRadiusBottomStart="@dimen/roomkit_size_12"
+                app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_12"
                 app:placeholderText="@string/ar_room_example">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etRoomNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="56dp"
+                    android:minHeight="@dimen/roomkit_control_height"
                     android:imeOptions="actionNext"
                     android:inputType="textCapCharacters"
                     android:singleLine="true"
-                    android:textColor="#0F172A"
-                    android:textSize="16sp" />
+                    android:textColor="@color/roomkit_primary"
+                    android:textSize="@dimen/roomkit_text_16" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -158,25 +158,25 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/roomkit_size_16"
                 android:hint="@string/ar_floor"
-                app:boxBackgroundColor="#FFFFFF"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxBackgroundColor="@color/roomkit_white"
+                app:boxCornerRadiusTopStart="@dimen/roomkit_size_12"
+                app:boxCornerRadiusTopEnd="@dimen/roomkit_size_12"
+                app:boxCornerRadiusBottomStart="@dimen/roomkit_size_12"
+                app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_12"
                 app:placeholderText="@string/ar_floor_example">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etFloor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="56dp"
+                    android:minHeight="@dimen/roomkit_control_height"
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:singleLine="true"
-                    android:textColor="#0F172A"
-                    android:textSize="16sp" />
+                    android:textColor="@color/roomkit_primary"
+                    android:textSize="@dimen/roomkit_text_16" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -184,33 +184,33 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/roomkit_size_16"
                 android:hint="@string/ar_type"
-                app:boxBackgroundColor="#FFFFFF"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp">
+                app:boxBackgroundColor="@color/roomkit_white"
+                app:boxCornerRadiusTopStart="@dimen/roomkit_size_12"
+                app:boxCornerRadiusTopEnd="@dimen/roomkit_size_12"
+                app:boxCornerRadiusBottomStart="@dimen/roomkit_size_12"
+                app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_12">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/actvRoomType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="56dp"
+                    android:minHeight="@dimen/roomkit_control_height"
                     android:inputType="none"
                     android:singleLine="true"
-                    android:textColor="#0F172A"
-                    android:textSize="16sp" />
+                    android:textColor="@color/roomkit_primary"
+                    android:textSize="@dimen/roomkit_text_16" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="@dimen/roomkit_spacing_xxl"
+                android:layout_marginBottom="@dimen/roomkit_size_16"
                 android:text="@string/ar_pricing"
-                android:textColor="#0F172A"
-                android:textSize="18sp"
+                android:textColor="@color/roomkit_primary"
+                android:textSize="@dimen/roomkit_text_18"
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -219,11 +219,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/ar_monthly_rent"
-                app:boxBackgroundColor="#FFFFFF"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxBackgroundColor="@color/roomkit_white"
+                app:boxCornerRadiusTopStart="@dimen/roomkit_size_12"
+                app:boxCornerRadiusTopEnd="@dimen/roomkit_size_12"
+                app:boxCornerRadiusBottomStart="@dimen/roomkit_size_12"
+                app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_12"
                 app:helperText="@string/ar_rent_helper"
                 app:placeholderText="@string/ar_rent_example"
                 app:suffixText="@string/ar_rent_suffix">
@@ -232,12 +232,12 @@
                     android:id="@+id/etMonthlyRent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="56dp"
+                    android:minHeight="@dimen/roomkit_control_height"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:singleLine="true"
-                    android:textColor="#0F172A"
-                    android:textSize="18sp" />
+                    android:textColor="@color/roomkit_primary"
+                    android:textSize="@dimen/roomkit_text_18" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -245,13 +245,13 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/roomkit_size_20"
                 android:hint="@string/ar_notes"
-                app:boxBackgroundColor="#FFFFFF"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxBackgroundColor="@color/roomkit_white"
+                app:boxCornerRadiusTopStart="@dimen/roomkit_size_12"
+                app:boxCornerRadiusTopEnd="@dimen/roomkit_size_12"
+                app:boxCornerRadiusBottomStart="@dimen/roomkit_size_12"
+                app:boxCornerRadiusBottomEnd="@dimen/roomkit_size_12"
                 app:placeholderText="@string/ar_notes_example">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -261,15 +261,15 @@
                     android:gravity="top|start"
                     android:inputType="textMultiLine|textCapSentences"
                     android:minLines="3"
-                    android:textColor="#0F172A"
-                    android:textSize="16sp" />
+                    android:textColor="@color/roomkit_primary"
+                    android:textSize="@dimen/roomkit_text_16" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Informational status, not an editable field. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/roomkit_size_24"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -277,22 +277,22 @@
                     android:id="@+id/tvStatusBadge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_badge_vacant_pill"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="6dp"
+                    android:background="@drawable/bg_badge_neutral_pill"
+                    android:paddingHorizontal="@dimen/roomkit_size_12"
+                    android:paddingVertical="@dimen/roomkit_size_6"
                     android:text="@string/ar_vacant"
-                    android:textColor="#475569"
-                    android:textSize="12sp"
+                    android:textColor="@color/roomkit_slate_600"
+                    android:textSize="@dimen/roomkit_text_12"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="@dimen/roomkit_size_12"
                     android:layout_weight="1"
                     android:text="@string/ar_status_helper"
-                    android:textColor="#64748B"
-                    android:textSize="13sp" />
+                    android:textColor="@color/roomkit_slate_500"
+                    android:textSize="@dimen/roomkit_text_13" />
             </LinearLayout>
 
         </LinearLayout>
@@ -301,14 +301,14 @@
     <!-- Single primary action -->
     <LinearLayout
         android:id="@+id/layoutBottomAction"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/roomkit_size_0"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:elevation="4dp"
+        android:background="@color/roomkit_white"
+        android:elevation="@dimen/roomkit_spacing_xs"
         android:orientation="vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="20dp"
+        android:paddingHorizontal="@dimen/roomkit_size_20"
+        android:paddingTop="@dimen/roomkit_size_16"
+        android:paddingBottom="@dimen/roomkit_size_20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -316,16 +316,16 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveAndAddRoom"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
+            android:layout_height="@dimen/roomkit_control_height"
+            android:insetTop="@dimen/roomkit_size_0"
+            android:insetBottom="@dimen/roomkit_size_0"
             android:text="@string/ar_create"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textColor="@color/roomkit_white"
+            android:textSize="@dimen/roomkit_text_16"
             android:textStyle="bold"
-            app:backgroundTint="#0F172A"
-            app:cornerRadius="14dp" />
+            app:backgroundTint="@color/roomkit_primary"
+            app:cornerRadius="@dimen/roomkit_button_radius_compact" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

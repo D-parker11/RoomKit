@@ -4,19 +4,19 @@
 
 
 
-    <LinearLayout android:id="@+id/layoutTopHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@color/roomkit_background" android:gravity="center_vertical" android:orientation="horizontal" android:paddingStart="8dp" android:paddingTop="12dp" android:paddingEnd="20dp" android:paddingBottom="12dp">
+    <LinearLayout android:id="@+id/layoutTopHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@color/roomkit_background" android:gravity="center_vertical" android:orientation="horizontal" android:paddingStart="@dimen/roomkit_size_8" android:paddingTop="@dimen/roomkit_size_12" android:paddingEnd="@dimen/roomkit_size_20" android:paddingBottom="@dimen/roomkit_size_12">
 
 
 
-        <ImageButton android:id="@+id/btnBackMeterReading" android:layout_width="48dp" android:layout_height="48dp" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="@string/mr_back" android:src="@drawable/ic_arrow_back" app:tint="@color/roomkit_text_primary"/>
+        <ImageButton android:id="@+id/btnBackMeterReading" android:layout_width="@dimen/roomkit_touch_target" android:layout_height="@dimen/roomkit_touch_target" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="@string/mr_back" android:src="@drawable/ic_arrow_back" app:tint="@color/roomkit_text_primary"/>
 
 
 
-        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:layout_weight="1" android:orientation="vertical">
+        <LinearLayout android:layout_width="@dimen/roomkit_size_0" android:layout_height="wrap_content" android:layout_marginStart="@dimen/roomkit_size_8" android:layout_weight="1" android:orientation="vertical">
 
 
 
-            <TextView style="@style/RoomKitMeterHeading" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mr_title" android:textSize="22sp"/>
+            <TextView style="@style/TextAppearance.RoomKit.Heading.Bold" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mr_title" android:textSize="@dimen/roomkit_text_22"/>
 
 
 
@@ -28,11 +28,11 @@
 
 
 
-    <androidx.core.widget.NestedScrollView android:id="@+id/scrollContainer" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:clipToPadding="false" android:fillViewport="true">
+    <androidx.core.widget.NestedScrollView android:id="@+id/scrollContainer" android:layout_width="match_parent" android:layout_height="@dimen/roomkit_size_0" android:layout_weight="1" android:clipToPadding="false" android:fillViewport="true">
 
 
 
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingHorizontal="20dp" android:paddingTop="20dp" android:paddingBottom="24dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingHorizontal="@dimen/roomkit_size_20" android:paddingTop="@dimen/roomkit_size_20" android:paddingBottom="@dimen/roomkit_size_24">
 
 
 
@@ -43,40 +43,40 @@
                 android:id="@+id/tvBillingMonthSubtitle"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:minHeight="48dp" android:layout_marginBottom="12dp"
+                android:minHeight="@dimen/roomkit_touch_target" android:layout_marginBottom="@dimen/roomkit_size_12"
                 android:textAllCaps="false" android:text="@string/dm_choose_month"
                 android:contentDescription="@string/dm_choose_month" />
 
-            <TextView android:id="@+id/tvRoomTenantBanner" style="@style/RoomKitMeterHeading" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="18dp" tools:text="Room 04 · Ngoun Channdevith" android:textSize="18sp"/>
+            <TextView android:id="@+id/tvRoomTenantBanner" style="@style/TextAppearance.RoomKit.Heading.Bold" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/roomkit_card_radius_medium" tools:text="Room 04 · Ngoun Channdevith" android:textSize="@dimen/roomkit_text_18"/>
 
 
 
-            <TextView style="@style/RoomKitMeterHeading" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mr_monthly" android:textSize="20sp"/>
+            <TextView style="@style/TextAppearance.RoomKit.Heading.Bold" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mr_monthly" android:textSize="@dimen/roomkit_text_20"/>
 
 
 
-            <TextView style="@style/RoomKitMeterCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/mr_monthly_hint"/>
+            <TextView style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_spacing_xs" android:text="@string/mr_monthly_hint"/>
 
 
 
-            <ProgressBar android:id="@+id/progressMeters" android:layout_width="28dp" android:layout_height="28dp" android:layout_gravity="center_horizontal" android:layout_marginTop="12dp" android:indeterminateTint="@color/roomkit_primary" tools:visibility="gone"/>
+            <ProgressBar android:id="@+id/progressMeters" android:layout_width="@dimen/roomkit_spacing_xxl" android:layout_height="@dimen/roomkit_spacing_xxl" android:layout_gravity="center_horizontal" android:layout_marginTop="@dimen/roomkit_size_12" android:indeterminateTint="@color/roomkit_primary" tools:visibility="gone"/>
 
 
 
-            <TextView android:id="@+id/tvGlobalError" style="@style/RoomKitMeterCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:accessibilityLiveRegion="polite" android:background="@drawable/rkm_notice_background" android:padding="12dp" android:visibility="gone" android:textColor="@color/roomkit_error"/>
+            <TextView android:id="@+id/tvGlobalError" style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" android:accessibilityLiveRegion="polite" android:background="@drawable/bg_notice_neutral" android:padding="@dimen/roomkit_size_12" android:visibility="gone" android:textColor="@color/roomkit_error"/>
 
 
 
-            <com.google.android.material.button.MaterialButton android:id="@+id/btnReloadMeters" style="@style/RoomKitMeterTextButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mr_retry" android:visibility="gone"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnReloadMeters" style="@style/Widget.RoomKit.Button.TextMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mr_retry" android:visibility="gone"/>
 
 
 
 
-            <com.google.android.material.card.MaterialCardView style="@style/RoomKitMeterCard" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" app:cardCornerRadius="18dp">
+            <com.google.android.material.card.MaterialCardView style="@style/Widget.RoomKit.Card.Medium" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" app:cardCornerRadius="@dimen/roomkit_card_radius_medium">
 
 
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/roomkit_size_16">
 
 
 
@@ -84,52 +84,52 @@
 
 
 
-                        <ImageView android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/rkm_icon_background" android:importantForAccessibility="no" android:padding="8dp" android:src="@drawable/ic_rkm_bolt" app:tint="@color/roomkit_primary"/>
+                        <ImageView android:layout_width="@dimen/roomkit_size_36" android:layout_height="@dimen/roomkit_size_36" android:background="@drawable/bg_icon_soft" android:importantForAccessibility="no" android:padding="@dimen/roomkit_size_8" android:src="@drawable/ic_rkm_bolt" app:tint="@color/roomkit_primary"/>
 
 
 
-                        <TextView style="@style/RoomKitMeterHeading" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_weight="1" android:text="@string/mr_electricity"/>
-
-
-                    </LinearLayout>
-
-
-
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:gravity="center_vertical" android:orientation="horizontal">
-
-
-
-                        <TextView style="@style/RoomKitMeterCaption" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/mr_previous"/>
-
-
-
-                        <TextView android:id="@+id/tvElecPreviousValue" style="@style/RoomKitMeterHeading" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="7"/>
-
-
-
-                        <TextView style="@style/RoomKitMeterCaption" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="kWh"/>
+                        <TextView style="@style/TextAppearance.RoomKit.Heading.Bold" android:layout_width="@dimen/roomkit_size_0" android:layout_height="wrap_content" android:layout_marginStart="@dimen/roomkit_size_12" android:layout_weight="1" android:text="@string/mr_electricity"/>
 
 
                     </LinearLayout>
 
 
 
-                    <com.google.android.material.textfield.TextInputLayout style="@style/RoomKitMeterInput" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="@string/mr_current" app:suffixText="kWh">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_16" android:gravity="center_vertical" android:orientation="horizontal">
 
 
 
-                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etCurrentElectricity" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionDone" android:inputType="number" android:minHeight="56dp" android:paddingHorizontal="16dp" android:saveEnabled="false" android:textColor="@color/rkm_input_text" android:textSize="18sp" tools:text="9"/>
+                        <TextView style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="@dimen/roomkit_size_0" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/mr_previous"/>
+
+
+
+                        <TextView android:id="@+id/tvElecPreviousValue" style="@style/TextAppearance.RoomKit.Heading.Bold" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="7"/>
+
+
+
+                        <TextView style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/roomkit_size_5" android:text="kWh"/>
+
+
+                    </LinearLayout>
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout style="@style/Widget.RoomKit.Input.WithSuffix" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" android:hint="@string/mr_current" app:suffixText="kWh">
+
+
+
+                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etCurrentElectricity" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionDone" android:inputType="number" android:minHeight="@dimen/roomkit_control_height" android:paddingHorizontal="@dimen/roomkit_size_16" android:saveEnabled="false" android:textColor="@color/roomkit_input_text" android:textSize="@dimen/roomkit_text_18" tools:text="9"/>
 
 
                     </com.google.android.material.textfield.TextInputLayout>
 
 
 
-                    <TextView android:id="@+id/tvElecUsageLive" style="@style/RoomKitMeterBody" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:background="@drawable/rkm_usage_background" android:padding="12dp" android:textColor="@color/roomkit_success" android:visibility="gone" android:textStyle="bold" android:textSize="15sp" tools:text="Usage: 2 kWh" tools:visibility="visible"/>
+                    <TextView android:id="@+id/tvElecUsageLive" style="@style/TextAppearance.RoomKit.Body.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" android:background="@drawable/rkm_usage_background" android:padding="@dimen/roomkit_size_12" android:textColor="@color/roomkit_success" android:visibility="gone" android:textStyle="bold" android:textSize="@dimen/roomkit_text_15" tools:text="Usage: 2 kWh" tools:visibility="visible"/>
 
 
 
-                    <TextView android:id="@+id/tvElecError" style="@style/RoomKitMeterCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" android:textColor="@color/roomkit_error" android:visibility="gone"/>
+                    <TextView android:id="@+id/tvElecError" style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_8" android:accessibilityLiveRegion="polite" android:textColor="@color/roomkit_error" android:visibility="gone"/>
 
 
                 </LinearLayout>
@@ -140,11 +140,11 @@
 
 
 
-            <com.google.android.material.card.MaterialCardView android:id="@+id/cardWaterMeter" style="@style/RoomKitMeterCard" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" app:cardCornerRadius="18dp">
+            <com.google.android.material.card.MaterialCardView android:id="@+id/cardWaterMeter" style="@style/Widget.RoomKit.Card.Medium" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" app:cardCornerRadius="@dimen/roomkit_card_radius_medium">
 
 
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/roomkit_size_16">
 
 
 
@@ -152,11 +152,11 @@
 
 
 
-                        <ImageView android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/rkm_icon_background" android:importantForAccessibility="no" android:padding="8dp" android:src="@drawable/ic_rkm_drop" app:tint="@color/roomkit_primary"/>
+                        <ImageView android:layout_width="@dimen/roomkit_size_36" android:layout_height="@dimen/roomkit_size_36" android:background="@drawable/bg_icon_soft" android:importantForAccessibility="no" android:padding="@dimen/roomkit_size_8" android:src="@drawable/ic_rkm_drop" app:tint="@color/roomkit_primary"/>
 
 
 
-                        <TextView style="@style/RoomKitMeterHeading" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_weight="1" android:text="@string/mr_water"/>
+                        <TextView style="@style/TextAppearance.RoomKit.Heading.Bold" android:layout_width="@dimen/roomkit_size_0" android:layout_height="wrap_content" android:layout_marginStart="@dimen/roomkit_size_12" android:layout_weight="1" android:text="@string/mr_water"/>
 
 
                     </LinearLayout>
@@ -167,48 +167,48 @@
 
 
 
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:gravity="center_vertical" android:orientation="horizontal">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_16" android:gravity="center_vertical" android:orientation="horizontal">
 
 
 
-                            <TextView style="@style/RoomKitMeterCaption" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/mr_previous"/>
+                            <TextView style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="@dimen/roomkit_size_0" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/mr_previous"/>
 
 
 
-                            <TextView android:id="@+id/tvWaterPreviousValue" style="@style/RoomKitMeterHeading" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="3"/>
+                            <TextView android:id="@+id/tvWaterPreviousValue" style="@style/TextAppearance.RoomKit.Heading.Bold" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="3"/>
 
 
 
-                            <TextView style="@style/RoomKitMeterCaption" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="m³"/>
+                            <TextView style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/roomkit_size_5" android:text="m³"/>
 
 
                         </LinearLayout>
 
 
 
-                        <com.google.android.material.textfield.TextInputLayout style="@style/RoomKitMeterInput" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="@string/mr_current" app:suffixText="m³">
+                        <com.google.android.material.textfield.TextInputLayout style="@style/Widget.RoomKit.Input.WithSuffix" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" android:hint="@string/mr_current" app:suffixText="m³">
 
 
 
-                            <com.google.android.material.textfield.TextInputEditText android:id="@+id/etCurrentWater" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionDone" android:inputType="number" android:minHeight="56dp" android:paddingHorizontal="16dp" android:saveEnabled="false" android:textColor="@color/rkm_input_text" android:textSize="18sp"/>
+                            <com.google.android.material.textfield.TextInputEditText android:id="@+id/etCurrentWater" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionDone" android:inputType="number" android:minHeight="@dimen/roomkit_control_height" android:paddingHorizontal="@dimen/roomkit_size_16" android:saveEnabled="false" android:textColor="@color/roomkit_input_text" android:textSize="@dimen/roomkit_text_18"/>
 
 
                         </com.google.android.material.textfield.TextInputLayout>
 
 
 
-                        <TextView android:id="@+id/tvWaterUsageLive" style="@style/RoomKitMeterBody" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:background="@drawable/rkm_usage_background" android:padding="12dp" android:textColor="@color/roomkit_success" android:visibility="gone" android:textStyle="bold" android:textSize="15sp"/>
+                        <TextView android:id="@+id/tvWaterUsageLive" style="@style/TextAppearance.RoomKit.Body.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" android:background="@drawable/rkm_usage_background" android:padding="@dimen/roomkit_size_12" android:textColor="@color/roomkit_success" android:visibility="gone" android:textStyle="bold" android:textSize="@dimen/roomkit_text_15"/>
 
 
 
-                        <TextView android:id="@+id/tvWaterError" style="@style/RoomKitMeterCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" android:textColor="@color/roomkit_error" android:visibility="gone"/>
+                        <TextView android:id="@+id/tvWaterError" style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_8" android:accessibilityLiveRegion="polite" android:textColor="@color/roomkit_error" android:visibility="gone"/>
 
 
                     </LinearLayout>
 
 
 
-                    <TextView android:id="@+id/tvWaterFixedNotice" style="@style/RoomKitMeterCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:visibility="gone" android:textSize="15sp" tools:text="20,000 KHR / month · fixed fee" tools:visibility="visible"/>
+                    <TextView android:id="@+id/tvWaterFixedNotice" style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" android:visibility="gone" android:textSize="@dimen/roomkit_text_15" tools:text="20,000 KHR / month · fixed fee" tools:visibility="visible"/>
 
 
                 </LinearLayout>
@@ -219,11 +219,11 @@
 
 
 
-            <com.google.android.material.card.MaterialCardView style="@style/RoomKitMeterCard" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" app:cardCornerRadius="18dp">
+            <com.google.android.material.card.MaterialCardView style="@style/Widget.RoomKit.Card.Medium" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" app:cardCornerRadius="@dimen/roomkit_card_radius_medium">
 
 
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/roomkit_size_16">
 
 
 
@@ -231,11 +231,11 @@
 
 
 
-                        <TextView style="@style/RoomKitMeterBody" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/mr_rubbish"/>
+                        <TextView style="@style/TextAppearance.RoomKit.Body.Normal" android:layout_width="@dimen/roomkit_size_0" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/mr_rubbish"/>
 
 
 
-                        <TextView android:id="@+id/tvRubbishFeeAmount" style="@style/RoomKitMeterHeading" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="10,000 KHR"/>
+                        <TextView android:id="@+id/tvRubbishFeeAmount" style="@style/TextAppearance.RoomKit.Heading.Bold" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="10,000 KHR"/>
 
 
                     </LinearLayout>
@@ -249,15 +249,15 @@
 
 
 
-            <com.google.android.material.card.MaterialCardView style="@style/RoomKitMeterCard" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" app:cardCornerRadius="18dp">
+            <com.google.android.material.card.MaterialCardView style="@style/Widget.RoomKit.Card.Medium" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_20" app:cardCornerRadius="@dimen/roomkit_card_radius_medium">
 
 
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/roomkit_size_16">
 
 
 
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnToggleReplacement" style="@style/RoomKitMeterTextButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="start|center_vertical" android:paddingHorizontal="0dp" android:text="@string/mr_replace" app:icon="@drawable/ic_arrow" app:iconGravity="end" app:iconTint="@color/roomkit_text_secondary"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnToggleReplacement" style="@style/Widget.RoomKit.Button.TextMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="start|center_vertical" android:paddingHorizontal="@dimen/roomkit_size_0" android:text="@string/mr_replace" app:icon="@drawable/ic_arrow" app:iconGravity="end" app:iconTint="@color/roomkit_text_secondary"/>
 
 
 
@@ -265,63 +265,63 @@
 
 
 
-                        <TextView style="@style/RoomKitMeterCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mr_replace_note"/>
+                        <TextView style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mr_replace_note"/>
 
 
 
-                        <RadioGroup android:id="@+id/rgReplacementType" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:checkedButton="@id/rbReplaceElectricity" android:orientation="horizontal">
+                        <RadioGroup android:id="@+id/rgReplacementType" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_8" android:checkedButton="@id/rbReplaceElectricity" android:orientation="horizontal">
 
 
 
-                            <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/rbReplaceElectricity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:buttonTint="@color/rkm_radio" android:minHeight="48dp" android:text="@string/mr_electricity" android:textColor="@color/roomkit_text_primary"/>
+                            <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/rbReplaceElectricity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:buttonTint="@color/roomkit_radio" android:minHeight="@dimen/roomkit_touch_target" android:text="@string/mr_electricity" android:textColor="@color/roomkit_text_primary"/>
 
 
 
-                            <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/rbReplaceWater" android:layout_width="wrap_content" android:layout_height="wrap_content" android:buttonTint="@color/rkm_radio" android:minHeight="48dp" android:text="@string/mr_water" android:textColor="@color/roomkit_text_primary"/>
+                            <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/rbReplaceWater" android:layout_width="wrap_content" android:layout_height="wrap_content" android:buttonTint="@color/roomkit_radio" android:minHeight="@dimen/roomkit_touch_target" android:text="@string/mr_water" android:textColor="@color/roomkit_text_primary"/>
 
 
                         </RadioGroup>
 
 
 
-                        <com.google.android.material.textfield.TextInputLayout style="@style/RoomKitMeterInput" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="@string/mr_old_closing">
+                        <com.google.android.material.textfield.TextInputLayout style="@style/Widget.RoomKit.Input.WithSuffix" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" android:hint="@string/mr_old_closing">
 
 
 
-                            <com.google.android.material.textfield.TextInputEditText android:id="@+id/etReplacementClosing" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionDone" android:inputType="number" android:minHeight="56dp" android:paddingHorizontal="16dp" android:saveEnabled="false" android:textColor="@color/rkm_input_text" android:textSize="18sp"/>
-
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-
-
-                        <com.google.android.material.textfield.TextInputLayout style="@style/RoomKitMeterInput" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="@string/mr_new_opening">
-
-
-
-                            <com.google.android.material.textfield.TextInputEditText android:id="@+id/etReplacementOpening" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionDone" android:inputType="number" android:minHeight="56dp" android:paddingHorizontal="16dp" android:saveEnabled="false" android:textColor="@color/rkm_input_text" android:textSize="18sp"/>
+                            <com.google.android.material.textfield.TextInputEditText android:id="@+id/etReplacementClosing" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionDone" android:inputType="number" android:minHeight="@dimen/roomkit_control_height" android:paddingHorizontal="@dimen/roomkit_size_16" android:saveEnabled="false" android:textColor="@color/roomkit_input_text" android:textSize="@dimen/roomkit_text_18"/>
 
 
                         </com.google.android.material.textfield.TextInputLayout>
 
 
 
-                        <com.google.android.material.textfield.TextInputLayout style="@style/RoomKitMeterInput" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="@string/mr_reason">
+                        <com.google.android.material.textfield.TextInputLayout style="@style/Widget.RoomKit.Input.WithSuffix" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" android:hint="@string/mr_new_opening">
 
 
 
-                            <com.google.android.material.textfield.TextInputEditText android:id="@+id/etReplacementReason" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionDone" android:inputType="textCapSentences|textMultiLine" android:minHeight="56dp" android:paddingHorizontal="16dp" android:saveEnabled="false" android:textColor="@color/rkm_input_text" android:textSize="18sp"/>
+                            <com.google.android.material.textfield.TextInputEditText android:id="@+id/etReplacementOpening" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionDone" android:inputType="number" android:minHeight="@dimen/roomkit_control_height" android:paddingHorizontal="@dimen/roomkit_size_16" android:saveEnabled="false" android:textColor="@color/roomkit_input_text" android:textSize="@dimen/roomkit_text_18"/>
 
 
                         </com.google.android.material.textfield.TextInputLayout>
 
 
 
-                        <com.google.android.material.button.MaterialButton android:id="@+id/btnReplaceMeter" style="@style/RoomKitMeterPrimary" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:minHeight="52dp" android:text="@string/mr_review"/>
+                        <com.google.android.material.textfield.TextInputLayout style="@style/Widget.RoomKit.Input.WithSuffix" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" android:hint="@string/mr_reason">
 
 
 
-                        <TextView android:id="@+id/tvReplacementError" style="@style/RoomKitMeterCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" android:textColor="@color/roomkit_error" android:visibility="gone"/>
+                            <com.google.android.material.textfield.TextInputEditText android:id="@+id/etReplacementReason" android:layout_width="match_parent" android:layout_height="wrap_content" android:imeOptions="actionDone" android:inputType="textCapSentences|textMultiLine" android:minHeight="@dimen/roomkit_control_height" android:paddingHorizontal="@dimen/roomkit_size_16" android:saveEnabled="false" android:textColor="@color/roomkit_input_text" android:textSize="@dimen/roomkit_text_18"/>
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <com.google.android.material.button.MaterialButton android:id="@+id/btnReplaceMeter" style="@style/Widget.RoomKit.Button.Medium" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_16" android:minHeight="@dimen/roomkit_action_height" android:text="@string/mr_review"/>
+
+
+
+                        <TextView android:id="@+id/tvReplacementError" style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_8" android:accessibilityLiveRegion="polite" android:textColor="@color/roomkit_error" android:visibility="gone"/>
 
 
                     </LinearLayout>
@@ -335,11 +335,11 @@
 
 
 
-            <com.google.android.material.card.MaterialCardView style="@style/RoomKitMeterCard" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" app:cardCornerRadius="18dp">
+            <com.google.android.material.card.MaterialCardView style="@style/Widget.RoomKit.Card.Medium" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_12" app:cardCornerRadius="@dimen/roomkit_card_radius_medium">
 
 
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/roomkit_size_16">
 
 
 
@@ -347,22 +347,22 @@
 
 
 
-                        <ImageView android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/rkm_icon_background" android:importantForAccessibility="no" android:padding="8dp" android:src="@drawable/ic_rkm_history" app:tint="@color/roomkit_primary"/>
+                        <ImageView android:layout_width="@dimen/roomkit_size_36" android:layout_height="@dimen/roomkit_size_36" android:background="@drawable/bg_icon_soft" android:importantForAccessibility="no" android:padding="@dimen/roomkit_size_8" android:src="@drawable/ic_rkm_history" app:tint="@color/roomkit_primary"/>
 
 
 
-                        <TextView style="@style/RoomKitMeterHeading" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_weight="1" android:text="@string/mr_history"/>
+                        <TextView style="@style/TextAppearance.RoomKit.Heading.Bold" android:layout_width="@dimen/roomkit_size_0" android:layout_height="wrap_content" android:layout_marginStart="@dimen/roomkit_size_12" android:layout_weight="1" android:text="@string/mr_history"/>
 
 
                     </LinearLayout>
 
 
 
-                    <TextView style="@style/RoomKitMeterCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/mr_history_hint"/>
+                    <TextView style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_8" android:text="@string/mr_history_hint"/>
 
 
 
-                    <TextView android:id="@+id/tvMeterHistory" style="@style/RoomKitMeterCaption" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="@string/mr_history_empty"/>
+                    <TextView android:id="@+id/tvMeterHistory" style="@style/TextAppearance.RoomKit.Caption.Normal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/roomkit_size_16" android:text="@string/mr_history_empty"/>
 
 
 
@@ -370,7 +370,7 @@
 
 
 
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnHistoryMore" style="@style/RoomKitMeterTextButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mr_show_less" android:visibility="gone"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnHistoryMore" style="@style/Widget.RoomKit.Button.TextMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/mr_show_less" android:visibility="gone"/>
 
 
                 </LinearLayout>
@@ -388,11 +388,11 @@
 
 
 
-    <LinearLayout android:id="@+id/layoutBottomAction" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@color/roomkit_surface" android:orientation="vertical" android:paddingHorizontal="20dp" android:paddingTop="12dp" android:paddingBottom="12dp">
+    <LinearLayout android:id="@+id/layoutBottomAction" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@color/roomkit_white" android:orientation="vertical" android:paddingHorizontal="@dimen/roomkit_size_20" android:paddingTop="@dimen/roomkit_size_12" android:paddingBottom="@dimen/roomkit_size_12">
 
 
 
-        <com.google.android.material.button.MaterialButton android:id="@+id/btnSaveMeterReading" style="@style/RoomKitMeterPrimary" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="54dp" android:text="@string/mr_save"/>
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnSaveMeterReading" style="@style/Widget.RoomKit.Button.Medium" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/roomkit_button_height" android:text="@string/mr_save"/>
 
 
     </LinearLayout>

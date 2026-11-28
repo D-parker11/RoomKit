@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingHorizontal="24dp"
-        android:paddingTop="20dp">
+        android:paddingHorizontal="@dimen/roomkit_size_24"
+        android:paddingTop="@dimen/roomkit_size_20">
 
         <!-- Header: Back Button, Title & Circular Add Tenant Button -->
         <RelativeLayout
@@ -31,11 +31,11 @@
 
                 <ImageView
                     android:id="@+id/btnBack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/roomkit_size_40"
+                    android:layout_height="@dimen/roomkit_size_40"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Back"
-                    android:padding="8dp"
+                    android:padding="@dimen/roomkit_size_8"
                     android:src="@drawable/ic_arrow_back"
                     app:tint="@color/roomkit_primary" />
 
@@ -43,64 +43,64 @@
                     style="@style/TextAppearance.RoomKit.ScreenTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/roomkit_size_8"
                     android:text="Tenants"
                     android:textColor="@color/roomkit_text_primary"
-                    android:textSize="28sp" />
+                    android:textSize="@dimen/roomkit_text_28" />
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddTenant"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/roomkit_touch_target"
+                android:layout_height="@dimen/roomkit_touch_target"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="Add Tenant"
-                android:insetLeft="0dp"
-                android:insetTop="0dp"
-                android:insetRight="0dp"
-                android:insetBottom="0dp"
-                android:padding="0dp"
+                android:insetLeft="@dimen/roomkit_size_0"
+                android:insetTop="@dimen/roomkit_size_0"
+                android:insetRight="@dimen/roomkit_size_0"
+                android:insetBottom="@dimen/roomkit_size_0"
+                android:padding="@dimen/roomkit_size_0"
                 app:backgroundTint="@color/roomkit_primary"
-                app:cornerRadius="24dp"
-                app:elevation="0dp"
+                app:cornerRadius="@dimen/roomkit_size_24"
+                app:elevation="@dimen/roomkit_size_0"
                 app:icon="@drawable/ic_plus_white"
                 app:iconGravity="textStart"
-                app:iconPadding="0dp"
-                app:iconSize="20dp"
-                app:iconTint="@color/roomkit_on_primary" />
+                app:iconPadding="@dimen/roomkit_size_0"
+                app:iconSize="@dimen/roomkit_size_20"
+                app:iconTint="@color/roomkit_white" />
         </RelativeLayout>
 
         <!-- Search Field Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            app:cardBackgroundColor="@color/rpay_surface"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="0dp"
-            app:strokeColor="@color/rpay_border"
-            app:strokeWidth="1dp">
+            android:layout_marginTop="@dimen/roomkit_button_radius_compact"
+            app:cardBackgroundColor="@color/roomkit_white"
+            app:cardCornerRadius="@dimen/roomkit_card_radius_medium"
+            app:cardElevation="@dimen/roomkit_size_0"
+            app:strokeColor="@color/roomkit_border"
+            app:strokeWidth="@dimen/roomkit_stroke_width">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="14dp">
+                android:paddingHorizontal="@dimen/roomkit_button_radius_compact">
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="@dimen/roomkit_size_22"
+                    android:layout_height="@dimen/roomkit_size_22"
                     android:importantForAccessibility="no"
                     android:src="@drawable/ic_search"
-                    app:tint="@color/rpay_ink" />
+                    app:tint="@color/roomkit_text_primary" />
 
                 <EditText
                     android:id="@+id/etSearchTenant"
-                    android:layout_width="0dp"
-                    android:layout_height="52dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_width="@dimen/roomkit_size_0"
+                    android:layout_height="@dimen/roomkit_action_height"
+                    android:layout_marginStart="@dimen/roomkit_size_10"
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="@string/search"
@@ -108,9 +108,9 @@
                     android:importantForAutofill="no"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:textColor="@color/rpay_ink"
-                    android:textColorHint="@color/rpay_muted"
-                    android:textSize="15sp" />
+                    android:textColor="@color/roomkit_text_primary"
+                    android:textColorHint="@color/roomkit_text_secondary"
+                    android:textSize="@dimen/roomkit_text_15" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -118,12 +118,12 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayoutTenantFilter"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="@dimen/roomkit_size_44"
+            android:layout_marginTop="@dimen/roomkit_size_16"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/roomkit_primary"
             app:tabIndicatorFullWidth="false"
-            app:tabIndicatorHeight="2.5dp"
+            app:tabIndicatorHeight="@dimen/roomkit_size_2_5"
             app:tabMode="fixed"
             app:tabRippleColor="@null"
             app:tabSelectedTextColor="@color/roomkit_primary"
@@ -132,14 +132,14 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/roomkit_stroke_width"
             android:background="@color/roomkit_divider" />
 
         <!-- List & Empty State Container -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="@dimen/roomkit_size_12">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTenants"
@@ -158,7 +158,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingVertical="48dp"
+                android:paddingVertical="@dimen/roomkit_touch_target"
                 android:visibility="gone"
                 tools:visibility="gone">
 
@@ -168,7 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/roomkit_text_primary"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/roomkit_text_16"
                     android:textStyle="bold"
                     tools:text="No tenants yet" />
 
@@ -177,18 +177,18 @@
                     style="@style/TextAppearance.RoomKit.Caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/roomkit_spacing_xs"
                     android:textColor="@color/roomkit_text_secondary"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/roomkit_text_13"
                     tools:text="Add your first tenant to get started." />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEmptyAddTenant"
                     style="@style/Widget.RoomKit.PrimaryButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="16dp"
-                    android:paddingHorizontal="24dp"
+                    android:layout_height="@dimen/roomkit_size_46"
+                    android:layout_marginTop="@dimen/roomkit_size_16"
+                    android:paddingHorizontal="@dimen/roomkit_size_24"
                     android:text="Add Tenant"
                     android:visibility="gone"
                     tools:visibility="visible" />

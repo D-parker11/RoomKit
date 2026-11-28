@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -17,6 +18,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.roomkit.Date.Local.Entity.MeterReadingEntity
 import com.example.roomkit.Date.Local.Model.MeterReadingUiState
 import com.example.roomkit.Date.Ui.Factory.ViewModelFactory
+import com.example.roomkit.Date.Ui.Common.ReviewDialogs
+import com.example.roomkit.Date.Ui.Common.ReviewSection
 import com.example.roomkit.R
 import com.example.roomkit.databinding.FragmentMeterReadingBinding
 import com.example.roomkit.databinding.ItemMeterHistoryBinding
@@ -41,6 +44,7 @@ class MeterReadingFragment : Fragment() {
     private var replacementExpanded = false
     private var allHistory = false
     private var replacementPending = false
+    private var reviewDialog: AlertDialog? = null
     private var renderedHistory: List<MeterReadingEntity>? = null
     private var renderedAllHistory = false
 
@@ -99,14 +103,37 @@ class MeterReadingFragment : Fragment() {
         binding.btnReplaceMeter.setOnClickListener {
             replacementChanged()
             val state = viewModel.uiState.value
-            MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.mr_confirm_title)
-                .setMessage(getString(R.string.mr_confirm_message, utility(state.replacementType),
-                    state.replacementClosing, state.replacementOpening, state.replacementReason))
-                .setNegativeButton(R.string.mr_cancel, null)
-                .setPositiveButton(R.string.mr_confirm) { _, _ ->
+            if (reviewDialog?.isShowing == true) return@setOnClickListener
+            val unit = if (state.replacementType == "WATER") "m³" else "kWh"
+            fun reading(input: String): String =
+                "${input.toLongOrNull()?.let { numbers.format(it) } ?: input} $unit"
+            reviewDialog = ReviewDialogs.create(
+                context = requireContext(),
+                title = getString(R.string.mr_confirm_title),
+                description = getString(R.string.mr_replacement_review_note),
+                sections = listOf(
+                    ReviewSection(
+                        title = utility(state.replacementType),
+                        rows = listOf(
+                            getString(R.string.mr_old_closing) to reading(state.replacementClosing),
+                            getString(R.string.mr_new_opening) to reading(state.replacementOpening)
+                        )
+                    ),
+                    ReviewSection(
+                        title = getString(R.string.mr_reason),
+                        body = state.replacementReason.ifBlank { getString(R.string.roomkit_not_set) }
+                    )
+                ),
+                confirmLabel = getString(R.string.mr_confirm),
+                cancelLabel = getString(R.string.roomkit_edit_details),
+                onConfirm = {
                     replacementPending = true
                     viewModel.replaceMeter()
-                }.show()
+                }
+            ).also { dialog ->
+                dialog.setOnDismissListener { reviewDialog = null }
+                dialog.show()
+            }
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -247,6 +274,8 @@ class MeterReadingFragment : Fragment() {
         super.onSaveInstanceState(outState)
     }
     override fun onDestroyView() {
+        reviewDialog?.dismiss()
+        reviewDialog = null
         renderedHistory = null
         _binding = null
         super.onDestroyView()

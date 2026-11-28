@@ -2,6 +2,8 @@
 
 package com.example.roomkit.Date.Ui.Dashboard
 
+import com.example.roomkit.Date.Ui.Common.setRoomKitTextSize
+
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.os.Bundle
@@ -12,6 +14,8 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.ConfigurationCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
+import androidx.annotation.StringRes
 import com.example.roomkit.R
 import com.example.roomkit.databinding.DialogDashboardMonthBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -27,7 +31,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 import kotlin.math.roundToInt
 
-class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
+open class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
 
     private var _binding: DialogDashboardMonthBinding? = null
     private val binding get() = requireNotNull(_binding)
@@ -43,10 +47,16 @@ class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
             resources.configuration
         )[0] ?: Locale.getDefault()
 
+    /** Override only caller-specific context; the layout and selection logic stay shared. */
+    protected open val resultKey: String get() = RESULT
+    @get:StringRes
+    protected open val descriptionRes: Int? get() = null
+    protected open fun currentPeriod(): YearMonth = YearMonth.now()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val now = YearMonth.now()
+        val now = currentPeriod()
 
         selectedMonth = (
                 savedInstanceState?.getInt(KEY_MONTH)
@@ -80,6 +90,10 @@ class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        val description = descriptionRes
+        binding.tvMonthHint.isVisible = description != null
+        description?.let { binding.tvMonthHint.setText(it) }
+
         createMonthButtons()
 
         binding.btnCancel.setOnClickListener {
@@ -101,7 +115,7 @@ class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
         }
 
         binding.btnThisMonth.setOnClickListener {
-            val now = YearMonth.now()
+            val now = currentPeriod()
 
             selectedMonth = now.monthValue
             selectedYear = now.year.coerceIn(MIN_YEAR, MAX_YEAR)
@@ -119,7 +133,7 @@ class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
             resultSent = true
 
             parentFragmentManager.setFragmentResult(
-                RESULT,
+                resultKey,
                 bundleOf(
                     KEY_MONTH to selectedMonth,
                     KEY_YEAR to selectedYear
@@ -148,7 +162,7 @@ class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
 
         sheet.background = MaterialShapeDrawable(shape).apply {
             fillColor = ColorStateList.valueOf(
-                color(R.color.roomkit_surface)
+                color(R.color.roomkit_white)
             )
         }
 
@@ -205,7 +219,7 @@ class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
 
                     isAllCaps = false
                     letterSpacing = 0f
-                    textSize = 14f
+                    setRoomKitTextSize(R.dimen.roomkit_text_14)
                     typeface = Typeface.create(
                         "sans-serif-medium",
                         Typeface.NORMAL
@@ -237,7 +251,7 @@ class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
     }
 
     private fun renderSelection() {
-        val now = YearMonth.now()
+        val now = currentPeriod()
         val selectedPeriod = YearMonth.of(
             selectedYear,
             selectedMonth
@@ -279,13 +293,13 @@ class DashboardMonthPickerDialog : BottomSheetDialogFragment() {
             button.backgroundTintList = ColorStateList.valueOf(
                 color(
                     if (selected) R.color.roomkit_primary
-                    else R.color.roomkit_surface
+                    else R.color.roomkit_white
                 )
             )
 
             button.setTextColor(
                 color(
-                    if (selected) R.color.roomkit_on_primary
+                    if (selected) R.color.roomkit_white
                     else R.color.roomkit_text_primary
                 )
             )

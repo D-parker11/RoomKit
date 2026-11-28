@@ -155,7 +155,7 @@ class PaymentsFragment : Fragment() {
         tvSummaryOutstanding.text = money(s.outstandingKhr)
         tvSummaryCollected.text = money(s.collectedKhr)
         tvSummaryOverdue.text = money(s.overdueKhr)
-        tvSummaryOverdue.setTextColor(ContextCompat.getColor(requireContext(), if (s.overdueKhr > 0) R.color.rpay_red else R.color.rpay_muted))
+        tvSummaryOverdue.setTextColor(ContextCompat.getColor(requireContext(), if (s.overdueKhr > 0) R.color.roomkit_error else R.color.roomkit_text_secondary))
         updateChips(state)
         val due = s.items.filterIsInstance<PaymentActivityItem.OutstandingInvoice>()
         val history = s.items.filterIsInstance<PaymentActivityItem.PaymentRecord>()

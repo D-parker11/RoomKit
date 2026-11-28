@@ -1,18 +1,31 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.RoomKit.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/roomkit_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/rko_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.RoomKit</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
     <style name="Theme.RoomKit" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Brand Colors -->
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.RoomKit.Dialog</item>
         <item name="colorPrimary">@color/roomkit_primary</item>
         <item name="colorPrimaryVariant">@color/roomkit_primary_dark</item>
-        <item name="colorOnPrimary">@color/roomkit_on_primary</item>
-
-        <!-- Surfaces & Backgrounds -->
+        <item name="colorOnPrimary">@color/roomkit_white</item>
         <item name="android:colorBackground">@color/roomkit_background</item>
-        <item name="colorSurface">@color/roomkit_surface</item>
+        <item name="colorSurface">@color/roomkit_white</item>
         <item name="colorOnSurface">@color/roomkit_text_primary</item>
-
-        <!-- Status Bar -->
-        <item name="android:statusBarColor">@color/roomkit_surface</item>
+        <item name="android:statusBarColor">@color/roomkit_white</item>
         <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <style name="ThemeOverlay.RoomKit.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.RoomKit.Dialog</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/Widget.RoomKit.Dialog.Title</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/Widget.RoomKit.Dialog.Body</item>
+        <!-- Simple alerts use the native measured/stacking action bar.
+             Detailed reviews supply a full-width footer outside their scroll area. -->
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.RoomKit.Button.TextMedium</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.RoomKit.Button.TextMedium</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.RoomKit.Button.TextMedium</item>
     </style>
 </resources>

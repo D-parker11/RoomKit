@@ -5,24 +5,24 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="top"
-    android:paddingVertical="8dp">
+    android:paddingVertical="@dimen/roomkit_size_8">
 
     <TextView
         android:id="@+id/tvSummaryRowLabel"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/roomkit_size_0"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textColor="@color/roomkit_text_secondary"
-        android:textSize="14sp" />
+        android:textSize="@dimen/roomkit_text_14" />
 
     <TextView
         android:id="@+id/tvSummaryRowValue"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/roomkit_size_0"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="@dimen/roomkit_size_12"
         android:gravity="end"
         android:textColor="@color/roomkit_text_primary"
-        android:textSize="14sp"
+        android:textSize="@dimen/roomkit_text_14"
         android:textStyle="bold" />
 </LinearLayout>

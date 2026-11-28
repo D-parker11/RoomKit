@@ -5,74 +5,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rr_background"
+    android:background="@color/roomkit_background"
     android:orientation="vertical"
-    android:paddingTop="4dp">
+    android:paddingTop="@dimen/roomkit_spacing_xs">
 
     <!-- Back Button -->
     <ImageButton
         android:id="@+id/btnRemindersBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="12dp"
+        android:layout_width="@dimen/roomkit_touch_target"
+        android:layout_height="@dimen/roomkit_touch_target"
+        android:layout_marginStart="@dimen/roomkit_size_12"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/rr_back"
         android:src="@drawable/ic_arrow_back" />
 
     <!-- Title & Subtitle -->
     <TextView
-        style="@style/RRBody"
+        style="@style/TextAppearance.RoomKit.Body.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
+        android:layout_marginHorizontal="@dimen/roomkit_size_24"
         android:fontFamily="sans-serif-medium"
         android:text="@string/rr_title"
-        android:textSize="28sp"
+        android:textSize="@dimen/roomkit_text_28"
         android:textStyle="bold" />
 
     <TextView
-        style="@style/RRCaption"
+        style="@style/TextAppearance.RoomKit.Caption.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="@dimen/roomkit_size_24"
+        android:layout_marginTop="@dimen/roomkit_size_3"
+        android:layout_marginBottom="@dimen/roomkit_size_16"
         android:text="@string/rr_subtitle"
-        android:textSize="13sp" />
+        android:textSize="@dimen/roomkit_text_13" />
 
     <!-- Notification Permission / Settings Card -->
     <com.google.android.material.card.MaterialCardView
-        style="@style/RRCard"
+        style="@style/Widget.RoomKit.Card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        app:cardCornerRadius="18dp">
+        android:layout_marginHorizontal="@dimen/roomkit_size_20"
+        app:cardCornerRadius="@dimen/roomkit_card_radius_medium">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp">
+            android:padding="@dimen/roomkit_size_12">
 
             <ImageView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_width="@dimen/roomkit_size_44"
+                android:layout_height="@dimen/roomkit_size_44"
                 android:background="@drawable/ic_title"
                 android:importantForAccessibility="no"
-                android:padding="10dp"
+                android:padding="@dimen/roomkit_size_10"
                 android:src="@drawable/ic_notifications" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/roomkit_size_12"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvReminderPermission"
-                    style="@style/RRBody"
+                    style="@style/TextAppearance.RoomKit.Body.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
@@ -81,20 +81,20 @@
 
                 <TextView
                     android:id="@+id/tvReminderPermissionHint"
-                    style="@style/RRCaption"
+                    style="@style/TextAppearance.RoomKit.Caption.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/roomkit_spacing_xs"
                     tools:text="9:00 AM · Cambodia time" />
             </LinearLayout>
 
             <ImageButton
                 android:id="@+id/btnReminderSettings"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/roomkit_touch_target"
+                android:layout_height="@dimen/roomkit_touch_target"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/rr_settings"
-                android:padding="15dp"
+                android:padding="@dimen/roomkit_size_15"
                 android:src="@drawable/ref_chvron" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -103,10 +103,10 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/roomkit_size_12"
         android:clipToPadding="false"
         android:fillViewport="true"
-        android:paddingHorizontal="20dp"
+        android:paddingHorizontal="@dimen/roomkit_size_20"
         android:scrollbars="none">
 
         <LinearLayout
@@ -118,46 +118,46 @@
             <!-- Filter 1: Overdue -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/chipOverdue"
-                style="@style/RRCard"
-                android:layout_width="0dp"
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="@dimen/roomkit_size_6"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardCornerRadius="14dp">
+                app:cardCornerRadius="@dimen/roomkit_button_radius_compact">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:minHeight="48dp"
+                    android:minHeight="@dimen/roomkit_touch_target"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="8dp">
+                    android:paddingHorizontal="@dimen/roomkit_size_8"
+                    android:paddingVertical="@dimen/roomkit_size_8">
 
                     <TextView
                         android:id="@+id/tvFilterOverdue"
-                        style="@style/RRBody"
+                        style="@style/TextAppearance.RoomKit.Body.Primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:importantForAccessibility="no"
                         android:text="@string/rr_overdue"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <TextView
                         android:id="@+id/tvCountOverdue"
-                        style="@style/RRBody"
+                        style="@style/TextAppearance.RoomKit.Body.Primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="@dimen/roomkit_size_5"
                         android:gravity="center"
                         android:importantForAccessibility="no"
-                        android:minWidth="22dp"
-                        android:minHeight="22dp"
-                        android:paddingHorizontal="4dp"
-                        android:textSize="11sp"
+                        android:minWidth="@dimen/roomkit_size_22"
+                        android:minHeight="@dimen/roomkit_size_22"
+                        android:paddingHorizontal="@dimen/roomkit_spacing_xs"
+                        android:textSize="@dimen/roomkit_text_11"
                         android:textStyle="bold"
                         tools:text="2" />
                 </LinearLayout>
@@ -166,46 +166,46 @@
             <!-- Filter 2: Today -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/chipToday"
-                style="@style/RRCard"
-                android:layout_width="0dp"
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="@dimen/roomkit_size_6"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardCornerRadius="14dp">
+                app:cardCornerRadius="@dimen/roomkit_button_radius_compact">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:minHeight="48dp"
+                    android:minHeight="@dimen/roomkit_touch_target"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="8dp">
+                    android:paddingHorizontal="@dimen/roomkit_size_8"
+                    android:paddingVertical="@dimen/roomkit_size_8">
 
                     <TextView
                         android:id="@+id/tvFilterToday"
-                        style="@style/RRBody"
+                        style="@style/TextAppearance.RoomKit.Body.Primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:importantForAccessibility="no"
                         android:text="@string/rr_today"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <TextView
                         android:id="@+id/tvCountToday"
-                        style="@style/RRBody"
+                        style="@style/TextAppearance.RoomKit.Body.Primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="@dimen/roomkit_size_5"
                         android:gravity="center"
                         android:importantForAccessibility="no"
-                        android:minWidth="22dp"
-                        android:minHeight="22dp"
-                        android:paddingHorizontal="4dp"
-                        android:textSize="11sp"
+                        android:minWidth="@dimen/roomkit_size_22"
+                        android:minHeight="@dimen/roomkit_size_22"
+                        android:paddingHorizontal="@dimen/roomkit_spacing_xs"
+                        android:textSize="@dimen/roomkit_text_11"
                         android:textStyle="bold"
                         tools:text="2" />
                 </LinearLayout>
@@ -214,46 +214,46 @@
             <!-- Filter 3: Upcoming -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/chipUpcoming"
-                style="@style/RRCard"
-                android:layout_width="0dp"
+                style="@style/Widget.RoomKit.Card"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="0dp"
+                android:layout_marginEnd="@dimen/roomkit_size_0"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardCornerRadius="14dp">
+                app:cardCornerRadius="@dimen/roomkit_button_radius_compact">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:minHeight="48dp"
+                    android:minHeight="@dimen/roomkit_touch_target"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="8dp">
+                    android:paddingHorizontal="@dimen/roomkit_size_8"
+                    android:paddingVertical="@dimen/roomkit_size_8">
 
                     <TextView
                         android:id="@+id/tvFilterUpcoming"
-                        style="@style/RRBody"
+                        style="@style/TextAppearance.RoomKit.Body.Primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:importantForAccessibility="no"
                         android:text="@string/rr_upcoming"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/roomkit_text_12" />
 
                     <TextView
                         android:id="@+id/tvCountUpcoming"
-                        style="@style/RRBody"
+                        style="@style/TextAppearance.RoomKit.Body.Primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="@dimen/roomkit_size_5"
                         android:gravity="center"
                         android:importantForAccessibility="no"
-                        android:minWidth="22dp"
-                        android:minHeight="22dp"
-                        android:paddingHorizontal="4dp"
-                        android:textSize="11sp"
+                        android:minWidth="@dimen/roomkit_size_22"
+                        android:minHeight="@dimen/roomkit_size_22"
+                        android:paddingHorizontal="@dimen/roomkit_spacing_xs"
+                        android:textSize="@dimen/roomkit_text_11"
                         android:textStyle="bold"
                         tools:text="2" />
                 </LinearLayout>
@@ -263,18 +263,18 @@
 
     <!-- Sorted Indicator Label -->
     <TextView
-        style="@style/RRCaption"
+        style="@style/TextAppearance.RoomKit.Caption.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginHorizontal="@dimen/roomkit_size_20"
+        android:layout_marginTop="@dimen/roomkit_size_10"
+        android:layout_marginBottom="@dimen/roomkit_size_12"
         android:text="@string/rr_sorted_short" />
 
     <!-- Main List Container & Feedback States -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/roomkit_size_0"
         android:layout_weight="1">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -282,13 +282,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingHorizontal="20dp"
-            android:paddingBottom="12dp" />
+            android:paddingHorizontal="@dimen/roomkit_size_20"
+            android:paddingBottom="@dimen/roomkit_size_12" />
 
         <ProgressBar
             android:id="@+id/progressReminders"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/roomkit_size_40"
+            android:layout_height="@dimen/roomkit_size_40"
             android:layout_gravity="center" />
 
         <!-- Empty State View -->
@@ -299,24 +299,24 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="24dp"
+            android:padding="@dimen/roomkit_size_24"
             android:visibility="gone">
 
             <TextView
                 android:id="@+id/tvReminderEmptyTitle"
-                style="@style/RRBody"
+                style="@style/TextAppearance.RoomKit.Body.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:textSize="@dimen/roomkit_text_18"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvReminderEmptyBody"
-                style="@style/RRCaption"
+                style="@style/TextAppearance.RoomKit.Caption.Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/roomkit_size_8"
                 android:gravity="center" />
 
             <com.google.android.material.button.MaterialButton
@@ -324,7 +324,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
+                android:minHeight="@dimen/roomkit_touch_target"
                 android:text="@string/rr_retry"
                 android:textAllCaps="false"
                 android:visibility="gone" />
@@ -333,50 +333,50 @@
 
     <!-- Schedule Info Footer Card -->
     <com.google.android.material.card.MaterialCardView
-        style="@style/RRCard"
+        style="@style/Widget.RoomKit.Card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="10dp"
-        app:cardCornerRadius="16dp">
+        android:layout_marginHorizontal="@dimen/roomkit_size_20"
+        android:layout_marginBottom="@dimen/roomkit_size_10"
+        app:cardCornerRadius="@dimen/roomkit_size_16">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp">
+            android:padding="@dimen/roomkit_size_12">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/roomkit_size_40"
+                android:layout_height="@dimen/roomkit_size_40"
                 android:background="@drawable/ic_title"
                 android:importantForAccessibility="no"
-                android:padding="9dp"
+                android:padding="@dimen/roomkit_size_9"
                 android:src="@drawable/ic_calender" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/roomkit_size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/roomkit_size_10"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/RRBody"
+                    style="@style/TextAppearance.RoomKit.Body.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/rr_schedule_title"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/roomkit_text_13"
                     android:textStyle="bold" />
 
                 <TextView
-                    style="@style/RRCaption"
+                    style="@style/TextAppearance.RoomKit.Caption.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="@dimen/roomkit_size_3"
                     android:text="@string/rr_schedule"
-                    android:textSize="11sp" />
+                    android:textSize="@dimen/roomkit_text_11" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

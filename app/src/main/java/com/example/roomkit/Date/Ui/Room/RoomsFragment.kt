@@ -130,7 +130,7 @@ class RoomsFragment : Fragment() {
                 override fun getItemOffsets(outRect: android.graphics.Rect, view: View,
                     parent: RecyclerView, state: RecyclerView.State) {
                     if (parent.getChildAdapterPosition(view) > 0) {
-                        val padding = resources.getDimensionPixelSize(R.dimen.roomkit_screen_padding_horizontal)
+                        val padding = resources.getDimensionPixelSize(R.dimen.roomkit_size_24)
                         outRect.left = padding
                         outRect.right = padding
                     }

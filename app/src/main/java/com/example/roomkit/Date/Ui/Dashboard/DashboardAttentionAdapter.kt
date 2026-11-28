@@ -1,6 +1,7 @@
 package com.example.roomkit.Date.Ui.Dashboard
 
-import android.graphics.Color
+import com.example.roomkit.R
+
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -36,8 +37,8 @@ class DashboardAttentionAdapter(
             val isOverdue = item.type == DashboardAttentionType.OVERDUE
 
             // Colors: Soft red for Overdue, soft amber for Unpaid/Partial
-            val badgeBgColor = if (isOverdue) Color.parseColor("#FEE2E2") else Color.parseColor("#FEF3C7")
-            val primaryTextColor = if (isOverdue) Color.parseColor("#DC2626") else Color.parseColor("#D97706")
+            val badgeBgColor = if (isOverdue) androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_red_100) else androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_amber_100)
+            val primaryTextColor = if (isOverdue) androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_red_600) else androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.roomkit_amber_600)
 
             val badgeDrawable = GradientDrawable().apply {
                 cornerRadius = 24f

@@ -5,8 +5,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/roomkit_screen_padding_horizontal"
-            android:paddingTop="@dimen/roomkit_screen_padding_top">
+            android:paddingHorizontal="@dimen/roomkit_size_24"
+            android:paddingTop="@dimen/roomkit_size_24">
 
             <!-- Top Header: Back Button, Building Info, & Circular Add Button -->
             <RelativeLayout
@@ -15,13 +15,13 @@
 
                 <ImageView
                     android:id="@+id/btnBack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/roomkit_size_40"
+                    android:layout_height="@dimen/roomkit_size_40"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Back"
-                    android:padding="8dp"
+                    android:padding="@dimen/roomkit_size_8"
                     android:src="@drawable/ic_arrow_back"
                     app:tint="@color/roomkit_primary" />
 
@@ -29,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/roomkit_spacing_sm"
+                    android:layout_marginStart="@dimen/roomkit_size_8"
                     android:layout_toStartOf="@id/btnAddRoom"
                     android:layout_toEndOf="@id/btnBack"
                     android:orientation="vertical">
@@ -48,7 +48,7 @@
                         style="@style/TextAppearance.RoomKit.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:textColor="@color/roomkit_text_secondary"
@@ -57,24 +57,24 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAddRoom"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="@dimen/roomkit_touch_target"
+                    android:layout_height="@dimen/roomkit_touch_target"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:contentDescription="Add Room"
-                    android:insetLeft="0dp"
-                    android:insetTop="0dp"
-                    android:insetRight="0dp"
-                    android:insetBottom="0dp"
-                    android:padding="0dp"
+                    android:insetLeft="@dimen/roomkit_size_0"
+                    android:insetTop="@dimen/roomkit_size_0"
+                    android:insetRight="@dimen/roomkit_size_0"
+                    android:insetBottom="@dimen/roomkit_size_0"
+                    android:padding="@dimen/roomkit_size_0"
                     app:backgroundTint="@color/roomkit_primary"
-                    app:cornerRadius="24dp"
-                    app:elevation="0dp"
+                    app:cornerRadius="@dimen/roomkit_size_24"
+                    app:elevation="@dimen/roomkit_size_0"
                     app:icon="@drawable/ic_plus_white"
                     app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="20dp"
-                    app:iconTint="@color/roomkit_on_primary" />
+                    app:iconPadding="@dimen/roomkit_size_0"
+                    app:iconSize="@dimen/roomkit_size_20"
+                    app:iconTint="@color/roomkit_white" />
             </RelativeLayout>
 
             <!-- 2x2 Summary Metric Cards (Matching Dashboard Architecture) -->
@@ -82,22 +82,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/roomkit_spacing_lg"
+                android:layout_marginTop="@dimen/roomkit_size_16"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
                     style="@style/Widget.RoomKit.Card.Stat"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="@dimen/roomkit_size_6"
                     android:layout_weight="1">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="@dimen/roomkit_card_padding_compact">
+                        android:padding="@dimen/roomkit_size_16">
 
                         <TextView
                             style="@style/TextAppearance.RoomKit.CardLabel"
@@ -110,23 +110,23 @@
                             style="@style/TextAppearance.RoomKit.StatValue.Small"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/roomkit_spacing_sm"
+                            android:layout_marginTop="@dimen/roomkit_size_8"
                             tools:text="12" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     style="@style/Widget.RoomKit.Card.Stat"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginStart="@dimen/roomkit_size_6"
                     android:layout_weight="1">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="@dimen/roomkit_card_padding_compact">
+                        android:padding="@dimen/roomkit_size_16">
 
                         <TextView
                             style="@style/TextAppearance.RoomKit.CardLabel"
@@ -139,7 +139,7 @@
                             style="@style/TextAppearance.RoomKit.StatValue.Small"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/roomkit_spacing_sm"
+                            android:layout_marginTop="@dimen/roomkit_size_8"
                             android:textColor="@color/roomkit_success"
                             tools:text="9" />
                     </LinearLayout>
@@ -150,22 +150,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/roomkit_spacing_sm"
+                android:layout_marginTop="@dimen/roomkit_size_8"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
                     style="@style/Widget.RoomKit.Card.Stat"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="@dimen/roomkit_size_6"
                     android:layout_weight="1">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="@dimen/roomkit_card_padding_compact">
+                        android:padding="@dimen/roomkit_size_16">
 
                         <TextView
                             style="@style/TextAppearance.RoomKit.CardLabel"
@@ -178,7 +178,7 @@
                             style="@style/TextAppearance.RoomKit.StatValue.Small"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/roomkit_spacing_sm"
+                            android:layout_marginTop="@dimen/roomkit_size_8"
                             android:textColor="@color/roomkit_text_primary"
                             tools:text="3" />
                     </LinearLayout>
@@ -186,16 +186,16 @@
 
                 <com.google.android.material.card.MaterialCardView
                     style="@style/Widget.RoomKit.Card.Stat"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/roomkit_size_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginStart="@dimen/roomkit_size_6"
                     android:layout_weight="1">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="@dimen/roomkit_card_padding_compact">
+                        android:padding="@dimen/roomkit_size_16">
 
                         <TextView
                             style="@style/TextAppearance.RoomKit.CardLabel"
@@ -208,7 +208,7 @@
                             style="@style/TextAppearance.RoomKit.StatValue.Small"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/roomkit_spacing_sm"
+                            android:layout_marginTop="@dimen/roomkit_size_8"
                             android:textColor="@color/roomkit_primary"
                             tools:text="75%" />
                     </LinearLayout>
@@ -220,24 +220,24 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/roomkit_size_12"
                 app:hintEnabled="false"
-                app:boxBackgroundColor="@color/rrs_search_surface"
-                app:boxStrokeColor="@color/rrs_search_border"
-                app:boxStrokeWidth="1dp"
-                app:boxCornerRadiusTopStart="14dp"
-                app:boxCornerRadiusTopEnd="14dp"
-                app:boxCornerRadiusBottomStart="14dp"
-                app:boxCornerRadiusBottomEnd="14dp"
+                app:boxBackgroundColor="@color/roomkit_white"
+                app:boxStrokeColor="@color/roomkit_border"
+                app:boxStrokeWidth="@dimen/roomkit_stroke_width"
+                app:boxCornerRadiusTopStart="@dimen/roomkit_button_radius_compact"
+                app:boxCornerRadiusTopEnd="@dimen/roomkit_button_radius_compact"
+                app:boxCornerRadiusBottomStart="@dimen/roomkit_button_radius_compact"
+                app:boxCornerRadiusBottomEnd="@dimen/roomkit_button_radius_compact"
                 app:startIconDrawable="@drawable/ic_search"
                 app:startIconTint="@color/roomkit_text_muted"
                 app:endIconMode="clear_text">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etSearchRooms"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/roomkit_touch_target"
                     android:hint="@string/rrs_search_hint"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/roomkit_text_14"
                     android:textColor="@color/roomkit_text_primary"
                     android:textColorHint="@color/roomkit_text_muted"
                     android:singleLine="true"
@@ -250,12 +250,12 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayoutRoomFilter"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="12dp"
+                android:layout_height="@dimen/roomkit_size_44"
+                android:layout_marginTop="@dimen/roomkit_size_12"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/roomkit_primary"
                 app:tabIndicatorFullWidth="false"
-                app:tabIndicatorHeight="2.5dp"
+                app:tabIndicatorHeight="@dimen/roomkit_size_2_5"
                 app:tabMode="fixed"
                 app:tabRippleColor="@null"
                 app:tabSelectedTextColor="@color/roomkit_primary"
@@ -264,14 +264,14 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/roomkit_stroke_width"
                 android:background="@color/roomkit_divider" />
 
             <!-- Frame Container for Room List & Empty Feedback -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/roomkit_spacing_md">
+                android:layout_marginTop="@dimen/roomkit_size_12">
 
 
 
@@ -299,16 +299,16 @@
                         style="@style/TextAppearance.RoomKit.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="@dimen/roomkit_stroke_width_focused"
                         android:text="Add your first room to this building." />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnEmptyAddRoom"
                         style="@style/Widget.RoomKit.PrimaryButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="46dp"
-                        android:layout_marginTop="@dimen/roomkit_spacing_md"
-                        android:paddingHorizontal="24dp"
+                        android:layout_height="@dimen/roomkit_size_46"
+                        android:layout_marginTop="@dimen/roomkit_size_12"
+                        android:paddingHorizontal="@dimen/roomkit_size_24"
                         android:text="Add Room"
                         android:visibility="gone"
                         tools:visibility="visible" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="#DCFCE7" />
-    <corners android:radius="999dp" />
+    <solid android:color="@color/roomkit_green_150" />
+    <corners android:radius="@dimen/roomkit_size_999" />
 </shape>
