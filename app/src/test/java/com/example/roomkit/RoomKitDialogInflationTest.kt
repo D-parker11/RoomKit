@@ -2,6 +2,7 @@ package com.example.roomkit
 
 import android.app.Activity
 import android.os.Looper
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.example.roomkit.databinding.FragmentInvoiceDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -18,6 +19,36 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [30])
 class RoomKitDialogInflationTest {
+    @Test
+    fun explicitReviewChoiceAndInputDialogsInflate() {
+        val controller = Robolectric.buildActivity(Activity::class.java)
+        controller.get().setTheme(R.style.Theme_RoomKit)
+        val activity = controller.setup().get()
+        try {
+            val builders = listOf(
+                MaterialAlertDialogBuilder(activity, R.style.ThemeOverlay_RoomKit_Dialog)
+                    .setTitle("Review").setMessage("Review details"),
+                MaterialAlertDialogBuilder(activity)
+                    .setTitle("Choose tenant").setSingleChoiceItems(arrayOf("Tenant"), 0, null),
+                MaterialAlertDialogBuilder(activity)
+                    .setTitle("Invoice history").setItems(arrayOf("Invoice #1"), null),
+                MaterialAlertDialogBuilder(activity)
+                    .setTitle("Reason").setView(EditText(activity))
+            )
+            builders.forEach { builder ->
+                val dialog = builder.setNegativeButton("Cancel", null).create()
+                try {
+                    dialog.show()
+                    assertNotNull(dialog.getButton(AlertDialog.BUTTON_NEGATIVE))
+                } finally {
+                    dialog.dismiss()
+                }
+            }
+        } finally {
+            controller.pause().stop().destroy()
+        }
+    }
+
     @Test
     fun issueAlertInflatesWithDefaultThemeAndConfirmsOnce() {
         val controller = Robolectric.buildActivity(Activity::class.java)
