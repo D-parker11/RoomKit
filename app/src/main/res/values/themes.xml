@@ -20,8 +20,8 @@
     </style>
     <style name="ThemeOverlay.RoomKit.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.RoomKit.Dialog</item>
-        <item name="materialAlertDialogTitleTextStyle">@style/TextAppearance.RoomKit.SectionTitle</item>
-        <item name="materialAlertDialogBodyTextStyle">@style/TextAppearance.RoomKit.Body</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/Widget.RoomKit.Dialog.Title</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/Widget.RoomKit.Dialog.Body</item>
         <!-- Simple alerts use the native measured/stacking action bar.
              Detailed reviews supply a full-width footer outside their scroll area. -->
         <item name="buttonBarPositiveButtonStyle">@style/Widget.RoomKit.Button.TextMedium</item>

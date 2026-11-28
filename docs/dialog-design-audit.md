@@ -44,3 +44,11 @@ Android compilation and device rendering are not verified in this environment: G
 3. Cancel/Edit: no save. Confirm: one save, correct amounts and original validation errors.
 4. Backup password/reopen validation: invalid input leaves the dialog open; password window remains secure.
 5. Archive/delete/remove/discard alerts, privacy and history lists: native action wrapping and destructive colors.
+
+## Dialog inflation regression fix
+
+The November 28 crash log reports InflateException in mtrl_alert_dialog with “You must supply a layout_width attribute.” The shared overlay incorrectly supplied TextAppearance.RoomKit.SectionTitle directly as materialAlertDialogTitleTextStyle. Material 1.10.0's mtrl_alert_dialog_title layout relies on that view style for both layout_width and layout_height; a text appearance does not supply them.
+
+Widget.RoomKit.Dialog.Title now inherits MaterialAlertDialog.MaterialComponents.Title.Text and applies the existing shared text appearance. The body uses the corresponding native body view style with the shared body text appearance. This fixes the shared source of the reported inflation failure without changing invoice writes, calculations or navigation.
+
+A source-level inheritance check against Material 1.10.0 confirmed that both title dimensions were absent before the fix and resolve to wrap_content afterward. RoomKitDialogInflationTest adds runtime regression coverage for showing/confirming a native issue alert and inflating the invoice detail layout. The Gradle test command was attempted but could not start because the Gradle 9.5.0 distribution is unavailable locally and its download failed with Network is unreachable. These runtime tests and device verification remain pending.
